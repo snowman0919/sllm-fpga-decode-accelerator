@@ -1,0 +1,19 @@
+# Placeholder DE10-Lite pin assignment file.
+#
+# Do not use this file as real board pin constraints.
+# Import a verified DE10-Lite QSF from a trusted source instead, such as:
+# - Terasic System Builder output
+# - an official DE10-Lite example project
+# - your own previously validated DE10-Lite project
+#
+# The expected signals for the current board validation loop are:
+# - CLOCK_50
+# - SW[9..0]
+# - KEY[1..0]
+# - LEDR[9..0]
+# - HEX0[6..0]
+# - HEX1[6..0]
+# - HEX2[6..0]
+# - HEX3[6..0]
+# - HEX4[6..0]
+# - HEX5[6..0]
