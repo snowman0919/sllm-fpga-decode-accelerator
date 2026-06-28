@@ -221,6 +221,25 @@ torch-context-summary:
     sed -n '1,12p' "$memory_csv"
   fi
 
+torch-sweep-analysis config_json="" latency_csv="paper_assets/tables/torch_decode_latency_by_context.csv" memory_csv="paper_assets/tables/torch_memory_by_context.csv" layers="26" kv_heads="1" head_dim="256" bytes_per_element="2":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  args=(
+    --latency-csv "{{latency_csv}}"
+    --memory-csv "{{memory_csv}}"
+    --tables-dir "paper_assets/tables"
+    --figures-dir "paper_assets/figures"
+    --summary-md "paper_assets/torch_sweep_analysis_summary.md"
+    --layers "{{layers}}"
+    --kv-heads "{{kv_heads}}"
+    --head-dim "{{head_dim}}"
+    --bytes-per-element "{{bytes_per_element}}"
+  )
+  if [ -n "{{config_json}}" ]; then
+    args+=(--config-json "{{config_json}}")
+  fi
+  python3 onnx_profile/analyze_torch_sweep.py "${args[@]}"
+
 quartus-check:
   #!/usr/bin/env bash
   source "{{quartus_helper}}"
