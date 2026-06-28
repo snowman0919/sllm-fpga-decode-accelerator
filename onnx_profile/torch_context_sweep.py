@@ -95,6 +95,11 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def log_progress(message: str) -> None:
+    timestamp = datetime.now().strftime("%H:%M:%S")
+    print(f"[torch-context-sweep {timestamp}] {message}", flush=True)
+
+
 def mib_from_bytes(value: float | int | None) -> float | None:
     if value is None:
         return None
@@ -121,11 +126,29 @@ def peak_rss_bytes() -> int:
     return int(peak) * 1024
 
 
-def snapshot_memory() -> dict[str, int]:
+def snapshot_cuda_memory(device: torch.device) -> dict[str, int | None]:
+    if device.type != "cuda":
+        return {
+            "cuda_memory_allocated_bytes": None,
+            "cuda_memory_reserved_bytes": None,
+            "cuda_max_memory_allocated_bytes": None,
+            "cuda_max_memory_reserved_bytes": None,
+        }
     return {
+        "cuda_memory_allocated_bytes": int(torch.cuda.memory_allocated(device)),
+        "cuda_memory_reserved_bytes": int(torch.cuda.memory_reserved(device)),
+        "cuda_max_memory_allocated_bytes": int(torch.cuda.max_memory_allocated(device)),
+        "cuda_max_memory_reserved_bytes": int(torch.cuda.max_memory_reserved(device)),
+    }
+
+
+def snapshot_memory(device: torch.device) -> dict[str, int | None]:
+    snapshot: dict[str, int | None] = {
         "rss_bytes": rss_bytes(),
         "peak_rss_bytes": peak_rss_bytes(),
     }
+    snapshot.update(snapshot_cuda_memory(device))
+    return snapshot
 
 
 def delta_bytes(after: int | None, before: int | None) -> int | None:
@@ -156,6 +179,20 @@ def average_int(values: list[int]) -> int | None:
     if not values:
         return None
     return int(round(sum(values) / len(values)))
+
+
+def average_optional_int(values: list[int | None]) -> int | None:
+    present_values = [value for value in values if value is not None]
+    if not present_values:
+        return None
+    return int(round(sum(present_values) / len(present_values)))
+
+
+def max_optional_int(values: list[int | None]) -> int | None:
+    present_values = [value for value in values if value is not None]
+    if not present_values:
+        return None
+    return int(max(present_values))
 
 
 def sync_device(device: torch.device) -> None:
@@ -302,8 +339,9 @@ def run_single_measurement(
     gc.collect()
     if device.type == "cuda":
         torch.cuda.empty_cache()
+        torch.cuda.reset_peak_memory_stats(device)
 
-    before_prefill = snapshot_memory()
+    before_prefill = snapshot_memory(device)
 
     sync_device(device)
     prefill_start = time.perf_counter()
@@ -319,7 +357,7 @@ def run_single_measurement(
         )
     sync_device(device)
     prefill_end = time.perf_counter()
-    after_prefill = snapshot_memory()
+    after_prefill = snapshot_memory(device)
 
     decode_step_ms: list[float] = []
     past_key_values = getattr(prefill_outputs, "past_key_values", None)
@@ -352,7 +390,7 @@ def run_single_measurement(
         past_key_values = getattr(decode_outputs, "past_key_values", None)
         next_input_ids = decode_outputs.logits[:, -1:, :].argmax(dim=-1)
 
-    after_decode = snapshot_memory()
+    after_decode = snapshot_memory(device)
 
     return {
         "prefill_ms": (prefill_end - prefill_start) * 1000.0,
@@ -462,6 +500,35 @@ def write_status(status_path: Path, payload: dict[str, Any]) -> None:
     status_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
+def update_progress_status(
+    status_path: Path,
+    status_payload: dict[str, Any],
+    *,
+    stage: str,
+    message: str,
+    current_context_length: int | None = None,
+    context_index: int | None = None,
+    total_contexts: int | None = None,
+    phase: str | None = None,
+    run_index: int | None = None,
+    total_runs: int | None = None,
+) -> None:
+    progress_payload = {
+        "stage": stage,
+        "message": message,
+        "updated_at": now_iso(),
+        "current_context_length": current_context_length,
+        "context_index": context_index,
+        "total_contexts": total_contexts,
+        "phase": phase,
+        "run_index": run_index,
+        "total_runs": total_runs,
+    }
+    status_payload["current_progress"] = progress_payload
+    status_payload["message"] = message
+    write_status(status_path, status_payload)
+
+
 def import_runtime_dependencies() -> None:
     global plt, pd, torch, AutoModelForCausalLM, AutoTokenizer
 
@@ -529,6 +596,10 @@ def main() -> None:
         },
     }
     write_status(status_path, status_payload)
+    log_progress(
+        "Initialized sweep status. "
+        f"contexts={args.context_lengths}, runs={args.runs}, warmups={args.warmup_runs}, decode_tokens={args.decode_tokens}"
+    )
 
     try:
         validate_context_lengths(args.context_lengths, args.max_context)
@@ -549,16 +620,49 @@ def main() -> None:
             )
 
         import_runtime_dependencies()
+        update_progress_status(
+            status_path,
+            status_payload,
+            stage="loading_runtime_dependencies",
+            message="Imported PyTorch/Transformers runtime dependencies.",
+        )
+        log_progress("Imported runtime dependencies.")
 
         rss_before_load = rss_bytes()
         device, device_notes = select_device(args.device)
         dtype, dtype_note = select_dtype(args.dtype, device)
+        update_progress_status(
+            status_path,
+            status_payload,
+            stage="resolving_device_dtype",
+            message=f"Resolved device={device} dtype={str(dtype).replace('torch.', '')}.",
+        )
+        log_progress(
+            f"Resolved device={device} dtype={str(dtype).replace('torch.', '')}."
+        )
 
         tokenizer_start = time.perf_counter()
+        update_progress_status(
+            status_path,
+            status_payload,
+            stage="loading_tokenizer",
+            message="Loading tokenizer from local model directory.",
+        )
+        log_progress("Loading tokenizer...")
         tokenizer = AutoTokenizer.from_pretrained(args.model_dir, local_files_only=True)
         tokenizer_end = time.perf_counter()
+        log_progress(
+            f"Tokenizer loaded in {(tokenizer_end - tokenizer_start) * 1000.0:.1f} ms."
+        )
 
         model_start = time.perf_counter()
+        update_progress_status(
+            status_path,
+            status_payload,
+            stage="loading_model",
+            message="Loading Gemma model weights into Transformers/PyTorch.",
+        )
+        log_progress("Loading model weights...")
         model = AutoModelForCausalLM.from_pretrained(
             args.model_dir,
             torch_dtype=dtype,
@@ -569,6 +673,11 @@ def main() -> None:
         sync_device(device)
         model_end = time.perf_counter()
         rss_after_load = rss_bytes()
+        log_progress(
+            "Model loaded in "
+            f"{(model_end - model_start) * 1000.0:.1f} ms, "
+            f"RSS delta={mib_from_bytes(delta_bytes(rss_after_load, rss_before_load)):.2f} MiB."
+        )
 
         config_max_context = getattr(model.config, "max_position_embeddings", None)
         if isinstance(config_max_context, int):
@@ -591,13 +700,48 @@ def main() -> None:
         memory_rows: list[dict[str, Any]] = []
 
         ordered_context_lengths = list(args.context_lengths)
-        for context_length in ordered_context_lengths:
+        total_contexts = len(ordered_context_lengths)
+        for context_index, context_length in enumerate(ordered_context_lengths, start=1):
+            update_progress_status(
+                status_path,
+                status_payload,
+                stage="context_setup",
+                message=(
+                    f"Preparing context {context_index}/{total_contexts} "
+                    f"(length={context_length})."
+                ),
+                current_context_length=context_length,
+                context_index=context_index,
+                total_contexts=total_contexts,
+                phase="setup",
+            )
+            log_progress(
+                f"Starting context {context_index}/{total_contexts}: length={context_length}"
+            )
             input_ids, attention_mask = build_prompt_tensors(
                 seed_token_ids, context_length, device
             )
             runs_payload: list[dict[str, Any]] = []
 
-            for _ in range(args.warmup_runs):
+            for warmup_index in range(args.warmup_runs):
+                update_progress_status(
+                    status_path,
+                    status_payload,
+                    stage="warmup",
+                    message=(
+                        f"Warmup {warmup_index + 1}/{args.warmup_runs} "
+                        f"for context {context_index}/{total_contexts} (length={context_length})."
+                    ),
+                    current_context_length=context_length,
+                    context_index=context_index,
+                    total_contexts=total_contexts,
+                    phase="warmup",
+                    run_index=warmup_index + 1,
+                    total_runs=args.warmup_runs,
+                )
+                log_progress(
+                    f"Warmup {warmup_index + 1}/{args.warmup_runs} for context length={context_length}"
+                )
                 run_single_measurement(
                     model=model,
                     forward_params=forward_params,
@@ -617,9 +761,34 @@ def main() -> None:
             decode_delta_values: list[int] = []
             total_delta_values: list[int] = []
             peak_rss_values: list[int] = []
+            cuda_allocated_before_prefill_values: list[int | None] = []
+            cuda_allocated_after_prefill_values: list[int | None] = []
+            cuda_allocated_after_decode_values: list[int | None] = []
+            cuda_reserved_after_prefill_values: list[int | None] = []
+            cuda_reserved_after_decode_values: list[int | None] = []
+            cuda_max_allocated_values: list[int | None] = []
+            cuda_max_reserved_values: list[int | None] = []
             past_key_values_types: set[str] = set()
 
             for run_index in range(args.runs):
+                update_progress_status(
+                    status_path,
+                    status_payload,
+                    stage="measuring",
+                    message=(
+                        f"Measured run {run_index + 1}/{args.runs} "
+                        f"for context {context_index}/{total_contexts} (length={context_length})."
+                    ),
+                    current_context_length=context_length,
+                    context_index=context_index,
+                    total_contexts=total_contexts,
+                    phase="measured_run",
+                    run_index=run_index + 1,
+                    total_runs=args.runs,
+                )
+                log_progress(
+                    f"Measured run {run_index + 1}/{args.runs} for context length={context_length}"
+                )
                 measurement = run_single_measurement(
                     model=model,
                     forward_params=forward_params,
@@ -651,6 +820,27 @@ def main() -> None:
                 )
                 peak_rss_values.append(
                     measurement["memory"]["after_decode"]["peak_rss_bytes"]
+                )
+                cuda_allocated_before_prefill_values.append(
+                    measurement["memory"]["before_prefill"]["cuda_memory_allocated_bytes"]
+                )
+                cuda_allocated_after_prefill_values.append(
+                    measurement["memory"]["after_prefill"]["cuda_memory_allocated_bytes"]
+                )
+                cuda_allocated_after_decode_values.append(
+                    measurement["memory"]["after_decode"]["cuda_memory_allocated_bytes"]
+                )
+                cuda_reserved_after_prefill_values.append(
+                    measurement["memory"]["after_prefill"]["cuda_memory_reserved_bytes"]
+                )
+                cuda_reserved_after_decode_values.append(
+                    measurement["memory"]["after_decode"]["cuda_memory_reserved_bytes"]
+                )
+                cuda_max_allocated_values.append(
+                    measurement["memory"]["after_decode"]["cuda_max_memory_allocated_bytes"]
+                )
+                cuda_max_reserved_values.append(
+                    measurement["memory"]["after_decode"]["cuda_max_memory_reserved_bytes"]
                 )
 
                 if measurement["past_key_values_type"] is not None:
@@ -724,6 +914,27 @@ def main() -> None:
                     "peak_rss_bytes_max": max(peak_rss_values)
                     if peak_rss_values
                     else None,
+                    "cuda_memory_allocated_mib_before_prefill": mib_from_bytes(
+                        average_optional_int(cuda_allocated_before_prefill_values)
+                    ),
+                    "cuda_memory_allocated_mib_after_prefill": mib_from_bytes(
+                        average_optional_int(cuda_allocated_after_prefill_values)
+                    ),
+                    "cuda_memory_allocated_mib_after_decode": mib_from_bytes(
+                        average_optional_int(cuda_allocated_after_decode_values)
+                    ),
+                    "cuda_memory_reserved_mib_after_prefill": mib_from_bytes(
+                        average_optional_int(cuda_reserved_after_prefill_values)
+                    ),
+                    "cuda_memory_reserved_mib_after_decode": mib_from_bytes(
+                        average_optional_int(cuda_reserved_after_decode_values)
+                    ),
+                    "cuda_max_memory_allocated_mib": mib_from_bytes(
+                        max_optional_int(cuda_max_allocated_values)
+                    ),
+                    "cuda_max_memory_reserved_mib": mib_from_bytes(
+                        max_optional_int(cuda_max_reserved_values)
+                    ),
                     "raw_json": str(raw_json_path.resolve()),
                 }
             )
@@ -751,8 +962,70 @@ def main() -> None:
                         "peak_rss_bytes_max": max(peak_rss_values)
                         if peak_rss_values
                         else None,
+                        "cuda_memory_allocated_bytes_before_prefill_mean": average_optional_int(
+                            cuda_allocated_before_prefill_values
+                        ),
+                        "cuda_memory_allocated_bytes_after_prefill_mean": average_optional_int(
+                            cuda_allocated_after_prefill_values
+                        ),
+                        "cuda_memory_allocated_bytes_after_decode_mean": average_optional_int(
+                            cuda_allocated_after_decode_values
+                        ),
+                        "cuda_memory_reserved_bytes_after_prefill_mean": average_optional_int(
+                            cuda_reserved_after_prefill_values
+                        ),
+                        "cuda_memory_reserved_bytes_after_decode_mean": average_optional_int(
+                            cuda_reserved_after_decode_values
+                        ),
+                        "cuda_max_memory_allocated_bytes_max": max_optional_int(
+                            cuda_max_allocated_values
+                        ),
+                        "cuda_max_memory_reserved_bytes_max": max_optional_int(
+                            cuda_max_reserved_values
+                        ),
+                        "cuda_memory_allocated_mib_before_prefill": mib_from_bytes(
+                            average_optional_int(cuda_allocated_before_prefill_values)
+                        ),
+                        "cuda_memory_allocated_mib_after_prefill": mib_from_bytes(
+                            average_optional_int(cuda_allocated_after_prefill_values)
+                        ),
+                        "cuda_memory_allocated_mib_after_decode": mib_from_bytes(
+                            average_optional_int(cuda_allocated_after_decode_values)
+                        ),
+                        "cuda_memory_reserved_mib_after_prefill": mib_from_bytes(
+                            average_optional_int(cuda_reserved_after_prefill_values)
+                        ),
+                        "cuda_memory_reserved_mib_after_decode": mib_from_bytes(
+                            average_optional_int(cuda_reserved_after_decode_values)
+                        ),
+                        "cuda_max_memory_allocated_mib": mib_from_bytes(
+                            max_optional_int(cuda_max_allocated_values)
+                        ),
+                        "cuda_max_memory_reserved_mib": mib_from_bytes(
+                            max_optional_int(cuda_max_reserved_values)
+                        ),
                     },
                 }
+            )
+
+            log_progress(
+                "Completed context "
+                f"{context_index}/{total_contexts} length={context_length}: "
+                f"prefill_mean={prefill_stats['mean']:.3f} ms, "
+                f"decode_mean={decode_step_stats['mean']:.3f} ms/token"
+            )
+            update_progress_status(
+                status_path,
+                status_payload,
+                stage="context_complete",
+                message=(
+                    f"Completed context {context_index}/{total_contexts} "
+                    f"(length={context_length})."
+                ),
+                current_context_length=context_length,
+                context_index=context_index,
+                total_contexts=total_contexts,
+                phase="context_complete",
             )
 
             del input_ids
@@ -761,6 +1034,13 @@ def main() -> None:
             if device.type == "cuda":
                 torch.cuda.empty_cache()
 
+        update_progress_status(
+            status_path,
+            status_payload,
+            stage="writing_outputs",
+            message="Writing CSV, JSON, and figure outputs.",
+        )
+        log_progress("Writing CSV, JSON, and figure outputs...")
         latency_frame = pd.DataFrame(latency_rows)
         memory_frame = add_memory_mib_columns(pd.DataFrame(memory_rows))
 
@@ -822,6 +1102,7 @@ def main() -> None:
         )
         write_status(status_path, status_payload)
 
+        log_progress("Sweep completed successfully.")
         print("PyTorch host-side baseline completed.")
         print(latency_frame.to_string(index=False))
         print()
