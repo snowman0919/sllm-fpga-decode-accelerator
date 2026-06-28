@@ -27,8 +27,7 @@ class De10LiteTop extends Component {
     val cfg = DotProductInt8Config()
     val dot = new DotProductInt8Dim16
 
-    val querySeed = Seq(-8, -7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8)
-    val keySeed = Seq(3, -1, 4, -2, 5, -3, 6, -4, 2, -5, 1, -6, 0, 7, -7, 8)
+    val (querySeed, keySeed) = DotProductInt8Stimulus.deterministicPair(cfg.dim)
 
     assert(querySeed.length == cfg.dim)
     assert(keySeed.length == cfg.dim)

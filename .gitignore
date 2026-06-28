@@ -1,16 +1,23 @@
 .direnv/
 .env
 .venv/
+.venv-onnx-export/
+__pycache__/
+*.py[cod]
 
 hw/spinal/generated/*.v
 hw/spinal/generated/*.lst
 hw/spinal/generated/simWorkspace/
+hw/spinal/project/target/
+hw/spinal/target/
 
 quartus/de10_lite_qk/generated_verilog/*.v
 !quartus/de10_lite_qk/generated_verilog/README.md
 quartus/de10_lite_qk/db/
 quartus/de10_lite_qk/incremental_db/
 quartus/de10_lite_qk/output_files/
+quartus/dim_sweep/*
+!quartus/dim_sweep/README.md
 
 onnx_profile/results/raw/*
 !onnx_profile/results/raw/.gitkeep

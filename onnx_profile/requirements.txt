@@ -3,3 +3,8 @@ pandas
 matplotlib
 onnx
 onnxruntime
+psutil
+safetensors
+transformers
+optimum
+torch

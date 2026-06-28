@@ -25,7 +25,7 @@ The immediate goal is to set up a clean Ubuntu + Nix + direnv + SpinalHDL + Quar
 - `docs/`: research notes, experiment plan, paper outline, Quartus notes
 - `hw/spinal/`: minimal SpinalHDL project and canonical generated Verilog
 - `quartus/de10_lite_qk/`: Quartus import mirror, Tcl scripts, and QSF workflow
-- `onnx_profile/`: ONNX Runtime profiling and KV-cache analysis scripts
+- `onnx_profile/`: ONNX Runtime profiling, PyTorch baseline sweeps, and KV-cache analysis scripts
 - `fpga_test/`: exported vectors and captured board validation artifacts
 - `paper_assets/`: figures and tables intended for paper assembly
 
@@ -57,9 +57,22 @@ Generate canonical Verilog and refresh the Quartus import mirror:
 just spinal-generate
 ```
 
+Generate the dim-sweep variants and refresh the synthesis-only Quartus mirror:
+
+```bash
+just spinal-generate-sweep
+```
+
 Canonical generated files:
 
 - `hw/spinal/generated/DotProductInt8_dim16.v`
+- `hw/spinal/generated/DotProductInt8_dim32.v`
+- `hw/spinal/generated/DotProductInt8_dim64.v`
+- `hw/spinal/generated/DotProductInt8_dim128.v`
+- `hw/spinal/generated/DotProductInt8SweepTop_dim16.v`
+- `hw/spinal/generated/DotProductInt8SweepTop_dim32.v`
+- `hw/spinal/generated/DotProductInt8SweepTop_dim64.v`
+- `hw/spinal/generated/DotProductInt8SweepTop_dim128.v`
 - `hw/spinal/generated/HexDisplay.v`
 - `hw/spinal/generated/De10LiteTop.v`
 
@@ -68,6 +81,14 @@ Quartus import mirror:
 - `quartus/de10_lite_qk/generated_verilog/DotProductInt8_dim16.v`
 - `quartus/de10_lite_qk/generated_verilog/HexDisplay.v`
 - `quartus/de10_lite_qk/generated_verilog/De10LiteTop.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8_dim16.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8_dim32.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8_dim64.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8_dim128.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8SweepTop_dim16.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8SweepTop_dim32.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8SweepTop_dim64.v`
+- `quartus/dim_sweep/generated_verilog/DotProductInt8SweepTop_dim128.v`
 
 Run the minimal dot-product simulation:
 
@@ -75,15 +96,52 @@ Run the minimal dot-product simulation:
 just spinal-sim
 ```
 
+Run the deterministic dim sweep simulation and emit CSV summaries:
+
+```bash
+just spinal-sim-sweep
+```
+
 If a simulator backend is unavailable, the command will fail in the normal SBT/SpinalHDL way. Verilog generation is still supported independently.
 
 ## Python Research Utilities
+
+Raw Hugging Face `safetensors` directories cannot be executed directly by ONNX Runtime. For Gemma 3 1B host profiling in this repository, first inspect the raw directory, then export ONNX, then inspect the exported graph to see whether past-KV cache reuse is available.
 
 Generate deterministic INT8 vectors for FPGA tests:
 
 ```bash
 just vectors
 ```
+
+Inspect the raw Gemma directory before export:
+
+```bash
+nix develop -c just hf-inspect model_dir=/home/monad/develop/ai_accel/gemma3-1B
+```
+
+Review the ONNX export plan without running the heavy export:
+
+```bash
+nix develop -c just gemma-onnx-export-dry model_dir=/home/monad/develop/ai_accel/gemma3-1B
+```
+
+Run the actual export only when you want to generate ONNX artifacts:
+
+```bash
+nix develop -c just gemma-onnx-export model_dir=/home/monad/develop/ai_accel/gemma3-1B
+```
+
+Inspect the exported ONNX graph:
+
+```bash
+nix develop -c just onnx-inspect model=/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx
+```
+
+Interpretation:
+
+- if the ONNX graph exposes `past_key_values`, `present`, or similar cache I/O, decode cache reuse profiling is possible
+- if those graph I/O are absent, only prefill or whole-graph profiling should be treated as supported by that export
 
 Generate a KV-cache size table and plot:
 
@@ -109,6 +167,19 @@ Run a context-length sweep with separate prefill/decode measurement and KV/RSS c
 just onnx-decode-sweep /absolute/path/to/gemma3-1b.onnx CPUExecutionProvider "128 512 1024 2048 4096" 8 0 18 1 256 2
 just onnx-decode-summary
 ```
+
+Run a PyTorch/Transformers host-side baseline sweep directly from the local Gemma 3 1B `safetensors` directory:
+
+```bash
+nix develop -c just torch-context-sweep model_dir=/home/monad/develop/ai_accel/gemma3-1B
+just torch-context-summary
+```
+
+Interpretation limit:
+
+- PyTorch context sweep is not ONNX Runtime profiling.
+- PyTorch context sweep is a host-side baseline for observing Gemma 3 1B decode and KV-cache pressure.
+- Use it as a fallback or companion baseline when ONNX export or ONNX Runtime decode-cache reuse is unavailable.
 
 ## Quartus Integration
 
@@ -189,6 +260,15 @@ just fpga-report
 just fpga-validate-summary
 ```
 
+For synthesis scaling across `dim = 16, 32, 64, 128`, run the sweep flow:
+
+```bash
+just quartus-dim-sweep
+just fpga-dim-sweep-report
+```
+
+This sweep is intentionally narrower than the board flow. It is a synthesis experiment for the INT8 QK dot-product primitive, not a claim about full sLLM execution or end-to-end acceleration.
+
 ## What HEX Displays Confirm
 
 `De10LiteTop` uses a fixed internal Q vector and fixed internal K vector. It runs a deterministic INT8 dot-product and exposes the result on the 7-segment displays.
@@ -228,9 +308,24 @@ If no real board image is available yet, keep the placeholder files:
 When you write up the FPGA section, keep the claim boundary narrow:
 
 - These synthesis and board-validation results apply to the deterministic INT8 QK dot-product core block now under test.
+- The dim sweep applies to resource and latency scaling of that primitive only.
 - They do not show that the FPGA runs Gemma 3 1B.
 - They do not show that the FPGA is faster than ONNX Runtime.
 - They are best used as evidence that a decode-stage primitive can be synthesized, programmed, and observed on DE10-Lite with stable expected outputs.
+
+## Dim Sweep Purpose
+
+The dim sweep covers `dim = 16, 32, 64, 128` for the sequential INT8 QK dot-product block.
+
+- `just spinal-sim-sweep` generates deterministic expected and observed results in `fpga_test/captured/dot_product_dim_sweep_sim.csv` and `paper_assets/tables/dot_product_dim_sweep_sim.csv`.
+- `just quartus-dim-sweep` compiles synthesis-only Quartus projects for the same dims.
+- `just fpga-dim-sweep-report` extracts `paper_assets/tables/fpga_dim_sweep_resource.csv`, `paper_assets/tables/fpga_dim_sweep_timing.csv`, and `paper_assets/tables/fpga_dim_sweep_latency.csv`.
+
+Interpret the tables carefully:
+
+- they characterize how the QK dot-product primitive scales in resource usage and estimated latency
+- they do not represent full decode throughput
+- they do not represent whole-model execution on FPGA
 
 ## Connection to Gemma 3 1B Profiling
 
@@ -246,6 +341,8 @@ The host-side ONNX Runtime scripts provide:
 
 Those host measurements are intended to answer a narrow question: whether decode-stage cost and memory pressure increase enough with context length to justify isolating selected primitives such as the INT8 QK dot-product block for FPGA validation.
 
+The PyTorch baseline scripts provide the same kind of host-side separation for prefill and decode without depending on ONNX export success. PyTorch context sweep is not ONNX Runtime profiling. It is a host-side baseline for observing Gemma 3 1B decode and KV-cache pressure.
+
 The FPGA result then serves as a block-level feasibility check for that primitive, not as end-to-end model acceleration evidence.
 
 ## Useful Commands
@@ -255,9 +352,15 @@ just env-info
 just spinal-generate
 just spinal-sim
 just vectors
+just hf-inspect model_dir=/home/monad/develop/ai_accel/gemma3-1B
+just gemma-onnx-export-dry model_dir=/home/monad/develop/ai_accel/gemma3-1B
+just gemma-onnx-export model_dir=/home/monad/develop/ai_accel/gemma3-1B
+just onnx-inspect model=/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx
 just kv-cache-table
 just onnx-decode-sweep /absolute/path/to/gemma3-1b.onnx
 just onnx-decode-summary
+just torch-context-sweep model_dir=/home/monad/develop/ai_accel/gemma3-1B
+just torch-context-summary
 ./scripts/quartus.sh check
 ./scripts/quartus.sh project
 ./scripts/quartus.sh compile

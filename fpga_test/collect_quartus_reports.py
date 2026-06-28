@@ -171,9 +171,18 @@ def parse_numeric_prefix(raw_value: str) -> str:
     return match.group(0) if match else raw_value.strip()
 
 
-def extract_entity_rows(map_rpt_text: str, source_path: Path) -> list[dict[str, str]]:
+def extract_entity_rows(
+    map_rpt_text: str,
+    source_path: Path,
+    wanted_entities: set[str] | None = None,
+    entity_labels: dict[str, str] | None = None,
+) -> list[dict[str, str]]:
     header_line = "; Compilation Hierarchy Node"
-    wanted_entities = {"De10LiteTop", "DotProductInt8_dim16"}
+    wanted_entities = wanted_entities or {"De10LiteTop", "DotProductInt8_dim16"}
+    entity_labels = entity_labels or {
+        "De10LiteTop": "top_level",
+        "DotProductInt8_dim16": "int8_qk_dot_product_core",
+    }
     rows: list[dict[str, str]] = []
     in_entity_table = False
     headers: list[str] = []
@@ -208,7 +217,7 @@ def extract_entity_rows(map_rpt_text: str, source_path: Path) -> list[dict[str, 
         if entity_name not in wanted_entities:
             continue
 
-        entity_label = "top_level" if entity_name == "De10LiteTop" else "int8_qk_dot_product_core"
+        entity_label = entity_labels.get(entity_name, entity_name)
         for metric_name, csv_metric in [
             ("Combinational ALUTs", "Combinational ALUTs"),
             ("Dedicated Logic Registers", "Dedicated Logic Registers"),

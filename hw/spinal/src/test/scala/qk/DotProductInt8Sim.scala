@@ -6,15 +6,14 @@ import spinal.sim._
 
 class DotProductInt8Sim extends AnyFunSuite {
   test("DotProductInt8 matches software reference") {
-    val cfg = DotProductInt8Config(dim = 16, dataWidth = 8, accWidth = 32)
-    val query = Seq(-8, -7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8)
-    val key = Seq(3, -1, 4, -2, 5, -3, 6, -4, 2, -5, 1, -6, 0, 7, -7, 8)
-    val expected = query.zip(key).map { case (q, k) => q * k }.sum
+    val cfg = DotProductInt8Sweep.configForDim(16)
+    val (query, key) = DotProductInt8Stimulus.deterministicPair(cfg.dim)
+    val expected = DotProductInt8Stimulus.expectedScore(cfg.dim)
 
     SimConfig
       .withWave
       .workspacePath("generated/simWorkspace")
-      .compile(new DotProductInt8(cfg))
+      .compile(new DotProductInt8Dim16)
       .doSim { dut =>
         dut.clockDomain.forkStimulus(period = 10)
         dut.io.start #= false

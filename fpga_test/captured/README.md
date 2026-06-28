@@ -5,6 +5,7 @@ Store raw DE10-Lite validation evidence here.
 Expected generated file:
 
 - `fpga_validation_summary.md` from `just fpga-report`
+- `dot_product_dim_sweep_sim.csv` from `just spinal-sim-sweep`
 
 Recommended manual artifacts:
 

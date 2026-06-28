@@ -1,1 +1,0 @@
-["sbt.Task[scala.collection.Seq[java.nio.file.Path]]",["/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/hw/spinal/target/scala-2.12/test-classes/qk/DotProductInt8Sim.class","/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/hw/spinal/target/scala-2.12/test-zinc/inc_compile_2.12.zip"]]

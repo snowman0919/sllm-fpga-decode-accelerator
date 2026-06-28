@@ -29,7 +29,9 @@ spinal-generate:
   sbt "runMain qk.GenerateVerilog"
   rm -f generated/DotProductInt8.v generated/DotProductInt8.lst
   mirror_dir="../../quartus/de10_lite_qk/generated_verilog"
+  sweep_mirror_dir="../../quartus/dim_sweep/generated_verilog"
   mkdir -p "$mirror_dir"
+  mkdir -p "$sweep_mirror_dir"
   for file in DotProductInt8_dim16.v HexDisplay.v De10LiteTop.v; do
     if [ ! -f "generated/$file" ]; then
       echo "Missing generated Verilog: hw/spinal/generated/$file"
@@ -37,7 +39,22 @@ spinal-generate:
     fi
     cp "generated/$file" "$mirror_dir/$file"
   done
+  for file in \
+    DotProductInt8_dim16.v DotProductInt8_dim32.v DotProductInt8_dim64.v DotProductInt8_dim128.v \
+    DotProductInt8SweepTop_dim16.v DotProductInt8SweepTop_dim32.v DotProductInt8SweepTop_dim64.v DotProductInt8SweepTop_dim128.v
+  do
+    if [ ! -f "generated/$file" ]; then
+      echo "Missing generated Verilog: hw/spinal/generated/$file"
+      exit 1
+    fi
+    cp "generated/$file" "$sweep_mirror_dir/$file"
+  done
   echo "Mirrored canonical Verilog into quartus/de10_lite_qk/generated_verilog/"
+  echo "Mirrored dim-sweep Verilog into quartus/dim_sweep/generated_verilog/"
+
+spinal-generate-sweep:
+  #!/usr/bin/env bash
+  just spinal-generate
 
 spinal-sim:
   #!/usr/bin/env bash
@@ -45,10 +62,79 @@ spinal-sim:
   cd hw/spinal
   sbt "testOnly qk.DotProductInt8Sim"
 
+spinal-sim-sweep:
+  #!/usr/bin/env bash
+  command -v sbt >/dev/null 2>&1 || { echo "sbt is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  cd hw/spinal
+  sbt "testOnly qk.DotProductInt8DimSweepSim"
+
 vectors dim="16" num_keys="8" seed="7" out_dir="fpga_test/vectors":
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
   python3 onnx_profile/export_vectors.py --dim "{{dim}}" --num-keys "{{num_keys}}" --seed "{{seed}}" --out-dir "{{out_dir}}"
+
+torch-gemma-profile model_dir="/home/monad/develop/ai_accel/gemma3-1B" prompt="Explain KV cache in one sentence." new_tokens="8" device="cpu" dtype="bfloat16" out_dir="onnx_profile/results":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  resolved_model_dir="{{model_dir}}"
+  resolved_model_dir="${resolved_model_dir#model_dir=}"
+  resolved_out_dir="{{out_dir}}"
+  resolved_out_dir="${resolved_out_dir#out_dir=}"
+  python3 onnx_profile/profile_torch_gemma.py \
+    --model-dir "$resolved_model_dir" \
+    --prompt "{{prompt}}" \
+    --new-tokens "{{new_tokens}}" \
+    --device "{{device}}" \
+    --dtype "{{dtype}}" \
+    --out-dir "$resolved_out_dir"
+
+hf-inspect model_dir="/home/monad/develop/ai_accel/gemma3-1B" out_dir="onnx_profile/results":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  resolved_model_dir="{{model_dir}}"
+  resolved_model_dir="${resolved_model_dir#model_dir=}"
+  resolved_out_dir="{{out_dir}}"
+  resolved_out_dir="${resolved_out_dir#out_dir=}"
+  python3 onnx_profile/inspect_hf_model_dir.py --model-dir "$resolved_model_dir" --out-dir "$resolved_out_dir"
+
+gemma-onnx-export-dry model_dir="/home/monad/develop/ai_accel/gemma3-1B" out_dir="/home/monad/develop/ai_accel/gemma3-1B-onnx" task="text-generation-with-past" opset="17" device="cpu":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  resolved_model_dir="{{model_dir}}"
+  resolved_model_dir="${resolved_model_dir#model_dir=}"
+  resolved_out_dir="{{out_dir}}"
+  resolved_out_dir="${resolved_out_dir#out_dir=}"
+  python3 onnx_profile/export_gemma_to_onnx.py \
+    --model-dir "$resolved_model_dir" \
+    --out-dir "$resolved_out_dir" \
+    --task "{{task}}" \
+    --opset "{{opset}}" \
+    --device "{{device}}" \
+    --dry-run
+
+gemma-onnx-export model_dir="/home/monad/develop/ai_accel/gemma3-1B" out_dir="/home/monad/develop/ai_accel/gemma3-1B-onnx" task="text-generation-with-past" opset="17" device="cpu":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  resolved_model_dir="{{model_dir}}"
+  resolved_model_dir="${resolved_model_dir#model_dir=}"
+  resolved_out_dir="{{out_dir}}"
+  resolved_out_dir="${resolved_out_dir#out_dir=}"
+  python3 onnx_profile/export_gemma_to_onnx.py \
+    --model-dir "$resolved_model_dir" \
+    --out-dir "$resolved_out_dir" \
+    --task "{{task}}" \
+    --opset "{{opset}}" \
+    --device "{{device}}"
+
+onnx-inspect model="/path/to/exported/model.onnx" out_dir="onnx_profile/results":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  resolved_model="{{model}}"
+  resolved_model="${resolved_model#model=}"
+  resolved_out_dir="{{out_dir}}"
+  resolved_out_dir="${resolved_out_dir#out_dir=}"
+  [ "$resolved_model" != "/path/to/exported/model.onnx" ] || { echo "Set a real ONNX model path. Example: nix develop -c just onnx-inspect model=/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx"; exit 1; }
+  python3 onnx_profile/inspect_onnx_model.py --model "$resolved_model" --out-dir "$resolved_out_dir"
 
 kv-cache-table layers="18" kv_heads="1" head_dim="256" bytes_per_element="2" out_dir="onnx_profile/results":
   #!/usr/bin/env bash
@@ -93,6 +179,47 @@ onnx-decode-summary:
   #!/usr/bin/env bash
   [ -f onnx_profile/results/decode_fpga_bridge_summary.md ] || { echo "Missing onnx_profile/results/decode_fpga_bridge_summary.md. Run 'just onnx-decode-sweep /absolute/path/to/model.onnx' first."; exit 1; }
   sed -n '1,240p' onnx_profile/results/decode_fpga_bridge_summary.md
+
+torch-context-sweep model_dir="/home/monad/develop/ai_accel/gemma3-1B" out_dir="onnx_profile/results" device="auto" dtype="auto" context_lengths="128 512 1024 2048 4096" decode_tokens="8" runs="5" warmup_runs="1" prompt_source="" max_context="4096":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  resolved_model_dir="{{model_dir}}"
+  resolved_model_dir="${resolved_model_dir#model_dir=}"
+  resolved_out_dir="{{out_dir}}"
+  resolved_out_dir="${resolved_out_dir#out_dir=}"
+  args=(
+    --model-dir "$resolved_model_dir"
+    --out-dir "$resolved_out_dir"
+    --device "{{device}}"
+    --dtype "{{dtype}}"
+    --context-lengths {{context_lengths}}
+    --decode-tokens "{{decode_tokens}}"
+    --runs "{{runs}}"
+    --warmup-runs "{{warmup_runs}}"
+    --max-context "{{max_context}}"
+  )
+  if [ -n "{{prompt_source}}" ]; then
+    args+=(--prompt-source "{{prompt_source}}")
+  fi
+  python3 onnx_profile/torch_context_sweep.py "${args[@]}"
+
+torch-context-summary:
+  #!/usr/bin/env bash
+  status_json="onnx_profile/results/raw/torch_context_sweep_status.json"
+  latency_csv="onnx_profile/results/tables/torch_decode_latency_by_context.csv"
+  memory_csv="onnx_profile/results/tables/torch_memory_by_context.csv"
+  [ -f "$status_json" ] || { echo "Missing $status_json. Run 'just torch-context-sweep model_dir=/home/monad/develop/ai_accel/gemma3-1B' first."; exit 1; }
+  sed -n '1,220p' "$status_json"
+  if [ -f "$latency_csv" ]; then
+    echo
+    echo "Latency table preview:"
+    sed -n '1,12p' "$latency_csv"
+  fi
+  if [ -f "$memory_csv" ]; then
+    echo
+    echo "Memory table preview:"
+    sed -n '1,12p' "$memory_csv"
+  fi
 
 quartus-check:
   #!/usr/bin/env bash
@@ -190,6 +317,31 @@ fpga-validate-summary:
   [ -f fpga_test/captured/fpga_validation_summary.md ] || just fpga-report
   sed -n '1,220p' fpga_test/captured/fpga_validation_summary.md
 
+quartus-dim-sweep:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  source "{{quartus_helper}}"
+  if [ ! -f "quartus/dim_sweep/generated_verilog/DotProductInt8_dim128.v" ]; then
+    echo "Dim-sweep Verilog mirror is missing or incomplete. Running 'just spinal-generate-sweep' first."
+    just spinal-generate-sweep
+  fi
+  quartus_sh=$(quartus_find_tool quartus_sh) || {
+    echo "quartus_sh not found. Set QUARTUS_ROOT or add Quartus to PATH."
+    exit 1
+  }
+  python3 fpga_test/run_quartus_dim_sweep.py \
+    --quartus-sh "$quartus_sh" \
+    --repo-root .
+
+fpga-dim-sweep-report:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  [ -f fpga_test/captured/dot_product_dim_sweep_sim.csv ] || just spinal-sim-sweep
+  python3 fpga_test/collect_dim_sweep_reports.py \
+    --quartus-root quartus/dim_sweep \
+    --out-dir . \
+    --sim-csv fpga_test/captured/dot_product_dim_sweep_sim.csv
+
 import-qsf qsf_path:
   #!/usr/bin/env bash
   quartus/de10_lite_qk/scripts/import_verified_qsf.sh "{{qsf_path}}"
@@ -241,6 +393,8 @@ clean-generated:
   rm -rf hw/spinal/generated/*.lst
   rm -rf hw/spinal/generated/simWorkspace
   rm -rf quartus/de10_lite_qk/generated_verilog/*.v
+  rm -rf quartus/dim_sweep/generated_verilog/*.v
+  rm -rf quartus/dim_sweep/projects
   rm -rf quartus/de10_lite_qk/db
   rm -rf quartus/de10_lite_qk/incremental_db
   rm -rf quartus/de10_lite_qk/output_files
@@ -250,5 +404,7 @@ clean-generated:
   rm -f onnx_profile/results/decode_fpga_bridge_summary.md
   find fpga_test/vectors -mindepth 1 -type f ! -name 'README.md' -delete
   find paper_assets/tables -mindepth 1 -type f ! -name 'README.md' ! -name '.gitkeep' -delete
+  find paper_assets/figures -mindepth 1 -type f ! -name 'README.md' ! -name '.gitkeep' ! -name '*.placeholder.md' -delete
   rm -f fpga_test/captured/fpga_validation_summary.md
+  rm -f fpga_test/captured/dot_product_dim_sweep_sim.csv
   echo "Generated outputs removed from generated/results/assets directories."

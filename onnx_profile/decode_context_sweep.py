@@ -9,12 +9,10 @@ from typing import Any
 
 import matplotlib.pyplot as plt
 import pandas as pd
-
 from kv_cache_size import kv_cache_bytes
 from run_profile import model_exists, profile_model
 
-
-DEFAULT_PROMPT_LENS = [128, 512, 1024, 2048, 4096]
+DEFAULT_PROMPT_LENS = [128, 512, 1024, 2048, 4096, 8192, 16384, 32768]
 
 
 def parse_args() -> argparse.Namespace:
@@ -24,8 +22,14 @@ def parse_args() -> argparse.Namespace:
             "size against measured process RSS growth, and connect the trend to FPGA validation artifacts."
         )
     )
-    parser.add_argument("--model", type=Path, required=True, help="Path to an exported ONNX model.")
-    parser.add_argument("--provider", default="CPUExecutionProvider", help="ONNX Runtime execution provider.")
+    parser.add_argument(
+        "--model", type=Path, required=True, help="Path to an exported ONNX model."
+    )
+    parser.add_argument(
+        "--provider",
+        default="CPUExecutionProvider",
+        help="ONNX Runtime execution provider.",
+    )
     parser.add_argument(
         "--prompt-lens",
         type=int,
@@ -33,13 +37,47 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_PROMPT_LENS,
         help="Prompt lengths to sweep.",
     )
-    parser.add_argument("--decode-tokens", type=int, default=8, help="Decode iterations per prompt length.")
-    parser.add_argument("--profile", action="store_true", help="Enable ONNX Runtime profiling JSON for each sweep point.")
-    parser.add_argument("--layers", type=int, default=18, help="Transformer layer count used for theoretical KV-cache sizing.")
-    parser.add_argument("--kv-heads", type=int, default=1, help="KV head count used for theoretical KV-cache sizing.")
-    parser.add_argument("--head-dim", type=int, default=256, help="Head dimension used for theoretical KV-cache sizing.")
-    parser.add_argument("--bytes-per-element", type=int, default=2, help="Bytes per KV-cache element, for example 2 for FP16.")
-    parser.add_argument("--out-dir", type=Path, required=True, help="Output directory for sweep artifacts.")
+    parser.add_argument(
+        "--decode-tokens",
+        type=int,
+        default=8,
+        help="Decode iterations per prompt length.",
+    )
+    parser.add_argument(
+        "--profile",
+        action="store_true",
+        help="Enable ONNX Runtime profiling JSON for each sweep point.",
+    )
+    parser.add_argument(
+        "--layers",
+        type=int,
+        default=18,
+        help="Transformer layer count used for theoretical KV-cache sizing.",
+    )
+    parser.add_argument(
+        "--kv-heads",
+        type=int,
+        default=1,
+        help="KV head count used for theoretical KV-cache sizing.",
+    )
+    parser.add_argument(
+        "--head-dim",
+        type=int,
+        default=256,
+        help="Head dimension used for theoretical KV-cache sizing.",
+    )
+    parser.add_argument(
+        "--bytes-per-element",
+        type=int,
+        default=2,
+        help="Bytes per KV-cache element, for example 2 for FP16.",
+    )
+    parser.add_argument(
+        "--out-dir",
+        type=Path,
+        required=True,
+        help="Output directory for sweep artifacts.",
+    )
     parser.add_argument(
         "--paper-tables-dir",
         type=Path,
@@ -58,7 +96,7 @@ def parse_args() -> argparse.Namespace:
 def mib_from_bytes(value: int | None) -> float | None:
     if value is None:
         return None
-    return value / (1024 ** 2)
+    return value / (1024**2)
 
 
 def delta_bytes(after: int | None, before: int | None) -> int | None:
@@ -118,7 +156,9 @@ def add_ratio_columns(frame: pd.DataFrame) -> pd.DataFrame:
     ]:
         if column in frame:
             mib_column = column.replace("_bytes", "_mib")
-            frame[mib_column] = frame[column].apply(lambda value: value / (1024 ** 2) if pd.notna(value) else value)
+            frame[mib_column] = frame[column].apply(
+                lambda value: value / (1024**2) if pd.notna(value) else value
+            )
     return frame
 
 
@@ -130,7 +170,9 @@ def render_markdown_summary(
     fpga_resources: dict[str, str],
     output_dir: Path,
 ) -> str:
-    decode_mode = latency_frame["decode_mode"].iloc[0] if not latency_frame.empty else "unknown"
+    decode_mode = (
+        latency_frame["decode_mode"].iloc[0] if not latency_frame.empty else "unknown"
+    )
     note_lines = [
         "# Decode Profiling to FPGA Bridge Summary",
         "",
@@ -243,7 +285,9 @@ def main() -> None:
             seq_len=prompt_len + args.decode_tokens,
             bytes_per_element=args.bytes_per_element,
         )
-        theoretical_kv_decode_growth_bytes = theoretical_kv_final_bytes - theoretical_kv_prompt_bytes
+        theoretical_kv_decode_growth_bytes = (
+            theoretical_kv_final_bytes - theoretical_kv_prompt_bytes
+        )
 
         latency_rows.append(
             {
@@ -255,8 +299,12 @@ def main() -> None:
                 "decode_avg_ms": to_ms(summary.get("decode_avg_s")),
                 "decode_p50_ms": to_ms(summary.get("decode_p50_s")),
                 "decode_p95_ms": to_ms(summary.get("decode_p95_s")),
-                "decode_last_ms": to_ms(summary["decode_step_s"][-1]) if summary.get("decode_step_s") else None,
-                "profile_summary_json": str((run_dir / "profile_summary.json").resolve()),
+                "decode_last_ms": to_ms(summary["decode_step_s"][-1])
+                if summary.get("decode_step_s")
+                else None,
+                "profile_summary_json": str(
+                    (run_dir / "profile_summary.json").resolve()
+                ),
             }
         )
 
@@ -274,10 +322,18 @@ def main() -> None:
                 "theoretical_kv_prompt_bytes": theoretical_kv_prompt_bytes,
                 "theoretical_kv_decode_growth_bytes": theoretical_kv_decode_growth_bytes,
                 "theoretical_kv_final_bytes": theoretical_kv_final_bytes,
-                "prefill_rss_vs_theoretical_prompt_ratio": safe_ratio(prefill_rss_delta, theoretical_kv_prompt_bytes),
-                "decode_rss_vs_theoretical_growth_ratio": safe_ratio(decode_rss_delta, theoretical_kv_decode_growth_bytes),
-                "total_rss_vs_theoretical_final_ratio": safe_ratio(total_rss_delta, theoretical_kv_final_bytes),
-                "profile_summary_json": str((run_dir / "profile_summary.json").resolve()),
+                "prefill_rss_vs_theoretical_prompt_ratio": safe_ratio(
+                    prefill_rss_delta, theoretical_kv_prompt_bytes
+                ),
+                "decode_rss_vs_theoretical_growth_ratio": safe_ratio(
+                    decode_rss_delta, theoretical_kv_decode_growth_bytes
+                ),
+                "total_rss_vs_theoretical_final_ratio": safe_ratio(
+                    total_rss_delta, theoretical_kv_final_bytes
+                ),
+                "profile_summary_json": str(
+                    (run_dir / "profile_summary.json").resolve()
+                ),
             }
         )
 
@@ -290,7 +346,12 @@ def main() -> None:
     kv_frame.to_csv(kv_csv, index=False)
 
     plt.figure(figsize=(8, 4.5))
-    plt.plot(latency_frame["prompt_len"], latency_frame["decode_avg_ms"], marker="o", label="Decode avg (ms)")
+    plt.plot(
+        latency_frame["prompt_len"],
+        latency_frame["decode_avg_ms"],
+        marker="o",
+        label="Decode avg (ms)",
+    )
     plt.xlabel("Prompt Length")
     plt.ylabel("Decode Latency (ms)")
     plt.title("Decode Latency by Context Length")
@@ -300,8 +361,18 @@ def main() -> None:
     plt.close()
 
     plt.figure(figsize=(8, 4.5))
-    plt.plot(kv_frame["prompt_len"], kv_frame["theoretical_kv_prompt_mib"], marker="o", label="Theoretical KV-cache (MiB)")
-    plt.plot(kv_frame["prompt_len"], kv_frame["prefill_rss_delta_mib"], marker="s", label="Measured RSS delta after prefill (MiB)")
+    plt.plot(
+        kv_frame["prompt_len"],
+        kv_frame["theoretical_kv_prompt_mib"],
+        marker="o",
+        label="Theoretical KV-cache (MiB)",
+    )
+    plt.plot(
+        kv_frame["prompt_len"],
+        kv_frame["prefill_rss_delta_mib"],
+        marker="s",
+        label="Measured RSS delta after prefill (MiB)",
+    )
     plt.xlabel("Prompt Length")
     plt.ylabel("Memory (MiB)")
     plt.title("Theoretical KV-cache vs Measured RSS Growth")
@@ -312,7 +383,9 @@ def main() -> None:
     plt.close()
 
     args.paper_tables_dir.mkdir(parents=True, exist_ok=True)
-    latency_frame.to_csv(args.paper_tables_dir / "decode_latency_by_context.csv", index=False)
+    latency_frame.to_csv(
+        args.paper_tables_dir / "decode_latency_by_context.csv", index=False
+    )
     kv_frame.to_csv(args.paper_tables_dir / "kv_memory_comparison.csv", index=False)
 
     fpga_timing = read_fpga_timing_summary(args.paper_tables_dir)

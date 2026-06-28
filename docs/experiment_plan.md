@@ -1,42 +1,78 @@
 # Experiment Plan
 
-## Stage 1. Gemma 3 1B ONNX Runtime Profiling
+## Stage 1. HF/Safetensors Directory Inspection
 
-- Prepare or locate an ONNX-exported Gemma 3 1B model on the host machine.
+- Inspect the raw Gemma 3 1B Hugging Face directory.
+- Confirm `config.json`, tokenizer assets, and `*.safetensors` weights exist.
+- Extract model metadata needed for later ONNX export and KV-cache size calculations.
+
+## Stage 2. ONNX Export
+
+- Preflight the export plan with a dry-run.
+- Export the raw Gemma directory to ONNX only when the user explicitly runs the heavy export command.
+- Keep the flow on Python-package-based ONNX Runtime tooling instead of building the local `onnxruntime` source tree first.
+
+## Stage 3. ONNX Graph Inspection
+
+- Inspect exported ONNX graph inputs and outputs.
+- Check whether past-KV or other cache-related graph I/O exist.
+- Decide whether decode cache reuse profiling is supported by the export.
+
+## Stage 4. Gemma 3 1B ONNX Runtime Profiling
+
 - Measure session initialization overhead.
 - Measure prefill and decode-stage execution separately where the model interface permits it.
-- Sweep multiple prompt lengths and generate a decode latency table by context length.
 - Export ONNX Runtime profiling traces when enabled.
 
-## Stage 2. KV-cache Theoretical Size Calculation
+## Stage 5. PyTorch Fallback Baseline
+
+- Run a PyTorch/Transformers host-side context sweep directly from the local Gemma 3 1B `safetensors` directory.
+- Measure model load time, prefill latency, manual decode-loop latency with `past_key_values` reuse, and RSS snapshots.
+- Treat this flow as a fallback baseline even when ONNX export succeeds, not as a replacement for ONNX Runtime profiling.
+- PyTorch context sweep is not ONNX Runtime profiling. It is a host-side baseline for observing Gemma 3 1B decode and KV-cache pressure.
+
+## Stage 6. Context-Length Sweep
+
+- Sweep multiple prompt lengths.
+- Generate a decode latency table by context length.
+- Compare theoretical KV-cache growth against measured ONNX Runtime process RSS growth with clear caveats.
+
+## Stage 7. KV-cache Theoretical Size Calculation
 
 - Sweep representative sequence lengths.
 - Produce CSV tables and a simple plot.
-- Compare theoretical KV-cache growth against measured ONNX Runtime process RSS growth with clear caveats.
 - Use the results to motivate decode-stage memory pressure discussion.
 
-## Stage 3. INT8 QK Dot-Product Baseline Generation
+## Stage 8. INT8 QK Dot-Product Baseline Generation
 
 - Generate deterministic INT8 Q and K vectors on the host.
 - Compute expected dot-product scores in software.
 - Reuse those vectors in RTL simulation and board validation.
 
-## Stage 4. SpinalHDL RTL Generation
+## Stage 9. SpinalHDL RTL Generation
 
 - Implement a minimal parameterized INT8 QK dot-product block.
 - Generate Verilog reproducibly from Scala sources.
 
-## Stage 5. RTL Simulation
+## Stage 10. RTL Simulation
 
 - Run deterministic unit simulation.
 - Compare RTL output against the software-computed score.
 
-## Stage 6. Quartus Synthesis
+## Stage 11. Quartus Synthesis
 
 - Import generated Verilog into a DE10-Lite-oriented Quartus project.
 - Synthesize only the validation design.
 
-## Stage 7. DE10-Lite HEX Display Validation
+## Stage 12. Dim Sweep Synthesis Scaling
+
+- Generate `dim = 16, 32, 64, 128` variants of the INT8 QK dot-product primitive.
+- Run deterministic simulation for each dim and save expected versus observed scores.
+- Compile synthesis-only Quartus projects for each dim to compare resource and timing scaling.
+- Generate a latency estimate table using the sequential MAC cycle count and the 50 MHz board clock as a reference.
+- Keep the interpretation narrow: the dim sweep is not a full sLLM acceleration result, only a primitive-level scaling study.
+
+## Stage 13. DE10-Lite HEX Display Validation
 
 - Display small debug values or low score digits on the 7-segment HEX outputs.
 - Confirm basic top-level clocking and observable hardware behavior.
@@ -44,12 +80,24 @@
 - Treat `HEX3..HEX0 = F F E A` as the low 16 bits of the deterministic signed score `-22`, which is `0xFFEA` in two's complement.
 - Save raw photos or videos first under `fpga_test/captured/`.
 
-## Stage 8. Paper Figure and Table Extraction
+## Stage 14. FPGA QK Dot-Product Connection
+
+- Use the ONNX Runtime inspection and profiling results to justify why a decode-stage primitive is worth isolating.
+- Use the PyTorch fallback baseline when ONNX Runtime decode profiling is unavailable or incomplete.
+- Connect that host-side motivation to the FPGA validation of the current INT8 QK dot-product block.
+- Use the dim-sweep tables to discuss how primitive cost changes with vector length.
+- Keep the interpretation narrow: block-level feasibility only, not full-model deployment and not end-to-end speedup over ONNX Runtime.
+
+## Stage 15. Paper Figure and Table Extraction
 
 - Promote stable plots and tables into `paper_assets/`.
+- Run `just hf-inspect ...` to populate `paper_assets/tables/hf_model_dir_summary.csv`.
 - Run `just fpga-report` to generate `paper_assets/tables/fpga_resource_summary.csv`, `paper_assets/tables/fpga_timing_summary.csv`, and `paper_assets/tables/fpga_validation_summary.csv`.
+- Run `just spinal-sim-sweep` to generate `paper_assets/tables/dot_product_dim_sweep_sim.csv`.
+- Run `just fpga-dim-sweep-report` to generate `paper_assets/tables/fpga_dim_sweep_resource.csv`, `paper_assets/tables/fpga_dim_sweep_timing.csv`, and `paper_assets/tables/fpga_dim_sweep_latency.csv`.
 - Run `just onnx-decode-sweep ...` to generate `paper_assets/tables/decode_latency_by_context.csv` and `paper_assets/tables/kv_memory_comparison.csv`.
+- Run `just torch-context-sweep ...` to generate `paper_assets/tables/torch_decode_latency_by_context.csv`, `paper_assets/tables/torch_memory_by_context.csv`, `paper_assets/figures/torch_decode_latency_by_context.png`, and `paper_assets/figures/torch_memory_by_context.png`.
 - Copy one selected board image into `paper_assets/figures/` only if a real hardware photo is available; otherwise keep the placeholder.
 - Use host and FPGA validation outputs to build the final report narrative.
 - Connect the two sides carefully: host profiling motivates why decode-stage primitives matter, while FPGA validation shows that the current INT8 QK dot-product block can be synthesized and observed on hardware.
-- Interpret the FPGA results narrowly as synthesis and board-validation evidence for the INT8 QK dot-product block, not as full Gemma 3 1B execution and not as proof of end-to-end speedup over ONNX Runtime.
+- Interpret the FPGA results narrowly as synthesis and board-validation evidence for the INT8 QK dot-product block, including dim-sweep scaling behavior, not as full Gemma 3 1B execution and not as proof of end-to-end speedup over ONNX Runtime.
