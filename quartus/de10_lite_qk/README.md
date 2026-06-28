@@ -2,7 +2,7 @@
 
 This directory contains the Quartus-side skeleton for validating a small deterministic INT8 dot-product block on the Terasic DE10-Lite. It imports SpinalHDL-generated Verilog, expects a verified board QSF, and uses HEX/LEDR outputs as simple board-visible validation channels.
 
-This flow does not claim full Gemma 3 1B or full sLLM execution on the board.
+This flow validates an INT8 QK dot-product primitive only. It does not claim full Gemma 3 1B or full sLLM execution on the board, does not implement full KV-cache management, and does not establish end-to-end ONNX Runtime comparison data.
 
 ## Quartus Detection
 

@@ -1,10 +1,21 @@
 # Experiment Plan
 
+Research title:
+
+- Korean: ONNX Runtime 기반 온디바이스 소형 언어모델 추론의 병목 분석 및 FPGA 기반 Decode 가속기 구조 설계
+- English: Bottleneck Analysis of ONNX Runtime-based On-device Small Language Model Inference and Design of an FPGA-based Decode Accelerator Architecture
+
+Primary questions:
+
+- Where do practical bottlenecks arise in ONNX Runtime-based on-device sLLM inference?
+- Are they caused by model export, graph structure, runtime execution, memory pressure, prefill, decode, or interactions between these factors?
+- Which decode-stage primitives are realistic FPGA hardware targets after profiling evidence is reviewed?
+
 ## Stage 1. HF/Safetensors Directory Inspection
 
 - Inspect the raw Gemma 3 1B Hugging Face directory.
 - Confirm `config.json`, tokenizer assets, and `*.safetensors` weights exist.
-- Extract model metadata needed for later ONNX export and KV-cache size calculations.
+- Extract model metadata needed for later ONNX export, graph interpretation, profiling setup, and KV-cache size calculations.
 
 ## Stage 2. ONNX Export
 
@@ -17,31 +28,33 @@
 - Inspect exported ONNX graph inputs and outputs.
 - Check whether past-KV or other cache-related graph I/O exist.
 - Decide whether decode cache reuse profiling is supported by the export.
+- Identify graph operators and graph boundaries that may affect prefill/decode measurement.
 
 ## Stage 4. Gemma 3 1B ONNX Runtime Profiling
 
 - Measure session initialization overhead.
 - Measure prefill and decode-stage execution separately where the model interface permits it.
 - Export ONNX Runtime profiling traces when enabled.
+- Use runtime traces to distinguish export/graph limitations from actual execution bottlenecks.
 
-## Stage 5. PyTorch Fallback Baseline
+## Stage 5. PyTorch Host-side Reference Baseline
 
 - Run a PyTorch/Transformers host-side context sweep directly from the local Gemma 3 1B `safetensors` directory.
 - Measure model load time, prefill latency, manual decode-loop latency with `past_key_values` reuse, and RSS snapshots.
-- Treat this flow as a fallback baseline even when ONNX export succeeds, not as a replacement for ONNX Runtime profiling.
-- PyTorch context sweep is not ONNX Runtime profiling. It is a host-side baseline for observing Gemma 3 1B decode and KV-cache pressure.
+- Treat this flow as a companion host-side reference baseline even when ONNX export succeeds, not as a replacement for ONNX Runtime profiling.
+- PyTorch context sweep is not ONNX Runtime profiling and should not be reported as ONNX Runtime data.
 
 ## Stage 6. Context-Length Sweep
 
 - Sweep multiple prompt lengths.
 - Generate a decode latency table by context length.
-- Compare theoretical KV-cache growth against measured ONNX Runtime process RSS growth with clear caveats.
+- Compare theoretical KV-cache growth against measured process RSS growth with clear caveats. RSS changes are process-level memory observations, not direct KV-cache byte measurements.
 
 ## Stage 7. KV-cache Theoretical Size Calculation
 
 - Sweep representative sequence lengths.
 - Produce CSV tables and a simple plot.
-- Use the results to motivate decode-stage memory pressure discussion.
+- Use the results to explain long-context decode memory pressure as one structural factor, not as the sole assumed bottleneck.
 
 ## Stage 8. INT8 QK Dot-Product Baseline Generation
 
@@ -82,11 +95,12 @@
 
 ## Stage 14. FPGA QK Dot-Product Connection
 
-- Use the ONNX Runtime inspection and profiling results to justify why a decode-stage primitive is worth isolating.
-- Use the PyTorch fallback baseline when ONNX Runtime decode profiling is unavailable or incomplete.
+- Use the ONNX export, graph inspection, and runtime profiling results to justify why a decode-stage primitive is worth isolating.
+- Use the PyTorch host-side reference baseline when ONNX Runtime decode profiling is unavailable or incomplete.
 - Connect that host-side motivation to the FPGA validation of the current INT8 QK dot-product block.
 - Use the dim-sweep tables to discuss how primitive cost changes with vector length.
-- Keep the interpretation narrow: block-level feasibility only, not full-model deployment and not end-to-end speedup over ONNX Runtime.
+- Keep the interpretation narrow: block-level feasibility only, not full-model deployment and not end-to-end ONNX Runtime comparison data.
+- Describe the future architecture as an FPGA Decode accelerator path that can extend from QK dot-product to scale, softmax or approximation, V weighted sum, and buffer/stream interfaces.
 
 ## Stage 15. Paper Figure and Table Extraction
 
@@ -100,4 +114,4 @@
 - Copy one selected board image into `paper_assets/figures/` only if a real hardware photo is available; otherwise keep the placeholder.
 - Use host and FPGA validation outputs to build the final report narrative.
 - Connect the two sides carefully: host profiling motivates why decode-stage primitives matter, while FPGA validation shows that the current INT8 QK dot-product block can be synthesized and observed on hardware.
-- Interpret the FPGA results narrowly as synthesis and board-validation evidence for the INT8 QK dot-product block, including dim-sweep scaling behavior, not as full Gemma 3 1B execution and not as proof of end-to-end speedup over ONNX Runtime.
+- Interpret the FPGA results narrowly as synthesis and board-validation evidence for the INT8 QK dot-product block, including dim-sweep scaling behavior, not as full Gemma 3 1B execution and not as end-to-end ONNX Runtime comparison data.

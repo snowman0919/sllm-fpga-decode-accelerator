@@ -1,0 +1,1827 @@
+{
+  "baseline_type": "pytorch",
+  "is_onnx_runtime_profile": false,
+  "interpretation_limit": "PyTorch context sweep is not ONNX Runtime profiling. It is a host-side baseline for observing Gemma 3 1B decode and KV-cache pressure.",
+  "started_at": "2026-06-28T16:39:36.454238+00:00",
+  "finished_at": "2026-06-28T16:39:57.608462+00:00",
+  "requested_device": "cuda",
+  "resolved_device": "cuda",
+  "requested_dtype": "float16",
+  "resolved_dtype": "float16",
+  "device_notes": [],
+  "dtype_note": "user selected float16",
+  "model_dir": "/home/monad/develop/ai_accel/gemma3-1B",
+  "model_type": "gemma3_text",
+  "tokenizer_class": "GemmaTokenizerFast",
+  "model_class": "Gemma3ForCausalLM",
+  "model_config_max_position_embeddings": 32768,
+  "tokenizer_load_ms": 498.7511489998724,
+  "model_load_ms": 550.102969000136,
+  "rss_before_load_bytes": 739110912,
+  "rss_after_load_bytes": 2343051264,
+  "model_load_rss_delta_bytes": 1603940352,
+  "prompt_metadata": {
+    "prompt_kind": "builtin",
+    "prompt_preview": "PyTorch baseline context sweep for Gemma 3 1B decode profiling. This host-side run measures prefill and decode latency with KV-cache reuse.",
+    "seed_token_count": 32
+  },
+  "decode_tokens": 16,
+  "runs": 5,
+  "warmup_runs": 1,
+  "contexts": [
+    {
+      "context_length": 128,
+      "runs": [
+        {
+          "run_index": 0,
+          "prefill_ms": 13.161422000166567,
+          "decode_total_ms": 160.14240200047425,
+          "decode_step_ms": [
+            10.249330000078771,
+            10.096568000108164,
+            9.981207000009817,
+            10.068755000020246,
+            10.07289199992556,
+            10.014571000056094,
+            9.988650999957827,
+            9.936481000067943,
+            9.977460000072824,
+            10.06908499994097,
+            9.966169000108493,
+            9.921652999992148,
+            9.8642140001175,
+            10.011435000023994,
+            10.015112000019144,
+            9.908818999974756
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061144064,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061144064,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2131660800,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2131957760,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            },
+            "after_decode": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2132613120,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2133142016,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 1,
+          "prefill_ms": 13.326497999969433,
+          "decode_total_ms": 159.91463500017744,
+          "decode_step_ms": [
+            10.24738699993577,
+            10.0070969999706,
+            10.62986900001306,
+            10.017216000051121,
+            9.895042000152898,
+            9.94705200014323,
+            9.893609000073411,
+            9.954956999990827,
+            9.903708999900118,
+            9.897937000005186,
+            9.923836999860214,
+            9.915510999917387,
+            9.942352000052779,
+            9.894732000020667,
+            9.90782600001694,
+            9.936502000073233
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061144064,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061144064,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2131660800,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2131957760,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            },
+            "after_decode": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2132613120,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2133142016,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 2,
+          "prefill_ms": 13.261092999982793,
+          "decode_total_ms": 159.37576799956332,
+          "decode_step_ms": [
+            10.283685999866066,
+            10.032043999899543,
+            9.993981999969037,
+            9.98373199990965,
+            10.009351000007882,
+            9.946892000016305,
+            9.912877000033404,
+            9.886707000077877,
+            9.955867999906332,
+            9.92101199994977,
+            9.91862800015042,
+            9.934477999877345,
+            9.857130000000325,
+            9.908288000133325,
+            9.92481899993436,
+            9.906273999831683
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061144064,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061144064,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2131660800,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2131957760,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            },
+            "after_decode": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2132613120,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2133142016,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 3,
+          "prefill_ms": 13.10426300005929,
+          "decode_total_ms": 160.00812400034192,
+          "decode_step_ms": [
+            10.316769000155546,
+            10.098651999896902,
+            10.057684000003064,
+            10.033396999915567,
+            10.026654000057533,
+            9.912315000065064,
+            9.988461000148163,
+            10.09006499998577,
+            9.957220999922356,
+            9.943264999947132,
+            9.876897000140161,
+            9.928044999924168,
+            9.952503000022261,
+            9.943986000052973,
+            9.98680699990473,
+            9.895403000200531
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061144064,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061144064,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2131660800,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2131957760,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            },
+            "after_decode": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2132613120,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2133142016,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 4,
+          "prefill_ms": 13.171671000009155,
+          "decode_total_ms": 160.0840789999438,
+          "decode_step_ms": [
+            10.341104999952222,
+            10.019960999898103,
+            10.044428000128391,
+            9.936440999808838,
+            9.96301199984373,
+            10.048647000076016,
+            9.963844000139943,
+            9.961359000044467,
+            9.922654999854785,
+            9.924819000161733,
+            10.053396000103021,
+            9.906393999926877,
+            9.935539000025528,
+            10.08555599992178,
+            9.995906000085597,
+            9.98101699997278
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061144064,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061144064,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2131660800,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2131957760,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            },
+            "after_decode": {
+              "rss_bytes": 2466021376,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2132613120,
+              "cuda_memory_reserved_bytes": 2149580800,
+              "cuda_max_memory_allocated_bytes": 2133142016,
+              "cuda_max_memory_reserved_bytes": 2149580800
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        }
+      ],
+      "prefill_ms_stats": {
+        "mean": 13.204989400037448,
+        "median": 13.171671000009155,
+        "min": 13.10426300005929,
+        "max": 13.326497999969433,
+        "std": 0.07882384861039565
+      },
+      "decode_total_ms_stats": {
+        "mean": 159.90500160010015,
+        "median": 160.00812400034192,
+        "min": 159.37576799956332,
+        "max": 160.14240200047425,
+        "std": 0.2754062094428509
+      },
+      "decode_ms_per_token_stats": {
+        "mean": 9.99406260000626,
+        "median": 9.959289999983412,
+        "min": 9.857130000000325,
+        "max": 10.62986900001306,
+        "std": 0.121092674114768
+      },
+      "memory_summary": {
+        "rss_before_prefill_bytes_mean": 2466021376,
+        "rss_after_prefill_bytes_mean": 2466021376,
+        "rss_after_decode_bytes_mean": 2466021376,
+        "prefill_rss_delta_bytes_mean": 0,
+        "decode_rss_delta_bytes_mean": 0,
+        "total_rss_delta_bytes_mean": 0,
+        "peak_rss_bytes_max": 4860407808,
+        "cuda_memory_allocated_bytes_before_prefill_mean": 2061144064,
+        "cuda_memory_allocated_bytes_after_prefill_mean": 2131660800,
+        "cuda_memory_allocated_bytes_after_decode_mean": 2132613120,
+        "cuda_memory_reserved_bytes_after_prefill_mean": 2149580800,
+        "cuda_memory_reserved_bytes_after_decode_mean": 2149580800,
+        "cuda_max_memory_allocated_bytes_max": 2133142016,
+        "cuda_max_memory_reserved_bytes_max": 2149580800,
+        "cuda_memory_allocated_mib_before_prefill": 1965.66015625,
+        "cuda_memory_allocated_mib_after_prefill": 2032.91015625,
+        "cuda_memory_allocated_mib_after_decode": 2033.818359375,
+        "cuda_memory_reserved_mib_after_prefill": 2050.0,
+        "cuda_memory_reserved_mib_after_decode": 2050.0,
+        "cuda_max_memory_allocated_mib": 2034.32275390625,
+        "cuda_max_memory_reserved_mib": 2050.0
+      }
+    },
+    {
+      "context_length": 512,
+      "runs": [
+        {
+          "run_index": 0,
+          "prefill_ms": 34.996407999869916,
+          "decode_total_ms": 188.68487899976571,
+          "decode_step_ms": [
+            12.10395799989783,
+            11.776733000033346,
+            11.803824000025998,
+            11.786910999944666,
+            11.693723999997019,
+            11.726986999974542,
+            11.833460999923773,
+            11.703301999887117,
+            11.96216700009245,
+            11.794345999987854,
+            11.862887000006594,
+            11.647084000060204,
+            11.753737999924851,
+            11.77342599999065,
+            11.766152000063812,
+            11.69617899995501
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061150208,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061150208,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343217152,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            },
+            "after_decode": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343812096,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 1,
+          "prefill_ms": 35.067002999994656,
+          "decode_total_ms": 189.42845199990188,
+          "decode_step_ms": [
+            12.144415999955527,
+            11.952328000006673,
+            11.909225999943374,
+            12.512901000036436,
+            11.725415000000794,
+            11.764578999873265,
+            11.776101999885213,
+            11.732066999911694,
+            11.893164999946748,
+            11.730293000027814,
+            11.7219380001643,
+            11.641101999884995,
+            11.74857800015161,
+            11.803182999983619,
+            11.670448000131728,
+            11.70271099999809
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061150208,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061150208,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343217152,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            },
+            "after_decode": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343812096,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 2,
+          "prefill_ms": 35.08132000001751,
+          "decode_total_ms": 188.4449759998006,
+          "decode_step_ms": [
+            12.134085000070627,
+            11.90397599998505,
+            11.839903000009144,
+            11.751943999797732,
+            11.690807999912067,
+            11.77125200001683,
+            11.795637999966857,
+            11.658847000035166,
+            11.84862900004191,
+            11.783004000108122,
+            11.74212599994462,
+            11.680486999921413,
+            11.703041000146186,
+            11.77929799996491,
+            11.688343000059831,
+            11.673594999820125
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061150208,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061150208,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343217152,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            },
+            "after_decode": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343812096,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 3,
+          "prefill_ms": 35.07410699990032,
+          "decode_total_ms": 188.55086200028381,
+          "decode_step_ms": [
+            12.266610000096989,
+            11.809665999862773,
+            11.807751000105782,
+            11.756344000104946,
+            11.753296999813756,
+            11.753548000115188,
+            11.766723999926398,
+            11.755902000004426,
+            11.815315999911036,
+            11.724733000164633,
+            11.695426999949632,
+            11.867835999964882,
+            11.715815000115981,
+            11.654769000188026,
+            11.699684999939564,
+            11.707439000019804
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061150208,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061150208,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343217152,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            },
+            "after_decode": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343812096,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 4,
+          "prefill_ms": 35.020583999994415,
+          "decode_total_ms": 188.50256700011414,
+          "decode_step_ms": [
+            12.131260999922233,
+            11.850782999999865,
+            11.75069199985046,
+            11.800147000030847,
+            11.893045000078928,
+            11.691879999943922,
+            11.706829000104335,
+            11.860212000101455,
+            11.863117000075363,
+            11.710275000041293,
+            11.769447999995464,
+            11.656222000056005,
+            11.632665999968594,
+            11.723589999974138,
+            11.720233999994889,
+            11.74216599997635
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061150208,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061150208,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343217152,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            },
+            "after_decode": {
+              "rss_bytes": 2471075840,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2343812096,
+              "cuda_memory_reserved_bytes": 2405433344,
+              "cuda_max_memory_allocated_bytes": 2344404992,
+              "cuda_max_memory_reserved_bytes": 2405433344
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        }
+      ],
+      "prefill_ms_stats": {
+        "mean": 35.047884399955365,
+        "median": 35.067002999994656,
+        "min": 34.996407999869916,
+        "max": 35.08132000001751,
+        "std": 0.033365301049553445
+      },
+      "decode_total_ms_stats": {
+        "mean": 188.72234719997323,
+        "median": 188.55086200028381,
+        "min": 188.4449759998006,
+        "max": 189.42845199990188,
+        "std": 0.36183784963900656
+      },
+      "decode_ms_per_token_stats": {
+        "mean": 11.795146699998327,
+        "median": 11.756123000054686,
+        "min": 11.632665999968594,
+        "max": 12.512901000036436,
+        "std": 0.1445737569495853
+      },
+      "memory_summary": {
+        "rss_before_prefill_bytes_mean": 2471075840,
+        "rss_after_prefill_bytes_mean": 2471075840,
+        "rss_after_decode_bytes_mean": 2471075840,
+        "prefill_rss_delta_bytes_mean": 0,
+        "decode_rss_delta_bytes_mean": 0,
+        "total_rss_delta_bytes_mean": 0,
+        "peak_rss_bytes_max": 4860407808,
+        "cuda_memory_allocated_bytes_before_prefill_mean": 2061150208,
+        "cuda_memory_allocated_bytes_after_prefill_mean": 2343217152,
+        "cuda_memory_allocated_bytes_after_decode_mean": 2343812096,
+        "cuda_memory_reserved_bytes_after_prefill_mean": 2405433344,
+        "cuda_memory_reserved_bytes_after_decode_mean": 2405433344,
+        "cuda_max_memory_allocated_bytes_max": 2344404992,
+        "cuda_max_memory_reserved_bytes_max": 2405433344,
+        "cuda_memory_allocated_mib_before_prefill": 1965.666015625,
+        "cuda_memory_allocated_mib_after_prefill": 2234.666015625,
+        "cuda_memory_allocated_mib_after_decode": 2235.2333984375,
+        "cuda_memory_reserved_mib_after_prefill": 2294.0,
+        "cuda_memory_reserved_mib_after_decode": 2294.0,
+        "cuda_max_memory_allocated_mib": 2235.798828125,
+        "cuda_max_memory_reserved_mib": 2294.0
+      }
+    },
+    {
+      "context_length": 1024,
+      "runs": [
+        {
+          "run_index": 0,
+          "prefill_ms": 60.9879070000261,
+          "decode_total_ms": 187.88863999975547,
+          "decode_step_ms": [
+            12.257481999995434,
+            11.853688999963197,
+            11.749290000125256,
+            11.771221000117293,
+            11.658306000072116,
+            11.646111999880304,
+            11.73998199988091,
+            11.749078999855556,
+            11.73766700003398,
+            11.682631999974546,
+            11.6577450000932,
+            11.694263999970644,
+            11.63541100004295,
+            11.720273999799247,
+            11.704753999993045,
+            11.630731999957789
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061158400,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061158400,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2625292288,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            },
+            "after_decode": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2614356992,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 1,
+          "prefill_ms": 60.93033599995579,
+          "decode_total_ms": 188.8905959992826,
+          "decode_step_ms": [
+            12.272119999806819,
+            11.830153999881077,
+            11.889658000200143,
+            11.839521999945646,
+            11.649077999891233,
+            11.74202500010324,
+            11.817671000017071,
+            11.68789200005449,
+            11.91281199999139,
+            11.755961999824649,
+            11.769829000058962,
+            11.704111999961242,
+            11.710665999999037,
+            11.80234099979316,
+            11.743868999928964,
+            11.762884999825474
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061158400,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061158400,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2625292288,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            },
+            "after_decode": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2614356992,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 2,
+          "prefill_ms": 60.91942499983816,
+          "decode_total_ms": 187.87932300006105,
+          "decode_step_ms": [
+            12.065513999914401,
+            11.800927999956912,
+            11.75399900012053,
+            11.736245000065537,
+            11.624641000025804,
+            11.707749999914085,
+            11.747866999940015,
+            11.630541999920752,
+            11.815005000016754,
+            11.777122000012241,
+            11.650130000134595,
+            11.663616000078036,
+            11.698082000066279,
+            11.794034999866199,
+            11.674817000084659,
+            11.73902999994425
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061158400,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061158400,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2625292288,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            },
+            "after_decode": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2614356992,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 3,
+          "prefill_ms": 61.01530699993418,
+          "decode_total_ms": 189.0946769999573,
+          "decode_step_ms": [
+            12.180233999970369,
+            11.84606500009977,
+            11.835775000008653,
+            11.775008000086018,
+            11.748728999918967,
+            11.755612000115434,
+            11.758587000031184,
+            11.722387999952844,
+            11.912251000012475,
+            11.741342999812332,
+            11.6786249998313,
+            11.879108000130145,
+            11.816808000048695,
+            11.767104000000472,
+            11.791368999865881,
+            11.885671000072762
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061158400,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061158400,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2625292288,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            },
+            "after_decode": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2614356992,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 4,
+          "prefill_ms": 60.982093999882636,
+          "decode_total_ms": 189.2487599998276,
+          "decode_step_ms": [
+            12.223236000181714,
+            11.940895999941858,
+            11.936007000031168,
+            11.766261999810013,
+            11.734429999933127,
+            11.882875000083004,
+            11.836705999940023,
+            11.738379000007626,
+            11.920145999965825,
+            11.699033000013515,
+            11.647885000002134,
+            11.803783999994266,
+            11.7620139999417,
+            11.750300999892715,
+            11.787673000071663,
+            11.819133000017246
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061158400,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061158400,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2625292288,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            },
+            "after_decode": {
+              "rss_bytes": 2471337984,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2614356992,
+              "cuda_memory_reserved_bytes": 2699034624,
+              "cuda_max_memory_allocated_bytes": 2627667968,
+              "cuda_max_memory_reserved_bytes": 2699034624
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        }
+      ],
+      "prefill_ms_stats": {
+        "mean": 60.96701379992737,
+        "median": 60.982093999882636,
+        "min": 60.91942499983816,
+        "max": 61.01530699993418,
+        "std": 0.03634866245858537
+      },
+      "decode_total_ms_stats": {
+        "mean": 188.6003991997768,
+        "median": 188.8905959992826,
+        "min": 187.87932300006105,
+        "max": 189.2487599998276,
+        "std": 0.5958940338430495
+      },
+      "decode_ms_per_token_stats": {
+        "mean": 11.78752494998605,
+        "median": 11.755786999970042,
+        "min": 11.624641000025804,
+        "max": 12.272119999806819,
+        "std": 0.13209477395336233
+      },
+      "memory_summary": {
+        "rss_before_prefill_bytes_mean": 2471337984,
+        "rss_after_prefill_bytes_mean": 2471337984,
+        "rss_after_decode_bytes_mean": 2471337984,
+        "prefill_rss_delta_bytes_mean": 0,
+        "decode_rss_delta_bytes_mean": 0,
+        "total_rss_delta_bytes_mean": 0,
+        "peak_rss_bytes_max": 4860407808,
+        "cuda_memory_allocated_bytes_before_prefill_mean": 2061158400,
+        "cuda_memory_allocated_bytes_after_prefill_mean": 2625292288,
+        "cuda_memory_allocated_bytes_after_decode_mean": 2614356992,
+        "cuda_memory_reserved_bytes_after_prefill_mean": 2699034624,
+        "cuda_memory_reserved_bytes_after_decode_mean": 2699034624,
+        "cuda_max_memory_allocated_bytes_max": 2627667968,
+        "cuda_max_memory_reserved_bytes_max": 2699034624,
+        "cuda_memory_allocated_mib_before_prefill": 1965.673828125,
+        "cuda_memory_allocated_mib_after_prefill": 2503.673828125,
+        "cuda_memory_allocated_mib_after_decode": 2493.2451171875,
+        "cuda_memory_reserved_mib_after_prefill": 2574.0,
+        "cuda_memory_reserved_mib_after_decode": 2574.0,
+        "cuda_max_memory_allocated_mib": 2505.939453125,
+        "cuda_max_memory_reserved_mib": 2574.0
+      }
+    },
+    {
+      "context_length": 2048,
+      "runs": [
+        {
+          "run_index": 0,
+          "prefill_ms": 118.76417300004505,
+          "decode_total_ms": 190.2249740003299,
+          "decode_step_ms": [
+            12.76576300006127,
+            12.153102000183935,
+            11.9191740000133,
+            11.800536999999167,
+            11.758095999994111,
+            11.779286000091815,
+            11.788484999897264,
+            11.743066999997609,
+            11.965483000039967,
+            11.800816999993913,
+            11.744509999971342,
+            11.797332000014649,
+            11.821497000028103,
+            11.815666000074998,
+            11.778073999948901,
+            11.79408500001955
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061174784,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061174784,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3189442560,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            },
+            "after_decode": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3156280320,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 1,
+          "prefill_ms": 118.86379300017325,
+          "decode_total_ms": 189.70614399972874,
+          "decode_step_ms": [
+            12.347954999995636,
+            11.982304999946791,
+            11.826677000044583,
+            11.895538999851851,
+            11.789184999997815,
+            11.761612999862336,
+            11.836876999950618,
+            11.906709999948362,
+            11.899858000106178,
+            11.753947999977754,
+            11.819823999985601,
+            11.783554999965418,
+            11.719252000148117,
+            11.81123700007447,
+            11.81965399996443,
+            11.751954999908776
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061174784,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061174784,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3189442560,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            },
+            "after_decode": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3156280320,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 2,
+          "prefill_ms": 118.79810799996449,
+          "decode_total_ms": 190.35234799957834,
+          "decode_step_ms": [
+            12.393000999963988,
+            11.991983999905642,
+            11.853928999926211,
+            11.860872999932326,
+            11.862536000080581,
+            11.90912499987462,
+            11.741583999992145,
+            11.887003000083496,
+            11.96977099994001,
+            11.866121999901225,
+            11.824382999975569,
+            11.868106000065382,
+            11.893435000047248,
+            11.806447999788361,
+            11.823360000107641,
+            11.800687999993897
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061174784,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061174784,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3189442560,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            },
+            "after_decode": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3156280320,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 3,
+          "prefill_ms": 118.78388899981474,
+          "decode_total_ms": 189.40687499980413,
+          "decode_step_ms": [
+            12.26892299996507,
+            11.939803000132088,
+            11.851193999973475,
+            11.831806000145662,
+            11.81924299999082,
+            11.877664999929038,
+            11.804766000068412,
+            11.753667999983008,
+            11.973157000056744,
+            11.783434000108173,
+            11.834450999913315,
+            11.684024000032878,
+            11.76006899981985,
+            11.727536999842414,
+            11.73152499995922,
+            11.765609999883964
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061174784,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061174784,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3189442560,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            },
+            "after_decode": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3156280320,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 4,
+          "prefill_ms": 118.76144600000771,
+          "decode_total_ms": 189.8735190000025,
+          "decode_step_ms": [
+            12.437986999884743,
+            11.913733000028515,
+            11.812770999995337,
+            11.861073000090983,
+            11.824763000049643,
+            11.81231900000057,
+            11.800837999999203,
+            11.836656000014045,
+            11.900528000069244,
+            11.82835999998133,
+            11.764357999936692,
+            11.800066000205334,
+            11.75600199985638,
+            11.865941999985807,
+            11.837797999987743,
+            11.82032499991692
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061174784,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061174784,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3189442560,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            },
+            "after_decode": {
+              "rss_bytes": 2471903232,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 3156280320,
+              "cuda_memory_reserved_bytes": 3347054592,
+              "cuda_max_memory_allocated_bytes": 3194193920,
+              "cuda_max_memory_reserved_bytes": 3347054592
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        }
+      ],
+      "prefill_ms_stats": {
+        "mean": 118.79428180000104,
+        "median": 118.78388899981474,
+        "min": 118.76144600000771,
+        "max": 118.86379300017325,
+        "std": 0.03725368880324518
+      },
+      "decode_total_ms_stats": {
+        "mean": 189.91277199988872,
+        "median": 189.8735190000025,
+        "min": 189.40687499980413,
+        "max": 190.35234799957834,
+        "std": 0.34376295662196343
+      },
+      "decode_ms_per_token_stats": {
+        "mean": 11.869548249993045,
+        "median": 11.822428500067872,
+        "min": 11.684024000032878,
+        "max": 12.76576300006127,
+        "std": 0.17054440626618494
+      },
+      "memory_summary": {
+        "rss_before_prefill_bytes_mean": 2471903232,
+        "rss_after_prefill_bytes_mean": 2471903232,
+        "rss_after_decode_bytes_mean": 2471903232,
+        "prefill_rss_delta_bytes_mean": 0,
+        "decode_rss_delta_bytes_mean": 0,
+        "total_rss_delta_bytes_mean": 0,
+        "peak_rss_bytes_max": 4860407808,
+        "cuda_memory_allocated_bytes_before_prefill_mean": 2061174784,
+        "cuda_memory_allocated_bytes_after_prefill_mean": 3189442560,
+        "cuda_memory_allocated_bytes_after_decode_mean": 3156280320,
+        "cuda_memory_reserved_bytes_after_prefill_mean": 3347054592,
+        "cuda_memory_reserved_bytes_after_decode_mean": 3347054592,
+        "cuda_max_memory_allocated_bytes_max": 3194193920,
+        "cuda_max_memory_reserved_bytes_max": 3347054592,
+        "cuda_memory_allocated_mib_before_prefill": 1965.689453125,
+        "cuda_memory_allocated_mib_after_prefill": 3041.689453125,
+        "cuda_memory_allocated_mib_after_decode": 3010.0634765625,
+        "cuda_memory_reserved_mib_after_prefill": 3192.0,
+        "cuda_memory_reserved_mib_after_decode": 3192.0,
+        "cuda_max_memory_allocated_mib": 3046.220703125,
+        "cuda_max_memory_reserved_mib": 3192.0
+      }
+    },
+    {
+      "context_length": 4096,
+      "runs": [
+        {
+          "run_index": 0,
+          "prefill_ms": 262.7772549999463,
+          "decode_total_ms": 188.9532039997448,
+          "decode_step_ms": [
+            12.891483999965203,
+            11.970761999918977,
+            11.831817000029332,
+            11.769737000122404,
+            11.763897000037105,
+            11.786289999918154,
+            11.659605999966516,
+            11.726695999868753,
+            11.790237000013803,
+            11.688713000012285,
+            11.702909999939948,
+            11.672201000010318,
+            11.689935000049445,
+            11.618257999998605,
+            11.71372099997825,
+            11.676939999915703
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061207552,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061207552,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4327180288,
+              "cuda_memory_reserved_bytes": 4596957184,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4596957184
+            },
+            "after_decode": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4237626368,
+              "cuda_memory_reserved_bytes": 4605345792,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4605345792
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 1,
+          "prefill_ms": 262.6866880000307,
+          "decode_total_ms": 189.22197599977153,
+          "decode_step_ms": [
+            12.961527000015849,
+            11.86138299999584,
+            11.837177999950654,
+            11.663985000041066,
+            11.838078999971913,
+            11.756061000141926,
+            11.697378999997454,
+            11.720173000185241,
+            11.813661999894975,
+            11.731434000012086,
+            11.700634999897375,
+            11.725322999836862,
+            11.70701699993515,
+            11.704142000098727,
+            11.76727399979427,
+            11.736724000002141
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061207552,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061207552,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4327180288,
+              "cuda_memory_reserved_bytes": 4596957184,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4596957184
+            },
+            "after_decode": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4237626368,
+              "cuda_memory_reserved_bytes": 4605345792,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4605345792
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 2,
+          "prefill_ms": 262.70109299980504,
+          "decode_total_ms": 188.98056300054122,
+          "decode_step_ms": [
+            12.790810999831592,
+            11.96381900012966,
+            11.737195000023348,
+            11.710214000004271,
+            11.711205999972663,
+            11.723007999989932,
+            11.672531999920466,
+            11.755831000073158,
+            11.851764000084586,
+            11.68026599998484,
+            11.718179000126838,
+            11.770349000016722,
+            11.733438000192109,
+            11.681128000191165,
+            11.691016999975545,
+            11.789806000024328
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061207552,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061207552,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4327180288,
+              "cuda_memory_reserved_bytes": 4596957184,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4596957184
+            },
+            "after_decode": {
+              "rss_bytes": 2471985152,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4237626368,
+              "cuda_memory_reserved_bytes": 4605345792,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4605345792
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 3,
+          "prefill_ms": 262.7467799998158,
+          "decode_total_ms": 189.64849899998626,
+          "decode_step_ms": [
+            12.730474999898433,
+            11.928953000051479,
+            11.847977000115861,
+            11.758054999972956,
+            11.714441000094666,
+            11.780286999965028,
+            11.712749000025724,
+            11.649217000012868,
+            11.84808800007886,
+            11.720633000095404,
+            11.732356000038635,
+            11.79215099978137,
+            11.858276999873851,
+            11.706977000130792,
+            11.729399999921952,
+            12.138462999928379
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471989248,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061207552,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061207552,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471989248,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4327180288,
+              "cuda_memory_reserved_bytes": 4596957184,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4596957184
+            },
+            "after_decode": {
+              "rss_bytes": 2471989248,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4237626368,
+              "cuda_memory_reserved_bytes": 4605345792,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4605345792
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 4,
+          "prefill_ms": 262.83466500012764,
+          "decode_total_ms": 188.97109200020168,
+          "decode_step_ms": [
+            12.747488000059093,
+            11.830853999981628,
+            11.793041999908382,
+            11.755019000020184,
+            11.70734800007267,
+            11.77817400002823,
+            11.776391000012154,
+            11.715362999893841,
+            11.885960000199702,
+            11.720151999952577,
+            11.703331000035178,
+            11.71288899990941,
+            11.704613000119934,
+            11.74555100010366,
+            11.678823000011107,
+            11.716093999893928
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2471993344,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061207552,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061207552,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2471993344,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4327180288,
+              "cuda_memory_reserved_bytes": 4596957184,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4596957184
+            },
+            "after_decode": {
+              "rss_bytes": 2472005632,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 4237626368,
+              "cuda_memory_reserved_bytes": 4605345792,
+              "cuda_max_memory_allocated_bytes": 4336683008,
+              "cuda_max_memory_reserved_bytes": 4605345792
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        }
+      ],
+      "prefill_ms_stats": {
+        "mean": 262.7492961999451,
+        "median": 262.7467799998158,
+        "min": 262.6866880000307,
+        "max": 262.83466500012764,
+        "std": 0.05351484467971379
+      },
+      "decode_total_ms_stats": {
+        "mean": 189.1550668000491,
+        "median": 188.98056300054122,
+        "min": 188.9532039997448,
+        "max": 189.64849899998626,
+        "std": 0.26570625514300467
+      },
+      "decode_ms_per_token_stats": {
+        "mean": 11.822191675003069,
+        "median": 11.732897000115372,
+        "min": 11.618257999998605,
+        "max": 12.961527000015849,
+        "std": 0.2718222815493003
+      },
+      "memory_summary": {
+        "rss_before_prefill_bytes_mean": 2471987610,
+        "rss_after_prefill_bytes_mean": 2471987610,
+        "rss_after_decode_bytes_mean": 2471990067,
+        "prefill_rss_delta_bytes_mean": 0,
+        "decode_rss_delta_bytes_mean": 2458,
+        "total_rss_delta_bytes_mean": 2458,
+        "peak_rss_bytes_max": 4860407808,
+        "cuda_memory_allocated_bytes_before_prefill_mean": 2061207552,
+        "cuda_memory_allocated_bytes_after_prefill_mean": 4327180288,
+        "cuda_memory_allocated_bytes_after_decode_mean": 4237626368,
+        "cuda_memory_reserved_bytes_after_prefill_mean": 4596957184,
+        "cuda_memory_reserved_bytes_after_decode_mean": 4605345792,
+        "cuda_max_memory_allocated_bytes_max": 4336683008,
+        "cuda_max_memory_reserved_bytes_max": 4605345792,
+        "cuda_memory_allocated_mib_before_prefill": 1965.720703125,
+        "cuda_memory_allocated_mib_after_prefill": 4126.720703125,
+        "cuda_memory_allocated_mib_after_decode": 4041.3154296875,
+        "cuda_memory_reserved_mib_after_prefill": 4384.0,
+        "cuda_memory_reserved_mib_after_decode": 4392.0,
+        "cuda_max_memory_allocated_mib": 4135.783203125,
+        "cuda_max_memory_reserved_mib": 4392.0
+      }
+    },
+    {
+      "context_length": 8192,
+      "runs": [
+        {
+          "run_index": 0,
+          "prefill_ms": 639.4103619998077,
+          "decode_total_ms": 189.96602899983372,
+          "decode_step_ms": [
+            13.459409999995842,
+            11.921847999929014,
+            11.792059000072186,
+            11.775156999874525,
+            11.722798000164403,
+            11.751171000014438,
+            11.80589599994164,
+            11.70502300010412,
+            11.806207000063296,
+            11.760149000110687,
+            11.797790999935387,
+            11.737254999843572,
+            11.744569000029514,
+            11.749497999971936,
+            11.694412999986525,
+            11.74278499979664
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061273088,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061273088,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6574344192,
+              "cuda_memory_reserved_bytes": 7201619968,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7201619968
+            },
+            "after_decode": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6401985536,
+              "cuda_memory_reserved_bytes": 7210008576,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7210008576
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 1,
+          "prefill_ms": 638.5073959997953,
+          "decode_total_ms": 189.43701599937413,
+          "decode_step_ms": [
+            12.923674999910872,
+            11.904705000006288,
+            11.825153000017963,
+            11.708709999993516,
+            11.691727999959767,
+            11.805554999909873,
+            11.8046840000261,
+            11.703940999950646,
+            11.858666999842171,
+            11.762132000058045,
+            11.631051999984265,
+            11.755819999962114,
+            11.842365999882531,
+            11.785566999833463,
+            11.69782000010855,
+            11.73544099992796
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061273088,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061273088,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6574344192,
+              "cuda_memory_reserved_bytes": 7201619968,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7201619968
+            },
+            "after_decode": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6401985536,
+              "cuda_memory_reserved_bytes": 7210008576,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7210008576
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 2,
+          "prefill_ms": 638.8196450000123,
+          "decode_total_ms": 189.8754140006531,
+          "decode_step_ms": [
+            13.060857000027681,
+            11.907991000043694,
+            11.926848000030077,
+            11.80536500010021,
+            11.767201999873578,
+            11.777291000043988,
+            11.767523000116853,
+            11.75100100022064,
+            11.804884000184757,
+            11.7595279998568,
+            11.77581799993277,
+            11.789675000045463,
+            11.71059300008892,
+            11.7772620001233,
+            11.713468999914767,
+            11.780107000049611
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061273088,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061273088,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6574344192,
+              "cuda_memory_reserved_bytes": 7201619968,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7201619968
+            },
+            "after_decode": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6401985536,
+              "cuda_memory_reserved_bytes": 7210008576,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7210008576
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 3,
+          "prefill_ms": 638.3623140000054,
+          "decode_total_ms": 189.73487099970043,
+          "decode_step_ms": [
+            12.984250000044995,
+            11.887771999909091,
+            11.802449000015258,
+            11.796448000040982,
+            11.759266999888496,
+            11.789103999944928,
+            11.742964999939431,
+            11.851081999793678,
+            11.90244100007476,
+            11.713780000036422,
+            11.742213999923479,
+            11.76374500005295,
+            11.749428000030093,
+            11.724961000027179,
+            11.765327999910369,
+            11.759637000068324
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061273088,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061273088,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6574344192,
+              "cuda_memory_reserved_bytes": 7201619968,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7201619968
+            },
+            "after_decode": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6401985536,
+              "cuda_memory_reserved_bytes": 7210008576,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7210008576
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        },
+        {
+          "run_index": 4,
+          "prefill_ms": 639.7235900001306,
+          "decode_total_ms": 190.15485399995669,
+          "decode_step_ms": [
+            13.165286000003107,
+            11.859529000048497,
+            11.81229799999528,
+            11.770468000122492,
+            11.737184000139678,
+            11.769125000000713,
+            11.750128999892695,
+            11.806756999931167,
+            11.932938999962062,
+            11.807780000026469,
+            11.706426000046122,
+            11.79118799996104,
+            11.902239999926678,
+            11.83433000005607,
+            11.756059999925128,
+            11.75311499991949
+          ],
+          "memory": {
+            "before_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 2061273088,
+              "cuda_memory_reserved_bytes": 2080374784,
+              "cuda_max_memory_allocated_bytes": 2061273088,
+              "cuda_max_memory_reserved_bytes": 2080374784
+            },
+            "after_prefill": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6574344192,
+              "cuda_memory_reserved_bytes": 7201619968,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7201619968
+            },
+            "after_decode": {
+              "rss_bytes": 2472132608,
+              "peak_rss_bytes": 4860407808,
+              "cuda_memory_allocated_bytes": 6401985536,
+              "cuda_memory_reserved_bytes": 7210008576,
+              "cuda_max_memory_allocated_bytes": 6593349632,
+              "cuda_max_memory_reserved_bytes": 7210008576
+            }
+          },
+          "past_key_values_type": "DynamicCache"
+        }
+      ],
+      "prefill_ms_stats": {
+        "mean": 638.9646613999503,
+        "median": 638.8196450000123,
+        "min": 638.3623140000054,
+        "max": 639.7235900001306,
+        "std": 0.5229847870703415
+      },
+      "decode_total_ms_stats": {
+        "mean": 189.83363679990362,
+        "median": 189.8754140006531,
+        "min": 189.43701599937413,
+        "max": 190.15485399995669,
+        "std": 0.24063094622976489
+      },
+      "decode_ms_per_token_stats": {
+        "mean": 11.864602299993976,
+        "median": 11.775487499903647,
+        "min": 11.631051999984265,
+        "max": 13.459409999995842,
+        "std": 0.3325084054031605
+      },
+      "memory_summary": {
+        "rss_before_prefill_bytes_mean": 2472132608,
+        "rss_after_prefill_bytes_mean": 2472132608,
+        "rss_after_decode_bytes_mean": 2472132608,
+        "prefill_rss_delta_bytes_mean": 0,
+        "decode_rss_delta_bytes_mean": 0,
+        "total_rss_delta_bytes_mean": 0,
+        "peak_rss_bytes_max": 4860407808,
+        "cuda_memory_allocated_bytes_before_prefill_mean": 2061273088,
+        "cuda_memory_allocated_bytes_after_prefill_mean": 6574344192,
+        "cuda_memory_allocated_bytes_after_decode_mean": 6401985536,
+        "cuda_memory_reserved_bytes_after_prefill_mean": 7201619968,
+        "cuda_memory_reserved_bytes_after_decode_mean": 7210008576,
+        "cuda_max_memory_allocated_bytes_max": 6593349632,
+        "cuda_max_memory_reserved_bytes_max": 7210008576,
+        "cuda_memory_allocated_mib_before_prefill": 1965.783203125,
+        "cuda_memory_allocated_mib_after_prefill": 6269.783203125,
+        "cuda_memory_allocated_mib_after_decode": 6105.4091796875,
+        "cuda_memory_reserved_mib_after_prefill": 6868.0,
+        "cuda_memory_reserved_mib_after_decode": 6876.0,
+        "cuda_max_memory_allocated_mib": 6287.908203125,
+        "cuda_max_memory_reserved_mib": 6876.0
+      }
+    }
+  ]
+}

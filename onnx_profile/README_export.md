@@ -2,6 +2,8 @@
 
 This note covers the path from a raw Hugging Face Gemma directory to an ONNX model that can be used by the repository's ONNX Runtime profiling scripts.
 
+The export and graph-inspection path is central to the research direction: bottlenecks should be identified from ONNX export behavior, graph structure, runtime profiling, memory observations, and host-side reference baselines rather than assumed to come only from KV-cache.
+
 ## Scope
 
 - Input: raw Hugging Face directory with `config.json`, tokenizer files, and `*.safetensors`
@@ -51,11 +53,14 @@ nix develop -c just onnx-inspect model=/home/monad/develop/ai_accel/gemma3-1B-on
 - Presence of `past_key_values`, `past_key`, `past_value`, `present`, or `cache` inputs/outputs
 - Whether the export uses external data files in addition to the main `.onnx`
 - Whether `config.json` and tokenizer files were copied into the export directory
+- Operators and graph boundaries that affect whether prefill and decode can be measured separately
+- Tensor shapes that expose attention, QK score computation, cache reuse, or memory-heavy graph regions
 
 Interpretation:
 
 - If past-KV graph inputs and outputs exist, the profiling flow can attempt decode cache reuse.
 - If they do not exist, only prefill or whole-graph measurements should be treated as supported by the export.
+- If runtime profiling later shows a decode-stage bottleneck, FPGA discussion should focus on hardware-feasible primitives such as INT8 QK dot-product, scale, softmax or approximation, V weighted sum, and buffer/stream interfaces. The current DE10-Lite evidence validates only the INT8 QK dot-product primitive.
 
 ## Package Notes
 

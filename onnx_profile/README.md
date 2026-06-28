@@ -7,17 +7,17 @@ This directory contains host-side scripts for:
 - raw Hugging Face directory inspection
 - ONNX export preflight and dry-run planning
 - ONNX graph inspection
-- theoretical KV-cache size analysis
+- theoretical KV-cache size analysis as one long-context memory-pressure factor
 - deterministic test vector export for FPGA validation
 
 ## Scripts
 
 - `inspect_hf_model_dir.py`: raw Hugging Face directory inspection and metadata extraction
-- `profile_torch_gemma.py`: raw Hugging Face Gemma profiling with Transformers/PyTorch
+- `profile_torch_gemma.py`: raw Hugging Face Gemma profiling with Transformers/PyTorch as a host-side reference baseline
 - `export_gemma_to_onnx.py`: Gemma ONNX export preflight, dry-run, and export wrapper
 - `inspect_onnx_model.py`: ONNX graph input/output inspection with cache-I/O detection
 - `run_profile.py`: session setup plus prefill/decode profiling scaffolding
-- `decode_context_sweep.py`: prompt-length sweep, decode latency table generation, KV-cache theoretical-vs-RSS comparison, and FPGA bridge summary
+- `decode_context_sweep.py`: prompt-length sweep, decode latency table generation, theoretical KV-cache size versus process-RSS comparison, and FPGA primitive bridge summary
 - `kv_cache_size.py`: CSV and PNG generation for theoretical KV-cache size
 - `export_vectors.py`: deterministic INT8 Q/K vector export with expected scores
 
@@ -47,3 +47,4 @@ Caution:
 - Raw Hugging Face `safetensors` directories are not directly executable by ONNX Runtime.
 - If the ONNX export does not expose reusable past-KV tensors, the scripts mark that explicitly and fall back to single-token runs without cache feedback.
 - Measured RSS growth is only an approximation and should not be reported as pure KV-cache allocation without caveats.
+- PyTorch results in this directory are host-side reference baselines, not ONNX Runtime results.

@@ -11,5 +11,6 @@ Purpose:
 Important interpretation limit:
 
 - These projects are for primitive-level synthesis experiments only.
+- The measured object is the INT8 QK dot-product primitive, not KV-cache storage or a full decode accelerator.
 - They do not claim full sLLM execution on FPGA.
-- They do not claim FPGA speedup over ONNX Runtime or PyTorch.
+- They do not provide end-to-end comparison data against ONNX Runtime or PyTorch.
