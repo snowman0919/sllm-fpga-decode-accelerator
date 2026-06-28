@@ -1,0 +1,1310 @@
+{
+  "model_path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx",
+  "graph_name": "main_graph",
+  "ir_version": 8,
+  "opset_imports": [
+    {
+      "domain": "ai.onnx",
+      "version": 17
+    }
+  ],
+  "input_count": 54,
+  "output_count": 53,
+  "inputs": [
+    {
+      "name": "input_ids",
+      "shape": [
+        "batch_size",
+        "sequence_length"
+      ],
+      "elem_type": "INT64"
+    },
+    {
+      "name": "attention_mask",
+      "shape": [
+        "batch_size",
+        "past_sequence_length + sequence_length"
+      ],
+      "elem_type": "INT64"
+    },
+    {
+      "name": "past_key_values.0.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.0.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.1.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.1.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.2.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.2.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.3.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.3.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.4.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.4.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.5.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.5.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.6.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.6.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.7.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.7.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.8.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.8.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.9.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.9.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.10.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.10.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.11.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.11.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.12.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.12.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.13.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.13.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.14.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.14.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.15.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.15.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.16.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.16.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.17.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.17.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.18.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.18.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.19.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.19.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.20.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.20.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.21.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.21.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.22.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.22.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.23.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.23.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.24.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.24.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.25.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "past_key_values.25.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "logits",
+      "shape": [
+        "batch_size",
+        "sequence_length",
+        262144
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.0.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.0.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.1.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.1.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.2.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.2.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.3.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.3.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.4.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.4.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.5.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.5.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.6.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.6.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.7.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.7.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.8.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.8.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.9.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.9.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.10.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.10.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.11.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.11.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.12.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.12.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.13.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.13.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.14.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.14.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.15.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.15.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.16.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.16.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.17.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.17.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.18.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.18.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.19.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.19.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.20.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.20.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.21.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.21.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.22.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.22.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.23.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.23.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.24.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.24.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.25.key",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    },
+    {
+      "name": "present.25.value",
+      "shape": [
+        "batch_size",
+        1,
+        "past_sequence_length + sequence_length",
+        256
+      ],
+      "elem_type": "FLOAT"
+    }
+  ],
+  "cache_input_names": [
+    "past_key_values.0.key",
+    "past_key_values.0.value",
+    "past_key_values.1.key",
+    "past_key_values.1.value",
+    "past_key_values.2.key",
+    "past_key_values.2.value",
+    "past_key_values.3.key",
+    "past_key_values.3.value",
+    "past_key_values.4.key",
+    "past_key_values.4.value",
+    "past_key_values.5.key",
+    "past_key_values.5.value",
+    "past_key_values.6.key",
+    "past_key_values.6.value",
+    "past_key_values.7.key",
+    "past_key_values.7.value",
+    "past_key_values.8.key",
+    "past_key_values.8.value",
+    "past_key_values.9.key",
+    "past_key_values.9.value",
+    "past_key_values.10.key",
+    "past_key_values.10.value",
+    "past_key_values.11.key",
+    "past_key_values.11.value",
+    "past_key_values.12.key",
+    "past_key_values.12.value",
+    "past_key_values.13.key",
+    "past_key_values.13.value",
+    "past_key_values.14.key",
+    "past_key_values.14.value",
+    "past_key_values.15.key",
+    "past_key_values.15.value",
+    "past_key_values.16.key",
+    "past_key_values.16.value",
+    "past_key_values.17.key",
+    "past_key_values.17.value",
+    "past_key_values.18.key",
+    "past_key_values.18.value",
+    "past_key_values.19.key",
+    "past_key_values.19.value",
+    "past_key_values.20.key",
+    "past_key_values.20.value",
+    "past_key_values.21.key",
+    "past_key_values.21.value",
+    "past_key_values.22.key",
+    "past_key_values.22.value",
+    "past_key_values.23.key",
+    "past_key_values.23.value",
+    "past_key_values.24.key",
+    "past_key_values.24.value",
+    "past_key_values.25.key",
+    "past_key_values.25.value"
+  ],
+  "cache_output_names": [
+    "present.0.key",
+    "present.0.value",
+    "present.1.key",
+    "present.1.value",
+    "present.2.key",
+    "present.2.value",
+    "present.3.key",
+    "present.3.value",
+    "present.4.key",
+    "present.4.value",
+    "present.5.key",
+    "present.5.value",
+    "present.6.key",
+    "present.6.value",
+    "present.7.key",
+    "present.7.value",
+    "present.8.key",
+    "present.8.value",
+    "present.9.key",
+    "present.9.value",
+    "present.10.key",
+    "present.10.value",
+    "present.11.key",
+    "present.11.value",
+    "present.12.key",
+    "present.12.value",
+    "present.13.key",
+    "present.13.value",
+    "present.14.key",
+    "present.14.value",
+    "present.15.key",
+    "present.15.value",
+    "present.16.key",
+    "present.16.value",
+    "present.17.key",
+    "present.17.value",
+    "present.18.key",
+    "present.18.value",
+    "present.19.key",
+    "present.19.value",
+    "present.20.key",
+    "present.20.value",
+    "present.21.key",
+    "present.21.value",
+    "present.22.key",
+    "present.22.value",
+    "present.23.key",
+    "present.23.value",
+    "present.24.key",
+    "present.24.value",
+    "present.25.key",
+    "present.25.value"
+  ],
+  "decode_cache_reuse_ready": true,
+  "has_external_data": true,
+  "external_data_files": [
+    "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx_data"
+  ],
+  "total_node_count": 7837,
+  "total_initializer_count": 341,
+  "operator_histogram": {
+    "Constant": 2738,
+    "Unsqueeze": 828,
+    "Mul": 766,
+    "Shape": 401,
+    "Gather": 346,
+    "Add": 342,
+    "Concat": 319,
+    "Cast": 280,
+    "MatMul": 237,
+    "Reshape": 214,
+    "Div": 209,
+    "Pow": 157,
+    "ReduceMean": 157,
+    "Sqrt": 157,
+    "Transpose": 132,
+    "Slice": 130,
+    "Where": 108,
+    "ConstantOfShape": 57,
+    "Equal": 56,
+    "Expand": 56,
+    "Neg": 52,
+    "IsNaN": 26,
+    "Softmax": 26,
+    "Tanh": 26,
+    "And": 6,
+    "Range": 3,
+    "Cos": 2,
+    "Sin": 2,
+    "Flatten": 1,
+    "Greater": 1,
+    "LessOrEqual": 1,
+    "Sub": 1
+  },
+  "key_operator_counts": {
+    "MatMul": 237,
+    "Gemm": 0,
+    "Softmax": 26,
+    "Gather": 346,
+    "Reshape": 214,
+    "Transpose": 132,
+    "Cast": 280,
+    "LayerNormalization": 0,
+    "SimplifiedLayerNormalization": 0,
+    "RMSNorm": 0,
+    "SkipSimplifiedLayerNormalization": 0
+  },
+  "has_symbolic_shapes": true,
+  "symbolic_dims": [
+    "batch_size",
+    "past_sequence_length",
+    "past_sequence_length + sequence_length",
+    "sequence_length"
+  ],
+  "model_files": [
+    {
+      "file_name": "chat_template.jinja",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/chat_template.jinja",
+      "size_bytes": 1532,
+      "size_mib": 0.001,
+      "kind": "support"
+    },
+    {
+      "file_name": "config.json",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/config.json",
+      "size_bytes": 1620,
+      "size_mib": 0.002,
+      "kind": "support"
+    },
+    {
+      "file_name": "generation_config.json",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/generation_config.json",
+      "size_bytes": 210,
+      "size_mib": 0.0,
+      "kind": "support"
+    },
+    {
+      "file_name": "model.onnx",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx",
+      "size_bytes": 1469171,
+      "size_mib": 1.401,
+      "kind": "onnx_model"
+    },
+    {
+      "file_name": "model.onnx_data",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx_data",
+      "size_bytes": 15622513152,
+      "size_mib": 14898.79,
+      "kind": "external_data"
+    },
+    {
+      "file_name": "special_tokens_map.json",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/special_tokens_map.json",
+      "size_bytes": 662,
+      "size_mib": 0.001,
+      "kind": "support"
+    },
+    {
+      "file_name": "tokenizer.json",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/tokenizer.json",
+      "size_bytes": 33384568,
+      "size_mib": 31.838,
+      "kind": "support"
+    },
+    {
+      "file_name": "tokenizer_config.json",
+      "path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/tokenizer_config.json",
+      "size_bytes": 1155387,
+      "size_mib": 1.102,
+      "kind": "support"
+    }
+  ],
+  "total_model_bytes": 15658526302
+}

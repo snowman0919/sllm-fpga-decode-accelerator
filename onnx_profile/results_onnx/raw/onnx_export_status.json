@@ -1,0 +1,46 @@
+{
+  "model_dir": "/home/monad/develop/ai_accel/gemma3-1B",
+  "onnx_dir": "/home/monad/develop/ai_accel/gemma3-1B-onnx",
+  "requested_primary_task": "text-generation-with-past",
+  "requested_fallback_task": "text-generation",
+  "opset": 17,
+  "device": "cpu",
+  "preexisting_onnx_dir": true,
+  "attempts": [
+    {
+      "command": [
+        "nix",
+        "develop",
+        "-c",
+        "python3",
+        "onnx_profile/export_gemma_to_onnx.py",
+        "--model-dir",
+        "/home/monad/develop/ai_accel/gemma3-1B",
+        "--out-dir",
+        "/home/monad/develop/ai_accel/gemma3-1B-onnx",
+        "--task",
+        "text-generation-with-past",
+        "--opset",
+        "17",
+        "--device",
+        "cpu"
+      ],
+      "returncode": 0,
+      "stdout_log": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx/logs/onnx_export_with_past.log",
+      "stdout_bytes": 15972,
+      "stderr_bytes": 87,
+      "task": "text-generation-with-past",
+      "model_path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx",
+      "model_exists": true,
+      "model_size_bytes": 1469171,
+      "external_data_path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx_data",
+      "external_data_exists": true,
+      "external_data_size_bytes": 15622513152
+    }
+  ],
+  "export_success": true,
+  "used_fallback": false,
+  "final_task": "text-generation-with-past",
+  "final_model_path": "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx",
+  "failure_reason": null
+}

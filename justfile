@@ -153,6 +153,38 @@ onnx-profile model="" provider="CPUExecutionProvider" prompt_len="128" decode_to
   fi
   python3 onnx_profile/run_profile.py "${args[@]}"
 
+onnx-export model_dir="/home/monad/develop/ai_accel/gemma3-1B" onnx_dir="/home/monad/develop/ai_accel/gemma3-1B-onnx" results_dir="onnx_profile/results_onnx" opset="17" device="cpu":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 onnx_profile/onnx_bottleneck_flow.py export \
+    --model-dir "{{model_dir}}" \
+    --onnx-dir "{{onnx_dir}}" \
+    --results-dir "{{results_dir}}" \
+    --paper-tables-dir "paper_assets/tables" \
+    --report-path "docs/onnx_bottleneck_report.md" \
+    --opset "{{opset}}" \
+    --device "{{device}}"
+
+ort-profile model="/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx" results_dir="onnx_profile/results_onnx" prompt_len="32" decode_tokens="2":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 onnx_profile/onnx_bottleneck_flow.py profile \
+    --model "{{model}}" \
+    --results-dir "{{results_dir}}" \
+    --paper-tables-dir "paper_assets/tables" \
+    --report-path "docs/onnx_bottleneck_report.md" \
+    --prompt-len "{{prompt_len}}" \
+    --decode-tokens "{{decode_tokens}}"
+
+onnx-bottleneck-report model="/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx" results_dir="onnx_profile/results_onnx":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 onnx_profile/onnx_bottleneck_flow.py report \
+    --model "{{model}}" \
+    --results-dir "{{results_dir}}" \
+    --paper-tables-dir "paper_assets/tables" \
+    --report-path "docs/onnx_bottleneck_report.md"
+
 onnx-decode-sweep model="" provider="CPUExecutionProvider" prompt_lens="128 512 1024 2048 4096" decode_tokens="8" profile="0" layers="18" kv_heads="1" head_dim="256" bytes_per_element="2" out_dir="onnx_profile/results":
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }

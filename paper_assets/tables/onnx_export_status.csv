@@ -1,0 +1,2 @@
+model_dir,onnx_dir,primary_task,fallback_task,opset,device,export_success,used_fallback,final_task,final_model_path,failure_reason,primary_returncode,primary_log,fallback_returncode,fallback_log
+/home/monad/develop/ai_accel/gemma3-1B,/home/monad/develop/ai_accel/gemma3-1B-onnx,text-generation-with-past,text-generation,17,cpu,True,False,text-generation-with-past,/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx,,0,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx/logs/onnx_export_with_past.log,,

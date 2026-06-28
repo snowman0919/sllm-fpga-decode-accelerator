@@ -1,0 +1,2 @@
+provider,node_count,total_dur_us,avg_dur_us
+CPUExecutionProvider,9048,426550.0,47.143

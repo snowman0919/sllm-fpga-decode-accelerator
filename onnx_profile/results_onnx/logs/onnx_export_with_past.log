@@ -1,0 +1,234 @@
+$ nix develop -c python3 onnx_profile/export_gemma_to_onnx.py --model-dir /home/monad/develop/ai_accel/gemma3-1B --out-dir /home/monad/develop/ai_accel/gemma3-1B-onnx --task text-generation-with-past --opset 17 --device cpu
+
+[stdout]
+[quartus] quartus_sh: /home/monad/.intelFPGA_lite/25.1std/quartus/bin/quartus_sh
+[quartus] QUARTUS_ROOT=/home/monad/.intelFPGA_lite/25.1std
+[devshell] JAVA_HOME=/nix/store/849lw229zw80m6g9yjd5cnw63p3js5n9-openjdk-headless-17.0.20+2
+[devshell] optional nixpkgs Quartus attribute: quartus-prime-lite
+{
+  "model_dir": "/home/monad/develop/ai_accel/gemma3-1B",
+  "out_dir": "/home/monad/develop/ai_accel/gemma3-1B-onnx",
+  "task": "text-generation-with-past",
+  "opset": 17,
+  "device": "cpu",
+  "dry_run": false,
+  "hf_model_inspection_passed": true,
+  "hf_model_missing_items": [],
+  "package_status": {
+    "current_python": "/nix/store/l9k0anq0z7zz81zcwy035jfwap9ga6rl-python3-3.13.13/bin/python3",
+    "required_modules": {
+      "transformers": false,
+      "torch": false,
+      "safetensors": false,
+      "onnx": true,
+      "onnxruntime": true
+    },
+    "support_modules": {
+      "psutil": false
+    },
+    "optimum_module": false,
+    "optimum_cli": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/bin/optimum-cli",
+    "optimum_cli_supports_onnx_export": true,
+    "python_onnx_export_module": false,
+    "optimum_cli_python": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/bin/python3",
+    "cli_required_modules": {
+      "transformers": true,
+      "torch": true,
+      "safetensors": true,
+      "onnx": true,
+      "onnxruntime": true,
+      "optimum": true,
+      "optimum.exporters.onnx": true
+    },
+    "cli_support_modules": {
+      "psutil": true
+    }
+  },
+  "preferred_export_command": [
+    "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/bin/optimum-cli",
+    "export",
+    "onnx",
+    "--model",
+    "/home/monad/develop/ai_accel/gemma3-1B",
+    "--task",
+    "text-generation-with-past",
+    "--opset",
+    "17",
+    "--device",
+    "cpu",
+    "/home/monad/develop/ai_accel/gemma3-1B-onnx"
+  ],
+  "python_module_fallback_command": [
+    "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/bin/python3",
+    "-m",
+    "optimum.exporters.onnx",
+    "--model",
+    "/home/monad/develop/ai_accel/gemma3-1B",
+    "--task",
+    "text-generation-with-past",
+    "--opset",
+    "17",
+    "--device",
+    "cpu",
+    "/home/monad/develop/ai_accel/gemma3-1B-onnx"
+  ],
+  "next_actions": [
+    "Verify after export that the ONNX graph exposes past/present cache inputs and outputs if decode cache reuse profiling is required.",
+    "After export, inspect the graph with: python3 onnx_profile/inspect_onnx_model.py --model /home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx --out-dir onnx_profile/results"
+  ],
+  "executed_command": [
+    "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/bin/optimum-cli",
+    "export",
+    "onnx",
+    "--model",
+    "/home/monad/develop/ai_accel/gemma3-1B",
+    "--task",
+    "text-generation-with-past",
+    "--opset",
+    "17",
+    "--device",
+    "cpu",
+    "/home/monad/develop/ai_accel/gemma3-1B-onnx"
+  ],
+  "export_stdout": "",
+  "export_stderr": "`torch_dtype` is deprecated! Use `dtype` instead!\nOpset 17 is lower than the recommended minimum opset (18) to export gemma3_text. The ONNX export may fail or the exported model may be suboptimal.\n/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/lib/python3.11/site-packages/transformers/cache_utils.py:132: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!\n  if not self.is_initialized or self.keys.numel() == 0:\n/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/lib/python3.11/site-packages/transformers/masking_utils.py:207: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!\n  if (padding_length := kv_length + kv_offset - attention_mask.shape[-1]) > 0:\n/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/lib/python3.11/site-packages/transformers/masking_utils.py:235: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!\n  if padding_mask is not None and padding_mask.shape[-1] > kv_length:\n/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/lib/python3.11/site-packages/transformers/integrations/sdpa_attention.py:81: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!\n  is_causal = query.shape[2] > 1 and attention_mask is None and getattr(module, \"is_causal\", True)\n/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/.venv-onnx-export/lib/python3.11/site-packages/torch/onnx/_internal/torchscript_exporter/symbolic_opset11.py:954: UserWarning: Exporting aten::index operator of advanced indexing in opset 17 is achieved by combination of multiple ONNX operators, including Reshape, Transpose, Concat, and Gather. If indices include negative values, the exported graph will produce incorrect results.\n  return opset9.index(g, self, index)\nWeight deduplication check in the ONNX export requires accelerate. Please install accelerate to run it.\n\t\t-[x] values not close enough, max diff: 0.00038623809814453125 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 2.3365020751953125e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 2.339482307434082e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 4.100799560546875e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 2.47955322265625e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 3.886222839355469e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 6.961822509765625e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 5.7220458984375e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.0002307891845703125 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00015795230865478516 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00015020370483398438 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00011587142944335938 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.0006494522094726562 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 6.693601608276367e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00030803680419921875 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 2.899765968322754e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.0002269744873046875 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00012990832328796387 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.0001544952392578125 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 8.082389831542969e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00011146068572998047 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 7.355213165283203e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00016880035400390625 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 9.28640365600586e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.000225067138671875 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00011491775512695312 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.000202178955078125 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 2.09808349609375e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 8.606910705566406e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 8.726119995117188e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 9.465217590332031e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00010836124420166016 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00011113286018371582 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.0001659393310546875 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 8.815526962280273e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00013256072998046875 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00012183189392089844 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00016260147094726562 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00011348724365234375 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 7.510185241699219e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 8.7738037109375e-05 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00012683868408203125 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 0.00011920928955078125 (atol: 1e-05)\n\t\t-[x] values not close enough, max diff: 6.258487701416016e-05 (atol: 1e-05)\nThe ONNX export succeeded with the warning: The maximum absolute difference between the output of the reference model and the ONNX exported model is not within the set tolerance 1e-05:\n- logits: max diff = 0.00038623809814453125\n- present.3.value: max diff = 2.3365020751953125e-05\n- present.4.value: max diff = 2.339482307434082e-05\n- present.5.key: max diff = 4.100799560546875e-05\n- present.6.key: max diff = 2.47955322265625e-05\n- present.6.value: max diff = 3.886222839355469e-05\n- present.7.key: max diff = 6.961822509765625e-05\n- present.7.value: max diff = 5.7220458984375e-05\n- present.8.key: max diff = 0.0002307891845703125\n- present.8.value: max diff = 0.00015795230865478516\n- present.9.key: max diff = 0.00015020370483398438\n- present.9.value: max diff = 0.00011587142944335938\n- present.10.key: max diff = 0.0006494522094726562\n- present.10.value: max diff = 6.693601608276367e-05\n- present.11.key: max diff = 0.00030803680419921875\n- present.11.value: max diff = 2.899765968322754e-05\n- present.12.key: max diff = 0.0002269744873046875\n- present.12.value: max diff = 0.00012990832328796387\n- present.13.key: max diff = 0.0001544952392578125\n- present.13.value: max diff = 8.082389831542969e-05\n- present.14.key: max diff = 0.00011146068572998047\n- present.14.value: max diff = 7.355213165283203e-05\n- present.15.key: max diff = 0.00016880035400390625\n- present.15.value: max diff = 9.28640365600586e-05\n- present.16.key: max diff = 0.000225067138671875\n- present.16.value: max diff = 0.00011491775512695312\n- present.17.key: max diff = 0.000202178955078125\n- present.17.value: max diff = 2.09808349609375e-05\n- present.18.key: max diff = 8.606910705566406e-05\n- present.18.value: max diff = 8.726119995117188e-05\n- present.19.key: max diff = 9.465217590332031e-05\n- present.19.value: max diff = 0.00010836124420166016\n- present.20.key: max diff = 0.00011113286018371582\n- present.20.value: max diff = 0.0001659393310546875\n- present.21.key: max diff = 8.815526962280273e-05\n- present.21.value: max diff = 0.00013256072998046875\n- present.22.key: max diff = 0.00012183189392089844\n- present.22.value: max diff = 0.00016260147094726562\n- present.23.key: max diff = 0.00011348724365234375\n- present.23.value: max diff = 7.510185241699219e-05\n- present.24.key: max diff = 8.7738037109375e-05\n- present.24.value: max diff = 0.00012683868408203125\n- present.25.key: max diff = 0.00011920928955078125\n- present.25.value: max diff = 6.258487701416016e-05.\n The exported model was saved at: /home/monad/develop/ai_accel/gemma3-1B-onnx\n",
+  "export_outputs": {
+    "onnx_files": [
+      "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx"
+    ],
+    "external_data_files": [
+      "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx_data"
+    ],
+    "copied_support_files": {
+      "config.json": true,
+      "generation_config.json": true,
+      "tokenizer.json": true,
+      "tokenizer.model": false,
+      "tokenizer_config.json": true,
+      "special_tokens_map.json": true,
+      "added_tokens.json": false
+    }
+  },
+  "onnx_inspection": {
+    "model": "/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx",
+    "decode_cache_reuse_ready": true,
+    "cache_input_names": [
+      "past_key_values.0.key",
+      "past_key_values.0.value",
+      "past_key_values.1.key",
+      "past_key_values.1.value",
+      "past_key_values.2.key",
+      "past_key_values.2.value",
+      "past_key_values.3.key",
+      "past_key_values.3.value",
+      "past_key_values.4.key",
+      "past_key_values.4.value",
+      "past_key_values.5.key",
+      "past_key_values.5.value",
+      "past_key_values.6.key",
+      "past_key_values.6.value",
+      "past_key_values.7.key",
+      "past_key_values.7.value",
+      "past_key_values.8.key",
+      "past_key_values.8.value",
+      "past_key_values.9.key",
+      "past_key_values.9.value",
+      "past_key_values.10.key",
+      "past_key_values.10.value",
+      "past_key_values.11.key",
+      "past_key_values.11.value",
+      "past_key_values.12.key",
+      "past_key_values.12.value",
+      "past_key_values.13.key",
+      "past_key_values.13.value",
+      "past_key_values.14.key",
+      "past_key_values.14.value",
+      "past_key_values.15.key",
+      "past_key_values.15.value",
+      "past_key_values.16.key",
+      "past_key_values.16.value",
+      "past_key_values.17.key",
+      "past_key_values.17.value",
+      "past_key_values.18.key",
+      "past_key_values.18.value",
+      "past_key_values.19.key",
+      "past_key_values.19.value",
+      "past_key_values.20.key",
+      "past_key_values.20.value",
+      "past_key_values.21.key",
+      "past_key_values.21.value",
+      "past_key_values.22.key",
+      "past_key_values.22.value",
+      "past_key_values.23.key",
+      "past_key_values.23.value",
+      "past_key_values.24.key",
+      "past_key_values.24.value",
+      "past_key_values.25.key",
+      "past_key_values.25.value"
+    ],
+    "cache_output_names": [
+      "present.0.key",
+      "present.0.value",
+      "present.1.key",
+      "present.1.value",
+      "present.2.key",
+      "present.2.value",
+      "present.3.key",
+      "present.3.value",
+      "present.4.key",
+      "present.4.value",
+      "present.5.key",
+      "present.5.value",
+      "present.6.key",
+      "present.6.value",
+      "present.7.key",
+      "present.7.value",
+      "present.8.key",
+      "present.8.value",
+      "present.9.key",
+      "present.9.value",
+      "present.10.key",
+      "present.10.value",
+      "present.11.key",
+      "present.11.value",
+      "present.12.key",
+      "present.12.value",
+      "present.13.key",
+      "present.13.value",
+      "present.14.key",
+      "present.14.value",
+      "present.15.key",
+      "present.15.value",
+      "present.16.key",
+      "present.16.value",
+      "present.17.key",
+      "present.17.value",
+      "present.18.key",
+      "present.18.value",
+      "present.19.key",
+      "present.19.value",
+      "present.20.key",
+      "present.20.value",
+      "present.21.key",
+      "present.21.value",
+      "present.22.key",
+      "present.22.value",
+      "present.23.key",
+      "present.23.value",
+      "present.24.key",
+      "present.24.value",
+      "present.25.key",
+      "present.25.value"
+    ],
+    "has_external_data": true
+  }
+}
+
+Next actions:
+- Verify after export that the ONNX graph exposes past/present cache inputs and outputs if decode cache reuse profiling is required.
+- After export, inspect the graph with: python3 onnx_profile/inspect_onnx_model.py --model /home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx --out-dir onnx_profile/results
+
+
+[stderr]
+warning: Git tree '/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator' is dirty
+
