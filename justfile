@@ -185,6 +185,32 @@ onnx-bottleneck-report model="/home/monad/develop/ai_accel/gemma3-1B-onnx/model.
     --paper-tables-dir "paper_assets/tables" \
     --report-path "docs/onnx_bottleneck_report.md"
 
+ort-sweep model="/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx" out_dir="onnx_profile/results_onnx_sweep" context_lengths="128 512 1024 2048" decode_steps="1 2 4 8" runs="3" warmup_runs="1":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 onnx_profile/ort_context_sweep.py sweep \
+    --model "{{model}}" \
+    --provider "CPUExecutionProvider" \
+    --out-dir "{{out_dir}}" \
+    --paper-tables-dir "paper_assets/tables" \
+    --paper-figures-dir "paper_assets/figures" \
+    --report-path "docs/onnx_runtime_sweep_report.md" \
+    --context-lengths {{context_lengths}} \
+    --decode-steps {{decode_steps}} \
+    --runs "{{runs}}" \
+    --warmup-runs "{{warmup_runs}}"
+
+ort-sweep-report model="/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx" out_dir="onnx_profile/results_onnx_sweep":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 onnx_profile/ort_context_sweep.py report \
+    --model "{{model}}" \
+    --provider "CPUExecutionProvider" \
+    --out-dir "{{out_dir}}" \
+    --paper-tables-dir "paper_assets/tables" \
+    --paper-figures-dir "paper_assets/figures" \
+    --report-path "docs/onnx_runtime_sweep_report.md"
+
 onnx-decode-sweep model="" provider="CPUExecutionProvider" prompt_lens="128 512 1024 2048 4096" decode_tokens="8" profile="0" layers="18" kv_heads="1" head_dim="256" bytes_per_element="2" out_dir="onnx_profile/results":
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
