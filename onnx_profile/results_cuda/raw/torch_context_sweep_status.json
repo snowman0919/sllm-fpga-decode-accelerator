@@ -1,0 +1,51 @@
+{
+  "status": "success",
+  "baseline_type": "pytorch",
+  "is_onnx_runtime_profile": false,
+  "message": "PyTorch host-side context sweep baseline completed successfully. These outputs are not ONNX Runtime profiling results.",
+  "started_at": "2026-06-28T16:19:10.300916+00:00",
+  "model_dir": "/home/monad/develop/ai_accel/gemma3-1B",
+  "out_dir": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_cuda",
+  "requested_device": "cuda",
+  "requested_dtype": "float16",
+  "context_lengths": [
+    128,
+    512,
+    1024,
+    2048,
+    4096,
+    8192
+  ],
+  "decode_tokens": 16,
+  "runs": 5,
+  "warmup_runs": 1,
+  "max_context": 32768,
+  "outputs": {
+    "raw_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_cuda/raw/torch_context_sweep_raw.json",
+    "status_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_cuda/raw/torch_context_sweep_status.json",
+    "latency_csv": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_cuda/tables/torch_decode_latency_by_context.csv",
+    "memory_csv": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_cuda/tables/torch_memory_by_context.csv",
+    "paper_latency_csv": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/paper_assets/tables/torch_decode_latency_by_context.csv",
+    "paper_memory_csv": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/paper_assets/tables/torch_memory_by_context.csv",
+    "paper_latency_figure": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/paper_assets/figures/torch_decode_latency_by_context.png",
+    "paper_memory_figure": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/paper_assets/figures/torch_memory_by_context.png"
+  },
+  "current_progress": {
+    "stage": "writing_outputs",
+    "message": "Writing CSV, JSON, and figure outputs.",
+    "updated_at": "2026-06-28T16:19:31.179360+00:00",
+    "current_context_length": null,
+    "context_index": null,
+    "total_contexts": null,
+    "phase": null,
+    "run_index": null,
+    "total_runs": null
+  },
+  "finished_at": "2026-06-28T16:19:31.371218+00:00",
+  "resolved_device": "cuda",
+  "resolved_dtype": "float16",
+  "device_notes": [],
+  "dtype_note": "user selected float16",
+  "model_load_ms": 554.2155069999808,
+  "tokenizer_load_ms": 531.2433500000111
+}
