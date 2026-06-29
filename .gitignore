@@ -53,4 +53,6 @@ paper_assets/tables/*
 !paper_assets/tables/decode_matvec_fpga_resource.csv
 !paper_assets/tables/decode_matvec_fpga_timing.csv
 
+.nas
 nas
+nas/
