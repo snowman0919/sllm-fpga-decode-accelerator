@@ -1,0 +1,17 @@
+# ORT MatMulInteger Micrograph Summary
+
+- backend: onnxruntime_matmulinteger_cpu
+- graph: matvec_int8_matmulinteger.onnx
+- provider: CPUExecutionProvider
+- input_dim: 16
+- output_dim: 4
+- macs: 64
+- dtype: int8_inputs_int32_output
+- runs: 1000
+- correctness_pass: True
+- latency_ms_mean: 0.013012
+- latency_ms_p50: 0.011
+- latency_ms_p95: 0.0173
+- log_dir: logs\ort_integer_baseline_board_env
+- paper_table_updated: True
+- claim_boundary: Measured ORT MatMulInteger micrograph baseline only; not full Gemma ONNX Runtime profiling.

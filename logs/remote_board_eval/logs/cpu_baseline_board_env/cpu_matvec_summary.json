@@ -1,0 +1,17 @@
+{
+  "backend": "cpu_numpy_int32",
+  "evidence_type": "measured",
+  "interface": "host_numpy",
+  "dtype": "int8_inputs_int32_accum",
+  "input_dim": 16,
+  "output_dim": 4,
+  "macs": 64,
+  "runs": 1000,
+  "correctness_pass": true,
+  "total_latency_ms_mean": 0.022979,
+  "total_latency_ms_p50": 0.0233,
+  "total_latency_ms_p95": 0.0239,
+  "compute_latency_ms_mean": 0.001389,
+  "effective_macs_per_s": 2785091.087,
+  "log_dir": "logs\\cpu_baseline_board_env"
+}

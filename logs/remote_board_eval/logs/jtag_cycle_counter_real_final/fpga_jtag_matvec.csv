@@ -1,0 +1,281 @@
+seq,input_dim,output_dim,macs,generation_ms,tcl_generate_ms,total_wall_latency_ms,system_console_elapsed_ms,jtag_write_ms,jtag_poll_ms,jtag_read_ms,compute_cycles,core_total_cycles,clock_hz,compute_time_us_50mhz,core_total_time_us_50mhz,status_register,debug_status,last_run_id,reference,result,correctness_pass,run_status,quartus_tool,quartus_tool_path,cable,service_path,sof_path,sof_sha256,tcl_script,error,stdout_tail,stderr_tail
+0,16,4,64,0.10699999984353781,0.7917000039014965,7802.847200015094,239,215,6,18,65,65,50000000,1.3,1.3,2,2,0,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run0.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=0 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000000 r0=-271 r1=239 r2=287 r3=797 write_ms=215 poll_ms=6 read_ms=18 elapsed_ms=239
+",
+1,16,4,64,0.14329998521134257,1.0998000216204673,7806.3165999774355,226,202,5,19,65,65,50000000,1.3,1.3,2,2,1,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run1.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=1 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000001 r0=-271 r1=239 r2=287 r3=797 write_ms=202 poll_ms=5 read_ms=19 elapsed_ms=226
+",
+2,16,4,64,0.12889999197795987,0.7225000008475035,7772.661599999992,236,211,5,20,65,65,50000000,1.3,1.3,2,2,2,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run2.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=2 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000002 r0=-271 r1=239 r2=287 r3=797 write_ms=211 poll_ms=5 read_ms=20 elapsed_ms=236
+",
+3,16,4,64,0.09670000872574747,0.6961000035516918,7747.6042000052985,239,212,7,20,65,65,50000000,1.3,1.3,2,2,3,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run3.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=3 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000003 r0=-271 r1=239 r2=287 r3=797 write_ms=212 poll_ms=7 read_ms=20 elapsed_ms=239
+",
+4,16,4,64,0.12810001499019563,0.8103000000119209,7746.7410000099335,241,212,5,24,65,65,50000000,1.3,1.3,2,2,4,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run4.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=4 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000004 r0=-271 r1=239 r2=287 r3=797 write_ms=212 poll_ms=5 read_ms=24 elapsed_ms=241
+",
+5,16,4,64,0.09770001634024084,0.44109998270869255,7730.775500007439,223,199,5,19,65,65,50000000,1.3,1.3,2,2,5,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run5.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=5 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000005 r0=-271 r1=239 r2=287 r3=797 write_ms=199 poll_ms=5 read_ms=19 elapsed_ms=223
+",
+6,16,4,64,0.10040000779554248,0.5064999859314412,7724.724500003504,218,196,5,17,65,65,50000000,1.3,1.3,2,2,6,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run6.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=6 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000006 r0=-271 r1=239 r2=287 r3=797 write_ms=196 poll_ms=5 read_ms=17 elapsed_ms=218
+",
+7,16,4,64,0.1542000100016594,0.8968999900389463,7737.451900000451,215,192,5,18,65,65,50000000,1.3,1.3,2,2,7,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run7.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=7 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000007 r0=-271 r1=239 r2=287 r3=797 write_ms=192 poll_ms=5 read_ms=18 elapsed_ms=215
+",
+8,16,4,64,0.15830001211725175,1.5093999973032624,7717.146499984665,213,191,6,16,65,65,50000000,1.3,1.3,2,2,8,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run8.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=8 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000008 r0=-271 r1=239 r2=287 r3=797 write_ms=191 poll_ms=6 read_ms=16 elapsed_ms=213
+",
+9,16,4,64,0.12680000509135425,0.7289999921340495,7709.574100008467,216,193,5,18,65,65,50000000,1.3,1.3,2,2,9,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run9.tcl,,"k as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=9 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000009 r0=-271 r1=239 r2=287 r3=797 write_ms=193 poll_ms=5 read_ms=18 elapsed_ms=216
+",
+10,16,4,64,0.09250000584870577,0.4834999854210764,7718.048100010492,231,208,5,18,65,65,50000000,1.3,1.3,2,2,10,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run10.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=10 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000a r0=-271 r1=239 r2=287 r3=797 write_ms=208 poll_ms=5 read_ms=18 elapsed_ms=231
+",
+11,16,4,64,0.15300000086426735,0.9775000216905028,7752.417499985313,239,211,5,23,65,65,50000000,1.3,1.3,2,2,11,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run11.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=11 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000b r0=-271 r1=239 r2=287 r3=797 write_ms=211 poll_ms=5 read_ms=23 elapsed_ms=239
+",
+12,16,4,64,0.13860000763088465,0.707699975464493,7751.414300000761,238,211,6,21,65,65,50000000,1.3,1.3,2,2,12,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run12.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=12 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000c r0=-271 r1=239 r2=287 r3=797 write_ms=211 poll_ms=6 read_ms=21 elapsed_ms=238
+",
+13,16,4,64,0.17059998936019838,1.3344000035431236,7712.0860000140965,238,215,5,18,65,65,50000000,1.3,1.3,2,2,13,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run13.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=13 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000d r0=-271 r1=239 r2=287 r3=797 write_ms=215 poll_ms=5 read_ms=18 elapsed_ms=238
+",
+14,16,4,64,0.1331999956164509,0.7904999947641045,7716.778400004841,235,210,6,19,65,65,50000000,1.3,1.3,2,2,14,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run14.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=14 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000e r0=-271 r1=239 r2=287 r3=797 write_ms=210 poll_ms=6 read_ms=19 elapsed_ms=235
+",
+15,16,4,64,0.07739997818134725,0.4498000198509544,7747.539999982109,248,221,6,21,65,65,50000000,1.3,1.3,2,2,15,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run15.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=15 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000f r0=-271 r1=239 r2=287 r3=797 write_ms=221 poll_ms=6 read_ms=21 elapsed_ms=248
+",
+16,16,4,64,0.11409999569877982,0.6405999884009361,7730.6628999940585,223,199,4,20,65,65,50000000,1.3,1.3,2,2,16,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run16.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=16 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000010 r0=-271 r1=239 r2=287 r3=797 write_ms=199 poll_ms=4 read_ms=20 elapsed_ms=223
+",
+17,16,4,64,0.11809999705292284,0.8855999913066626,7724.733500013826,220,195,5,20,65,65,50000000,1.3,1.3,2,2,17,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run17.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=17 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000011 r0=-271 r1=239 r2=287 r3=797 write_ms=195 poll_ms=5 read_ms=20 elapsed_ms=220
+",
+18,16,4,64,0.13420000323094428,0.8225999772548676,7713.8460999995,219,198,4,17,65,65,50000000,1.3,1.3,2,2,18,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run18.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=18 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000012 r0=-271 r1=239 r2=287 r3=797 write_ms=198 poll_ms=4 read_ms=17 elapsed_ms=219
+",
+19,16,4,64,0.1516000193078071,0.8672999974805862,8071.067099983338,228,205,5,18,65,65,50000000,1.3,1.3,2,2,19,-271 239 287 797,-271 239 287 797,True,pass,system-console.exe,C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe,USB-Blaster [USB-0],/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master,C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof,3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5,logs\jtag_cycle_counter_real_final\generated_jtag_matvec_run19.tcl,," as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=19 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000013 r0=-271 r1=239 r2=287 r3=797 write_ms=205 poll_ms=5 read_ms=18 elapsed_ms=228
+",
