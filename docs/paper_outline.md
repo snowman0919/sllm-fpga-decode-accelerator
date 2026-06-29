@@ -38,7 +38,7 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
 3. Korean Abstract and Keywords
 4. English Abstract and Keywords
 5. Introduction
-   - 1.1 연구 배경
+   - 1.1 연구 배경 및 온디바이스 조건 정의
    - 1.2 온디바이스 sLLM 추론의 병목 문제
    - 1.3 ONNX Runtime 기반 분석의 필요성
    - 1.4 연구 목표와 기여
@@ -63,15 +63,15 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
    - Decode MatMul dominance is interpreted through dense projection repetition.
    - MLP projection and `lm_head` motivate tiled MatVec/MatMul rather than QK-only hardware.
    - DE10-Lite evidence is limited to primitive validation and programming success.
+   - Add a requirements bridge from ONNX/ORT observations to FPGA accelerator requirements.
 10. FPGA Decode Accelerator Architecture Proposal
-    - Host/ORT interface
-    - Activation buffer
-    - Weight tile streamer
-    - INT8 tiled MatVec engine
-    - INT32 accumulator
-    - Scale/requant unit
-    - Optional element-wise/fusion unit
-    - Optional cache-aware interface
+    - 6.1 설계 목표와 비목표
+    - 6.2 Host/ORT offload boundary
+    - 6.3 Decode tiled MatVec dataflow
+    - 6.4 Weight streaming and tiling strategy
+    - 6.5 `lm_head` 처리 전략
+    - 6.6 Cache-aware interface의 역할
+    - 6.7 현재 primitive 검증과 future accelerator의 차이
 11. Limitations
     - ORT CPUExecutionProvider scope
     - Synthetic/context sweep scope
@@ -98,6 +98,7 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
 | 5 | INT8 Decode MatVec RTL simulation 결과 | `paper_assets/tables/decode_matvec_int8_sim.csv` |
 | 6 | Decode MatVec demo Quartus resource 요약 | `paper_assets/tables/decode_matvec_fpga_resource.csv` |
 | 7 | Decode MatVec demo timing 및 board programming 요약 | `paper_assets/tables/decode_matvec_fpga_timing.csv`, `paper_assets/tables/decode_matvec_board_validation.csv` |
+| 8 | ONNX/ORT 병목 분석으로부터 도출한 FPGA 설계 요구사항 | `docs/current_bottleneck_implications.md`, `docs/ort_matmul_hotspot_analysis.md`, `docs/fpga_decode_accelerator_optimization_plan.md` |
 
 ## Paper-facing Artifacts
 
