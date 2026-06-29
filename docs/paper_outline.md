@@ -100,12 +100,15 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
 | 1 | ONNX graph inspection 요약 | `onnx_profile/results_onnx/raw/onnx_graph_inspection.json` |
 | 2 | ONNX Runtime profiling 설정 및 산출물 | `docs/onnx_runtime_sweep_report.md`, `paper_assets/tables/ort_context_sweep_latency.csv` |
 | 3 | ONNX Runtime MatMul phase 비중 | `docs/current_bottleneck_implications.md` |
-| 4 | MatMul category별 누적 시간과 비중 | `paper_assets/tables/ort_matmul_category_by_context.csv`, `docs/ort_matmul_hotspot_analysis.md` |
-| 5 | INT8 Decode MatVec RTL simulation 결과 | `paper_assets/tables/decode_matvec_int8_sim.csv` |
-| 6 | Decode MatVec demo Quartus resource 요약 | `paper_assets/tables/decode_matvec_fpga_resource.csv` |
-| 7 | Decode MatVec demo timing 및 board programming 요약 | `paper_assets/tables/decode_matvec_fpga_timing.csv`, `paper_assets/tables/decode_matvec_board_validation.csv` |
-| 8 | ONNX/ORT 병목 분석으로부터 도출한 FPGA 설계 요구사항 | `docs/current_bottleneck_implications.md`, `docs/ort_matmul_hotspot_analysis.md`, `docs/fpga_decode_accelerator_optimization_plan.md` |
-| 9 | 제안 FPGA Decode 가속기 구조의 구성요소와 역할 | `docs/current_bottleneck_implications.md`, `docs/fpga_decode_accelerator_optimization_plan.md` |
+| 4 | Long-decode ONNX Runtime CPUExecutionProvider sweep 요약 | `paper_assets/tables/ort_long_decode_sweep_latency.csv`, `paper_assets/tables/ort_long_decode_operator_share.csv` |
+| 5 | MatMul category별 누적 시간과 비중 | `paper_assets/tables/ort_matmul_category_by_context.csv`, `docs/ort_matmul_hotspot_analysis.md` |
+| 6 | INT8 Decode MatVec RTL simulation 결과 | `paper_assets/tables/decode_matvec_int8_sim.csv` |
+| 7 | Decode MatVec demo Quartus resource 요약 | `paper_assets/tables/decode_matvec_fpga_resource.csv` |
+| 8 | Decode MatVec demo timing 및 board programming 요약 | `paper_assets/tables/decode_matvec_fpga_timing.csv`, `paper_assets/tables/decode_matvec_board_validation.csv` |
+| 9 | 실험 환경 요약 | `paper_assets/tables/experiment_environment.csv`, `docs/experiment_environment.md` |
+| 10 | ONNX/ORT 병목 분석으로부터 도출한 FPGA 설계 요구사항 | `docs/current_bottleneck_implications.md`, `docs/ort_long_decode_sweep_report.md`, `docs/fpga_decode_accelerator_optimization_plan.md` |
+| 11 | 제안 FPGA Decode 가속기 구조의 구성요소와 역할 | `docs/current_bottleneck_implications.md`, `docs/fpga_decode_accelerator_optimization_plan.md` |
+| 12 | FPGA Decode accelerator roofline/design estimate 요약 | `paper_assets/tables/fpga_decode_accel_roofline_estimate.csv` |
 
 ## Required Figures
 
@@ -113,8 +116,10 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
 | ---: | --- | --- |
 | 1 | 연구 전체 흐름도 | `paper_assets/figures/research_flow.png`, `docs/current_bottleneck_implications.md` |
 | 2 | ONNX Runtime MatMul phase 비중 | `paper_assets/figures/ort_matmul_phase_share.png`, `docs/current_bottleneck_implications.md` |
-| 3 | MatMul category breakdown | `paper_assets/figures/ort_matmul_category_breakdown.png`, `paper_assets/tables/ort_matmul_category_by_context.csv` |
-| 4 | FPGA Decode tiled MatVec/MatMul accelerator architecture | `paper_assets/figures/fpga_decode_accelerator_architecture.png`, `docs/fpga_decode_accelerator_optimization_plan.md` |
+| 3 | Long-decode ORT CPU MatMul share | `paper_assets/figures/ort_long_decode_matmul_share.png`, `paper_assets/tables/ort_long_decode_operator_share.csv` |
+| 4 | Long-decode ORT CPU shape-related op share | `paper_assets/figures/ort_long_decode_shape_ops_share.png`, `paper_assets/tables/ort_long_decode_operator_share.csv` |
+| 5 | MatMul category breakdown | `paper_assets/figures/ort_matmul_category_breakdown.png`, `paper_assets/tables/ort_matmul_category_by_context.csv` |
+| 6 | FPGA Decode tiled MatVec/MatMul accelerator architecture | `paper_assets/figures/fpga_decode_accelerator_architecture.png`, `docs/fpga_decode_accelerator_optimization_plan.md` |
 
 HWP/PDF insertion metadata is tracked in `paper_assets/figures/figure_index.csv` and `paper_assets/figures/figure_index.md`.
 
@@ -123,8 +128,11 @@ HWP/PDF insertion metadata is tracked in `paper_assets/figures/figure_index.csv`
 - `paper_assets/tables/ort_context_sweep_latency.csv`
 - `paper_assets/tables/ort_operator_share_by_context.csv`
 - `paper_assets/tables/ort_prefill_decode_comparison.csv`
+- `paper_assets/tables/ort_long_decode_sweep_latency.csv`
+- `paper_assets/tables/ort_long_decode_operator_share.csv`
 - `paper_assets/tables/ort_matmul_category_by_context.csv`
 - `paper_assets/tables/ort_matmul_top_nodes.csv`
+- `paper_assets/tables/ort_attention_matmul_candidates.csv`
 - `paper_assets/tables/fpga_decode_accel_candidate_ops.csv`
 - `paper_assets/tables/fpga_decode_accel_roofline_estimate.csv`
 - `paper_assets/tables/fpga_decode_accel_priority.csv`
@@ -132,9 +140,15 @@ HWP/PDF insertion metadata is tracked in `paper_assets/figures/figure_index.csv`
 - `paper_assets/tables/decode_matvec_fpga_resource.csv`
 - `paper_assets/tables/decode_matvec_fpga_timing.csv`
 - `paper_assets/tables/decode_matvec_board_validation.csv`
+- `paper_assets/tables/experiment_environment.csv`
 - `paper_assets/figures/research_flow.png`
 - `paper_assets/figures/ort_matmul_phase_share.png`
+- `paper_assets/figures/ort_long_decode_matmul_share.png`
+- `paper_assets/figures/ort_long_decode_shape_ops_share.png`
 - `paper_assets/figures/ort_matmul_category_breakdown.png`
 - `paper_assets/figures/fpga_decode_accelerator_architecture.png`
 - `paper_assets/figures/figure_index.csv`
 - `paper_assets/figures/figure_index.md`
+- `docs/ort_long_decode_sweep_report.md`
+- `docs/ort_attention_qk_classification_note.md`
+- `docs/experiment_environment.md`

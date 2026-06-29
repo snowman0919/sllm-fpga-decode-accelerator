@@ -32,6 +32,7 @@ onnx_profile/results/tables/*
 !onnx_profile/results/tables/.gitkeep
 onnx_profile/results/figures/*
 !onnx_profile/results/figures/.gitkeep
+onnx_profile/results_onnx_long_decode/
 
 fpga_test/vectors/*
 !fpga_test/vectors/README.md
@@ -43,10 +44,23 @@ fpga_test/captured/*
 paper_assets/figures/*
 !paper_assets/figures/.gitkeep
 !paper_assets/figures/ort_matmul_category_share.png
+!paper_assets/figures/figure_index.csv
+!paper_assets/figures/figure_index.md
+!paper_assets/figures/generate_paper_figures.py
+!paper_assets/figures/research_flow.png
+!paper_assets/figures/ort_matmul_phase_share.png
+!paper_assets/figures/ort_long_decode_matmul_share.png
+!paper_assets/figures/ort_long_decode_shape_ops_share.png
+!paper_assets/figures/ort_matmul_category_breakdown.png
+!paper_assets/figures/fpga_decode_accelerator_architecture.png
 paper_assets/tables/*
 !paper_assets/tables/.gitkeep
 !paper_assets/tables/ort_matmul_category_by_context.csv
 !paper_assets/tables/ort_matmul_top_nodes.csv
+!paper_assets/tables/ort_long_decode_sweep_latency.csv
+!paper_assets/tables/ort_long_decode_operator_share.csv
+!paper_assets/tables/ort_attention_matmul_candidates.csv
+!paper_assets/tables/experiment_environment.csv
 !paper_assets/tables/fpga_decode_accel_candidate_ops.csv
 !paper_assets/tables/fpga_decode_accel_roofline_estimate.csv
 !paper_assets/tables/fpga_decode_accel_priority.csv
