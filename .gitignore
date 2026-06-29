@@ -38,6 +38,7 @@ fpga_test/vectors/*
 fpga_test/captured/*
 !fpga_test/captured/README.md
 !fpga_test/captured/decode_matvec_int8_sim.csv
+!fpga_test/captured/decode_matvec_board_validation.md
 
 paper_assets/figures/*
 !paper_assets/figures/.gitkeep
@@ -52,6 +53,7 @@ paper_assets/tables/*
 !paper_assets/tables/decode_matvec_int8_sim.csv
 !paper_assets/tables/decode_matvec_fpga_resource.csv
 !paper_assets/tables/decode_matvec_fpga_timing.csv
+!paper_assets/tables/decode_matvec_board_validation.csv
 
 .nas
 nas

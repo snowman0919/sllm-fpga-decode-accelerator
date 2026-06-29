@@ -52,6 +52,14 @@ This changes the first optimization target from a QK-only block to a broader dec
 
 The current extension validates an INT8 tiled MatVec primitive with deterministic activation and weight tiles, INT32 accumulation, simulation CSV artifacts, and a small DE10-Lite compile target where available. It is not a full accelerator, not full KV-cache storage or movement, and not Gemma 3 1B execution on FPGA.
 
+## Board Programming Evidence
+
+A Windows Quartus Prime Programmer run successfully configured the DE10-Lite with the Decode MatVec demo bitstream. The observed programmer log shows Quartus Prime Programmer `25.1std.0`, cable `USB-Blaster [USB-0]`, programming file `de10_lite_decode_matvec.sof`, target device `10M50DAF484`, and final status `configuration succeeded` with `0 errors, 0 warnings`.
+
+This evidence supports only successful FPGA configuration of the small fixed-dimension INT8 Decode MatVec primitive bitstream. It does not show Gemma 3 1B execution, full sLLM inference, full accelerator integration, or ONNX Runtime speedup. Board-level numeric output validation remains separate from bitstream programming success and should be recorded from `HEX3..HEX0` or `LEDR` observations if captured.
+
+Detailed board-programming evidence is recorded in `fpga_test/captured/decode_matvec_board_validation.md` and summarized in `paper_assets/tables/decode_matvec_board_validation.csv`.
+
 ## First Optimization Deliverables
 
 - Profiling-derived candidate ranking for dense projection categories.
