@@ -7,6 +7,7 @@
 - Main finding: current ORT CPU profiling shows MatMul as the dominant traced runtime hotspot, with decode MatMul share at 81.1% and `mlp_projection + lm_head` at 88.90% of MatMul time.
 - Hardware scope: the FPGA result validates a small INT8 Decode MatVec primitive and DE10-Lite bitstream configuration only; it is not full Gemma 3 1B execution or measured FPGA speedup.
 - Main contribution: an evidence-bounded workflow connecting ONNX Runtime bottleneck analysis to realistic primitive-level FPGA validation.
+- Numeric claims should appear in tables with an explicit source column before interpretation paragraphs.
 
 ## Introduction
 
@@ -27,6 +28,7 @@
   - Decode MatMul is 81.1%; prefill MatMul is 53.4%.
   - `mlp_projection + lm_head` is 88.90% of MatMul time.
   - KV-cache is a structural pressure factor, not the only proven bottleneck.
+  - Present numeric results and interpretation as separate subsections.
 - Theoretical KV-cache size analysis.
 - Caveated comparison between theoretical KV-cache growth and measured host process memory growth.
 - PyTorch CPU/CUDA host-side reference baselines, explicitly separated from ONNX Runtime results.
@@ -39,6 +41,7 @@
   - resource/timing tables in `paper_assets/tables/decode_matvec_fpga_resource.csv` and `paper_assets/tables/decode_matvec_fpga_timing.csv`
   - Windows Quartus Programmer configured `de10_lite_decode_matvec.sof` on `10M50DAF484` with `0 errors, 0 warnings`
   - programming success is bitstream configuration evidence only, not numeric board-output validation by itself
+  - keep FPGA evidence in primitive-level validation tables, not in speedup comparison tables.
 - FPGA Decode accelerator architecture sketch: Host/ORT interface, activation buffer, weight tile streamer, INT8 tiled MatVec engine, accumulator, scale/requant unit, optional element-wise/fusion unit, and optional cache-aware interface.
 - A bridge paragraph explaining how ONNX-centered bottleneck analysis motivates narrow FPGA block validation without claiming full-model acceleration.
 - Limitations and scope boundaries.
