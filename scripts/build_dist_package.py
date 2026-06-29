@@ -21,6 +21,7 @@ INCLUDE_PATHS = [
     "docs/windows_test_guide.md",
     "docs/de10_lite_uart_wiring.md",
     "docs/fpga_uart_benchmark_report.md",
+    "docs/jtag_matvec_offload.md",
     "docs/ftp_upload_plan.md",
     "docs/claim_boundary.md",
     "docs/gemma_partial_offload_plan.md",
@@ -30,6 +31,7 @@ INCLUDE_PATHS = [
     "paper_assets/figures/figure_index.csv",
     "quartus/de10_lite_uart_matvec/README.md",
     "quartus/de10_lite_uart_matvec/qsf",
+    "quartus/de10_lite_jtag_matvec",
 ]
 
 
@@ -85,8 +87,16 @@ Run optional FPGA UART validation:
 python install.py --local . --run-fpga --port COM5 --baud 115200
 ```
 
+Run optional USB-Blaster JTAG register validation:
+
+```powershell
+python install.py --local . --run-jtag --cable "USB-Blaster [USB-0]"
+```
+
 The FPGA UART path is a low-speed validation/control path. It is not a full
-Gemma ONNX execution path and does not imply end-to-end speedup.
+Gemma ONNX execution path and does not imply end-to-end speedup. The JTAG path
+is now the preferred no-external-UART board validation route, but it is also a
+correctness/overhead validation path rather than a performance interface.
 """
     path.write_text(text, encoding="utf-8")
 

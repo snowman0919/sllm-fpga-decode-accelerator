@@ -24,6 +24,7 @@ object GenerateVerilog {
     config.generateVerilog(new De10LiteTop)
     config.generateVerilog(new DecodeMatVecDemoTop)
     config.generateVerilog(new UartDecodeMatVecTop)
+    config.generateVerilog(new JtagDecodeMatVecRegTop)
 
     println(s"Generated Verilog into: $outputDir")
     DotProductInt8Sweep.SupportedDims.foreach { dim =>
@@ -35,5 +36,7 @@ object GenerateVerilog {
     println(s"- $outputDir/De10LiteTop.v")
     println(s"- $outputDir/DecodeMatVecDemoTop.v")
     println(s"- $outputDir/UartDecodeMatVecTop.v")
+    println(s"- $outputDir/DecodeMatVecRegBank.v")
+    println(s"- $outputDir/JtagDecodeMatVecRegTop.v")
   }
 }

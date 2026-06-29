@@ -41,8 +41,10 @@ spinal-generate:
   done
   decode_mirror_dir="../../quartus/de10_lite_decode_matvec/generated_verilog"
   uart_mirror_dir="../../quartus/de10_lite_uart_matvec/generated_verilog"
+  jtag_mirror_dir="../../quartus/de10_lite_jtag_matvec/generated_verilog"
   mkdir -p "$decode_mirror_dir"
   mkdir -p "$uart_mirror_dir"
+  mkdir -p "$jtag_mirror_dir"
   for file in DecodeMatVecInt8_i16_o4.v HexDisplay.v DecodeMatVecDemoTop.v; do
     if [ ! -f "generated/$file" ]; then
       echo "Missing generated Verilog: hw/spinal/generated/$file"
@@ -57,6 +59,13 @@ spinal-generate:
     fi
     cp "generated/$file" "$uart_mirror_dir/$file"
   done
+  for file in DecodeMatVecInt8_i16_o4.v DecodeMatVecRegBank.v HexDisplay.v JtagDecodeMatVecRegTop.v; do
+    if [ ! -f "generated/$file" ]; then
+      echo "Missing generated Verilog: hw/spinal/generated/$file"
+      exit 1
+    fi
+    cp "generated/$file" "$jtag_mirror_dir/$file"
+  done
   for file in \
     DotProductInt8_dim16.v DotProductInt8_dim32.v DotProductInt8_dim64.v DotProductInt8_dim128.v \
     DotProductInt8SweepTop_dim16.v DotProductInt8SweepTop_dim32.v DotProductInt8SweepTop_dim64.v DotProductInt8SweepTop_dim128.v
@@ -70,6 +79,7 @@ spinal-generate:
   echo "Mirrored canonical Verilog into quartus/de10_lite_qk/generated_verilog/"
   echo "Mirrored Decode MatVec Verilog into quartus/de10_lite_decode_matvec/generated_verilog/"
   echo "Mirrored UART Decode MatVec Verilog into quartus/de10_lite_uart_matvec/generated_verilog/"
+  echo "Mirrored JTAG Decode MatVec Verilog into quartus/de10_lite_jtag_matvec/generated_verilog/"
   echo "Mirrored dim-sweep Verilog into quartus/dim_sweep/generated_verilog/"
 
 spinal-generate-sweep:
@@ -101,6 +111,42 @@ fpga-uart-sim:
 fpga-uart-verilog:
   #!/usr/bin/env bash
   just spinal-generate
+
+fpga-jtag-verilog:
+  #!/usr/bin/env bash
+  just spinal-generate
+
+fpga-jtag-benchmark runs="10" log_dir="" quartus_bin="" cable="USB-Blaster [USB-0]":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  args=(--runs "{{runs}}" --cable "{{cable}}")
+  if [ -n "{{log_dir}}" ]; then
+    args+=(--log-dir "{{log_dir}}")
+  fi
+  if [ -n "{{quartus_bin}}" ]; then
+    args+=(--quartus-bin "{{quartus_bin}}")
+  fi
+  python3 windows/run_fpga_jtag_matvec.py "${args[@]}"
+
+fpga-jtag-quartus:
+  #!/usr/bin/env bash
+  source "{{quartus_helper}}"
+  missing=0
+  for file in DecodeMatVecInt8_i16_o4.v DecodeMatVecRegBank.v HexDisplay.v JtagDecodeMatVecRegTop.v; do
+    if [ ! -f "quartus/de10_lite_jtag_matvec/generated_verilog/$file" ]; then
+      missing=1
+    fi
+  done
+  if [ "$missing" -ne 0 ]; then
+    echo "JTAG Decode MatVec Verilog mirror is missing or incomplete. Running 'just spinal-generate' first."
+    just spinal-generate
+  fi
+  quartus_sh=$(quartus_find_tool quartus_sh) || {
+    echo "quartus_sh not found. Set QUARTUS_ROOT or add Quartus to PATH."
+    exit 1
+  }
+  "$quartus_sh" -t quartus/de10_lite_jtag_matvec/scripts/create_project.tcl
+  echo "Project scaffold created. Platform Designer JTAG-to-Avalon Master integration is still required before board validation."
 
 fpga-uart-quartus:
   #!/usr/bin/env bash

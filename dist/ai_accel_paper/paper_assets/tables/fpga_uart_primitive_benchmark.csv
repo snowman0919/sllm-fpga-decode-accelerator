@@ -1,2 +1,2 @@
 backend,input_dim,output_dim,runs,correctness_pass,total_latency_ms_mean,total_latency_ms_p50,total_latency_ms_p95,tx_latency_ms_mean,rx_wait_latency_ms_mean,effective_macs_per_s,baudrate,note
-cpu_numpy_int32,16,4,3,True,0.02757,0.018095,0.046328,,,2321391.746,,CPU NumPy int32 reference for the fixed deterministic INT8 MatVec primitive.
+cpu_numpy_int32,16,4,3,True,0.027446,0.018295,0.045699,,,2331823.52,,CPU NumPy int32 reference for the fixed deterministic INT8 MatVec primitive.

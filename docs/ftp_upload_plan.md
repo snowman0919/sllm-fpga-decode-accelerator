@@ -32,3 +32,9 @@ The package can list Windows serial ports before any FPGA run:
 ```powershell
 python install.py --local . --list-ports
 ```
+
+The preferred USB-Blaster JTAG register path can be invoked with:
+
+```powershell
+python install.py --local . --run-jtag --cable "USB-Blaster [USB-0]"
+```

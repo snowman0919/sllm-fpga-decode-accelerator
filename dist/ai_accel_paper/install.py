@@ -28,8 +28,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-cpu", action="store_true")
     parser.add_argument("--run-ort", action="store_true")
     parser.add_argument("--run-fpga", action="store_true")
+    parser.add_argument("--run-jtag", action="store_true")
     parser.add_argument("--list-ports", action="store_true", help="List serial ports using the packaged FPGA UART runner")
     parser.add_argument("--port")
+    parser.add_argument("--quartus-bin")
+    parser.add_argument("--cable", default="USB-Blaster [USB-0]")
+    parser.add_argument("--keep-tcl", action="store_true")
     parser.add_argument("--baud", type=int, default=115200)
     parser.add_argument("--runs", type=int, default=3)
     return parser.parse_args()
@@ -142,6 +146,21 @@ def main() -> None:
         cmd = py + ["windows/run_fpga_uart_matvec.py", "--runs", str(args.runs), "--baud", str(args.baud), "--log-dir", str(log_dir)]
         if args.port:
             cmd += ["--port", args.port]
+        run_step(cmd, dest, summary)
+    if args.run_jtag:
+        cmd = py + [
+            "windows/run_fpga_jtag_matvec.py",
+            "--runs",
+            str(args.runs),
+            "--cable",
+            args.cable,
+            "--log-dir",
+            str(log_dir),
+        ]
+        if args.quartus_bin:
+            cmd += ["--quartus-bin", args.quartus_bin]
+        if args.keep_tcl:
+            cmd += ["--keep-tcl"]
         run_step(cmd, dest, summary)
     (log_dir / "install_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(f"summary: {log_dir / 'install_summary.json'}")

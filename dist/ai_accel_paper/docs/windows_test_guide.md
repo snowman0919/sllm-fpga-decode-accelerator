@@ -26,7 +26,17 @@ python windows\run_ort_matvec_baseline.py --runs 10
 
 This runs a small `float32` MatMul graph with `CPUExecutionProvider`. The dtype difference from the INT8 FPGA primitive is recorded in the output table.
 
-## FPGA UART Primitive
+## FPGA JTAG Register Primitive
+
+The preferred board-validation path uses the DE10-Lite USB-Blaster with JTAG-to-Avalon Master and a MatVec register bank. It does not require an external USB-UART adapter.
+
+```powershell
+python windows\run_fpga_jtag_matvec.py --runs 10 --cable "USB-Blaster [USB-0]" --keep-tcl
+```
+
+If Quartus tools, USB-Blaster, or the JTAG-to-Avalon master service is unavailable, the script writes `fpga_jtag_summary.json`/`.md` and does not update paper result tables.
+
+## FPGA UART Primitive Alternative
 
 List available serial ports:
 

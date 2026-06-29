@@ -17,6 +17,7 @@ The goal is to study where bottlenecks actually appear in ONNX Runtime-based on-
 - KV-cache is treated as a representative structural source of long-context decode memory pressure, not as the only assumed bottleneck.
 - The actual bottleneck location must be inferred from export behavior, ONNX graph structure, runtime execution traces, memory pressure measurements, prefill/decode timing, and host-side reference baselines.
 - The Terasic DE10-Lite is used only to validate small FPGA hardware blocks. The current paper-facing evidence centers on a fixed-dimension INT8 Decode MatVec primitive and bitstream configuration evidence.
+- A USB-Blaster JTAG-to-Avalon register-bank path is available as an additional primitive invocation route. It is a correctness/overhead validation path, not a performance-optimized accelerator interface.
 - This project does not claim that the DE10-Lite runs Gemma 3 1B or a full small language model.
 - This project does not implement full KV-cache storage, movement, or management on FPGA.
 - This project does not claim ONNX Runtime speedup or board-level numeric output validation from programming evidence alone.
