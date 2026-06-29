@@ -14,45 +14,29 @@ hw/spinal/generated/simWorkspace/
 hw/spinal/project/target/
 hw/spinal/target/
 
-quartus/de10_lite_qk/generated_verilog/*.v
-!quartus/de10_lite_qk/generated_verilog/README.md
-quartus/de10_lite_qk/db/
-quartus/de10_lite_qk/incremental_db/
-quartus/de10_lite_qk/output_files/
-quartus/de10_lite_decode_matvec/generated_verilog/*.v
-!quartus/de10_lite_decode_matvec/generated_verilog/README.md
-quartus/de10_lite_decode_matvec/db/
-quartus/de10_lite_decode_matvec/incremental_db/
-quartus/de10_lite_decode_matvec/output_files/
-quartus/de10_lite_decode_matvec/*.qpf
-quartus/de10_lite_decode_matvec/*.qsf
 quartus/de10_lite_jtag_matvec/db/
 quartus/de10_lite_jtag_matvec/incremental_db/
 quartus/de10_lite_jtag_matvec/output_files/*
 !quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof
-quartus/de10_lite_jtag_matvec/*.qpf
-quartus/de10_lite_jtag_matvec/*.qsf
 quartus/de10_lite_jtag_matvec/*.sopcinfo
-quartus/de10_lite_jtag_matvec/platform_designer/jtag_matvec_system.qsys
 quartus/de10_lite_jtag_matvec/platform_designer/jtag_matvec_system.sopcinfo
 quartus/de10_lite_jtag_matvec/platform_designer/jtag_matvec_system/
 quartus/dim_sweep/*
 !quartus/dim_sweep/README.md
+quartus/de10_lite_qk/
+quartus/de10_lite_decode_matvec/
+quartus/de10_lite_uart_matvec/
 
 onnx_profile/results/raw/*
-!onnx_profile/results/raw/.gitkeep
 onnx_profile/results/tables/*
 !onnx_profile/results/tables/.gitkeep
 onnx_profile/results/figures/*
 !onnx_profile/results/figures/.gitkeep
+onnx_profile/results/reports/
 onnx_profile/results_onnx_long_decode/
 
-fpga_test/vectors/*
-!fpga_test/vectors/README.md
-fpga_test/captured/*
-!fpga_test/captured/README.md
-!fpga_test/captured/decode_matvec_int8_sim.csv
-!fpga_test/captured/decode_matvec_board_validation.md
+fpga_test/
+onnx_custom_op/
 
 paper_assets/figures/*
 !paper_assets/figures/.gitkeep

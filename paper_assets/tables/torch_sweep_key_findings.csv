@@ -1,2 +1,0 @@
-min_context,max_context,decode_latency_at_min_context,decode_latency_at_max_context,decode_latency_growth_ratio,prefill_latency_growth_ratio,rss_delta_growth_ratio,theoretical_kv_cache_growth_ratio
-128,32768,65.989791,130.476183,1.977218,1331.160031,256.483235,256.000000

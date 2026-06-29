@@ -1,5 +1,0 @@
-output_index,expected,observed,pass,input_dim,output_dim,cycles
-0,-271,-271,true,16,4,65
-1,239,239,true,16,4,65
-2,287,287,true,16,4,65
-3,797,797,true,16,4,65
