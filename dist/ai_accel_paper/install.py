@@ -33,6 +33,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-jtag", action="store_true")
     parser.add_argument("--extract-quartus-summary", action="store_true")
     parser.add_argument("--run-full-eval", action="store_true")
+    parser.add_argument("--strict", action="store_true", help="Fail when required non-hardware evaluation steps fail")
+    parser.add_argument("--require-jtag-pass", action="store_true", help="Fail unless the JTAG summary reports pass_count > 0")
+    parser.add_argument("--run-ort-integer", action="store_true", help="Run the optional ONNX Runtime MatMulInteger micrograph baseline")
     parser.add_argument("--list-ports", action="store_true", help="List serial ports using the packaged FPGA UART runner")
     parser.add_argument("--port")
     parser.add_argument("--quartus-bin")
@@ -247,10 +250,23 @@ def python_cmd(args: argparse.Namespace, dest: Path) -> list[str]:
     return [str(venv / "bin/python")]
 
 
-def run_step(cmd: list[str], cwd: Path, summary: list[dict[str, object]]) -> None:
+def run_step(cmd: list[str], cwd: Path, summary: list[dict[str, object]], required: bool = False) -> subprocess.CompletedProcess:
     print("+ " + " ".join(cmd))
     proc = subprocess.run(cmd, cwd=cwd)
-    summary.append({"cmd": cmd, "returncode": proc.returncode})
+    summary.append({"cmd": cmd, "returncode": proc.returncode, "required": required})
+    if required and proc.returncode != 0:
+        raise SystemExit(proc.returncode)
+    return proc
+
+
+def require_jtag_pass(log_dir: Path) -> None:
+    summary_path = log_dir / "fpga_jtag_summary.json"
+    if not summary_path.exists():
+        raise SystemExit(f"--require-jtag-pass requested but no JTAG summary exists: {summary_path}")
+    data = json.loads(summary_path.read_text(encoding="utf-8"))
+    pass_count = int(data.get("pass_count") or 0)
+    if pass_count <= 0:
+        raise SystemExit(f"--require-jtag-pass requested but pass_count={pass_count}: {summary_path}")
 
 
 def main() -> None:
@@ -272,52 +288,67 @@ def main() -> None:
 
     log_dir.mkdir(parents=True, exist_ok=True)
     summary: list[dict[str, object]] = []
+    exit_code = 0
     if args.run_full_eval:
         args.run_cpu = True
         args.run_ort = True
+        args.run_ort_integer = True
         args.run_jtag = True
         args.extract_quartus_summary = True
-    if args.list_ports:
-        run_step(py + ["windows/run_fpga_uart_matvec.py", "--list-ports"], dest, summary)
-    if args.run_cpu:
-        run_step(py + ["windows/run_cpu_matvec_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary)
-    if args.run_ort:
-        run_step(py + ["windows/run_ort_matvec_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary)
-    if args.run_fpga:
-        cmd = py + ["windows/run_fpga_uart_matvec.py", "--runs", str(args.runs), "--baud", str(args.baud), "--log-dir", str(log_dir)]
-        if args.port:
-            cmd += ["--port", args.port]
-        run_step(cmd, dest, summary)
-    if args.run_jtag:
-        cmd = py + [
-            "windows/run_fpga_jtag_matvec.py",
-            "--runs",
-            str(args.runs),
-            "--cable",
-            args.cable,
-            "--log-dir",
-            str(log_dir),
-        ]
-        if quartus_tool:
-            cmd += ["--quartus-bin", quartus_tool]
-        if args.keep_tcl:
-            cmd += ["--keep-tcl"]
-        run_step(cmd, dest, summary)
-    if args.extract_quartus_summary:
-        run_step(
-            py
-            + [
-                "scripts/extract_quartus_summary.py",
-                "--quartus-dir",
-                "quartus/de10_lite_jtag_matvec/output_files",
-            ],
-            dest,
-            summary,
-        )
-    if args.run_full_eval:
-        run_step(py + ["scripts/build_ort_fpga_comparison.py"], dest, summary)
-    (log_dir / "install_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
-    print(f"summary: {log_dir / 'install_summary.json'}")
+    try:
+        if args.list_ports:
+            run_step(py + ["windows/run_fpga_uart_matvec.py", "--list-ports"], dest, summary, required=False)
+        if args.run_cpu:
+            run_step(py + ["windows/run_cpu_matvec_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary, required=args.strict)
+        if args.run_ort:
+            run_step(py + ["windows/run_ort_matvec_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary, required=args.strict)
+        if args.run_ort_integer:
+            run_step(py + ["windows/run_ort_matvec_integer_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary, required=False)
+        if args.run_fpga:
+            cmd = py + ["windows/run_fpga_uart_matvec.py", "--runs", str(args.runs), "--baud", str(args.baud), "--log-dir", str(log_dir)]
+            if args.port:
+                cmd += ["--port", args.port]
+            run_step(cmd, dest, summary, required=False)
+        if args.run_jtag:
+            cmd = py + [
+                "windows/run_fpga_jtag_matvec.py",
+                "--runs",
+                str(args.runs),
+                "--cable",
+                args.cable,
+                "--log-dir",
+                str(log_dir),
+            ]
+            if quartus_tool:
+                cmd += ["--quartus-bin", quartus_tool]
+            if args.keep_tcl:
+                cmd += ["--keep-tcl"]
+            run_step(cmd, dest, summary, required=False)
+            if args.require_jtag_pass:
+                require_jtag_pass(log_dir)
+        if args.extract_quartus_summary:
+            run_step(
+                py
+                + [
+                    "scripts/extract_quartus_summary.py",
+                    "--quartus-dir",
+                    "quartus/de10_lite_jtag_matvec/output_files",
+                ],
+                dest,
+                summary,
+                required=args.strict,
+            )
+        if args.run_full_eval:
+            run_step(py + ["scripts/regenerate_fpga_optimized_estimate.py"], dest, summary, required=args.strict)
+            run_step(py + ["scripts/build_ort_fpga_comparison.py"], dest, summary, required=args.strict)
+    except SystemExit as exc:
+        exit_code = int(exc.code) if isinstance(exc.code, int) else 1
+        summary.append({"installer_error": str(exc), "returncode": exit_code})
+    finally:
+        (log_dir / "install_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+        print(f"summary: {log_dir / 'install_summary.json'}")
+    if exit_code:
+        raise SystemExit(exit_code)
 
 
 if __name__ == "__main__":

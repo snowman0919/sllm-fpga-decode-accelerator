@@ -27,12 +27,15 @@ INCLUDE_PATHS = [
     "docs/onnx_vs_fpga_eval_protocol.md",
     "docs/quartus_resource_timing_summary.md",
     "docs/ort_vs_fpga_comparison_interpretation.md",
+    "docs/release_hygiene.md",
     "docs/ftp_upload_plan.md",
     "docs/claim_boundary.md",
     "docs/gemma_partial_offload_plan.md",
     "docs/gemma_onnx_patch_notes.md",
     "scripts/extract_quartus_summary.py",
+    "scripts/regenerate_fpga_optimized_estimate.py",
     "scripts/build_ort_fpga_comparison.py",
+    "scripts/verify_dist_package.py",
     "paper_assets/tables",
     "paper_assets/figures/figure_index.md",
     "paper_assets/figures/figure_index.csv",
@@ -91,13 +94,25 @@ def write_readme(path: Path) -> None:
     text = """# ai_accel_paper Test Package
 
 This package contains the Windows CPU/ONNX Runtime baselines, optional FPGA UART
-validation runner, ONNX micrograph artifacts, claim-boundary notes, and
+and JTAG validation runners, ONNX micrograph artifacts, claim-boundary notes, and
 paper-facing tables prepared from the repository.
 
 Run locally:
 
 ```powershell
 python install.py --local . --run-cpu --run-ort
+```
+
+Run strict non-hardware smoke checks:
+
+```powershell
+python install.py --local . --run-cpu --run-ort --extract-quartus-summary --strict
+```
+
+Run the optional ONNX Runtime integer micrograph baseline:
+
+```powershell
+python install.py --local . --run-ort-integer
 ```
 
 List serial ports:
@@ -118,6 +133,12 @@ Run optional USB-Blaster JTAG register validation:
 python install.py --local . --run-jtag --cable "USB-Blaster [USB-0]"
 ```
 
+Require a real passing JTAG hardware run:
+
+```powershell
+python install.py --local . --run-jtag --require-jtag-pass
+```
+
 Extract packaged Quartus resource/timing summaries and rebuild the comparison table:
 
 ```powershell
@@ -127,9 +148,10 @@ python install.py --local . --extract-quartus-summary --run-full-eval
 The FPGA UART path is a low-speed validation/control path. It is not a full
 Gemma ONNX execution path and does not imply end-to-end speedup. The JTAG path
 is now the preferred no-external-UART board validation route, but it is also a
-correctness/overhead validation path rather than a performance interface. The
-full-eval option preserves failed or skipped hardware runs instead of converting
-them into passing measurements.
+correctness/overhead validation path rather than a performance interface unless
+a real passing cycle-counter board log is archived. The full-eval option
+preserves failed or skipped hardware runs instead of converting them into
+passing measurements.
 """
     path.write_text(text, encoding="utf-8")
 
@@ -190,6 +212,17 @@ def main() -> None:
     }
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (out_dir / "checksums.sha256").write_text("\n".join(checksum_lines) + "\n", encoding="utf-8")
+    bad = []
+    for item in files:
+        path = out_dir / item["path"]
+        if not path.exists():
+            bad.append((item["path"], "missing"))
+            continue
+        digest = sha256(path)
+        if digest != item["sha256"]:
+            bad.append((item["path"], digest, item["sha256"]))
+    if bad:
+        raise SystemExit(f"manifest self-test failed: {bad}")
     print(f"built {out_dir}")
 
 

@@ -30,6 +30,19 @@ def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace") if path.exists() else ""
 
 
+def display_path(path: Path | None, base: Path = PROJECT_ROOT) -> str:
+    if path is None or not path.exists():
+        return ""
+    try:
+        resolved = path.resolve()
+    except OSError:
+        resolved = path
+    try:
+        return str(resolved.relative_to(base.resolve()))
+    except ValueError:
+        return str(resolved)
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as f:
@@ -158,7 +171,7 @@ def write_md(path: Path, row: dict[str, object]) -> None:
 
 def main() -> None:
     args = parse_args()
-    quartus_dir = Path(args.quartus_dir)
+    quartus_dir = Path(args.quartus_dir).expanduser().resolve()
     fit_summary = next(quartus_dir.glob("*.fit.summary"), None)
     sta_summary = next(quartus_dir.glob("*.sta.summary"), None)
     sta_rpt = next(quartus_dir.glob("*.sta.rpt"), None)
@@ -177,11 +190,11 @@ def main() -> None:
         **parse_sta_summary(sta_summary_text, args.clock_name),
         **parse_sta_rpt(sta_rpt_text, args.clock_name),
         "timing_met": "",
-        "fit_summary": str(fit_summary.relative_to(PROJECT_ROOT)) if fit_summary and fit_summary.exists() else "",
-        "sta_summary": str(sta_summary.relative_to(PROJECT_ROOT)) if sta_summary and sta_summary.exists() else "",
-        "sta_rpt": str(sta_rpt.relative_to(PROJECT_ROOT)) if sta_rpt and sta_rpt.exists() else "",
-        "flow_rpt": str(flow_rpt.relative_to(PROJECT_ROOT)) if flow_rpt and flow_rpt.exists() else "",
-        "sof_path": str(sof.relative_to(PROJECT_ROOT)) if sof and sof.exists() else "",
+        "fit_summary": display_path(fit_summary),
+        "sta_summary": display_path(sta_summary),
+        "sta_rpt": display_path(sta_rpt),
+        "flow_rpt": display_path(flow_rpt),
+        "sof_path": display_path(sof),
         "sof_sha256": sha256(sof) if sof and sof.exists() else "",
     }
     setup = float(row["worst_setup_slack_ns"]) if row.get("worst_setup_slack_ns") not in ("", None) else None
