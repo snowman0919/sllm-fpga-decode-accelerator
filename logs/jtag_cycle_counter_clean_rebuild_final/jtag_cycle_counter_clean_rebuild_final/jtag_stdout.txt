@@ -1,0 +1,820 @@
+
+===== run 0 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=0 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000000 r0=-271 r1=239 r2=287 r3=797 write_ms=210 poll_ms=5 read_ms=19 elapsed_ms=234
+
+===== run 1 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=1 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000001 r0=-271 r1=239 r2=287 r3=797 write_ms=206 poll_ms=6 read_ms=22 elapsed_ms=234
+
+===== run 2 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=2 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000002 r0=-271 r1=239 r2=287 r3=797 write_ms=188 poll_ms=5 read_ms=18 elapsed_ms=211
+
+===== run 3 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=3 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000003 r0=-271 r1=239 r2=287 r3=797 write_ms=199 poll_ms=6 read_ms=19 elapsed_ms=224
+
+===== run 4 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=4 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000004 r0=-271 r1=239 r2=287 r3=797 write_ms=202 poll_ms=6 read_ms=19 elapsed_ms=227
+
+===== run 5 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=5 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000005 r0=-271 r1=239 r2=287 r3=797 write_ms=193 poll_ms=5 read_ms=23 elapsed_ms=221
+
+===== run 6 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=6 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000006 r0=-271 r1=239 r2=287 r3=797 write_ms=183 poll_ms=6 read_ms=18 elapsed_ms=207
+
+===== run 7 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=7 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000007 r0=-271 r1=239 r2=287 r3=797 write_ms=202 poll_ms=5 read_ms=19 elapsed_ms=226
+
+===== run 8 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=8 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000008 r0=-271 r1=239 r2=287 r3=797 write_ms=224 poll_ms=5 read_ms=24 elapsed_ms=253
+
+===== run 9 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=9 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000009 r0=-271 r1=239 r2=287 r3=797 write_ms=213 poll_ms=6 read_ms=19 elapsed_ms=238
+
+===== run 10 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=10 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000a r0=-271 r1=239 r2=287 r3=797 write_ms=210 poll_ms=5 read_ms=18 elapsed_ms=233
+
+===== run 11 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=11 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000b r0=-271 r1=239 r2=287 r3=797 write_ms=210 poll_ms=5 read_ms=20 elapsed_ms=235
+
+===== run 12 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=12 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000c r0=-271 r1=239 r2=287 r3=797 write_ms=208 poll_ms=6 read_ms=23 elapsed_ms=237
+
+===== run 13 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=13 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000d r0=-271 r1=239 r2=287 r3=797 write_ms=195 poll_ms=6 read_ms=19 elapsed_ms=220
+
+===== run 14 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=14 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000e r0=-271 r1=239 r2=287 r3=797 write_ms=197 poll_ms=5 read_ms=22 elapsed_ms=224
+
+===== run 15 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=15 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x0000000f r0=-271 r1=239 r2=287 r3=797 write_ms=200 poll_ms=5 read_ms=24 elapsed_ms=229
+
+===== run 16 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=16 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000010 r0=-271 r1=239 r2=287 r3=797 write_ms=206 poll_ms=5 read_ms=19 elapsed_ms=230
+
+===== run 17 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=17 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000011 r0=-271 r1=239 r2=287 r3=797 write_ms=208 poll_ms=5 read_ms=18 elapsed_ms=231
+
+===== run 18 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=18 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000012 r0=-271 r1=239 r2=287 r3=797 write_ms=205 poll_ms=5 read_ms=19 elapsed_ms=229
+
+===== run 19 stdout =====
+--------------------------------------------------------------------------------
+ Version 25.1 1129
+ Copyright (C) 2025 Intel Corporation. All rights reserved.
+ Your use of Intel Corporation's design tools, logic functions
+ and other software and tools, and its AMPP partner logic
+ functions, and any output files from any of the foregoing
+ (including device programming or simulation files), and any
+ associated documentation or information is expressly subject
+ to the terms and conditions of the Intel Program License
+ Subscription Agreement, the Intel Quartus Prime License Agreement,
+ the Intel MegaCore Function License Agreement, or other
+ applicable license agreement, including, without limitation,
+ that your use is for the sole purpose of programming logic
+ devices manufactured by Intel and sold by Intel or its
+ authorized distributors.  Please refer to the applicable
+ agreement for further details.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ Welcome to Intel's FPGA System Console
+
+ This Tcl console provides access to the hardware modules instantiated in your
+ FPGA. You can use System Console for all of the following purposes:
+
+    * To start, stop, or step a Nios II processor
+    * To read or write Avalon Memory-Mapped (Avalon-MM) slaves using special
+     masters
+    * To sample the SOPC system clock as well as system reset signal
+    * To run JTAG loopback tests to analyze board noise problems
+    * To shift arbitrary instruction register and data register values to
+     instantiated system level debug (SLD) nodes
+
+ In addition, the directory <QuartusII Dir>/sopc_builder/system_console/scripts
+ contains Tcl files that provide miscellaneous utilities and examples of how to
+ access the functionality provided. You can include those macros in your
+ scripts by issuing Tcl source commands.
+--------------------------------------------------------------------------------
+JTAG_MATVEC_CABLES {/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master}
+JTAG_MATVEC_MASTER /devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+JTAG_MATVEC_RESULT seq=19 status=0x00000002 debug_status=0x00000002 compute_cycles=0x00000041 core_total_cycles=0x00000041 last_run_id=0x00000013 r0=-271 r1=239 r2=287 r3=797 write_ms=218 poll_ms=5 read_ms=19 elapsed_ms=242

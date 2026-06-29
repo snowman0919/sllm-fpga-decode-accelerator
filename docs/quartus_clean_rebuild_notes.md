@@ -81,6 +81,69 @@ quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof
 SHA-256: c78fc674229763bf202eeac5303212bf621f54533130ba7b82d30d18d0b7bcc1
 ```
 
-This confirms clean source rebuild reproducibility for the Quartus project. It
-does not replace the prior board-measured JTAG log, whose programmed `.sof`
-SHA-256 remains `3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5`.
+This confirmed clean source rebuild reproducibility for the Quartus project in
+the isolated test directory. It did not itself replace the prior board-measured
+JTAG log.
+
+## 2026-06-30 Primary Windows Clean Rebuild Board Run
+
+Host: Pocket4
+
+Source delivery:
+
+```text
+git push succeeded from Linux.
+Windows working directory was not a git checkout, so current HEAD 70953945 was
+transferred as a git archive to C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo.
+```
+
+Command:
+
+```powershell
+cd C:\Users\dbsgu\Dev\sllm_fpga_board_eval\repo\quartus\de10_lite_jtag_matvec
+quartus_sh.exe --flow compile de10_lite_jtag_matvec
+```
+
+Result:
+
+```text
+Quartus Prime Full Compilation was successful. 0 errors, 45 warnings
+Quartus Prime Shell was successful. 0 errors, 45 warnings
+```
+
+Generated and programmed file:
+
+```text
+quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof
+SHA-256: 40a4f84167d2fd75972ea33684ec949b6c22e61057f1c134dd5bd4b936ef4a84
+```
+
+Programming result:
+
+```text
+Configuration succeeded -- 1 device(s) configured
+Successfully performed operation(s)
+```
+
+System Console master service:
+
+```text
+/devices/10M50DA(.|ES)|10M50DC@1#USB-0/(link)/JTAG/(110:132 v1 #0)/phy_0/master
+```
+
+JTAG cycle-counter benchmark:
+
+```text
+pass_count=20
+fail_count=0
+reference=-271 239 287 797
+result=-271 239 287 797
+COMPUTE_CYCLES mean/p50/p95=65.0/65.0/65.0
+compute_time_us_50mhz mean/p50/p95=1.3/1.3/1.3
+JTAG total latency mean/p50/p95=7720.85016/7720.45115/7748.84833 ms
+```
+
+This clean rebuild run is now the primary board-measured evidence. The prior
+passing board-run SHA-256
+`3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5` is preserved
+as a historical prior run.
