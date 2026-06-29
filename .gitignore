@@ -78,6 +78,7 @@ paper_assets/tables/*
 !paper_assets/tables/decode_matvec_fpga_resource.csv
 !paper_assets/tables/decode_matvec_fpga_timing.csv
 !paper_assets/tables/decode_matvec_board_validation.csv
+!paper_assets/tables/fpga_jtag_cycle_counter_summary.csv
 
 .nas
 nas

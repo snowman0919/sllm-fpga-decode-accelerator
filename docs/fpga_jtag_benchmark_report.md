@@ -2,7 +2,7 @@
 
 ## Summary
 
-The current paper-facing JTAG evidence is a measured correctness and invocation result for the fixed INT8 Decode MatVec primitive over a USB-Blaster JTAG-to-Avalon register path.
+The current paper-facing JTAG evidence is a measured correctness, invocation, and internal cycle-counter result for the fixed INT8 Decode MatVec primitive over a USB-Blaster JTAG-to-Avalon register path.
 
 Recorded result:
 
@@ -16,6 +16,11 @@ Recorded result:
 | reference | `-271 239 287 797` |
 | result | `-271 239 287 797` |
 | correctness | `True` |
+| runs | `20` |
+| pass / fail | `20 / 0` |
+| JTAG total latency mean / p50 / p95 | `7756.72185 ms / 7734.1137 ms / 7819.554125 ms` |
+| `COMPUTE_CYCLES` mean / p50 / p95 | `65 / 65 / 65` |
+| compute time at 50 MHz mean / p50 / p95 | `1.3 us / 1.3 us / 1.3 us` |
 
 The paper-facing CSV is `paper_assets/tables/fpga_jtag_primitive_benchmark.csv`.
 
@@ -40,9 +45,9 @@ That file verifies register writes, `CONTROL.start`, `STATUS.done`, `RESULT`, `L
 
 ## Latency Interpretation
 
-The JTAG-to-Avalon experiment confirms that the synthesized primitive can be invoked through the board register path and can return the same deterministic result as the CPU reference. The provided success record does not include an archived numeric latency breakdown, so the latency columns in the CSV are intentionally left blank.
+The JTAG-to-Avalon experiment confirms that the synthesized primitive can be invoked through the board register path and can return the same deterministic result as the CPU reference. The archived 20-run board log includes both total JTAG invocation latency and the FPGA internal cycle-counter value.
 
-Even when a future run records `total_wall_latency_ms` or `system_console_elapsed_ms`, that value must be interpreted as System Console/JTAG invocation overhead. It includes host tool execution, JTAG service setup or access, register write/read traffic, and polling. It is not the pure FPGA compute time of the MatVec datapath.
+`total_wall_latency_ms` and `system_console_elapsed_ms` must be interpreted as System Console/JTAG invocation overhead. They include host tool execution, JTAG service setup or access, register write/read traffic, and polling. They are not the pure FPGA compute time of the MatVec datapath.
 
 FPGA compute latency must be taken from `COMPUTE_CYCLES` and converted with the documented clock frequency, normally `50 MHz` on DE10-Lite:
 
@@ -58,6 +63,7 @@ Allowed interpretation:
 
 - JTAG measured result: correctness/invocation evidence.
 - JTAG latency, when present: low-speed invocation overhead.
+- Internal `COMPUTE_CYCLES`: primitive compute latency evidence only.
 - The result supports primitive feasibility on a real board path.
 
 Disallowed interpretation:

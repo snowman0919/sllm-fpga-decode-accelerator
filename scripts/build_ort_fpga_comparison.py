@@ -246,7 +246,7 @@ def write_md(path: Path, rows: list[dict[str, object]]) -> None:
     lines = [
         "# ORT vs FPGA Comparison Interpretation",
         "",
-        "This comparison separates measured host baselines, measured JTAG correctness/invocation evidence, pending FPGA cycle-counter evidence, and projected optimized-interface estimates.",
+        "This comparison separates measured host baselines, measured JTAG correctness/invocation evidence, measured FPGA internal cycle-counter evidence, and projected optimized-interface estimates.",
         "",
         "| backend | evidence | latency source | latency us | boundary |",
         "| --- | --- | --- | ---: | --- |",
@@ -260,7 +260,7 @@ def write_md(path: Path, rows: list[dict[str, object]]) -> None:
             "",
             "JTAG-to-Avalon total latency is not FPGA compute latency. It includes System Console execution, JTAG service access, register writes/reads, and polling.",
             "",
-            "Any future FPGA cycle-counter value should be described as fixed primitive compute latency only. It must not be used to claim full-model, full Gemma, custom-op, or end-to-end ONNX Runtime speedup.",
+            "The FPGA cycle-counter value is fixed primitive compute latency only. It must not be used to claim full-model, full Gemma, custom-op, or end-to-end ONNX Runtime speedup.",
         ]
     )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
