@@ -1,0 +1,10 @@
+metric,used,total,percent,status,source
+Total logic elements,239,49760,<1,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+Total combinational functions,222,49760,<1,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+Dedicated logic registers,115,49760,<1,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+Total pins,65,360,18,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+Total memory bits,0,1677312,0,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+Embedded Multiplier 9-bit elements,1,288,<1,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+Total PLLs,0,4,0,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+UFM blocks,0,1,0,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary
+ADC blocks,0,2,0,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.fit.summary

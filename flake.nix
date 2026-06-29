@@ -29,7 +29,8 @@
               ps.matplotlib
             ]
             ++ opt "onnx"
-            ++ opt "onnxruntime");
+            ++ opt "onnxruntime"
+            ++ opt "pyserial");
 
       quartusAttrCandidates = [
         [ "quartus-prime-lite" ]
