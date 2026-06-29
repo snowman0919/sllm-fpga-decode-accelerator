@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import os
 import re
 import shutil
@@ -34,9 +35,15 @@ REG_CONTROL = 0x0000
 REG_STATUS = 0x0004
 REG_CONFIG = 0x0008
 REG_SEQ = 0x0010
+REG_COMPUTE_CYCLES = 0x0040
+REG_CORE_TOTAL_CYCLES = 0x0044
+REG_LAST_RUN_ID = 0x0048
+REG_DEBUG_STATUS = 0x004C
 REG_ACTIVATION = 0x0100
 REG_WEIGHT = 0x0200
 REG_RESULT = 0x0300
+DEFAULT_CLOCK_HZ = 50_000_000
+DEFAULT_SOF = PROJECT_ROOT / "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof"
 
 
 def parse_args() -> argparse.Namespace:
@@ -48,9 +55,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--base-address", default="0x00000000")
     parser.add_argument("--keep-tcl", action="store_true")
     parser.add_argument("--timeout-s", type=float, default=20.0)
+    parser.add_argument("--clock-hz", type=int, default=DEFAULT_CLOCK_HZ)
+    parser.add_argument("--sof", default=str(DEFAULT_SOF), help="Optional .sof path used for sha256 provenance")
     parser.add_argument("--input-dim", type=int, default=DEFAULT_INPUT_DIM)
     parser.add_argument("--output-dim", type=int, default=DEFAULT_OUTPUT_DIM)
     return parser.parse_args()
+
+
+def file_sha256(path: str | Path | None) -> str:
+    if not path:
+        return ""
+    candidate = Path(path)
+    if not candidate.exists() or not candidate.is_file():
+        return ""
+    digest = hashlib.sha256()
+    with candidate.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def resolve_tool(quartus_bin: str | None) -> tuple[str | None, str]:
@@ -178,10 +200,14 @@ set r0 [signed32 [lindex [master_read_32 $selected [reg_addr $base_addr {REG_RES
 set r1 [signed32 [lindex [master_read_32 $selected [reg_addr $base_addr [expr {{{REG_RESULT} + 4}}]] 1] 0]]
 set r2 [signed32 [lindex [master_read_32 $selected [reg_addr $base_addr [expr {{{REG_RESULT} + 8}}]] 1] 0]]
 set r3 [signed32 [lindex [master_read_32 $selected [reg_addr $base_addr [expr {{{REG_RESULT} + 12}}]] 1] 0]]
+set compute_cycles [lindex [master_read_32 $selected [reg_addr $base_addr {REG_COMPUTE_CYCLES}] 1] 0]
+set core_total_cycles [lindex [master_read_32 $selected [reg_addr $base_addr {REG_CORE_TOTAL_CYCLES}] 1] 0]
+set last_run_id [lindex [master_read_32 $selected [reg_addr $base_addr {REG_LAST_RUN_ID}] 1] 0]
+set debug_status [lindex [master_read_32 $selected [reg_addr $base_addr {REG_DEBUG_STATUS}] 1] 0]
 set t_read [clock milliseconds]
 
 close_service master $selected
-puts "JTAG_MATVEC_RESULT seq=$seq status=done r0=$r0 r1=$r1 r2=$r2 r3=$r3 write_ms=[expr {{$t_write - $t0}}] poll_ms=[expr {{$t_poll - $t_write}}] read_ms=[expr {{$t_read - $t_poll}}] elapsed_ms=[expr {{$t_read - $t0}}]"
+puts "JTAG_MATVEC_RESULT seq=$seq status=$status debug_status=$debug_status compute_cycles=$compute_cycles core_total_cycles=$core_total_cycles last_run_id=$last_run_id r0=$r0 r1=$r1 r2=$r2 r3=$r3 write_ms=[expr {{$t_write - $t0}}] poll_ms=[expr {{$t_poll - $t_write}}] read_ms=[expr {{$t_read - $t_poll}}] elapsed_ms=[expr {{$t_read - $t0}}]"
 """
     path.write_text(script, encoding="utf-8")
 
@@ -208,10 +234,30 @@ def parse_result(stdout: str) -> dict[str, object]:
             continue
         key, value = item.split("=", 1)
         fields[key] = value
-    for key in ["seq", "r0", "r1", "r2", "r3", "write_ms", "poll_ms", "read_ms", "elapsed_ms"]:
+    for key in [
+        "seq",
+        "status",
+        "debug_status",
+        "compute_cycles",
+        "core_total_cycles",
+        "last_run_id",
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "write_ms",
+        "poll_ms",
+        "read_ms",
+        "elapsed_ms",
+    ]:
         if key in fields:
             fields[key] = int(str(fields[key]), 0)
     return fields
+
+
+def parse_master(stdout: str) -> str:
+    match = re.search(r"JTAG_MATVEC_MASTER\s+(.+)", stdout)
+    return match.group(1).strip() if match else ""
 
 
 def main() -> int:
@@ -222,6 +268,11 @@ def main() -> int:
         return skipped_summary(log_dir, "Quartus system-console or quartus_stp not found", args, exit_code=2)
 
     rows: list[dict[str, object]] = []
+    sof_sha256 = file_sha256(args.sof)
+    stdout_log = log_dir / "jtag_stdout.txt"
+    stderr_log = log_dir / "jtag_stderr.txt"
+    stdout_log.write_text("", encoding="utf-8")
+    stderr_log.write_text("", encoding="utf-8")
     all_pass = True
     tcl_dir_obj = tempfile.TemporaryDirectory() if not args.keep_tcl else None
     tcl_dir = log_dir if args.keep_tcl else Path(tcl_dir_obj.name)
@@ -233,39 +284,74 @@ def main() -> int:
             reference = cpu_reference(activation, weights)
             t1 = timer()
             flat_weights = [int(v) for row in weights for v in row]
-            tcl_path = tcl_dir / f"jtag_matvec_run{run}.tcl"
+            tcl_path = tcl_dir / f"generated_jtag_matvec_run{run}.tcl"
             generate_tcl(tcl_path, [int(v) for v in activation], flat_weights, args, seq=run)
             t2 = timer()
             try:
                 proc = run_tcl(tool, tcl_path, args.timeout_s)
+                with stdout_log.open("a", encoding="utf-8") as f:
+                    f.write(f"\n===== run {run} stdout =====\n")
+                    f.write(proc.stdout)
+                with stderr_log.open("a", encoding="utf-8") as f:
+                    f.write(f"\n===== run {run} stderr =====\n")
+                    f.write(proc.stderr)
                 result_fields = parse_result(proc.stdout)
                 result = [int(result_fields[f"r{i}"]) for i in range(args.output_dim)]
                 pass_run = proc.returncode == 0 and result == [int(v) for v in reference]
                 error = "" if pass_run else f"returncode={proc.returncode}"
+                service_path = parse_master(proc.stdout)
             except Exception as exc:
                 proc = None
                 result_fields = {}
                 result = []
                 pass_run = False
                 error = str(exc)
+                service_path = ""
             t3 = timer()
             all_pass = all_pass and pass_run
+            compute_cycles = result_fields.get("compute_cycles", "")
+            core_total_cycles = result_fields.get("core_total_cycles", "")
+            compute_time_us = (
+                (float(compute_cycles) / float(args.clock_hz) * 1_000_000.0)
+                if compute_cycles not in ("", None) and args.clock_hz
+                else ""
+            )
+            core_total_time_us = (
+                (float(core_total_cycles) / float(args.clock_hz) * 1_000_000.0)
+                if core_total_cycles not in ("", None) and args.clock_hz
+                else ""
+            )
             rows.append(
                 {
-                    "run": run,
+                    "seq": run,
                     "input_dim": args.input_dim,
                     "output_dim": args.output_dim,
+                    "macs": args.input_dim * args.output_dim,
                     "generation_ms": elapsed_ms(t0, t1),
                     "tcl_generate_ms": elapsed_ms(t1, t2),
-                    "total_latency_ms": elapsed_ms(t2, t3),
+                    "total_wall_latency_ms": elapsed_ms(t2, t3),
+                    "system_console_elapsed_ms": result_fields.get("elapsed_ms", ""),
                     "jtag_write_ms": result_fields.get("write_ms", ""),
                     "jtag_poll_ms": result_fields.get("poll_ms", ""),
                     "jtag_read_ms": result_fields.get("read_ms", ""),
+                    "compute_cycles": compute_cycles,
+                    "core_total_cycles": core_total_cycles,
+                    "clock_hz": args.clock_hz,
+                    "compute_time_us_50mhz": round(compute_time_us, 6) if compute_time_us != "" else "",
+                    "core_total_time_us_50mhz": round(core_total_time_us, 6) if core_total_time_us != "" else "",
+                    "status_register": result_fields.get("status", ""),
+                    "debug_status": result_fields.get("debug_status", ""),
+                    "last_run_id": result_fields.get("last_run_id", ""),
                     "reference": " ".join(str(int(v)) for v in reference),
                     "result": " ".join(str(int(v)) for v in result),
                     "correctness_pass": pass_run,
+                    "run_status": "pass" if pass_run else "fail",
                     "quartus_tool": tool_name,
+                    "quartus_tool_path": tool,
                     "cable": args.cable,
+                    "service_path": service_path,
+                    "sof_path": args.sof if Path(args.sof).exists() else "",
+                    "sof_sha256": sof_sha256,
                     "tcl_script": str(tcl_path) if args.keep_tcl else "",
                     "error": error,
                     "stdout_tail": (proc.stdout[-1000:] if proc else ""),
@@ -277,40 +363,62 @@ def main() -> int:
             tcl_dir_obj.cleanup()
 
     write_csv(log_dir / "fpga_jtag_matvec.csv", rows)
+    passing_rows = [row for row in rows if row.get("correctness_pass") is True]
+    failing_rows = [row for row in rows if row.get("correctness_pass") is not True]
+    write_csv(log_dir / "fpga_jtag_matvec_success.csv", passing_rows)
+    write_csv(log_dir / "fpga_jtag_matvec_failure.csv", failing_rows)
     first_error = next((str(row.get("error", "")) for row in rows if row.get("error")), "")
-    total = latency_summary(rows, "total_latency_ms")
-    write_lat = latency_summary(rows, "jtag_write_ms")
-    poll_lat = latency_summary(rows, "jtag_poll_ms")
-    read_lat = latency_summary(rows, "jtag_read_ms")
+    total = latency_summary(passing_rows, "total_wall_latency_ms")
+    sys_console = latency_summary(passing_rows, "system_console_elapsed_ms")
+    write_lat = latency_summary(passing_rows, "jtag_write_ms")
+    poll_lat = latency_summary(passing_rows, "jtag_poll_ms")
+    read_lat = latency_summary(passing_rows, "jtag_read_ms")
+    compute_lat = latency_summary(passing_rows, "compute_time_us_50mhz")
+    compute_cycles_summary = latency_summary(passing_rows, "compute_cycles")
     macs_per_run = args.input_dim * args.output_dim
     summary = {
         "backend": "fpga_jtag",
         "interface": "usb_blaster_jtag_to_avalon_master",
-        "skipped": not all_pass,
-        "reason": "" if all_pass else first_error or "JTAG run did not produce a passing correctness result",
+        "skipped": not bool(passing_rows),
+        "reason": "" if passing_rows else first_error or "JTAG run did not produce a passing correctness result",
         "quartus_tool": tool_name,
+        "quartus_tool_path": tool,
         "cable": args.cable,
         "base_address": args.base_address,
         "input_dim": args.input_dim,
         "output_dim": args.output_dim,
         "runs": args.runs,
+        "pass_count": len(passing_rows),
+        "fail_count": len(failing_rows),
         "correctness_pass": all_pass,
-        "total_latency_ms_mean": round(total["mean"], 6) if all_pass else None,
-        "total_latency_ms_p50": round(total["p50"], 6) if all_pass else None,
-        "total_latency_ms_p95": round(total["p95"], 6) if all_pass else None,
-        "jtag_write_ms_mean": round(write_lat["mean"], 6) if all_pass else None,
-        "jtag_poll_ms_mean": round(poll_lat["mean"], 6) if all_pass else None,
-        "jtag_read_ms_mean": round(read_lat["mean"], 6) if all_pass else None,
-        "effective_macs_per_s": round((macs_per_run / (total["mean"] / 1000.0)) if total["mean"] else 0.0, 3) if all_pass else None,
-        "paper_table_updated": all_pass,
+        "total_wall_latency_ms_mean": round(total["mean"], 6) if passing_rows else None,
+        "total_wall_latency_ms_p50": round(total["p50"], 6) if passing_rows else None,
+        "total_wall_latency_ms_p95": round(total["p95"], 6) if passing_rows else None,
+        "system_console_elapsed_ms_mean": round(sys_console["mean"], 6) if passing_rows else None,
+        "system_console_elapsed_ms_p50": round(sys_console["p50"], 6) if passing_rows else None,
+        "system_console_elapsed_ms_p95": round(sys_console["p95"], 6) if passing_rows else None,
+        "jtag_write_ms_mean": round(write_lat["mean"], 6) if passing_rows else None,
+        "jtag_poll_ms_mean": round(poll_lat["mean"], 6) if passing_rows else None,
+        "jtag_read_ms_mean": round(read_lat["mean"], 6) if passing_rows else None,
+        "compute_cycles_mean": round(compute_cycles_summary["mean"], 6) if passing_rows else None,
+        "compute_cycles_p50": round(compute_cycles_summary["p50"], 6) if passing_rows else None,
+        "compute_cycles_p95": round(compute_cycles_summary["p95"], 6) if passing_rows else None,
+        "compute_time_us_50mhz_mean": round(compute_lat["mean"], 6) if passing_rows else None,
+        "compute_time_us_50mhz_p50": round(compute_lat["p50"], 6) if passing_rows else None,
+        "compute_time_us_50mhz_p95": round(compute_lat["p95"], 6) if passing_rows else None,
+        "effective_macs_per_s_jtag_total": round((macs_per_run / (total["mean"] / 1000.0)) if total["mean"] else 0.0, 3) if passing_rows else None,
+        "clock_hz": args.clock_hz,
+        "sof_path": args.sof if Path(args.sof).exists() else "",
+        "sof_sha256": sof_sha256,
+        "paper_table_updated": bool(passing_rows),
         "note": "JTAG-to-Avalon is a validation path for invocation/correctness/overhead, not an optimized accelerator interface.",
     }
     write_json(log_dir / "fpga_jtag_summary.json", summary)
     write_summary_md(log_dir / "fpga_jtag_summary.md", "FPGA JTAG MatVec Summary", summary)
 
-    if all_pass:
+    if passing_rows:
         reference_text = " ".join(str(int(v)) for v in reference)
-        result_text = str(rows[-1].get("result", ""))
+        result_text = str(passing_rows[-1].get("result", ""))
         update_table(
             PROJECT_ROOT / "paper_assets/tables/fpga_jtag_primitive_benchmark.csv",
             ["backend", "interface", "evidence_type", "input_dim", "output_dim"],
@@ -322,16 +430,49 @@ def main() -> int:
                 "output_dim": args.output_dim,
                 "macs": macs_per_run,
                 "runs": args.runs,
+                "pass_count": len(passing_rows),
+                "fail_count": len(failing_rows),
                 "correctness_pass": all_pass,
                 "reference": reference_text,
                 "result": result_text,
-                "total_latency_ms_mean": summary["total_latency_ms_mean"],
-                "total_latency_ms_p50": summary["total_latency_ms_p50"],
+                "total_wall_latency_ms_mean": summary["total_wall_latency_ms_mean"],
+                "total_wall_latency_ms_p50": summary["total_wall_latency_ms_p50"],
+                "total_wall_latency_ms_p95": summary["total_wall_latency_ms_p95"],
+                "system_console_elapsed_ms_mean": summary["system_console_elapsed_ms_mean"],
                 "jtag_write_ms_mean": summary["jtag_write_ms_mean"],
                 "jtag_poll_ms_mean": summary["jtag_poll_ms_mean"],
                 "jtag_read_ms_mean": summary["jtag_read_ms_mean"],
+                "compute_cycles_mean": summary["compute_cycles_mean"],
+                "compute_time_us_50mhz_mean": summary["compute_time_us_50mhz_mean"],
+                "clock_hz": args.clock_hz,
+                "sof_sha256": sof_sha256,
                 "tool_overhead_note": "System Console/JTAG invocation overhead; includes host tool invocation, register writes, polling, and reads.",
                 "interpretation": "correctness/invocation evidence; not compute speedup evidence",
+            },
+        )
+        update_table(
+            PROJECT_ROOT / "paper_assets/tables/fpga_jtag_cycle_counter_summary.csv",
+            ["backend", "interface", "evidence_type", "input_dim", "output_dim"],
+            {
+                "backend": "fpga_internal_cycle_counter",
+                "interface": "jtag_to_avalon_register_bank",
+                "evidence_type": "measured",
+                "input_dim": args.input_dim,
+                "output_dim": args.output_dim,
+                "macs": macs_per_run,
+                "runs": args.runs,
+                "pass_count": len(passing_rows),
+                "fail_count": len(failing_rows),
+                "correctness_pass": all_pass,
+                "compute_cycles_mean": summary["compute_cycles_mean"],
+                "compute_cycles_p50": summary["compute_cycles_p50"],
+                "compute_cycles_p95": summary["compute_cycles_p95"],
+                "clock_hz": args.clock_hz,
+                "compute_time_us_50mhz_mean": summary["compute_time_us_50mhz_mean"],
+                "compute_time_us_50mhz_p50": summary["compute_time_us_50mhz_p50"],
+                "compute_time_us_50mhz_p95": summary["compute_time_us_50mhz_p95"],
+                "sof_sha256": sof_sha256,
+                "claim_boundary": "primitive internal cycle measurement only; not end-to-end ONNX Runtime or full-model speedup",
             },
         )
     print(f"wrote {log_dir / 'fpga_jtag_summary.md'}")
