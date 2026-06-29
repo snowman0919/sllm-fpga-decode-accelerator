@@ -1,6 +1,6 @@
 # ONNX Runtime sLLM Decode FPGA 가속기 구조 실험
 
-이 저장소는 논문 **「ONNX Runtime 기반 온디바이스 소형 언어모델 추론의 병목 분석 및 FPGA 기반 Decode 가속기 구조 설계」**의 재현용 저장소이다.
+이 저장소는 논문 * 「ONNX Runtime 기반 온디바이스 소형 언어모델 추론의 병목 분석 및 FPGA 기반 Decode 가속기 구조 설계」 *의 재현용 저장소이다.
 
 핵심은 간단하다. ONNX Runtime profiling으로 decode 단계의 MatMul/projection 계열 병목을 확인하고, 그 병목을 바로 전체 모델 가속으로 과장하지 않고, **fixed 16x4 INT8 Decode MatVec primitive** 하나로 좁혀 DE10-Lite FPGA에서 실제 board-measured cycle counter로 검증했다.
 
