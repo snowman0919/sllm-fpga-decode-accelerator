@@ -49,8 +49,8 @@
     },
     {
       "path": "install.py",
-      "sha256": "1167e3a2c18da891946f7f8ce3b9801587050c7a5bc796ce609c68dd32e92323",
-      "bytes": 5151
+      "sha256": "818ac0b1bbbc0de149f7c9370b0954948a15659ccd2740e8d20d148e41c1bd91",
+      "bytes": 5975
     },
     {
       "path": "onnx_custom_op/CMakeLists.txt",
