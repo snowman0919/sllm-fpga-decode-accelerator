@@ -19,8 +19,8 @@
     },
     {
       "path": "docs/fpga_jtag_benchmark_report.md",
-      "sha256": "a6cc99bf0d68ada1f19ca659bf1e07d7bea0144c613ce5f1935fd07506046355",
-      "bytes": 3248
+      "sha256": "5c97f6fc1fdd33fa71c24b12607134421c91796314b20c160883a508ef954afc",
+      "bytes": 3535
     },
     {
       "path": "docs/fpga_optimized_interface_model.md",
@@ -59,8 +59,8 @@
     },
     {
       "path": "docs/ort_vs_fpga_comparison_interpretation.md",
-      "sha256": "75850875c36c5d0b55ccb5fcaaa43ee70b6c36194698949fae1c2f15aab324d7",
-      "bytes": 1700
+      "sha256": "82ca5da28f62eefaef4167b6fd210d4a7626334dba69931faa4c490d7da5230a",
+      "bytes": 1715
     },
     {
       "path": "docs/quartus_resource_timing_summary.md",
@@ -243,9 +243,14 @@
       "bytes": 10551
     },
     {
+      "path": "paper_assets/tables/fpga_jtag_cycle_counter_summary.csv",
+      "sha256": "94af5605dbf198ac20ebee321190570014fb5e22ff0cc94e686fbd8a6572bdcf",
+      "bytes": 555
+    },
+    {
       "path": "paper_assets/tables/fpga_jtag_primitive_benchmark.csv",
-      "sha256": "4345565c208f1a288ddbbe747684423d50472e0a32550756a4b1cd48429804bf",
-      "bytes": 519
+      "sha256": "423d2ca014f68e064c077cfeffc8dc35208ff99bcbd570b9ea7d9f48cbb288e5",
+      "bytes": 803
     },
     {
       "path": "paper_assets/tables/fpga_optimized_interface_estimate.csv",
@@ -394,8 +399,8 @@
     },
     {
       "path": "paper_assets/tables/ort_vs_fpga_measured_and_projected_comparison.csv",
-      "sha256": "5b1195c9a8798b4dc2f3d7458501ac91d07629b93eda09a2f91f1d9dab4de30e",
-      "bytes": 2194
+      "sha256": "77c770ad2b3ae5b2ec3e752812a725299a2a44c59042a786eb404fd0465af2de",
+      "bytes": 2196
     },
     {
       "path": "paper_assets/tables/ort_vs_fpga_projected_comparison.csv",
@@ -544,8 +549,8 @@
     },
     {
       "path": "scripts/build_ort_fpga_comparison.py",
-      "sha256": "e820c6f5f6fb7b8e65fae6804ad758b216a5c6d4d1d9948ad98d0cf649841fa3",
-      "bytes": 13391
+      "sha256": "21916b6a091d2140a4620ad5eba32140763cc87c504a4881bd4937a274d72b4a",
+      "bytes": 13374
     },
     {
       "path": "scripts/extract_quartus_summary.py",
