@@ -169,6 +169,24 @@ fpga-jtag-quartus:
   "$quartus_sh" -t quartus/de10_lite_jtag_matvec/scripts/create_project.tcl
   "$quartus_sh" -t quartus/de10_lite_jtag_matvec/scripts/compile.tcl
 
+extract-quartus-summary quartus_dir="quartus/de10_lite_jtag_matvec/output_files":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 scripts/extract_quartus_summary.py --quartus-dir "{{quartus_dir}}"
+
+fpga-full-eval runs="3" log_dir="":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  args=(--runs "{{runs}}")
+  if [ -n "{{log_dir}}" ]; then
+    args+=(--log-dir "{{log_dir}}")
+  fi
+  python3 windows/run_cpu_matvec_baseline.py "${args[@]}"
+  python3 windows/run_ort_matvec_baseline.py "${args[@]}"
+  python3 windows/run_fpga_jtag_matvec.py "${args[@]}" || true
+  python3 scripts/extract_quartus_summary.py
+  python3 scripts/build_ort_fpga_comparison.py
+
 fpga-uart-quartus:
   #!/usr/bin/env bash
   source "{{quartus_helper}}"
