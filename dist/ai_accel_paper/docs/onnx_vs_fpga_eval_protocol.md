@@ -17,7 +17,8 @@ This protocol aligns host baselines and FPGA primitive validation around one fix
 | artifact | evidence type | latency source | boundary |
 | --- | --- | --- | --- |
 | CPU NumPy primitive baseline | measured | host wall time | host-side reference only |
-| ONNX Runtime MatVec micrograph | measured | `CPUExecutionProvider` `session.run` wall time | float32 MatMul equivalent unless an int8-to-int32 ORT graph is explicitly implemented |
+| ONNX Runtime MatVec micrograph | measured | `CPUExecutionProvider` `session.run` wall time | float32 MatMul equivalent |
+| ONNX Runtime MatMulInteger micrograph | measured or skipped | `CPUExecutionProvider` `session.run` wall time | int8 inputs with int32 output when the local ORT build supports `MatMulInteger`; otherwise skipped with dtype boundary documented |
 | FPGA JTAG total invocation | measured when a real board log exists | System Console/JTAG wall time | invocation overhead, not FPGA compute speed |
 | FPGA internal cycle counter | measured when a real board log exists | `COMPUTE_CYCLES` register | primitive compute latency only |
 | optimized FPGA interface model | projected | weight-preloaded low-overhead interface assumption | design estimate, not board measurement |
@@ -25,6 +26,7 @@ This protocol aligns host baselines and FPGA primitive validation around one fix
 ## Paper-Facing Outputs
 
 - `paper_assets/tables/onnx_runtime_aligned_micrograph_baseline.csv`
+- `paper_assets/tables/onnx_runtime_integer_micrograph_baseline.csv`
 - `paper_assets/tables/gemma_partial_tile_baseline.csv`
 - `paper_assets/tables/fpga_jtag_primitive_benchmark.csv`
 - `paper_assets/tables/fpga_jtag_cycle_counter_summary.csv`

@@ -53,6 +53,7 @@ def latency_fields(ms: float | None) -> tuple[str, str]:
 
 def comparison_rows() -> list[dict[str, object]]:
     aligned = TABLE_DIR / "onnx_runtime_aligned_micrograph_baseline.csv"
+    integer = TABLE_DIR / "onnx_runtime_integer_micrograph_baseline.csv"
     jtag = TABLE_DIR / "fpga_jtag_primitive_benchmark.csv"
     cycles = TABLE_DIR / "fpga_jtag_cycle_counter_summary.csv"
     projected = TABLE_DIR / "fpga_optimized_interface_estimate.csv"
@@ -101,6 +102,29 @@ def comparison_rows() -> list[dict[str, object]]:
                 "measured_or_projected": "measured",
                 "claim_boundary": "aligned micrograph baseline only; not full Gemma ONNX Runtime profiling",
                 "note": ort.get("dtype_boundary", ""),
+            }
+        )
+
+    ort_int = first_row(integer, backend="onnxruntime_matmulinteger_micrograph")
+    if ort_int:
+        latency_ms = fnum(ort_int.get("latency_ms_mean"))
+        ms, us = latency_fields(latency_ms)
+        rows.append(
+            {
+                "backend": "ONNX Runtime MatMulInteger micrograph",
+                "evidence_type": "measured",
+                "interface": ort_int.get("interface", "CPUExecutionProvider"),
+                "dtype": ort_int.get("dtype", "int8_inputs_int32_output"),
+                "input_dim": ort_int.get("input_dim", "16"),
+                "output_dim": ort_int.get("output_dim", "4"),
+                "macs": ort_int.get("macs", "64"),
+                "correctness_pass": ort_int.get("correctness_pass", ""),
+                "latency_ms": ms,
+                "latency_us": us,
+                "latency_source": ort_int.get("latency_source", "ORT CPUExecutionProvider MatMulInteger"),
+                "measured_or_projected": "measured",
+                "claim_boundary": "integer micrograph baseline only; not full Gemma ONNX Runtime profiling",
+                "note": ort_int.get("note", ""),
             }
         )
 
@@ -180,7 +204,8 @@ def comparison_rows() -> list[dict[str, object]]:
     ]
     if projected_rows:
         proj = projected_rows[0]
-        latency_ms = fnum(proj.get("optimized_interface_latency_ms"))
+        latency_us = fnum(proj.get("optimized_interface_latency_us_fmax"))
+        latency_ms = latency_us / 1000.0 if latency_us is not None else fnum(proj.get("optimized_interface_latency_ms"))
         ms, us = latency_fields(latency_ms)
         rows.append(
             {
@@ -197,7 +222,12 @@ def comparison_rows() -> list[dict[str, object]]:
                 "latency_source": "weight-preloaded low-overhead host interface model",
                 "measured_or_projected": "projected",
                 "claim_boundary": "design estimate only; not measured board latency",
-                "note": proj.get("estimate_boundary", ""),
+                "note": (
+                    f"{proj.get('estimate_boundary', '')}; "
+                    f"compute_time_us_50mhz={proj.get('compute_time_us_50mhz', '')}; "
+                    f"compute_time_us_fmax={proj.get('compute_time_us_fmax', '')}; "
+                    f"clock_hz_fmax={proj.get('clock_hz_fmax', '')}"
+                ),
             }
         )
     return rows

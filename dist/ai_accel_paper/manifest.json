@@ -4,8 +4,8 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "4de02117ae4646eb4c19133c1c370c70b9eec49b9da403e0131bf9ba6499cc37",
-      "bytes": 1256
+      "sha256": "d7a1acee26186e392c5c020db920a17a25b216bfc81ab92bef57d29db651bc8d",
+      "bytes": 1711
     },
     {
       "path": "docs/claim_boundary.md",
@@ -19,13 +19,13 @@
     },
     {
       "path": "docs/fpga_jtag_benchmark_report.md",
-      "sha256": "6202c8066e880921c3e5203829c2fe251c0781314ead38edb5740a6a79e94540",
-      "bytes": 2838
+      "sha256": "a6cc99bf0d68ada1f19ca659bf1e07d7bea0144c613ce5f1935fd07506046355",
+      "bytes": 3248
     },
     {
       "path": "docs/fpga_optimized_interface_model.md",
-      "sha256": "fc9509b7f77e40e7c65f92c215f2006fd95101c024e9d583173072bfd60248a1",
-      "bytes": 2508
+      "sha256": "4ed470fb4122260dbbfc5ad625ec11e68844981c18e5ab52e9ed4397198d97d1",
+      "bytes": 2724
     },
     {
       "path": "docs/fpga_uart_benchmark_report.md",
@@ -54,18 +54,23 @@
     },
     {
       "path": "docs/onnx_vs_fpga_eval_protocol.md",
-      "sha256": "340d149508e0ee20994373adca84e0642095c2f1a0b7b0188a9ae158c3d69b50",
-      "bytes": 2020
+      "sha256": "a00a77641882fcdf55231043f1dc55a83ab0251a47d4138b2d75d84131d4f633",
+      "bytes": 2274
     },
     {
       "path": "docs/ort_vs_fpga_comparison_interpretation.md",
-      "sha256": "132a46103a9998066ad70c93d51d66a0597ce679c7ca39ce9b4928330435e141",
-      "bytes": 1489
+      "sha256": "75850875c36c5d0b55ccb5fcaaa43ee70b6c36194698949fae1c2f15aab324d7",
+      "bytes": 1700
     },
     {
       "path": "docs/quartus_resource_timing_summary.md",
       "sha256": "820aa91b946817cfdc550d06cf0c6aa600958d1359fcbde4eebe181f62c2cb43",
       "bytes": 2293
+    },
+    {
+      "path": "docs/release_hygiene.md",
+      "sha256": "4744d2ae2dd574540765295b14010557fa6130d0e176499c2102aab6ac65c134",
+      "bytes": 2015
     },
     {
       "path": "docs/uart_protocol.md",
@@ -79,8 +84,8 @@
     },
     {
       "path": "install.py",
-      "sha256": "f42fcda8db74a067347c26f95cfd003de1e93777cba6d2b032796f79281c3282",
-      "bytes": 13065
+      "sha256": "a0864da1738bc8df98495d997537758077b733ca2a5d7a0a515c6c8152a8beed",
+      "bytes": 15110
     },
     {
       "path": "onnx_custom_op/CMakeLists.txt",
@@ -124,8 +129,8 @@
     },
     {
       "path": "onnx_micrographs/generate_matvec_micrographs.py",
-      "sha256": "05702c474ed9f3d828cd66441b71c88b652b16928f7033ad94187ffdbbf23ecc",
-      "bytes": 1934
+      "sha256": "1d93cc38b3cb75b728ee30fcf04927e528ec7da12b03bd0b7e54efff6328c324",
+      "bytes": 3156
     },
     {
       "path": "onnx_micrographs/matvec_cpu_baseline.onnx",
@@ -136,6 +141,11 @@
       "path": "onnx_micrographs/matvec_fpga_custom_stub.onnx",
       "sha256": "6943c5fadd8c6409d038f65c890742148095bc96b6f02472ed900193155abc03",
       "bytes": 200
+    },
+    {
+      "path": "onnx_micrographs/matvec_int8_matmulinteger.onnx",
+      "sha256": "5bd6b565bfe7bdba5321634ed3dcc6163f3d9c3b059c5563a3e683603b85758d",
+      "bytes": 222
     },
     {
       "path": "paper_assets/figures/figure_index.csv",
@@ -188,6 +198,11 @@
       "bytes": 158
     },
     {
+      "path": "paper_assets/tables/decode_matvec_regbank_cycle_counter_sim.csv",
+      "sha256": "93d40213f40466145e1b956a2b2076442b26d6f4890be5741d0effbd6de65f91",
+      "bytes": 215
+    },
+    {
       "path": "paper_assets/tables/dot_product_dim_sweep_sim.csv",
       "sha256": "2c9142dc0f33550b267e07df0942b6efb240e7e51948dc8603bc4db46efaa6a5",
       "bytes": 291
@@ -234,8 +249,8 @@
     },
     {
       "path": "paper_assets/tables/fpga_optimized_interface_estimate.csv",
-      "sha256": "8ee88a0c24c76651b48ab0d037d1a7eaafe54eb1158d229ef2218025d981933b",
-      "bytes": 3522
+      "sha256": "18efa2c650eab54868283fb1865fea51e0ac32dd9e15e61bad52e4cf67b91303",
+      "bytes": 4326
     },
     {
       "path": "paper_assets/tables/fpga_resource_summary.csv",
@@ -249,7 +264,7 @@
     },
     {
       "path": "paper_assets/tables/fpga_uart_primitive_benchmark.csv",
-      "sha256": "769ff7396bf6b15c71647923e14565a87aff5324d5913ea71dc8a4c13c896656",
+      "sha256": "5ebe78ebd634cda8423d12ec350032bfa5b784c815a0fb51ebcccf4352f067bc",
       "bytes": 340
     },
     {
@@ -304,8 +319,13 @@
     },
     {
       "path": "paper_assets/tables/onnx_runtime_aligned_micrograph_baseline.csv",
-      "sha256": "980e173283dd1ae11d6ecb57285ceff38cf666f4f39e174b9f03a04f5d28f0e5",
+      "sha256": "ae56a510d07ed5e71005e10373391f4b66b34ba59a297f65c7289154056adf1e",
       "bytes": 1005
+    },
+    {
+      "path": "paper_assets/tables/onnx_runtime_integer_micrograph_baseline.csv",
+      "sha256": "fe53d6b5afaa321584df600e07694dcdc21d0dc876fda9f71d40e7d7b24c713d",
+      "bytes": 580
     },
     {
       "path": "paper_assets/tables/ort_attention_matmul_candidates.csv",
@@ -339,7 +359,7 @@
     },
     {
       "path": "paper_assets/tables/ort_micrograph_vs_fpga_uart.csv",
-      "sha256": "c80996f9895a00317e4281b8234c082bb49dc6697345ac2d9370f48fe2d9cc96",
+      "sha256": "7bc20f4ef664af015ffc2f2bdbb19fe1a70b0a5cfeb50b2dbc5893d7af86659e",
       "bytes": 327
     },
     {
@@ -374,8 +394,8 @@
     },
     {
       "path": "paper_assets/tables/ort_vs_fpga_measured_and_projected_comparison.csv",
-      "sha256": "4ae9ff417d81f31ce9f635441a11451b485d4dbf2676573432dcf478c140935a",
-      "bytes": 1727
+      "sha256": "5b1195c9a8798b4dc2f3d7458501ac91d07629b93eda09a2f91f1d9dab4de30e",
+      "bytes": 2194
     },
     {
       "path": "paper_assets/tables/ort_vs_fpga_projected_comparison.csv",
@@ -424,23 +444,23 @@
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/DecodeMatVecInt8_i16_o4.v",
-      "sha256": "76e2d2041b643b98b011ec4e661105ce56a79136c9d64f41bd773c08536afaf4",
-      "bytes": 12281
+      "sha256": "a5fa8d05c3dc720e06460a14d0f2f00f54bc09ed044b0159d5937548eeecaa1d",
+      "bytes": 12280
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/DecodeMatVecRegBank.v",
-      "sha256": "14fe9effe47e3a247c40a6310a09f2632288581db0a060180c3dce5b76298203",
-      "bytes": 31955
+      "sha256": "1f1836a109b2f829b46f4182bfa8630d272113eb273fedf0c665083eaeb082e3",
+      "bytes": 31954
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/HexDisplay.v",
-      "sha256": "533b14eaa2c77da104a8da22585fbdba3d9bcde66522491ae2e9b61906eefed5",
-      "bytes": 1355
+      "sha256": "b42da5701fdbef996fcf154ef813ad53362842584b44314516fb05ce74e379d0",
+      "bytes": 1354
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/JtagDecodeMatVecRegTop.v",
-      "sha256": "7843084cdaa5d9086c8044f54daae951b1c918d8e26cca3b2c2f8ef1870dac74",
-      "bytes": 4068
+      "sha256": "231d96c600f9eb16f2046e6982ee684796848cf7208ba2a1fde21bf5793237c8",
+      "bytes": 4067
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/README.md",
@@ -524,13 +544,23 @@
     },
     {
       "path": "scripts/build_ort_fpga_comparison.py",
-      "sha256": "71f16b8d3834a58a709441fccb26ce944e7b6ebfc67a32074c884101110eebc1",
-      "bytes": 11745
+      "sha256": "e820c6f5f6fb7b8e65fae6804ad758b216a5c6d4d1d9948ad98d0cf649841fa3",
+      "bytes": 13391
     },
     {
       "path": "scripts/extract_quartus_summary.py",
-      "sha256": "12cd864aedd6e33890f5ebd2cdfe1857ee5910beb0857de706b3fbe298a0c115",
-      "bytes": 8301
+      "sha256": "829b9529e9d52300f957d2f2b3979d507a685b2bf872d0df76a34f68cefec71f",
+      "bytes": 8367
+    },
+    {
+      "path": "scripts/regenerate_fpga_optimized_estimate.py",
+      "sha256": "1e957a6336e200584fa0a53b01a638b97c1a61930d44051cada584778a55029e",
+      "bytes": 6601
+    },
+    {
+      "path": "scripts/verify_dist_package.py",
+      "sha256": "f611749cc7424a98252da27aba220707d6dd1676d1311f7eb69dcf9359ed6d60",
+      "bytes": 1387
     },
     {
       "path": "windows/jtag_matvec_system_console.tcl",
@@ -576,6 +606,11 @@
       "path": "windows/run_ort_matvec_baseline.py",
       "sha256": "765340a4f34d2ff5f337a352c25cfaec52d6e4f45d0b1933d84a612e25e09201",
       "bytes": 6921
+    },
+    {
+      "path": "windows/run_ort_matvec_integer_baseline.py",
+      "sha256": "c58abaf625d1c1b2d94ad024483ae120e9ea3a1d2ca7e0b10f4cc75a8885f44f",
+      "bytes": 6815
     }
   ]
 }

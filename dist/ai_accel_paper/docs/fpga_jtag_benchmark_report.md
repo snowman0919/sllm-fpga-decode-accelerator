@@ -28,7 +28,15 @@ The updated register bank also exposes an internal cycle-counter path:
 | `LAST_RUN_ID` | sequence id captured for the most recent accepted run |
 | `DEBUG_STATUS` | low-level FSM/status bits for diagnosing failed or partial runs |
 
-The cycle-counter paper CSV is `paper_assets/tables/fpga_jtag_cycle_counter_summary.csv`. It should only contain rows generated from real passing board runs.
+The real board cycle-counter paper CSV is `paper_assets/tables/fpga_jtag_cycle_counter_summary.csv`. It should only contain rows generated from real passing board runs.
+
+The register-bank RTL simulation writes a separate simulation-only CSV:
+
+```text
+paper_assets/tables/decode_matvec_regbank_cycle_counter_sim.csv
+```
+
+That file verifies register writes, `CONTROL.start`, `STATUS.done`, `RESULT`, `LAST_RUN_ID`, and a nonzero expected-range `COMPUTE_CYCLES` value before a board run. It is simulation evidence only and must not be promoted to measured board latency.
 
 ## Latency Interpretation
 
