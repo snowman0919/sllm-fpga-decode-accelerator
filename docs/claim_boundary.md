@@ -31,9 +31,9 @@ A no-COM skip summary, timeout summary, failed UART response, stub ONNX graph, o
 
 A missing-Quartus, missing-USB-Blaster, missing-JTAG-master, timeout, failed register read/write, or failed JTAG correctness summary is not a paper result.
 
-For the current JTAG-to-Avalon MatVec result, the measured evidence is the correctness result `[-271, 239, 287, 797]` from the register invocation path, plus the archived 20-run JTAG total invocation latency and internal cycle-counter register values. The JTAG total latency is invocation overhead only and must not be used as FPGA compute latency.
+For the current JTAG-to-Avalon MatVec result, the primary measured evidence is the clean-rebuilt `.sof` SHA-256 `40a4f84167d2fd75972ea33684ec949b6c22e61057f1c134dd5bd4b936ef4a84`, correctness result `[-271, 239, 287, 797]` from the register invocation path, plus the archived 20-run JTAG total invocation latency and internal cycle-counter register values. The prior passing `.sof` SHA-256 `3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5` is a historical prior run. The JTAG total latency is invocation overhead only and must not be used as FPGA compute latency.
 
-The register bank includes `COMPUTE_CYCLES`, `CORE_TOTAL_CYCLES`, `LAST_RUN_ID`, and `DEBUG_STATUS`. The current Windows Pocket4 board log records `pass_count=20`, `fail_count=0`, `COMPUTE_CYCLES=65`, and 1.3 us compute time at 50 MHz for the fixed 16x4 INT8 Decode MatVec primitive. This is board-measured internal primitive compute evidence only, not full ONNX model acceleration evidence.
+The register bank includes `COMPUTE_CYCLES`, `CORE_TOTAL_CYCLES`, `LAST_RUN_ID`, and `DEBUG_STATUS`. The current Windows Pocket4 clean rebuild board log records `pass_count=20`, `fail_count=0`, `COMPUTE_CYCLES=65`, and 1.3 us compute time at 50 MHz for the fixed 16x4 INT8 Decode MatVec primitive. This is board-measured internal primitive compute evidence only, not full ONNX model acceleration evidence.
 
 Optimized FPGA comparison rows must be labeled `projected` or `design estimate`. They may use assumptions such as weight preloading, batched register access, DMA, or shared-memory-style invocation, but they must not be described as measured speedup over ONNX Runtime.
 

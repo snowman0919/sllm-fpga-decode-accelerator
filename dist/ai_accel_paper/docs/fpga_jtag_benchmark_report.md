@@ -6,6 +6,13 @@ The current paper-facing JTAG evidence is a measured correctness, invocation, an
 
 The experiment is framed as profiled bottleneck primitive evidence. ONNX Runtime profiling identifies decode-stage MatMul/projection work as the main target; this board experiment reduces that target to a deterministic 16x4 INT8 Decode MatVec primitive and measures the FPGA internal compute cycles for that primitive.
 
+Primary board-measured evidence now uses the Windows clean-rebuilt
+`quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof` with
+SHA-256 `40a4f84167d2fd75972ea33684ec949b6c22e61057f1c134dd5bd4b936ef4a84`.
+The earlier passing board run with SHA-256
+`3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5` is retained
+as a historical prior run only.
+
 Recorded result:
 
 | field | value |
@@ -20,7 +27,7 @@ Recorded result:
 | correctness | `True` |
 | runs | `20` |
 | pass / fail | `20 / 0` |
-| JTAG total latency mean / p50 / p95 | `7756.72185 ms / 7734.1137 ms / 7819.554125 ms` |
+| JTAG total latency mean / p50 / p95 | `7720.85016 ms / 7720.45115 ms / 7748.84833 ms` |
 | `COMPUTE_CYCLES` mean / p50 / p95 | `65 / 65 / 65` |
 | compute time at 50 MHz mean / p50 / p95 | `1.3 us / 1.3 us / 1.3 us` |
 | Windows ORT MatMulInteger baseline mean / p50 / p95 | `13.012 us / 11.0 us / 17.3 us` |

@@ -7,7 +7,7 @@ This table is extracted from Quartus report files. It describes the DE10-Lite JT
 | `design` | de10_lite_jtag_matvec |
 | `clock_name` | CLOCK_50 |
 | `clock_target_mhz` | 50.0 |
-| `compile_status` | Successful - Mon Jun 29 21:13:49 2026 |
+| `compile_status` | Successful - Tue Jun 30 06:56:48 2026 |
 | `quartus_version` | 25.1std.0 Build 1129 10/21/2025 SC Lite Edition |
 | `revision_name` | de10_lite_jtag_matvec |
 | `top_entity` | De10LiteJtagMatVecTop |
@@ -48,6 +48,6 @@ This table is extracted from Quartus report files. It describes the DE10-Lite JT
 | `sta_rpt` | quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sta.rpt |
 | `flow_rpt` | quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.flow.rpt |
 | `sof_path` | quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof |
-| `sof_sha256` | 3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5 |
+| `sof_sha256` | 40a4f84167d2fd75972ea33684ec949b6c22e61057f1c134dd5bd4b936ef4a84 |
 
 Claim boundary: this is implementation/resource/timing evidence for the fixed FPGA primitive and JTAG register path. It is not an end-to-end ONNX Runtime or full-model speedup result.
