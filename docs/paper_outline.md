@@ -8,6 +8,12 @@ Final draft file:
 ONNX_Runtime_온디바이스_sLLM_FPGA_Decode_가속기_논문초안.md
 ```
 
+Journal-format draft file:
+
+```text
+ONNX_Runtime_온디바이스_sLLM_FPGA_Decode_가속기_논문양식본.md
+```
+
 The draft is a submission/shareable Markdown manuscript built from existing repository artifacts. It does not introduce new experiments, recompilation, or changed numeric results.
 
 ## Claim Boundary
@@ -99,6 +105,18 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
 | 6 | Decode MatVec demo Quartus resource 요약 | `paper_assets/tables/decode_matvec_fpga_resource.csv` |
 | 7 | Decode MatVec demo timing 및 board programming 요약 | `paper_assets/tables/decode_matvec_fpga_timing.csv`, `paper_assets/tables/decode_matvec_board_validation.csv` |
 | 8 | ONNX/ORT 병목 분석으로부터 도출한 FPGA 설계 요구사항 | `docs/current_bottleneck_implications.md`, `docs/ort_matmul_hotspot_analysis.md`, `docs/fpga_decode_accelerator_optimization_plan.md` |
+| 9 | 제안 FPGA Decode 가속기 구조의 구성요소와 역할 | `docs/current_bottleneck_implications.md`, `docs/fpga_decode_accelerator_optimization_plan.md` |
+
+## Required Figures
+
+| Figure | Caption | Main source |
+| ---: | --- | --- |
+| 1 | 연구 전체 흐름도 | `paper_assets/figures/research_flow.png`, `docs/current_bottleneck_implications.md` |
+| 2 | ONNX Runtime MatMul phase 비중 | `paper_assets/figures/ort_matmul_phase_share.png`, `docs/current_bottleneck_implications.md` |
+| 3 | MatMul category breakdown | `paper_assets/figures/ort_matmul_category_breakdown.png`, `paper_assets/tables/ort_matmul_category_by_context.csv` |
+| 4 | FPGA Decode tiled MatVec/MatMul accelerator architecture | `paper_assets/figures/fpga_decode_accelerator_architecture.png`, `docs/fpga_decode_accelerator_optimization_plan.md` |
+
+HWP/PDF insertion metadata is tracked in `paper_assets/figures/figure_index.csv` and `paper_assets/figures/figure_index.md`.
 
 ## Paper-facing Artifacts
 
@@ -114,3 +132,9 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
 - `paper_assets/tables/decode_matvec_fpga_resource.csv`
 - `paper_assets/tables/decode_matvec_fpga_timing.csv`
 - `paper_assets/tables/decode_matvec_board_validation.csv`
+- `paper_assets/figures/research_flow.png`
+- `paper_assets/figures/ort_matmul_phase_share.png`
+- `paper_assets/figures/ort_matmul_category_breakdown.png`
+- `paper_assets/figures/fpga_decode_accelerator_architecture.png`
+- `paper_assets/figures/figure_index.csv`
+- `paper_assets/figures/figure_index.md`
