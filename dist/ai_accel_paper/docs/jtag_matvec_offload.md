@@ -29,6 +29,10 @@ All registers are 32-bit words. Host addresses are byte offsets from the Avalon-
 | `0x0004` | `STATUS` | R | bit 0 `busy`, bit 1 `done`, bit 2 `error` |
 | `0x0008` | `CONFIG` | R | `[15:0] input_dim`, `[31:16] output_dim` |
 | `0x0010` | `SEQ` | R/W | host sequence/debug value |
+| `0x0040` | `COMPUTE_CYCLES` | R | FPGA clock cycles latched from accepted start pulse to MatVec `done` |
+| `0x0044` | `CORE_TOTAL_CYCLES` | R | FPGA clock cycles from host start register write observation to `done` latch |
+| `0x0048` | `LAST_RUN_ID` | R | `SEQ` value captured when the most recent start was accepted |
+| `0x004c` | `DEBUG_STATUS` | R | bit 0 `busy`, bit 1 `done_latched`, bit 2 `error`, bit 3 `compute_timing_active`, bit 4 `core_timing_active`, bit 5 `start_pulse`, bit 6 `matvec_done` |
 | `0x0100` | `ACTIVATION[0..15]` | R/W | signed int8 in low 8 bits |
 | `0x0200` | `WEIGHT[0..63]` | R/W | row-major `weight[out][in]`, signed int8 in low 8 bits |
 | `0x0300` | `RESULT[0..3]` | R | signed int32 accumulator result |
@@ -38,6 +42,8 @@ Signed handling:
 - Host writes activation and weight values into bits `[7:0]`.
 - FPGA interprets those bits as `SInt(8 bits)`.
 - Results are read as 32-bit two's-complement signed integers.
+- Cycle counters assume the board `CLOCK_50` domain for the default conversion: `compute_time_us = compute_cycles / 50_000_000 * 1e6`.
+- If Quartus timing extraction reports a usable Fmax, paper tables may also include `compute_time_at_fmax_us`; keep it separate from the 50 MHz board-clock measurement.
 
 ## FPGA Components
 
@@ -99,13 +105,20 @@ Useful options:
 - `--quartus-bin PATH`: directory containing `system-console` or `quartus_stp`
 - `--base-address 0x00000000`: Avalon slave base address
 - `--keep-tcl`: save generated Tcl scripts in the log directory
+- `--clock-hz 50000000`: board-clock frequency used for cycle-to-time conversion
+- `--sof PATH`: bitstream path used for SHA-256 provenance in logs
 
 ## Logs
 
 The runner writes:
 
 - `fpga_jtag_matvec.csv`
+- `fpga_jtag_matvec_success.csv`
+- `fpga_jtag_matvec_failure.csv`
 - `fpga_jtag_summary.json`
 - `fpga_jtag_summary.md`
+- `jtag_stdout.txt`
+- `jtag_stderr.txt`
+- `generated_*.tcl` when `--keep-tcl` is used
 
-If Quartus tools, USB-Blaster, JTAG master service, register access, or polling fails, the runner writes a skipped/failed summary and does not update `paper_assets/tables/fpga_jtag_primitive_benchmark.csv`.
+If Quartus tools, USB-Blaster, JTAG master service, register access, or polling fails, the runner writes a skipped/failed summary and does not fabricate a passing result. Paper-facing JTAG and cycle-counter tables are updated only from real passing hardware runs, with pass and fail counts preserved.

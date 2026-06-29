@@ -28,7 +28,15 @@ Run optional USB-Blaster JTAG register validation:
 python install.py --local . --run-jtag --cable "USB-Blaster [USB-0]"
 ```
 
+Extract packaged Quartus resource/timing summaries and rebuild the comparison table:
+
+```powershell
+python install.py --local . --extract-quartus-summary --run-full-eval
+```
+
 The FPGA UART path is a low-speed validation/control path. It is not a full
 Gemma ONNX execution path and does not imply end-to-end speedup. The JTAG path
 is now the preferred no-external-UART board validation route, but it is also a
-correctness/overhead validation path rather than a performance interface.
+correctness/overhead validation path rather than a performance interface. The
+full-eval option preserves failed or skipped hardware runs instead of converting
+them into passing measurements.

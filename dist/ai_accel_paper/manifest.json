@@ -4,13 +4,13 @@
   "files": [
     {
       "path": "README.md",
-      "sha256": "b8ada452ae49e72e0a1bb452d9bad7cd9b20819342094cd2834a429ee0af627d",
-      "bytes": 964
+      "sha256": "4de02117ae4646eb4c19133c1c370c70b9eec49b9da403e0131bf9ba6499cc37",
+      "bytes": 1256
     },
     {
       "path": "docs/claim_boundary.md",
-      "sha256": "7cd9e6611acfc7cd8a5cbb6d7275a1bdc2c83f8818829fb4ff31bf0acb5226cf",
-      "bytes": 2711
+      "sha256": "328a95669a0a75342748e10ff98439205986effe38d6f44ad8ea9dd4c577b9b0",
+      "bytes": 3346
     },
     {
       "path": "docs/de10_lite_uart_wiring.md",
@@ -19,8 +19,8 @@
     },
     {
       "path": "docs/fpga_jtag_benchmark_report.md",
-      "sha256": "ea657193ac552a3771a815c8596bf94456acac43bbcc90d785a0153b33e2e444",
-      "bytes": 1784
+      "sha256": "6202c8066e880921c3e5203829c2fe251c0781314ead38edb5740a6a79e94540",
+      "bytes": 2838
     },
     {
       "path": "docs/fpga_optimized_interface_model.md",
@@ -49,8 +49,23 @@
     },
     {
       "path": "docs/jtag_matvec_offload.md",
-      "sha256": "2c3faf8a4f9f19f28018c7c0afc453ad4122aeeea07b12bfa4ffcf4c0d446222",
-      "bytes": 4660
+      "sha256": "f0116ca270b004f24ffeb079d3da0ebeb4820dc0e32a8c474924c597999af9dc",
+      "bytes": 5866
+    },
+    {
+      "path": "docs/onnx_vs_fpga_eval_protocol.md",
+      "sha256": "340d149508e0ee20994373adca84e0642095c2f1a0b7b0188a9ae158c3d69b50",
+      "bytes": 2020
+    },
+    {
+      "path": "docs/ort_vs_fpga_comparison_interpretation.md",
+      "sha256": "132a46103a9998066ad70c93d51d66a0597ce679c7ca39ce9b4928330435e141",
+      "bytes": 1489
+    },
+    {
+      "path": "docs/quartus_resource_timing_summary.md",
+      "sha256": "820aa91b946817cfdc550d06cf0c6aa600958d1359fcbde4eebe181f62c2cb43",
+      "bytes": 2293
     },
     {
       "path": "docs/uart_protocol.md",
@@ -64,8 +79,8 @@
     },
     {
       "path": "install.py",
-      "sha256": "7b7fa4df591e1be969afef0f8e18a36248ec2bf1ec750d6c043f5d9895448a5e",
-      "bytes": 12366
+      "sha256": "f42fcda8db74a067347c26f95cfd003de1e93777cba6d2b032796f79281c3282",
+      "bytes": 13065
     },
     {
       "path": "onnx_custom_op/CMakeLists.txt",
@@ -124,18 +139,23 @@
     },
     {
       "path": "paper_assets/figures/figure_index.csv",
-      "sha256": "58a9b573816d0e876fdffcdd2cd7585fa0c0fc8d00c3ebf469d5d8ad261470b6",
-      "bytes": 2832
+      "sha256": "62f7477b5391eab56952ef2d8ed1728946be5563f4924c374746b75198173206",
+      "bytes": 3317
     },
     {
       "path": "paper_assets/figures/figure_index.md",
-      "sha256": "3dac69b3eaf91c6a8eba54dab567951ca5b04f02d19bc326895aa5ac9afc2264",
-      "bytes": 2927
+      "sha256": "aa4aa7ec5ff0945989b573620b905b3f7481727cf9dd631e001fb4b6e78c5bb9",
+      "bytes": 3339
     },
     {
       "path": "paper_assets/figures/jtag_vs_optimized_fpga_latency_interpretation.png",
       "sha256": "54b80e2045c4c19793aad905e301ae9d0a7e9f1f7347cd34cad38ef955abe5e9",
       "bytes": 161130
+    },
+    {
+      "path": "paper_assets/figures/ort_vs_fpga_latency_decomposition.png",
+      "sha256": "c578335c0c376d00459cd0e7d48258aaa88308b575fa164a992c0c26218250ba",
+      "bytes": 55870
     },
     {
       "path": "paper_assets/tables/.gitkeep",
@@ -229,8 +249,8 @@
     },
     {
       "path": "paper_assets/tables/fpga_uart_primitive_benchmark.csv",
-      "sha256": "e152d09e61462c870fab3895ccdd90b6d34aa930d3349e77d749901d9e99f0bf",
-      "bytes": 339
+      "sha256": "769ff7396bf6b15c71647923e14565a87aff5324d5913ea71dc8a4c13c896656",
+      "bytes": 340
     },
     {
       "path": "paper_assets/tables/fpga_validation_summary.csv",
@@ -243,8 +263,13 @@
       "bytes": 1768
     },
     {
+      "path": "paper_assets/tables/gemma_partial_tile_baseline.csv",
+      "sha256": "886339baa8a320491eb9f2cbff3884fa7685b314eaac97680c1385d686ead857",
+      "bytes": 732
+    },
+    {
       "path": "paper_assets/tables/gemma_partial_tile_benchmark.csv",
-      "sha256": "ce2a3d9bf6d74230a37c27bd724352c5894cc0e61204019b33115dbe4b92c85b",
+      "sha256": "fe9e313a7f8d520b3e00353b603e8e96c127da3dbe40317753548927705cb5d5",
       "bytes": 433
     },
     {
@@ -278,6 +303,11 @@
       "bytes": 564
     },
     {
+      "path": "paper_assets/tables/onnx_runtime_aligned_micrograph_baseline.csv",
+      "sha256": "980e173283dd1ae11d6ecb57285ceff38cf666f4f39e174b9f03a04f5d28f0e5",
+      "bytes": 1005
+    },
+    {
       "path": "paper_assets/tables/ort_attention_matmul_candidates.csv",
       "sha256": "cbf4058b7677c2cfa8ea56cd78d253d0468197ab95d878e13a5af6a1d81b6595",
       "bytes": 46606
@@ -309,7 +339,7 @@
     },
     {
       "path": "paper_assets/tables/ort_micrograph_vs_fpga_uart.csv",
-      "sha256": "02ec7753fe5bf084883188f0c379ef7083f2fbfa81f301065cacaaea4bb04c1a",
+      "sha256": "c80996f9895a00317e4281b8234c082bb49dc6697345ac2d9370f48fe2d9cc96",
       "bytes": 327
     },
     {
@@ -343,9 +373,19 @@
       "bytes": 379
     },
     {
+      "path": "paper_assets/tables/ort_vs_fpga_measured_and_projected_comparison.csv",
+      "sha256": "4ae9ff417d81f31ce9f635441a11451b485d4dbf2676573432dcf478c140935a",
+      "bytes": 1727
+    },
+    {
       "path": "paper_assets/tables/ort_vs_fpga_projected_comparison.csv",
       "sha256": "f81efc46e6c066b5dcf3c3fb3dd4866f4ec8c44cd0523b80da54d8cf07c9b4b9",
       "bytes": 1090
+    },
+    {
+      "path": "paper_assets/tables/quartus_resource_timing_summary.csv",
+      "sha256": "c236826437a6a6bebbc644afc43c97bad921929132919e7ede57f7d50b56627b",
+      "bytes": 1557
     },
     {
       "path": "paper_assets/tables/torch_decode_latency_by_context.csv",
@@ -374,8 +414,8 @@
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/README.md",
-      "sha256": "8de1870e7088887c43e118a2d1714a4b960c3338e5de90de1caaed5dba4c1b13",
-      "bytes": 2513
+      "sha256": "fa54d67d552b488a423afd21e0843bbb680cda1f9101499b731a5e227e4466c9",
+      "bytes": 2976
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/de10_lite_jtag_matvec.sdc",
@@ -384,23 +424,23 @@
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/DecodeMatVecInt8_i16_o4.v",
-      "sha256": "1ae1c13bd21dea21973d8fbc4b69d2839aebaea59c06f9f66ecf7f1feb1cf9b7",
-      "bytes": 12280
+      "sha256": "76e2d2041b643b98b011ec4e661105ce56a79136c9d64f41bd773c08536afaf4",
+      "bytes": 12281
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/DecodeMatVecRegBank.v",
-      "sha256": "01fc373250ea6671c6884b458909757817bb796867beefdbbbe3fb9659bed49b",
-      "bytes": 28989
+      "sha256": "14fe9effe47e3a247c40a6310a09f2632288581db0a060180c3dce5b76298203",
+      "bytes": 31955
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/HexDisplay.v",
-      "sha256": "3f33c28e55c0e429e3466d9d768ff477a0c3ca9c33e6c8736a65059f7d3fb134",
-      "bytes": 1354
+      "sha256": "533b14eaa2c77da104a8da22585fbdba3d9bcde66522491ae2e9b61906eefed5",
+      "bytes": 1355
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/JtagDecodeMatVecRegTop.v",
-      "sha256": "7ea030b68bd0095da35a49776f142dd811f0c8c248f8546ebc57833afa74cc24",
-      "bytes": 4067
+      "sha256": "7843084cdaa5d9086c8044f54daae951b1c918d8e26cca3b2c2f8ef1870dac74",
+      "bytes": 4068
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/README.md",
@@ -418,9 +458,34 @@
       "bytes": 3826
     },
     {
+      "path": "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.fit.rpt",
+      "sha256": "3997bc578754d1021edb5950c2048926e88b5114727dcad0b0be887358c0bfcf",
+      "bytes": 394399
+    },
+    {
+      "path": "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.fit.summary",
+      "sha256": "74e750a5099c4903f20eca5f5a85191b720bfd52ddf80802d4be14d9bc6ff354",
+      "bytes": 691
+    },
+    {
+      "path": "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.flow.rpt",
+      "sha256": "d1244875e1ccc18834a85a4f6ce0f2dc7f50d137f8e5066245fe4c9d0b374397",
+      "bytes": 10466
+    },
+    {
       "path": "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof",
-      "sha256": "9f2c11c35abb6fa6c85b4a60e0947cb00b0e364a5fed0ba431f1876edbeb2eb6",
-      "bytes": 3233801
+      "sha256": "3b4f2cb50d5aa5608019c550f29b42779ff9c7197383d58cf3132c0bdd635cc5",
+      "bytes": 3233802
+    },
+    {
+      "path": "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sta.rpt",
+      "sha256": "f061c655078ae5867ba2a8fc2c47941bd8c12a77545291140ecee3efe19a0616",
+      "bytes": 198645
+    },
+    {
+      "path": "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sta.summary",
+      "sha256": "d13fff445db2be77bd16fa8936ef11127d40e6f04cecb3680b05985bf305e7c3",
+      "bytes": 2754
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/platform_designer/create_jtag_matvec_system.tcl",
@@ -458,9 +523,19 @@
       "bytes": 2614
     },
     {
+      "path": "scripts/build_ort_fpga_comparison.py",
+      "sha256": "71f16b8d3834a58a709441fccb26ce944e7b6ebfc67a32074c884101110eebc1",
+      "bytes": 11745
+    },
+    {
+      "path": "scripts/extract_quartus_summary.py",
+      "sha256": "12cd864aedd6e33890f5ebd2cdfe1857ee5910beb0857de706b3fbe298a0c115",
+      "bytes": 8301
+    },
+    {
       "path": "windows/jtag_matvec_system_console.tcl",
-      "sha256": "e60ad4d26b074f71d5052178ea2f36feeadafae8b790cab17cf165e5f278ab55",
-      "bytes": 609
+      "sha256": "267efacecfd1077e237a635cde1521339b86e7e05346d973f3aaac6409c9c160",
+      "bytes": 676
     },
     {
       "path": "windows/matvec_common.py",
@@ -474,13 +549,13 @@
     },
     {
       "path": "windows/run_cpu_matvec_baseline.py",
-      "sha256": "a6cc367857f3b4493016c49aa99698979f558bc112de4d6d5f745903de355379",
-      "bytes": 3835
+      "sha256": "7049e21ca8703612c0cb0a8caa14897ecd5a3fb5d58802cfc070ee62b9bce1ea",
+      "bytes": 5141
     },
     {
       "path": "windows/run_fpga_jtag_matvec.py",
-      "sha256": "ec965f4f4a5bdd62fa835a7e422fcb5fe28983e8ee2ccc32ddcef9713ec0c690",
-      "bytes": 13450
+      "sha256": "b7a8ef98c3c07e56334af9f53d23129959131fd51a3084e790c26b04794a74c3",
+      "bytes": 21132
     },
     {
       "path": "windows/run_fpga_uart_matvec.py",
@@ -489,8 +564,8 @@
     },
     {
       "path": "windows/run_gemma_partial_tile_baseline.py",
-      "sha256": "b130e5aabeeb128584b9d239ee3bc09900529f73bf9caa9f007115dcd33fd1cf",
-      "bytes": 6139
+      "sha256": "0aad8d51269fea828d9823ad78e9c2890c809dd9646a809e3e750bd6d52a5c58",
+      "bytes": 7887
     },
     {
       "path": "windows/run_ort_fpga_custom_op.py",
@@ -499,8 +574,8 @@
     },
     {
       "path": "windows/run_ort_matvec_baseline.py",
-      "sha256": "82fd38c942e4c5d5eba27afbb82ad379bfcab48d5b35ef681ef9e27d7d26cd21",
-      "bytes": 5275
+      "sha256": "765340a4f34d2ff5f337a352c25cfaec52d6e4f45d0b1933d84a612e25e09201",
+      "bytes": 6921
     }
   ]
 }

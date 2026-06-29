@@ -13,6 +13,7 @@ from matvec_common import (
     PROJECT_ROOT,
     deterministic_activation,
     deterministic_weights,
+    cpu_reference,
     elapsed_ms,
     latency_summary,
     resolve_log_dir,
@@ -81,6 +82,7 @@ def main() -> None:
     activation = activation_i8.astype("float32").reshape(1, args.input_dim)
     weight = weights_i8.astype("float32").T
     reference = activation @ weight
+    int32_reference = cpu_reference(activation_i8, weights_i8)
     session = ort.InferenceSession(str(model_path), providers=["CPUExecutionProvider"])
 
     rows: list[dict[str, object]] = []
@@ -99,6 +101,7 @@ def main() -> None:
                 "provider": "CPUExecutionProvider",
                 "input_dim": args.input_dim,
                 "output_dim": args.output_dim,
+                "macs": args.input_dim * args.output_dim,
                 "dtype": "float32",
                 "latency_ms": elapsed_ms(t0, t1),
                 "correctness_pass": pass_run,
@@ -107,13 +110,17 @@ def main() -> None:
         )
 
     latency = latency_summary(rows, "latency_ms")
+    macs_per_run = args.input_dim * args.output_dim
     summary = {
         "backend": "onnxruntime_cpu",
+        "evidence_type": "measured",
+        "interface": "CPUExecutionProvider",
         "graph": model_path.name,
         "provider": "CPUExecutionProvider",
         "custom_op": False,
         "input_dim": args.input_dim,
         "output_dim": args.output_dim,
+        "macs": macs_per_run,
         "dtype": "float32",
         "runs": args.runs,
         "correctness_pass": all_pass,
@@ -125,6 +132,30 @@ def main() -> None:
     write_csv(log_dir / "ort_micrograph_cpu.csv", rows)
     write_json(log_dir / "ort_micrograph_cpu_summary.json", summary)
     write_summary_md(log_dir / "ort_micrograph_cpu_summary.md", "ORT MatVec CPU Micrograph Summary", summary)
+    update_table(
+        PROJECT_ROOT / "paper_assets/tables/onnx_runtime_aligned_micrograph_baseline.csv",
+        ["backend", "interface", "dtype", "input_dim", "output_dim"],
+        {
+            "backend": "onnxruntime_matvec_micrograph",
+            "interface": "CPUExecutionProvider",
+            "evidence_type": "measured",
+            "dtype": "float32",
+            "input_dim": args.input_dim,
+            "output_dim": args.output_dim,
+            "macs": macs_per_run,
+            "runs": args.runs,
+            "correctness_pass": all_pass,
+            "latency_ms_mean": round(latency["mean"], 6),
+            "latency_ms_p50": round(latency["p50"], 6),
+            "latency_ms_p95": round(latency["p95"], 6),
+            "latency_source": "ONNX Runtime CPUExecutionProvider session.run wall time",
+            "synthetic_weight": True,
+            "reference_int32": " ".join(str(int(v)) for v in int32_reference),
+            "dtype_boundary": "ORT micrograph uses float32 MatMul equivalent because portable int8-to-int32 ORT MatMul is separated from the FPGA INT8 primitive.",
+            "claim_boundary": "aligned micrograph baseline only; not full Gemma ONNX Runtime profiling",
+            "note": "Same deterministic activation and weight values as FPGA primitive, cast to float32 for ORT MatMul.",
+        },
+    )
     update_table(
         PROJECT_ROOT / "paper_assets/tables/ort_micrograph_vs_fpga_uart.csv",
         ["backend", "graph", "provider", "custom_op", "input_dim", "output_dim"],

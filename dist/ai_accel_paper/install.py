@@ -31,6 +31,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-ort", action="store_true")
     parser.add_argument("--run-fpga", action="store_true")
     parser.add_argument("--run-jtag", action="store_true")
+    parser.add_argument("--extract-quartus-summary", action="store_true")
+    parser.add_argument("--run-full-eval", action="store_true")
     parser.add_argument("--list-ports", action="store_true", help="List serial ports using the packaged FPGA UART runner")
     parser.add_argument("--port")
     parser.add_argument("--quartus-bin")
@@ -270,6 +272,11 @@ def main() -> None:
 
     log_dir.mkdir(parents=True, exist_ok=True)
     summary: list[dict[str, object]] = []
+    if args.run_full_eval:
+        args.run_cpu = True
+        args.run_ort = True
+        args.run_jtag = True
+        args.extract_quartus_summary = True
     if args.list_ports:
         run_step(py + ["windows/run_fpga_uart_matvec.py", "--list-ports"], dest, summary)
     if args.run_cpu:
@@ -296,6 +303,19 @@ def main() -> None:
         if args.keep_tcl:
             cmd += ["--keep-tcl"]
         run_step(cmd, dest, summary)
+    if args.extract_quartus_summary:
+        run_step(
+            py
+            + [
+                "scripts/extract_quartus_summary.py",
+                "--quartus-dir",
+                "quartus/de10_lite_jtag_matvec/output_files",
+            ],
+            dest,
+            summary,
+        )
+    if args.run_full_eval:
+        run_step(py + ["scripts/build_ort_fpga_comparison.py"], dest, summary)
     (log_dir / "install_summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(f"summary: {log_dir / 'install_summary.json'}")
 

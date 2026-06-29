@@ -1,0 +1,18 @@
+Fitter Status : Successful - Mon Jun 29 21:13:49 2026
+Quartus Prime Version : 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
+Revision Name : de10_lite_jtag_matvec
+Top-level Entity Name : De10LiteJtagMatVecTop
+Family : MAX 10
+Device : 10M50DAF484C7G
+Timing Models : Final
+Total logic elements : 2,560 / 49,760 ( 5 % )
+    Total combinational functions : 2,170 / 49,760 ( 4 % )
+    Dedicated logic registers : 1,450 / 49,760 ( 3 % )
+Total registers : 1450
+Total pins : 65 / 360 ( 18 % )
+Total virtual pins : 0
+Total memory bits : 512 / 1,677,312 ( < 1 % )
+Embedded Multiplier 9-bit elements : 1 / 288 ( < 1 % )
+Total PLLs : 0 / 4 ( 0 % )
+UFM blocks : 0 / 1 ( 0 % )
+ADC blocks : 0 / 2 ( 0 % )

@@ -24,14 +24,20 @@ INCLUDE_PATHS = [
     "docs/fpga_jtag_benchmark_report.md",
     "docs/fpga_optimized_interface_model.md",
     "docs/jtag_matvec_offload.md",
+    "docs/onnx_vs_fpga_eval_protocol.md",
+    "docs/quartus_resource_timing_summary.md",
+    "docs/ort_vs_fpga_comparison_interpretation.md",
     "docs/ftp_upload_plan.md",
     "docs/claim_boundary.md",
     "docs/gemma_partial_offload_plan.md",
     "docs/gemma_onnx_patch_notes.md",
+    "scripts/extract_quartus_summary.py",
+    "scripts/build_ort_fpga_comparison.py",
     "paper_assets/tables",
     "paper_assets/figures/figure_index.md",
     "paper_assets/figures/figure_index.csv",
     "paper_assets/figures/jtag_vs_optimized_fpga_latency_interpretation.png",
+    "paper_assets/figures/ort_vs_fpga_latency_decomposition.png",
     "quartus/de10_lite_uart_matvec/README.md",
     "quartus/de10_lite_uart_matvec/qsf",
     "quartus/de10_lite_jtag_matvec",
@@ -60,8 +66,6 @@ def copy_path(src: Path, dst: Path) -> None:
             "*.sopcinfo",
             "jtag_matvec_system.qsys",
             "jtag_matvec_system",
-            "*.rpt",
-            "*.summary",
             "*.smsg",
             "*.pin",
             "*.done",
@@ -114,10 +118,18 @@ Run optional USB-Blaster JTAG register validation:
 python install.py --local . --run-jtag --cable "USB-Blaster [USB-0]"
 ```
 
+Extract packaged Quartus resource/timing summaries and rebuild the comparison table:
+
+```powershell
+python install.py --local . --extract-quartus-summary --run-full-eval
+```
+
 The FPGA UART path is a low-speed validation/control path. It is not a full
 Gemma ONNX execution path and does not imply end-to-end speedup. The JTAG path
 is now the preferred no-external-UART board validation route, but it is also a
-correctness/overhead validation path rather than a performance interface.
+correctness/overhead validation path rather than a performance interface. The
+full-eval option preserves failed or skipped hardware runs instead of converting
+them into passing measurements.
 """
     path.write_text(text, encoding="utf-8")
 
@@ -129,9 +141,17 @@ def prune_jtag_quartus_outputs(out_dir: Path) -> None:
         if path.exists():
             path.unlink()
     output_dir = project_dir / "output_files"
+    keep = {
+        "de10_lite_jtag_matvec.sof",
+        "de10_lite_jtag_matvec.fit.summary",
+        "de10_lite_jtag_matvec.sta.summary",
+        "de10_lite_jtag_matvec.fit.rpt",
+        "de10_lite_jtag_matvec.sta.rpt",
+        "de10_lite_jtag_matvec.flow.rpt",
+    }
     if output_dir.exists():
         for path in output_dir.iterdir():
-            if path.name != "de10_lite_jtag_matvec.sof":
+            if path.name not in keep:
                 path.unlink()
 
 
