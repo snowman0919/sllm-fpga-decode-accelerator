@@ -1,0 +1,10 @@
+corner_type,slack,tns,status,source
+Slow 1200mV 85C Model Setup 'CLOCK_50',7.316,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Slow 1200mV 85C Model Hold 'CLOCK_50',0.347,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50',9.637,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Slow 1200mV 0C Model Setup 'CLOCK_50',8.390,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Slow 1200mV 0C Model Hold 'CLOCK_50',0.311,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50',9.646,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Fast 1200mV 0C Model Setup 'CLOCK_50',14.590,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Fast 1200mV 0C Model Hold 'CLOCK_50',0.152,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary
+Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50',9.329,0.000,reported,quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sta.summary

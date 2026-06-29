@@ -16,6 +16,13 @@ quartus/de10_lite_qk/generated_verilog/*.v
 quartus/de10_lite_qk/db/
 quartus/de10_lite_qk/incremental_db/
 quartus/de10_lite_qk/output_files/
+quartus/de10_lite_decode_matvec/generated_verilog/*.v
+!quartus/de10_lite_decode_matvec/generated_verilog/README.md
+quartus/de10_lite_decode_matvec/db/
+quartus/de10_lite_decode_matvec/incremental_db/
+quartus/de10_lite_decode_matvec/output_files/
+quartus/de10_lite_decode_matvec/*.qpf
+quartus/de10_lite_decode_matvec/*.qsf
 quartus/dim_sweep/*
 !quartus/dim_sweep/README.md
 
@@ -30,6 +37,7 @@ fpga_test/vectors/*
 !fpga_test/vectors/README.md
 fpga_test/captured/*
 !fpga_test/captured/README.md
+!fpga_test/captured/decode_matvec_int8_sim.csv
 
 paper_assets/figures/*
 !paper_assets/figures/.gitkeep
@@ -38,3 +46,11 @@ paper_assets/tables/*
 !paper_assets/tables/.gitkeep
 !paper_assets/tables/ort_matmul_category_by_context.csv
 !paper_assets/tables/ort_matmul_top_nodes.csv
+!paper_assets/tables/fpga_decode_accel_candidate_ops.csv
+!paper_assets/tables/fpga_decode_accel_roofline_estimate.csv
+!paper_assets/tables/fpga_decode_accel_priority.csv
+!paper_assets/tables/decode_matvec_int8_sim.csv
+!paper_assets/tables/decode_matvec_fpga_resource.csv
+!paper_assets/tables/decode_matvec_fpga_timing.csv
+
+nas

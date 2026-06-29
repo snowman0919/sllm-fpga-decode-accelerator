@@ -39,6 +39,15 @@ spinal-generate:
     fi
     cp "generated/$file" "$mirror_dir/$file"
   done
+  decode_mirror_dir="../../quartus/de10_lite_decode_matvec/generated_verilog"
+  mkdir -p "$decode_mirror_dir"
+  for file in DecodeMatVecInt8_i16_o4.v HexDisplay.v DecodeMatVecDemoTop.v; do
+    if [ ! -f "generated/$file" ]; then
+      echo "Missing generated Verilog: hw/spinal/generated/$file"
+      exit 1
+    fi
+    cp "generated/$file" "$decode_mirror_dir/$file"
+  done
   for file in \
     DotProductInt8_dim16.v DotProductInt8_dim32.v DotProductInt8_dim64.v DotProductInt8_dim128.v \
     DotProductInt8SweepTop_dim16.v DotProductInt8SweepTop_dim32.v DotProductInt8SweepTop_dim64.v DotProductInt8SweepTop_dim128.v
@@ -50,6 +59,7 @@ spinal-generate:
     cp "generated/$file" "$sweep_mirror_dir/$file"
   done
   echo "Mirrored canonical Verilog into quartus/de10_lite_qk/generated_verilog/"
+  echo "Mirrored Decode MatVec Verilog into quartus/de10_lite_decode_matvec/generated_verilog/"
   echo "Mirrored dim-sweep Verilog into quartus/dim_sweep/generated_verilog/"
 
 spinal-generate-sweep:
@@ -67,6 +77,17 @@ spinal-sim-sweep:
   command -v sbt >/dev/null 2>&1 || { echo "sbt is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
   cd hw/spinal
   sbt "testOnly qk.DotProductInt8DimSweepSim"
+
+decode-matvec-sim:
+  #!/usr/bin/env bash
+  command -v sbt >/dev/null 2>&1 || { echo "sbt is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  cd hw/spinal
+  sbt "testOnly qk.DecodeMatVecInt8Sim"
+
+decode-accel-model:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 onnx_profile/model_decode_matvec_accel.py
 
 vectors dim="16" num_keys="8" seed="7" out_dir="fpga_test/vectors":
   #!/usr/bin/env bash
@@ -374,6 +395,59 @@ quartus-compile:
   }
   "$quartus_sh" -t quartus/de10_lite_qk/scripts/compile.tcl
 
+decode-matvec-quartus:
+  #!/usr/bin/env bash
+  source "{{quartus_helper}}"
+  missing=0
+  for file in DecodeMatVecInt8_i16_o4.v HexDisplay.v DecodeMatVecDemoTop.v; do
+    if [ ! -f "quartus/de10_lite_decode_matvec/generated_verilog/$file" ]; then
+      missing=1
+    fi
+  done
+  if [ "$missing" -ne 0 ]; then
+    echo "Decode MatVec Verilog mirror is missing or incomplete. Running 'just spinal-generate' first."
+    just spinal-generate
+  fi
+  quartus_sh=$(quartus_find_tool quartus_sh) || {
+    echo "quartus_sh not found. Set QUARTUS_ROOT or add Quartus to PATH."
+    exit 1
+  }
+  if [ ! -f quartus/de10_lite_qk/qsf/verified_de10_lite_pins.qsf ]; then
+    echo "warning: verified DE10-Lite QSF is missing. Project will be created without board pin assignments."
+  fi
+  "$quartus_sh" -t quartus/de10_lite_decode_matvec/scripts/create_project.tcl
+  "$quartus_sh" -t quartus/de10_lite_decode_matvec/scripts/compile.tcl
+  python3 fpga_test/collect_decode_matvec_reports.py \
+    --quartus-dir "quartus/de10_lite_decode_matvec" \
+    --tables-dir "paper_assets/tables"
+
+decode-matvec-package-nas:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 fpga_test/collect_decode_matvec_reports.py \
+    --quartus-dir "quartus/de10_lite_decode_matvec" \
+    --tables-dir "paper_assets/tables"
+  if [ ! -d nas ]; then
+    echo "NAS path 'nas' is not available; skipping package copy."
+    exit 0
+  fi
+  if [ ! -w nas ]; then
+    echo "NAS path 'nas' is not writable; skipping package copy."
+    exit 0
+  fi
+  stamp="$(date +%Y%m%d_%H%M%S)"
+  pkg_dir="nas/decode_matvec_${stamp}"
+  mkdir -p "$pkg_dir"
+  if [ -f quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sof ]; then
+    cp quartus/de10_lite_decode_matvec/output_files/de10_lite_decode_matvec.sof "$pkg_dir/"
+  else
+    echo "No .sof found; package will contain reports and README only."
+  fi
+  cp quartus/de10_lite_decode_matvec/README.md "$pkg_dir/README.md"
+  cp paper_assets/tables/decode_matvec_fpga_resource.csv "$pkg_dir/" 2>/dev/null || true
+  cp paper_assets/tables/decode_matvec_fpga_timing.csv "$pkg_dir/" 2>/dev/null || true
+  echo "Decode MatVec NAS package: $pkg_dir"
+
 quartus-program:
   #!/usr/bin/env bash
   source "{{quartus_helper}}"
@@ -481,11 +555,15 @@ clean-generated:
   rm -rf hw/spinal/generated/*.lst
   rm -rf hw/spinal/generated/simWorkspace
   rm -rf quartus/de10_lite_qk/generated_verilog/*.v
+  rm -rf quartus/de10_lite_decode_matvec/generated_verilog/*.v
   rm -rf quartus/dim_sweep/generated_verilog/*.v
   rm -rf quartus/dim_sweep/projects
   rm -rf quartus/de10_lite_qk/db
   rm -rf quartus/de10_lite_qk/incremental_db
   rm -rf quartus/de10_lite_qk/output_files
+  rm -rf quartus/de10_lite_decode_matvec/db
+  rm -rf quartus/de10_lite_decode_matvec/incremental_db
+  rm -rf quartus/de10_lite_decode_matvec/output_files
   rm -rf onnx_profile/results/raw/*
   rm -rf onnx_profile/results/tables/*
   rm -rf onnx_profile/results/figures/*
@@ -495,4 +573,5 @@ clean-generated:
   find paper_assets/figures -mindepth 1 -type f ! -name 'README.md' ! -name '.gitkeep' ! -name '*.placeholder.md' -delete
   rm -f fpga_test/captured/fpga_validation_summary.md
   rm -f fpga_test/captured/dot_product_dim_sweep_sim.csv
+  rm -f fpga_test/captured/decode_matvec_int8_sim.csv
   echo "Generated outputs removed from generated/results/assets directories."
