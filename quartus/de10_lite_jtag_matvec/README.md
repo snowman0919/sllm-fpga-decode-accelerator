@@ -20,6 +20,7 @@ Scope:
 - fixed accepted shape: `input_dim=16`, `output_dim=4`
 - activation/weight write format: signed int8 in low 8 bits of 32-bit register words
 - result read format: signed int32 two's complement
+- internal cycle counters: `COMPUTE_CYCLES` at `0x0040`, `CORE_TOTAL_CYCLES` at `0x0044`, `LAST_RUN_ID` at `0x0048`, `DEBUG_STATUS` at `0x004c`
 
 This is a host-to-FPGA invocation and correctness path. It is not a performance-optimized interface and is not evidence of full Gemma execution or end-to-end ONNX Runtime speedup.
 
@@ -70,5 +71,7 @@ The Windows runner generates a System Console Tcl script and invokes `system-con
 ```powershell
 python windows\run_fpga_jtag_matvec.py --runs 10 --cable "USB-Blaster [USB-0]"
 ```
+
+With `--keep-tcl`, generated System Console scripts are archived with the log directory. Passing runs update both `paper_assets/tables/fpga_jtag_primitive_benchmark.csv` and `paper_assets/tables/fpga_jtag_cycle_counter_summary.csv`; failed runs are preserved separately and are not treated as successful measurements.
 
 Without Quartus tools, USB-Blaster, or a JTAG-to-Avalon master service, the runner writes a skipped summary and exits gracefully without creating a paper benchmark row.

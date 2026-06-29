@@ -1,8 +1,8 @@
 // Generator : SpinalHDL v1.14.2    git head : 78f29dc66110fc099a777992b6daa2f803ab445e
 // Component : UartRx
-// Git hash  : 1208ca558d19c22255120e09bbf59ad4f8340c06
+// Git hash  : dbf4dcb9a78cfcf41505e5e488bf60414ef77404
 
-`timescale 1ns/1ps 
+`timescale 1ns/1ps
 module UartRx (
   input  wire          io_rxd,
   output wire          io_valid,

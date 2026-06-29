@@ -7,6 +7,10 @@ object DecodeMatVecRegMap {
   val Status = 0x004
   val Config = 0x008
   val Seq = 0x010
+  val ComputeCycles = 0x040
+  val CoreTotalCycles = 0x044
+  val LastRunId = 0x048
+  val DebugStatus = 0x04c
   val ActivationBase = 0x100
   val WeightBase = 0x200
   val ResultBase = 0x300
@@ -39,7 +43,14 @@ class DecodeMatVecRegBank(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoCon
   val doneLatched = Reg(Bool()) init (False)
   val errorReg = Reg(Bool()) init (False)
   val seqReg = Reg(Bits(32 bits)) init (0)
-  val startPulse = Reg(Bool()) init (False)
+  val lastRunIdReg = Reg(Bits(32 bits)) init (0)
+  val computeCounter = Reg(UInt(32 bits)) init (0)
+  val coreTotalCounter = Reg(UInt(32 bits)) init (0)
+  val computeCyclesLatched = Reg(UInt(32 bits)) init (0)
+  val coreTotalCyclesLatched = Reg(UInt(32 bits)) init (0)
+  val computeTimingActive = Reg(Bool()) init (False)
+  val coreTimingActive = Reg(Bool()) init (False)
+  val startPulse = Bool()
 
   startPulse := False
   matVec.io.start := startPulse
@@ -53,8 +64,19 @@ class DecodeMatVecRegBank(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoCon
     }
   }
 
+  when(computeTimingActive) {
+    computeCounter := computeCounter + 1
+  }
+  when(coreTimingActive) {
+    coreTotalCounter := coreTotalCounter + 1
+  }
+
   when(matVec.io.done) {
     doneLatched := True
+    computeCyclesLatched := computeCounter + 1
+    coreTotalCyclesLatched := coreTotalCounter + 1
+    computeTimingActive := False
+    coreTimingActive := False
   }
 
   io.waitrequest := False
@@ -64,6 +86,10 @@ class DecodeMatVecRegBank(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoCon
   io.debugStatus(0) := matVec.io.busy
   io.debugStatus(1) := doneLatched
   io.debugStatus(2) := errorReg
+  io.debugStatus(3) := computeTimingActive
+  io.debugStatus(4) := coreTimingActive
+  io.debugStatus(5) := startPulse
+  io.debugStatus(6) := matVec.io.done
 
   val wordAddress = io.address(11 downto 2)
   val readData = Bits(32 bits)
@@ -77,6 +103,14 @@ class DecodeMatVecRegBank(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoCon
     readData := B((cfg.outputDim << 16) | cfg.inputDim, 32 bits)
   } elsewhen (wordAddress === U(DecodeMatVecRegMap.Seq / 4, 10 bits)) {
     readData := seqReg
+  } elsewhen (wordAddress === U(DecodeMatVecRegMap.ComputeCycles / 4, 10 bits)) {
+    readData := computeCyclesLatched.asBits
+  } elsewhen (wordAddress === U(DecodeMatVecRegMap.CoreTotalCycles / 4, 10 bits)) {
+    readData := coreTotalCyclesLatched.asBits
+  } elsewhen (wordAddress === U(DecodeMatVecRegMap.LastRunId / 4, 10 bits)) {
+    readData := lastRunIdReg
+  } elsewhen (wordAddress === U(DecodeMatVecRegMap.DebugStatus / 4, 10 bits)) {
+    readData(7 downto 0) := io.debugStatus
   } elsewhen (
     wordAddress >= U(activationWordBase, 10 bits) &&
       wordAddress < U(activationWordBase + cfg.inputDim, 10 bits)
@@ -103,6 +137,13 @@ class DecodeMatVecRegBank(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoCon
       when(io.writedata(1)) {
         doneLatched := False
         errorReg := False
+        computeCounter := 0
+        coreTotalCounter := 0
+        computeCyclesLatched := 0
+        coreTotalCyclesLatched := 0
+        computeTimingActive := False
+        coreTimingActive := False
+        lastRunIdReg := 0
       }
       when(io.writedata(2)) {
         doneLatched := False
@@ -113,6 +154,13 @@ class DecodeMatVecRegBank(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoCon
         } otherwise {
           doneLatched := False
           errorReg := False
+          computeCounter := 0
+          coreTotalCounter := 0
+          computeCyclesLatched := 0
+          coreTotalCyclesLatched := 0
+          computeTimingActive := True
+          coreTimingActive := True
+          lastRunIdReg := seqReg
           startPulse := True
         }
       }

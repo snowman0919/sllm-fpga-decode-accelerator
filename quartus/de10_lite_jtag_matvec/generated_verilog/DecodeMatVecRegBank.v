@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.14.2    git head : 78f29dc66110fc099a777992b6daa2f803ab445e
 // Component : DecodeMatVecRegBank
-// Git hash  : 1208ca558d19c22255120e09bbf59ad4f8340c06
+// Git hash  : dbf4dcb9a78cfcf41505e5e488bf60414ef77404
 
 `timescale 1ns/1ps
 module DecodeMatVecRegBank (
@@ -118,27 +118,38 @@ module DecodeMatVecRegBank (
   reg                 doneLatched;
   reg                 errorReg;
   reg        [31:0]   seqReg;
+  reg        [31:0]   lastRunIdReg;
+  reg        [31:0]   computeCounter;
+  reg        [31:0]   coreTotalCounter;
+  reg        [31:0]   computeCyclesLatched;
+  reg        [31:0]   coreTotalCyclesLatched;
+  reg                 computeTimingActive;
+  reg                 coreTimingActive;
   reg                 startPulse;
   reg                 io_read_regNext;
   wire       [9:0]    wordAddress;
   reg        [31:0]   readData;
-  wire                when_DecodeMatVecRegBank_l72;
-  wire                when_DecodeMatVecRegBank_l76;
-  wire                when_DecodeMatVecRegBank_l78;
-  wire                when_DecodeMatVecRegBank_l80;
-  wire                when_DecodeMatVecRegBank_l86;
-  wire                when_DecodeMatVecRegBank_l92;
+  wire                when_DecodeMatVecRegBank_l98;
   wire                when_DecodeMatVecRegBank_l102;
-  wire                when_DecodeMatVecRegBank_l103;
-  wire                when_DecodeMatVecRegBank_l107;
+  wire                when_DecodeMatVecRegBank_l104;
+  wire                when_DecodeMatVecRegBank_l106;
+  wire                when_DecodeMatVecRegBank_l108;
   wire                when_DecodeMatVecRegBank_l110;
+  wire                when_DecodeMatVecRegBank_l112;
+  wire                when_DecodeMatVecRegBank_l114;
+  wire                when_DecodeMatVecRegBank_l120;
+  wire                when_DecodeMatVecRegBank_l126;
+  wire                when_DecodeMatVecRegBank_l136;
+  wire                when_DecodeMatVecRegBank_l137;
+  wire                when_DecodeMatVecRegBank_l148;
+  wire                when_DecodeMatVecRegBank_l151;
   wire       [15:0]   _zz_1;
   wire       [7:0]    _zz_activationRegs_0;
   wire       [63:0]   _zz_2;
   wire       [7:0]    _zz_weightRegs_0;
-  wire                when_DecodeMatVecRegBank_l119;
-  wire                when_DecodeMatVecRegBank_l121;
-  wire                when_DecodeMatVecRegBank_l127;
+  wire                when_DecodeMatVecRegBank_l167;
+  wire                when_DecodeMatVecRegBank_l169;
+  wire                when_DecodeMatVecRegBank_l175;
 
   assign _zz_readData_2 = (wordAddress - 10'h040);
   assign _zz_readData_1 = _zz_readData_2[3:0];
@@ -324,7 +335,13 @@ module DecodeMatVecRegBank (
     doneLatched = 1'b0;
     errorReg = 1'b0;
     seqReg = 32'h0;
-    startPulse = 1'b0;
+    lastRunIdReg = 32'h0;
+    computeCounter = 32'h0;
+    coreTotalCounter = 32'h0;
+    computeCyclesLatched = 32'h0;
+    coreTotalCyclesLatched = 32'h0;
+    computeTimingActive = 1'b0;
+    coreTimingActive = 1'b0;
     io_read_regNext = 1'b0;
   end
 
@@ -427,6 +444,19 @@ module DecodeMatVecRegBank (
     endcase
   end
 
+  always @(*) begin
+    startPulse = 1'b0;
+    if(io_write) begin
+      if(when_DecodeMatVecRegBank_l136) begin
+        if(when_DecodeMatVecRegBank_l151) begin
+          if(!matVec_io_busy) begin
+            startPulse = 1'b1;
+          end
+        end
+      end
+    end
+  end
+
   assign io_waitrequest = 1'b0;
   assign io_readdatavalid = io_read_regNext;
   assign io_debugSeq = seqReg[7 : 0];
@@ -435,30 +465,50 @@ module DecodeMatVecRegBank (
     io_debugStatus[0] = matVec_io_busy;
     io_debugStatus[1] = doneLatched;
     io_debugStatus[2] = errorReg;
+    io_debugStatus[3] = computeTimingActive;
+    io_debugStatus[4] = coreTimingActive;
+    io_debugStatus[5] = startPulse;
+    io_debugStatus[6] = matVec_io_done;
   end
 
   assign wordAddress = io_address[11 : 2];
   always @(*) begin
     readData = 32'h0;
-    if(when_DecodeMatVecRegBank_l72) begin
+    if(when_DecodeMatVecRegBank_l98) begin
       readData[0] = matVec_io_busy;
       readData[1] = doneLatched;
       readData[2] = errorReg;
     end else begin
-      if(when_DecodeMatVecRegBank_l76) begin
+      if(when_DecodeMatVecRegBank_l102) begin
         readData = 32'h00040010;
       end else begin
-        if(when_DecodeMatVecRegBank_l78) begin
+        if(when_DecodeMatVecRegBank_l104) begin
           readData = seqReg;
         end else begin
-          if(when_DecodeMatVecRegBank_l80) begin
-            readData[7 : 0] = _zz_readData;
+          if(when_DecodeMatVecRegBank_l106) begin
+            readData = computeCyclesLatched;
           end else begin
-            if(when_DecodeMatVecRegBank_l86) begin
-              readData[7 : 0] = _zz_readData_3;
+            if(when_DecodeMatVecRegBank_l108) begin
+              readData = coreTotalCyclesLatched;
             end else begin
-              if(when_DecodeMatVecRegBank_l92) begin
-                readData = _zz_readData_6;
+              if(when_DecodeMatVecRegBank_l110) begin
+                readData = lastRunIdReg;
+              end else begin
+                if(when_DecodeMatVecRegBank_l112) begin
+                  readData[7 : 0] = io_debugStatus;
+                end else begin
+                  if(when_DecodeMatVecRegBank_l114) begin
+                    readData[7 : 0] = _zz_readData;
+                  end else begin
+                    if(when_DecodeMatVecRegBank_l120) begin
+                      readData[7 : 0] = _zz_readData_3;
+                    end else begin
+                      if(when_DecodeMatVecRegBank_l126) begin
+                        readData = _zz_readData_6;
+                      end
+                    end
+                  end
+                end
               end
             end
           end
@@ -467,53 +517,79 @@ module DecodeMatVecRegBank (
     end
   end
 
-  assign when_DecodeMatVecRegBank_l72 = (wordAddress == 10'h001);
-  assign when_DecodeMatVecRegBank_l76 = (wordAddress == 10'h002);
-  assign when_DecodeMatVecRegBank_l78 = (wordAddress == 10'h004);
-  assign when_DecodeMatVecRegBank_l80 = ((10'h040 <= wordAddress) && (wordAddress < 10'h050));
-  assign when_DecodeMatVecRegBank_l86 = ((10'h080 <= wordAddress) && (wordAddress < 10'h0c0));
-  assign when_DecodeMatVecRegBank_l92 = ((10'h0c0 <= wordAddress) && (wordAddress < 10'h0c4));
+  assign when_DecodeMatVecRegBank_l98 = (wordAddress == 10'h001);
+  assign when_DecodeMatVecRegBank_l102 = (wordAddress == 10'h002);
+  assign when_DecodeMatVecRegBank_l104 = (wordAddress == 10'h004);
+  assign when_DecodeMatVecRegBank_l106 = (wordAddress == 10'h010);
+  assign when_DecodeMatVecRegBank_l108 = (wordAddress == 10'h011);
+  assign when_DecodeMatVecRegBank_l110 = (wordAddress == 10'h012);
+  assign when_DecodeMatVecRegBank_l112 = (wordAddress == 10'h013);
+  assign when_DecodeMatVecRegBank_l114 = ((10'h040 <= wordAddress) && (wordAddress < 10'h050));
+  assign when_DecodeMatVecRegBank_l120 = ((10'h080 <= wordAddress) && (wordAddress < 10'h0c0));
+  assign when_DecodeMatVecRegBank_l126 = ((10'h0c0 <= wordAddress) && (wordAddress < 10'h0c4));
   assign io_readdata = readData;
-  assign when_DecodeMatVecRegBank_l102 = (wordAddress == 10'h0);
-  assign when_DecodeMatVecRegBank_l103 = io_writedata[1];
-  assign when_DecodeMatVecRegBank_l107 = io_writedata[2];
-  assign when_DecodeMatVecRegBank_l110 = io_writedata[0];
+  assign when_DecodeMatVecRegBank_l136 = (wordAddress == 10'h0);
+  assign when_DecodeMatVecRegBank_l137 = io_writedata[1];
+  assign when_DecodeMatVecRegBank_l148 = io_writedata[2];
+  assign when_DecodeMatVecRegBank_l151 = io_writedata[0];
   assign _zz_1 = ({15'd0,1'b1} <<< _zz__zz_1);
   assign _zz_activationRegs_0 = io_writedata[7 : 0];
   assign _zz_2 = ({63'd0,1'b1} <<< _zz__zz_2);
   assign _zz_weightRegs_0 = io_writedata[7 : 0];
-  assign when_DecodeMatVecRegBank_l119 = (wordAddress == 10'h004);
-  assign when_DecodeMatVecRegBank_l121 = ((10'h040 <= wordAddress) && (wordAddress < 10'h050));
-  assign when_DecodeMatVecRegBank_l127 = ((10'h080 <= wordAddress) && (wordAddress < 10'h0c0));
+  assign when_DecodeMatVecRegBank_l167 = (wordAddress == 10'h004);
+  assign when_DecodeMatVecRegBank_l169 = ((10'h040 <= wordAddress) && (wordAddress < 10'h050));
+  assign when_DecodeMatVecRegBank_l175 = ((10'h080 <= wordAddress) && (wordAddress < 10'h0c0));
   always @(posedge CLOCK_50) begin
-    startPulse <= 1'b0;
+    if(computeTimingActive) begin
+      computeCounter <= (computeCounter + 32'h00000001);
+    end
+    if(coreTimingActive) begin
+      coreTotalCounter <= (coreTotalCounter + 32'h00000001);
+    end
     if(matVec_io_done) begin
       doneLatched <= 1'b1;
+      computeCyclesLatched <= (computeCounter + 32'h00000001);
+      coreTotalCyclesLatched <= (coreTotalCounter + 32'h00000001);
+      computeTimingActive <= 1'b0;
+      coreTimingActive <= 1'b0;
     end
     io_read_regNext <= io_read;
     if(io_write) begin
-      if(when_DecodeMatVecRegBank_l102) begin
-        if(when_DecodeMatVecRegBank_l103) begin
+      if(when_DecodeMatVecRegBank_l136) begin
+        if(when_DecodeMatVecRegBank_l137) begin
           doneLatched <= 1'b0;
           errorReg <= 1'b0;
+          computeCounter <= 32'h0;
+          coreTotalCounter <= 32'h0;
+          computeCyclesLatched <= 32'h0;
+          coreTotalCyclesLatched <= 32'h0;
+          computeTimingActive <= 1'b0;
+          coreTimingActive <= 1'b0;
+          lastRunIdReg <= 32'h0;
         end
-        if(when_DecodeMatVecRegBank_l107) begin
+        if(when_DecodeMatVecRegBank_l148) begin
           doneLatched <= 1'b0;
         end
-        if(when_DecodeMatVecRegBank_l110) begin
+        if(when_DecodeMatVecRegBank_l151) begin
           if(matVec_io_busy) begin
             errorReg <= 1'b1;
           end else begin
             doneLatched <= 1'b0;
             errorReg <= 1'b0;
-            startPulse <= 1'b1;
+            computeCounter <= 32'h0;
+            coreTotalCounter <= 32'h0;
+            computeCyclesLatched <= 32'h0;
+            coreTotalCyclesLatched <= 32'h0;
+            computeTimingActive <= 1'b1;
+            coreTimingActive <= 1'b1;
+            lastRunIdReg <= seqReg;
           end
         end
       end else begin
-        if(when_DecodeMatVecRegBank_l119) begin
+        if(when_DecodeMatVecRegBank_l167) begin
           seqReg <= io_writedata;
         end else begin
-          if(when_DecodeMatVecRegBank_l121) begin
+          if(when_DecodeMatVecRegBank_l169) begin
             if(_zz_1[0]) begin
               activationRegs_0 <= _zz_activationRegs_0;
             end
@@ -563,7 +639,7 @@ module DecodeMatVecRegBank (
               activationRegs_15 <= _zz_activationRegs_0;
             end
           end else begin
-            if(when_DecodeMatVecRegBank_l127) begin
+            if(when_DecodeMatVecRegBank_l175) begin
               if(_zz_2[0]) begin
                 weightRegs_0 <= _zz_weightRegs_0;
               end
