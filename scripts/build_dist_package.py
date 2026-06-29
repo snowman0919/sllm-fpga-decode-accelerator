@@ -47,7 +47,25 @@ def copy_path(src: Path, dst: Path) -> None:
     if src.is_dir():
         if dst.exists():
             shutil.rmtree(dst)
-        ignore = shutil.ignore_patterns("__pycache__", "*.pyc", ".pytest_cache")
+        ignore = shutil.ignore_patterns(
+            "__pycache__",
+            "*.pyc",
+            ".pytest_cache",
+            "db",
+            "incremental_db",
+            "*.qpf",
+            "*.sopcinfo",
+            "jtag_matvec_system.qsys",
+            "jtag_matvec_system",
+            "*.rpt",
+            "*.summary",
+            "*.smsg",
+            "*.pin",
+            "*.done",
+            "*.jdi",
+            "*.pof",
+            "*.sld",
+        )
         shutil.copytree(src, dst, ignore=ignore)
     else:
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -101,6 +119,19 @@ correctness/overhead validation path rather than a performance interface.
     path.write_text(text, encoding="utf-8")
 
 
+def prune_jtag_quartus_outputs(out_dir: Path) -> None:
+    project_dir = out_dir / "quartus/de10_lite_jtag_matvec"
+    for name in ["de10_lite_jtag_matvec.qpf", "de10_lite_jtag_matvec.qsf", "jtag_matvec_system.sopcinfo"]:
+        path = project_dir / name
+        if path.exists():
+            path.unlink()
+    output_dir = project_dir / "output_files"
+    if output_dir.exists():
+        for path in output_dir.iterdir():
+            if path.name != "de10_lite_jtag_matvec.sof":
+                path.unlink()
+
+
 def main() -> None:
     args = parse_args()
     out_dir = ROOT / args.out_dir
@@ -112,6 +143,9 @@ def main() -> None:
 
     for rel in INCLUDE_PATHS:
         copy_path(ROOT / rel, out_dir / rel)
+    bitstream = ROOT / "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof"
+    copy_path(bitstream, out_dir / "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof")
+    prune_jtag_quartus_outputs(out_dir)
     if install_text:
         (out_dir / "install.py").write_text(install_text, encoding="utf-8")
     write_readme(out_dir / "README.md")

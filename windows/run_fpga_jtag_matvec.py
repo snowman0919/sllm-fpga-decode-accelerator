@@ -43,7 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runs", type=int, default=10)
     parser.add_argument("--log-dir")
-    parser.add_argument("--quartus-bin", help="Directory containing system-console or quartus_stp")
+    parser.add_argument("--quartus-bin", help="system-console/quartus_stp executable or a directory containing one")
     parser.add_argument("--cable", default="USB-Blaster [USB-0]")
     parser.add_argument("--base-address", default="0x00000000")
     parser.add_argument("--keep-tcl", action="store_true")
@@ -57,7 +57,10 @@ def resolve_tool(quartus_bin: str | None) -> tuple[str | None, str]:
     candidates = ["system-console", "system-console.exe", "quartus_stp", "quartus_stp.exe"]
     search_dirs = []
     if quartus_bin:
-        search_dirs.append(Path(quartus_bin))
+        supplied = Path(quartus_bin)
+        if supplied.is_file() or supplied.name.lower() in candidates:
+            return str(supplied), supplied.name
+        search_dirs.append(supplied)
     env_root = os.environ.get("QUARTUS_ROOT")
     if env_root:
         search_dirs.append(Path(env_root) / "quartus/bin")

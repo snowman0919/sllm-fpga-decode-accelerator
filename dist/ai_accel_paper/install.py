@@ -23,7 +23,9 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--local", help="Use a local package directory instead of downloading")
     parser.add_argument("--base-url", default=DEFAULT_BASE_URL)
-    parser.add_argument("--dest", default=".")
+    parser.add_argument("--install-dir", help="Directory where package files are downloaded/copied")
+    parser.add_argument("--work-dir", help="Alias for --install-dir")
+    parser.add_argument("--dest", help=argparse.SUPPRESS)
     parser.add_argument("--venv", action="store_true", help="Create/use .venv before installing requirements")
     parser.add_argument("--run-cpu", action="store_true")
     parser.add_argument("--run-ort", action="store_true")
@@ -37,6 +39,95 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--baud", type=int, default=115200)
     parser.add_argument("--runs", type=int, default=3)
     return parser.parse_args()
+
+
+def same_or_child(path: Path, parent: Path) -> bool:
+    try:
+        path.relative_to(parent)
+        return True
+    except ValueError:
+        return False
+
+
+def windows_path_text(path: Path) -> str:
+    return str(path).replace("/", "\\").lower().rstrip("\\/")
+
+
+def protected_roots(quartus_bin: str | None) -> list[Path]:
+    roots: list[Path] = []
+    if os.name == "nt":
+        for env_name in ["ProgramFiles", "ProgramFiles(x86)"]:
+            value = os.environ.get(env_name)
+            if value:
+                roots.append(Path(value))
+        system_drive = os.environ.get("SystemDrive", "C:")
+        roots.extend(
+            [
+                Path(system_drive + "\\altera_lite"),
+                Path(system_drive + "\\intelFPGA_lite"),
+                Path(system_drive + "\\intelFPGA"),
+            ]
+        )
+    if quartus_bin:
+        qpath = Path(quartus_bin)
+        parts_lower = [part.lower() for part in qpath.parts]
+        for marker in ["quartus", "altera_lite", "intelfpga_lite", "intelfpga"]:
+            if marker in parts_lower:
+                idx = parts_lower.index(marker)
+                roots.append(Path(*qpath.parts[: idx + 1]))
+                if idx > 0:
+                    roots.append(Path(*qpath.parts[:idx]))
+    unique: list[Path] = []
+    seen: set[str] = set()
+    for root in roots:
+        resolved = root.expanduser().resolve()
+        key = windows_path_text(resolved) if os.name == "nt" else str(resolved)
+        if key not in seen:
+            unique.append(resolved)
+            seen.add(key)
+    return unique
+
+
+def assert_safe_package_root(package_root: Path, quartus_bin: str | None) -> None:
+    resolved = package_root.expanduser().resolve()
+    for root in protected_roots(quartus_bin):
+        if same_or_child(resolved, root):
+            raise SystemExit(
+                "\n".join(
+                    [
+                        "Refusing to install package files into a protected toolchain directory.",
+                        f"package root: {resolved}",
+                        f"protected root: {root}",
+                        "Choose a normal working directory with --install-dir or --work-dir.",
+                    ]
+                )
+            )
+
+
+def resolve_package_root(args: argparse.Namespace) -> Path:
+    requested = [value for value in [args.install_dir, args.work_dir, args.dest] if value]
+    if len(set(requested)) > 1:
+        raise SystemExit("--install-dir, --work-dir, and legacy --dest must not disagree")
+    root = Path(requested[0]) if requested else Path.cwd()
+    resolved = root.expanduser().resolve()
+    assert_safe_package_root(resolved, args.quartus_bin)
+    return resolved
+
+
+def resolve_quartus_tool_arg(quartus_bin: str | None) -> str | None:
+    if not quartus_bin:
+        return None
+    path = Path(quartus_bin)
+    names = ["system-console.exe", "system-console", "quartus_stp.exe", "quartus_stp"]
+    if path.is_dir():
+        for name in names:
+            candidate = path / name
+            if candidate.exists():
+                return str(candidate)
+        raise SystemExit(f"--quartus-bin directory does not contain system-console.exe or quartus_stp.exe: {path}")
+    if path.is_file() or path.name.lower() in names:
+        return quartus_bin
+    return quartus_bin
 
 
 def sha256(path: Path) -> str:
@@ -126,14 +217,19 @@ def main() -> None:
     args = parse_args()
     if sys.version_info < (3, 9):
         raise SystemExit("Python 3.9 or newer is required")
-    dest = Path(args.dest).resolve()
+    dest = resolve_package_root(args)
+    quartus_tool = resolve_quartus_tool_arg(args.quartus_bin)
+    log_dir = dest / "logs" / datetime.now().strftime("%Y%m%d_%H%M%S")
+    print(f"package root: {dest}", flush=True)
+    print(f"base url: {args.base_url}", flush=True)
+    print(f"quartus tool path: {quartus_tool or '(auto-detect)'}", flush=True)
+    print(f"log dir: {log_dir}", flush=True)
     dest.mkdir(parents=True, exist_ok=True)
     copy_or_download(args, dest)
 
     py = python_cmd(args, dest)
     subprocess.run(py + ["-m", "pip", "install", "-r", "windows/requirements.txt"], cwd=dest, check=False)
 
-    log_dir = dest / "logs" / datetime.now().strftime("%Y%m%d_%H%M%S")
     log_dir.mkdir(parents=True, exist_ok=True)
     summary: list[dict[str, object]] = []
     if args.list_ports:
@@ -157,8 +253,8 @@ def main() -> None:
             "--log-dir",
             str(log_dir),
         ]
-        if args.quartus_bin:
-            cmd += ["--quartus-bin", args.quartus_bin]
+        if quartus_tool:
+            cmd += ["--quartus-bin", quartus_tool]
         if args.keep_tcl:
             cmd += ["--keep-tcl"]
         run_step(cmd, dest, summary)

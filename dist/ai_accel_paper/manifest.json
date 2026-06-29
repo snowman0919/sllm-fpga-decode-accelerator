@@ -54,8 +54,8 @@
     },
     {
       "path": "install.py",
-      "sha256": "9d71a25d36701cace88fce4ca6e104faa424d92c49491cff636dabb316c54728",
-      "bytes": 6629
+      "sha256": "720d10c694b192348ec037d4177ddebeb57e3a5796f1f05da7a4273de0df3d68",
+      "bytes": 10383
     },
     {
       "path": "onnx_custom_op/CMakeLists.txt",
@@ -338,9 +338,14 @@
       "bytes": 272
     },
     {
+      "path": "quartus/de10_lite_jtag_matvec/De10LiteJtagMatVecTop.v",
+      "sha256": "4805507b09eb5ec92fdd1ca463dd41fc739a0f05647ae9eb5b52c909803a70a3",
+      "bytes": 1025
+    },
+    {
       "path": "quartus/de10_lite_jtag_matvec/README.md",
-      "sha256": "c0f7da510c0c133e46387622723d4f96fdd2b0cb3526b68e1eb0071d9e9f53e4",
-      "bytes": 2182
+      "sha256": "8de1870e7088887c43e118a2d1714a4b960c3338e5de90de1caaed5dba4c1b13",
+      "bytes": 2513
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/de10_lite_jtag_matvec.sdc",
@@ -349,22 +354,22 @@
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/DecodeMatVecInt8_i16_o4.v",
-      "sha256": "ea06e63d796dd1bb9bfe32955a957b64ab205e65772da1f58a3254064932eb66",
+      "sha256": "1ae1c13bd21dea21973d8fbc4b69d2839aebaea59c06f9f66ecf7f1feb1cf9b7",
       "bytes": 12280
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/DecodeMatVecRegBank.v",
-      "sha256": "c39859a82260b3ca2e14a19cad3e955ed71073ea4bf3bf5ed62005e3600028df",
+      "sha256": "01fc373250ea6671c6884b458909757817bb796867beefdbbbe3fb9659bed49b",
       "bytes": 28989
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/HexDisplay.v",
-      "sha256": "131511bb33eb945893f6e50e3807eca0ef81126a6b24a62ace3233ed8b10affd",
+      "sha256": "3f33c28e55c0e429e3466d9d768ff477a0c3ca9c33e6c8736a65059f7d3fb134",
       "bytes": 1354
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/generated_verilog/JtagDecodeMatVecRegTop.v",
-      "sha256": "eb96f8be4c2f581072e7d055d81042473a8d100949e829cbd4fb35bb48f485e2",
+      "sha256": "7ea030b68bd0095da35a49776f142dd811f0c8c248f8546ebc57833afa74cc24",
       "bytes": 4067
     },
     {
@@ -373,9 +378,24 @@
       "bytes": 214
     },
     {
+      "path": "quartus/de10_lite_jtag_matvec/ip/qk_jtag_decode_matvec_reg_top/QkJtagDecodeMatVecRegTopPdWrapper.v",
+      "sha256": "55f0fc470494e733209c760e7d928282cff3e48b7aaa53f0044159d1b5dba464",
+      "bytes": 1124
+    },
+    {
+      "path": "quartus/de10_lite_jtag_matvec/ip/qk_jtag_decode_matvec_reg_top/qk_jtag_decode_matvec_reg_top_hw.tcl",
+      "sha256": "214f17f393258dd9fd4fc88030eb09a3d4484327d5a8a103a75c8a969c04d3e1",
+      "bytes": 3826
+    },
+    {
+      "path": "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof",
+      "sha256": "9f2c11c35abb6fa6c85b4a60e0947cb00b0e364a5fed0ba431f1876edbeb2eb6",
+      "bytes": 3233801
+    },
+    {
       "path": "quartus/de10_lite_jtag_matvec/platform_designer/create_jtag_matvec_system.tcl",
-      "sha256": "e51eafe0be2c1c5cc8d6bac5d414480b1e867c20c8ed6735d1d734227e738b76",
-      "bytes": 898
+      "sha256": "bd715b517a8d19bf7f8ebc23f403a145de53c58811f4963f315a64e6677dea40",
+      "bytes": 1824
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/qsf/README.md",
@@ -389,8 +409,8 @@
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/scripts/create_project.tcl",
-      "sha256": "b84b241b72bb2f694cad386ed36a43f63fdc9db94f03a0d35a257eee9f39f3b8",
-      "bytes": 2238
+      "sha256": "ea5726af92accdaa30ac2e170d82778fcc6e19918c8038a810eedf5e1b4b9aed",
+      "bytes": 2349
     },
     {
       "path": "quartus/de10_lite_uart_matvec/README.md",
@@ -429,8 +449,8 @@
     },
     {
       "path": "windows/run_fpga_jtag_matvec.py",
-      "sha256": "6faa7e0bb3872d1287898fbb2f8cf8b85620180e2e219d6f2a9f0f44ce056942",
-      "bytes": 13097
+      "sha256": "31591c41b3c967b5e57ddb0198e72ae15bf49f222aa271e1c00c5c5b34dbba2d",
+      "bytes": 13260
     },
     {
       "path": "windows/run_fpga_uart_matvec.py",
