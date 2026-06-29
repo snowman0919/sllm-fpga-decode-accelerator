@@ -4,6 +4,9 @@
 .venv-onnx-export/
 __pycache__/
 *.py[cod]
+dist/
+logs.zip
+logs_board_eval.zip
 
 hw/spinal/generated/*.v
 hw/spinal/generated/*.lst

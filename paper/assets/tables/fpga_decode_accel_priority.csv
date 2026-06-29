@@ -1,6 +1,0 @@
-priority_rank,category,priority_score,rationale,claim_limit
-1,mlp_projection,51.195,Highest cumulative MatMul time; repeated gate/up/down projection maps naturally to tiled INT8 MatVec/MatMul.,Design estimate only; do not interpret as measured FPGA speedup.
-2,lm_head,19.367,Large vocabulary projection makes full weight streaming unavoidable; tiled streaming and partial top-k/reduction should be studied.,Design estimate only; do not interpret as measured FPGA speedup.
-3,attention_qkv_projection,-0.622,"Dense linear projection candidate, but measured share is far below MLP and lm_head in the current ORT profile.",Design estimate only; do not interpret as measured FPGA speedup.
-4,attention_output_projection,-2.125,Dense projection candidate with moderate reuse of the same MatVec datapath.,Design estimate only; do not interpret as measured FPGA speedup.
-5,attention_v_weighted_sum,-3.572,Attention data movement candidate; shape depends on context and KV-cache stream layout.,Design estimate only; do not interpret as measured FPGA speedup.

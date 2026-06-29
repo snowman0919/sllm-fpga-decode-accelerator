@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a local FTP-ready package under dist/ai_accel_paper."""
+"""Build the generated reviewer package under dist/ai_accel_paper."""
 
 from __future__ import annotations
 
@@ -17,24 +17,15 @@ INCLUDE_PATHS = [
     "windows",
     "onnx_micrographs",
     "onnx_custom_op",
-    "docs/uart_protocol.md",
-    "docs/windows_test_guide.md",
-    "docs/windows_board_runbook.md",
-    "docs/linux_windows_fpga_eval_workflow.md",
-    "docs/quartus_clean_rebuild_notes.md",
-    "docs/de10_lite_uart_wiring.md",
-    "docs/fpga_uart_benchmark_report.md",
-    "docs/fpga_jtag_benchmark_report.md",
-    "docs/fpga_optimized_interface_model.md",
-    "docs/jtag_matvec_offload.md",
-    "docs/onnx_vs_fpga_eval_protocol.md",
-    "docs/quartus_resource_timing_summary.md",
-    "docs/ort_vs_fpga_comparison_interpretation.md",
-    "docs/release_hygiene.md",
-    "docs/ftp_upload_plan.md",
     "docs/claim_boundary.md",
-    "docs/gemma_partial_offload_plan.md",
-    "docs/gemma_onnx_patch_notes.md",
+    "docs/linux_windows_fpga_eval_workflow.md",
+    "docs/windows_board_runbook.md",
+    "docs/fpga_jtag_benchmark_report.md",
+    "docs/ort_vs_fpga_comparison_interpretation.md",
+    "docs/quartus_clean_rebuild_notes.md",
+    "docs/quartus_resource_timing_summary.md",
+    "docs/repository_structure.md",
+    "docs/release_artifacts.md",
     "scripts/extract_quartus_summary.py",
     "scripts/regenerate_fpga_optimized_estimate.py",
     "scripts/build_ort_fpga_comparison.py",
@@ -44,8 +35,6 @@ INCLUDE_PATHS = [
     "paper_assets/figures/figure_index.csv",
     "paper_assets/figures/jtag_vs_optimized_fpga_latency_interpretation.png",
     "paper_assets/figures/ort_vs_fpga_latency_decomposition.png",
-    "quartus/de10_lite_uart_matvec/README.md",
-    "quartus/de10_lite_uart_matvec/qsf",
     "quartus/de10_lite_jtag_matvec",
 ]
 
@@ -96,9 +85,9 @@ def sha256(path: Path) -> str:
 def write_readme(path: Path) -> None:
     text = """# ai_accel_paper Test Package
 
-This package contains the Windows CPU/ONNX Runtime baselines, optional FPGA UART
-and JTAG validation runners, ONNX micrograph artifacts, claim-boundary notes, and
-paper-facing tables prepared from the repository.
+This generated package contains the Windows CPU/ONNX Runtime baselines, JTAG
+validation runner, ONNX micrograph artifacts, claim-boundary notes, paper-facing
+tables, figures, and Quartus rebuild inputs prepared from the repository.
 
 Run locally:
 
@@ -116,18 +105,6 @@ Run the optional ONNX Runtime integer micrograph baseline:
 
 ```powershell
 python install.py --local . --run-ort-integer
-```
-
-List serial ports:
-
-```powershell
-python install.py --local . --list-ports
-```
-
-Run optional FPGA UART validation:
-
-```powershell
-python install.py --local . --run-fpga --port COM5 --baud 115200
 ```
 
 Run optional USB-Blaster JTAG register validation:
@@ -148,13 +125,11 @@ Extract packaged Quartus resource/timing summaries and rebuild the comparison ta
 python install.py --local . --extract-quartus-summary --run-full-eval
 ```
 
-The FPGA UART path is a low-speed validation/control path. It is not a full
-Gemma ONNX execution path and does not imply end-to-end speedup. The JTAG path
-is now the preferred no-external-UART board validation route, but it is also a
-correctness/overhead validation path rather than a performance interface unless
-a real passing cycle-counter board log is archived. The full-eval option
-preserves failed or skipped hardware runs instead of converting them into
-passing measurements.
+The JTAG path is a correctness and cycle-counter validation route. JTAG total
+latency is System Console/JTAG host-tool invocation overhead, not FPGA compute
+latency. The package does not claim full Gemma FPGA execution or end-to-end
+ONNX Runtime speedup. The full-eval option preserves failed or skipped hardware
+runs instead of converting them into passing measurements.
 """
     path.write_text(text, encoding="utf-8")
 
@@ -183,8 +158,8 @@ def prune_jtag_quartus_outputs(out_dir: Path) -> None:
 def main() -> None:
     args = parse_args()
     out_dir = ROOT / args.out_dir
-    install_src = ROOT / "dist/ai_accel_paper/install.py"
-    install_text = install_src.read_text(encoding="utf-8") if install_src.exists() else ""
+    install_src = ROOT / "scripts/dist_install.py"
+    install_text = install_src.read_text(encoding="utf-8")
     if out_dir.exists():
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -194,8 +169,7 @@ def main() -> None:
     bitstream = ROOT / "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof"
     copy_path(bitstream, out_dir / "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof")
     prune_jtag_quartus_outputs(out_dir)
-    if install_text:
-        (out_dir / "install.py").write_text(install_text, encoding="utf-8")
+    (out_dir / "install.py").write_text(install_text, encoding="utf-8")
     write_readme(out_dir / "README.md")
 
     files = []

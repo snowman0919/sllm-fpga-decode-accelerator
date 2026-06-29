@@ -1,3 +1,0 @@
-attempt,provider,status,prompt_len,decode_tokens,session_init_s,prefill_s,decode_avg_s,decode_mode,cache_input_count,cache_output_count,note_or_error
-cpu,CPUExecutionProvider,ok,32,2,1.8986423619999186,0.18080204000034428,0.13351462000036918,with_past_kv_cache,52,52,
-cuda,CUDAExecutionProvider,skipped,,,,,,,0,0,CUDAExecutionProvider not available in this onnxruntime build.

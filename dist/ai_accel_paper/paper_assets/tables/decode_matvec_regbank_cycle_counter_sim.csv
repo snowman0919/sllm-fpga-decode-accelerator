@@ -1,2 +1,0 @@
-seq,expected,result,pass,compute_cycles,core_total_cycles,last_run_id,debug_status,input_dim,output_dim,cycle_boundary
-42,-271 239 287 797,-271 239 287 797,true,65,65,42,2,16,4,simulation_only_not_board_measurement

@@ -1,5 +1,0 @@
-"dim","expected_score","observed_score","observed_cycles","estimated_cycles_sequential_mac","expected_hex_low16","status"
-"16","-22","-22","17","17","FFEA","pass"
-"32","-61","-61","33","33","FFC3","pass"
-"64","-227","-227","65","65","FF1D","pass"
-"128","230","230","129","129","00E6","pass"

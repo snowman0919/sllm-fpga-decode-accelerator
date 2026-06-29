@@ -1,2 +1,0 @@
-artifact,tool_version,cable,programming_file,device,status,errors,warnings,claim_scope,evidence
-decode_matvec_bitstream_programming,Quartus Prime Programmer 25.1std.0 Build 1129 10/21/2025 SC Lite Edition,USB-Blaster [USB-0],de10_lite_decode_matvec.sof,10M50DAF484,configuration_succeeded,0,0,DE10-Lite configuration of small fixed-dimension INT8 Decode MatVec primitive bitstream only; not Gemma 3 1B or end-to-end ONNX Runtime acceleration,Windows Quartus Programmer screenshot
