@@ -32,7 +32,7 @@ SHA-256: 40a4f84167d2fd75972ea33684ec949b6c22e61057f1c134dd5bd4b936ef4a84
 
 JTAG total invocation latency는 System Console 실행, JTAG service 접근, register write/read, polling을 포함한 **host-tool invocation overhead**이다. FPGA compute latency가 아니다.
 
-## 이 저장소가 주장하지 않는 것
+## 이 래포가 주장하지 않는 것
 
 - Gemma 3 1B 전체를 DE10-Lite에서 실행했다는 주장
 - ONNX Runtime 전체 모델의 end-to-end 가속 주장
@@ -112,10 +112,8 @@ py -3 windows\run_fpga_jtag_matvec.py --runs 20 --cable "USB-Blaster [USB-0]" --
 
 ## examine 브랜치
 
-`main`은 논문 검토자용 최소 구조이다. Raw profile JSON, raw board logs, legacy Quartus projects, diagnostic notes, generated dist package copy는 `examine` 브랜치에 보존되어 있다.
+`main`은 검토자용 최소 구조이다. Raw profile JSON, raw board logs, legacy Quartus projects, diagnostic notes, generated dist package copy는 `examine` 브랜치에 보존되어 있다.
 
 ```bash
 git switch examine
 ```
-
-`main`에서 파일이 보이지 않는다는 것은 증거를 버렸다는 뜻이 아니라, 검토 흐름을 방해하는 raw trace를 별도 보존 브랜치로 옮겼다는 뜻이다.
