@@ -104,6 +104,12 @@ decode-matvec-sim:
   cd hw/spinal
   sbt "testOnly qk.DecodeMatVecInt8Sim"
 
+fpga-jtag-regbank-sim:
+  #!/usr/bin/env bash
+  command -v sbt >/dev/null 2>&1 || { echo "sbt is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  cd hw/spinal
+  sbt "testOnly qk.DecodeMatVecRegBankSim"
+
 fpga-uart-sim:
   #!/usr/bin/env bash
   just decode-matvec-sim
@@ -174,6 +180,11 @@ extract-quartus-summary quartus_dir="quartus/de10_lite_jtag_matvec/output_files"
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
   python3 scripts/extract_quartus_summary.py --quartus-dir "{{quartus_dir}}"
 
+regenerate-fpga-estimate:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 scripts/regenerate_fpga_optimized_estimate.py
+
 fpga-full-eval runs="3" log_dir="":
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
@@ -183,8 +194,10 @@ fpga-full-eval runs="3" log_dir="":
   fi
   python3 windows/run_cpu_matvec_baseline.py "${args[@]}"
   python3 windows/run_ort_matvec_baseline.py "${args[@]}"
+  python3 windows/run_ort_matvec_integer_baseline.py "${args[@]}"
   python3 windows/run_fpga_jtag_matvec.py "${args[@]}" || true
   python3 scripts/extract_quartus_summary.py
+  python3 scripts/regenerate_fpga_optimized_estimate.py
   python3 scripts/build_ort_fpga_comparison.py
 
 fpga-uart-quartus:
@@ -246,6 +259,15 @@ ort-micrograph-baseline runs="10" log_dir="":
   fi
   python3 windows/run_ort_matvec_baseline.py "${args[@]}"
 
+ort-integer-micrograph-baseline runs="10" log_dir="":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  args=(--runs "{{runs}}")
+  if [ -n "{{log_dir}}" ]; then
+    args+=(--log-dir "{{log_dir}}")
+  fi
+  python3 windows/run_ort_matvec_integer_baseline.py "${args[@]}"
+
 ort-fpga-equivalent port="" baud="115200" runs="10" log_dir="":
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
@@ -276,6 +298,7 @@ build-dist-package:
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
   python3 scripts/build_dist_package.py
+  python3 scripts/verify_dist_package.py
 
 vectors dim="16" num_keys="8" seed="7" out_dir="fpga_test/vectors":
   #!/usr/bin/env bash
