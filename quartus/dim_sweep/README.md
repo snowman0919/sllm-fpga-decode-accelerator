@@ -1,16 +1,15 @@
 # Quartus Dim Sweep
 
-This directory is reserved for synthesis-only Quartus projects used in the INT8 QK dot-product dim sweep.
+이 디렉터리는 primitive 차원 변화에 따른 합성 경향을 확인하기 위한 보조 Quartus sweep 위치다.
 
-Purpose:
+목적:
 
-- compile `dim = 16, 32, 64, 128` variants of the INT8 QK dot-product primitive
-- collect resource and timing scaling data on the MAX 10 target device
-- keep the board-facing `quartus/de10_lite_qk/` flow separate from the synthesis sweep
+- `dim = 16, 32, 64, 128` 변형의 resource/timing 경향 확인
+- board-facing clean rebuild project인 `quartus/de10_lite_jtag_matvec/`와 분리
+- 최종 논문 수치와 혼동되지 않는 보조 자료 유지
 
-Important interpretation limit:
+해석 경계:
 
-- These projects are for primitive-level synthesis experiments only.
-- The measured object is the INT8 QK dot-product primitive, not KV-cache storage or a full decode accelerator.
-- They do not claim full sLLM execution on FPGA.
-- They do not provide end-to-end comparison data against ONNX Runtime or PyTorch.
+- 이 sweep은 synthesis 보조 실험이며 board-measured primary evidence가 아니다.
+- primary board evidence는 clean rebuild `de10_lite_jtag_matvec` bitstream과 JTAG cycle-counter run이다.
+- full sLLM FPGA execution 또는 end-to-end ONNX Runtime speedup 근거로 사용하지 않는다.

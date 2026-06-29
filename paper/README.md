@@ -1,10 +1,9 @@
-# Paper Directory
+# Paper
 
-The canonical manuscript is:
+canonical 논문 원고는 다음 파일이다.
 
 ```text
-paper/current/ONNX_Runtime_온디바이스_sLLM_FPGA_Decode_가속기_논문양식본.md
+paper/current/manuscript.md
 ```
 
-Older drafts, duplicate top-level copies, and asset archives are preserved on
-the `examine` branch. New manuscript edits should target `paper/current/`.
+과거 한글 긴 파일명 원고, 중복 draft, asset archive는 `examine` 브랜치에 보존한다. `main`에서 새 논문 수정은 `paper/current/manuscript.md`에 적용한다.
