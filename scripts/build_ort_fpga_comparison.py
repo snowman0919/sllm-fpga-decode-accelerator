@@ -51,6 +51,24 @@ def latency_fields(ms: float | None) -> tuple[str, str]:
     return f"{ms:.9f}", f"{ms * 1000.0:.6f}"
 
 
+def latency_stat_fields(
+    mean_ms: float | None,
+    p50_ms: float | None = None,
+    p95_ms: float | None = None,
+) -> dict[str, str]:
+    mean_ms_s, mean_us_s = latency_fields(mean_ms)
+    p50_ms_s, p50_us_s = latency_fields(p50_ms)
+    p95_ms_s, p95_us_s = latency_fields(p95_ms)
+    return {
+        "latency_ms_mean": mean_ms_s,
+        "latency_ms_p50": p50_ms_s,
+        "latency_ms_p95": p95_ms_s,
+        "latency_us_mean": mean_us_s,
+        "latency_us_p50": p50_us_s,
+        "latency_us_p95": p95_us_s,
+    }
+
+
 def comparison_rows() -> list[dict[str, object]]:
     aligned = TABLE_DIR / "onnx_runtime_aligned_micrograph_baseline.csv"
     integer = TABLE_DIR / "onnx_runtime_integer_micrograph_baseline.csv"
@@ -61,22 +79,24 @@ def comparison_rows() -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     cpu = first_row(aligned, backend="cpu_numpy_primitive_baseline")
     if cpu:
-        latency_ms = fnum(cpu.get("latency_ms_mean"))
-        ms, us = latency_fields(latency_ms)
         rows.append(
             {
                 "backend": "CPU NumPy primitive baseline",
                 "evidence_type": "measured",
-                "interface": cpu.get("interface", "host_numpy"),
+                "interface": "host memory",
                 "dtype": cpu.get("dtype", "int8_inputs_int32_accum"),
                 "input_dim": cpu.get("input_dim", "16"),
                 "output_dim": cpu.get("output_dim", "4"),
                 "macs": cpu.get("macs", "64"),
                 "correctness_pass": cpu.get("correctness_pass", ""),
-                "latency_ms": ms,
-                "latency_us": us,
-                "latency_source": cpu.get("latency_source", "host wall time"),
+                **latency_stat_fields(
+                    fnum(cpu.get("latency_ms_mean")),
+                    fnum(cpu.get("latency_ms_p50")),
+                    fnum(cpu.get("latency_ms_p95")),
+                ),
+                "latency_source": "Python/NumPy host wall time",
                 "measured_or_projected": "measured",
+                "compute_cycles_mean": "",
                 "claim_boundary": "host-side primitive baseline; not ONNX Runtime profiling",
                 "note": cpu.get("note", ""),
             }
@@ -84,8 +104,6 @@ def comparison_rows() -> list[dict[str, object]]:
 
     ort = first_row(aligned, backend="onnxruntime_matvec_micrograph")
     if ort:
-        latency_ms = fnum(ort.get("latency_ms_mean"))
-        ms, us = latency_fields(latency_ms)
         rows.append(
             {
                 "backend": "ONNX Runtime MatVec micrograph",
@@ -96,10 +114,14 @@ def comparison_rows() -> list[dict[str, object]]:
                 "output_dim": ort.get("output_dim", "4"),
                 "macs": ort.get("macs", "64"),
                 "correctness_pass": ort.get("correctness_pass", ""),
-                "latency_ms": ms,
-                "latency_us": us,
+                **latency_stat_fields(
+                    fnum(ort.get("latency_ms_mean")),
+                    fnum(ort.get("latency_ms_p50")),
+                    fnum(ort.get("latency_ms_p95")),
+                ),
                 "latency_source": ort.get("latency_source", "ORT CPUExecutionProvider"),
                 "measured_or_projected": "measured",
+                "compute_cycles_mean": "",
                 "claim_boundary": "aligned micrograph baseline only; not full Gemma ONNX Runtime profiling",
                 "note": ort.get("dtype_boundary", ""),
             }
@@ -107,8 +129,6 @@ def comparison_rows() -> list[dict[str, object]]:
 
     ort_int = first_row(integer, backend="onnxruntime_matmulinteger_micrograph")
     if ort_int:
-        latency_ms = fnum(ort_int.get("latency_ms_mean"))
-        ms, us = latency_fields(latency_ms)
         rows.append(
             {
                 "backend": "ONNX Runtime MatMulInteger micrograph",
@@ -119,10 +139,14 @@ def comparison_rows() -> list[dict[str, object]]:
                 "output_dim": ort_int.get("output_dim", "4"),
                 "macs": ort_int.get("macs", "64"),
                 "correctness_pass": ort_int.get("correctness_pass", ""),
-                "latency_ms": ms,
-                "latency_us": us,
-                "latency_source": ort_int.get("latency_source", "ORT CPUExecutionProvider MatMulInteger"),
+                **latency_stat_fields(
+                    fnum(ort_int.get("latency_ms_mean")),
+                    fnum(ort_int.get("latency_ms_p50")),
+                    fnum(ort_int.get("latency_ms_p95")),
+                ),
+                "latency_source": "ORT session.run MatMulInteger wall time",
                 "measured_or_projected": "measured",
+                "compute_cycles_mean": "",
                 "claim_boundary": "integer micrograph baseline only; not full Gemma ONNX Runtime profiling",
                 "note": ort_int.get("note", ""),
             }
@@ -130,24 +154,27 @@ def comparison_rows() -> list[dict[str, object]]:
 
     jtag_row = first_row(jtag, backend="fpga_jtag_register_offload")
     if jtag_row:
-        latency_ms = fnum(jtag_row.get("total_wall_latency_ms_mean") or jtag_row.get("total_latency_ms_mean"))
-        ms, us = latency_fields(latency_ms)
-        measured_kind = "measured" if latency_ms is not None else "measured_correctness_only"
+        latency = latency_stat_fields(
+            fnum(jtag_row.get("total_wall_latency_ms_mean") or jtag_row.get("total_latency_ms_mean")),
+            fnum(jtag_row.get("total_wall_latency_ms_p50")),
+            fnum(jtag_row.get("total_wall_latency_ms_p95")),
+        )
+        measured_kind = "measured" if latency["latency_ms_mean"] else "measured_correctness_only"
         rows.append(
             {
                 "backend": "FPGA JTAG total invocation",
                 "evidence_type": "measured",
-                "interface": jtag_row.get("interface", "jtag_to_avalon"),
+                "interface": "USB-Blaster JTAG / System Console",
                 "dtype": "int8_inputs_int32_accum",
                 "input_dim": jtag_row.get("input_dim", "16"),
                 "output_dim": jtag_row.get("output_dim", "4"),
                 "macs": jtag_row.get("macs", "64"),
                 "correctness_pass": jtag_row.get("correctness_pass", ""),
-                "latency_ms": ms,
-                "latency_us": us,
-                "latency_source": "System Console/JTAG total wall time" if latency_ms is not None else "not archived in current success record",
+                **latency,
+                "latency_source": "System Console/JTAG total invocation wall time",
                 "measured_or_projected": measured_kind,
-                "claim_boundary": "JTAG invocation overhead; not compute speed",
+                "compute_cycles_mean": "",
+                "claim_boundary": "JTAG invocation overhead; not compute latency",
                 "note": jtag_row.get("tool_overhead_note", ""),
             }
         )
@@ -156,29 +183,37 @@ def comparison_rows() -> list[dict[str, object]]:
     if cycle_row:
         latency_us = fnum(cycle_row.get("compute_time_us_50mhz_mean"))
         latency_ms = latency_us / 1000.0 if latency_us is not None else None
-        ms, us = latency_fields(latency_ms)
+        p50_us = fnum(cycle_row.get("compute_time_us_50mhz_p50"))
+        p95_us = fnum(cycle_row.get("compute_time_us_50mhz_p95"))
         rows.append(
             {
-                "backend": "FPGA internal compute cycles",
-                "evidence_type": "measured",
-                "interface": cycle_row.get("interface", "jtag_to_avalon_register_bank"),
+                "backend": "FPGA internal Decode MatVec",
+                "evidence_type": "board_measured",
+                "interface": "internal FPGA cycle counter",
                 "dtype": "int8_inputs_int32_accum",
                 "input_dim": cycle_row.get("input_dim", "16"),
                 "output_dim": cycle_row.get("output_dim", "4"),
                 "macs": cycle_row.get("macs", "64"),
                 "correctness_pass": cycle_row.get("correctness_pass", ""),
-                "latency_ms": ms,
-                "latency_us": us,
+                **latency_stat_fields(
+                    latency_ms,
+                    p50_us / 1000.0 if p50_us is not None else None,
+                    p95_us / 1000.0 if p95_us is not None else None,
+                ),
                 "latency_source": "FPGA COMPUTE_CYCLES register at 50 MHz",
-                "measured_or_projected": "measured",
+                "measured_or_projected": "board_measured",
+                "compute_cycles_mean": cycle_row.get("compute_cycles_mean", ""),
                 "claim_boundary": cycle_row.get("claim_boundary", "primitive internal cycle measurement only"),
-                "note": f"compute_cycles_mean={cycle_row.get('compute_cycles_mean', '')}",
+                "note": (
+                    "profiled bottleneck primitive compute latency evidence only; "
+                    f"compute_cycles_mean={cycle_row.get('compute_cycles_mean', '')}"
+                ),
             }
         )
     else:
         rows.append(
             {
-                "backend": "FPGA internal compute cycles",
+                "backend": "FPGA internal Decode MatVec",
                 "evidence_type": "pending_hardware_measurement",
                 "interface": "jtag_to_avalon_register_bank",
                 "dtype": "int8_inputs_int32_accum",
@@ -186,10 +221,10 @@ def comparison_rows() -> list[dict[str, object]]:
                 "output_dim": "4",
                 "macs": "64",
                 "correctness_pass": "",
-                "latency_ms": "",
-                "latency_us": "",
+                **latency_stat_fields(None, None, None),
                 "latency_source": "FPGA COMPUTE_CYCLES register",
                 "measured_or_projected": "pending",
+                "compute_cycles_mean": "",
                 "claim_boundary": "do not report as measured until a real board log reads COMPUTE_CYCLES",
                 "note": "No cycle-counter board log is present in this repository state.",
             }
@@ -206,7 +241,6 @@ def comparison_rows() -> list[dict[str, object]]:
         proj = projected_rows[0]
         latency_us = fnum(proj.get("optimized_interface_latency_us_fmax"))
         latency_ms = latency_us / 1000.0 if latency_us is not None else fnum(proj.get("optimized_interface_latency_ms"))
-        ms, us = latency_fields(latency_ms)
         rows.append(
             {
                 "backend": "FPGA optimized interface estimate",
@@ -217,10 +251,10 @@ def comparison_rows() -> list[dict[str, object]]:
                 "output_dim": proj.get("output_dim", "4"),
                 "macs": proj.get("macs", "64"),
                 "correctness_pass": "",
-                "latency_ms": ms,
-                "latency_us": us,
+                **latency_stat_fields(latency_ms, None, None),
                 "latency_source": "weight-preloaded low-overhead host interface model",
                 "measured_or_projected": "projected",
+                "compute_cycles_mean": "",
                 "claim_boundary": "design estimate only; not measured board latency",
                 "note": (
                     f"{proj.get('estimate_boundary', '')}; "
@@ -248,12 +282,12 @@ def write_md(path: Path, rows: list[dict[str, object]]) -> None:
         "",
         "This comparison separates measured host baselines, measured JTAG correctness/invocation evidence, measured FPGA internal cycle-counter evidence, and projected optimized-interface estimates.",
         "",
-        "| backend | evidence | latency source | latency us | boundary |",
-        "| --- | --- | --- | ---: | --- |",
+        "| backend | evidence | latency source | mean us | p50 us | p95 us | boundary |",
+        "| --- | --- | --- | ---: | ---: | ---: | --- |",
     ]
     for row in rows:
         lines.append(
-            f"| {row['backend']} | {row['evidence_type']} | {row['latency_source']} | {row['latency_us']} | {row['claim_boundary']} |"
+            f"| {row['backend']} | {row['evidence_type']} | {row['latency_source']} | {row['latency_us_mean']} | {row['latency_us_p50']} | {row['latency_us_p95']} | {row['claim_boundary']} |"
         )
     lines.extend(
         [
@@ -270,8 +304,8 @@ def write_figure(path: Path, rows: list[dict[str, object]]) -> None:
     plotted = [
         row
         for row in rows
-        if row.get("latency_us") not in ("", None)
-        and row.get("measured_or_projected") in {"measured", "projected"}
+        if row.get("latency_us_mean") not in ("", None)
+        and row.get("measured_or_projected") in {"measured", "board_measured", "projected"}
     ]
     if not plotted:
         return
@@ -280,14 +314,19 @@ def write_figure(path: Path, rows: list[dict[str, object]]) -> None:
     except ImportError:
         return
     labels = [str(row["backend"]).replace(" ", "\n") for row in plotted]
-    values = [float(str(row["latency_us"])) for row in plotted]
-    colors = ["#4c78a8" if row["measured_or_projected"] == "measured" else "#f58518" for row in plotted]
+    values = [float(str(row["latency_us_mean"])) for row in plotted]
+    color_map = {
+        "measured": "#4c78a8",
+        "board_measured": "#54a24b",
+        "projected": "#f58518",
+    }
+    colors = [color_map.get(str(row["measured_or_projected"]), "#9d9d9d") for row in plotted]
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=(8, 4.5))
+    fig, ax = plt.subplots(figsize=(9, 4.8))
     ax.bar(labels, values, color=colors)
-    ax.set_ylabel("Latency (us, log scale)")
+    ax.set_ylabel("Mean latency (us, log scale)")
     ax.set_yscale("log")
-    ax.set_title("Primitive Latency: Measured Baselines vs Projected FPGA Interface")
+    ax.set_title("Decode MatVec Primitive: Measured, Board-Measured, and Projected Latency")
     ax.grid(axis="y", which="both", alpha=0.25)
     fig.tight_layout()
     fig.savefig(path, dpi=180)

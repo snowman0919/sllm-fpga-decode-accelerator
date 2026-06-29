@@ -15,7 +15,7 @@ This experiment uses JTAG-to-Avalon Master because the MatVec primitive naturall
 
 The JTAG path is only a host-to-FPGA invocation, correctness, and overhead validation route. It is not a performance-optimized bus, not a full Gemma 3 1B FPGA execution path, and not end-to-end ONNX Runtime speedup evidence. If no real JTAG execution log exists, no paper result table should include JTAG latency numbers. If a passing result exists but its numeric latency breakdown is not archived, the result may be reported as correctness/invocation evidence only.
 
-The current paper-facing JTAG report is `docs/fpga_jtag_benchmark_report.md`. Its measured content is the deterministic result vector `[-271, 239, 287, 797]` with `correctness_pass=True`; latency fields remain blank because the numeric JTAG breakdown was not archived in the provided success record.
+The current paper-facing JTAG report is `docs/fpga_jtag_benchmark_report.md`. Its measured content is the deterministic result vector `[-271, 239, 287, 797]` with `correctness_pass=True`, a 20/0 pass/fail board run, JTAG total invocation latency, and `COMPUTE_CYCLES=65` from the FPGA internal cycle counter. JTAG total latency is archived as invocation overhead only; the FPGA compute latency evidence is the internal cycle-counter value.
 
 The existing USB-UART path remains as an alternative path for setups with an external 3.3 V USB-UART adapter.
 
