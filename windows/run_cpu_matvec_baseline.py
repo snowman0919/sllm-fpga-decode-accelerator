@@ -56,6 +56,8 @@ def main() -> None:
                 "run": run,
                 "input_dim": args.input_dim,
                 "output_dim": args.output_dim,
+                "macs": args.input_dim * args.output_dim,
+                "dtype": "int8_inputs_int32_accum",
                 "generation_ms": elapsed_ms(t0, t1),
                 "compute_ms": elapsed_ms(t1, t2),
                 "total_latency_ms": total_ms,
@@ -69,8 +71,12 @@ def main() -> None:
     macs_per_run = args.input_dim * args.output_dim
     summary = {
         "backend": "cpu_numpy_int32",
+        "evidence_type": "measured",
+        "interface": "host_numpy",
+        "dtype": "int8_inputs_int32_accum",
         "input_dim": args.input_dim,
         "output_dim": args.output_dim,
+        "macs": macs_per_run,
         "runs": args.runs,
         "correctness_pass": correctness,
         "total_latency_ms_mean": round(total["mean"], 6),
@@ -85,6 +91,28 @@ def main() -> None:
     write_json(log_dir / "cpu_matvec_summary.json", summary)
     write_summary_md(log_dir / "cpu_matvec_summary.md", "CPU MatVec Baseline Summary", summary)
 
+    update_table(
+        PROJECT_ROOT / "paper_assets/tables/onnx_runtime_aligned_micrograph_baseline.csv",
+        ["backend", "interface", "dtype", "input_dim", "output_dim"],
+        {
+            "backend": "cpu_numpy_primitive_baseline",
+            "interface": "host_numpy",
+            "evidence_type": "measured",
+            "dtype": "int8_inputs_int32_accum",
+            "input_dim": args.input_dim,
+            "output_dim": args.output_dim,
+            "macs": macs_per_run,
+            "runs": args.runs,
+            "correctness_pass": correctness,
+            "latency_ms_mean": round(total["mean"], 6),
+            "latency_ms_p50": round(total["p50"], 6),
+            "latency_ms_p95": round(total["p95"], 6),
+            "latency_source": "host wall time around NumPy int32 reference",
+            "synthetic_weight": True,
+            "claim_boundary": "fixed primitive host baseline; not ONNX Runtime profiling",
+            "note": "Same deterministic activation and weight values as FPGA primitive runner.",
+        },
+    )
     update_table(
         PROJECT_ROOT / "paper_assets/tables/fpga_uart_primitive_benchmark.csv",
         ["backend", "input_dim", "output_dim", "baudrate"],
