@@ -122,6 +122,22 @@ fpga-jtag-verilog:
   #!/usr/bin/env bash
   just spinal-generate
 
+fpga-linux-prepare:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  just fpga-jtag-verilog
+  just fpga-jtag-regbank-sim
+  python3 scripts/build_ort_fpga_comparison.py
+  python3 scripts/build_dist_package.py
+  python3 scripts/verify_dist_package.py
+
+fpga-paper-package:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
+  python3 scripts/build_ort_fpga_comparison.py
+  python3 scripts/build_dist_package.py
+  python3 scripts/verify_dist_package.py
+
 fpga-jtag-benchmark runs="10" log_dir="" quartus_bin="" cable="USB-Blaster [USB-0]":
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }

@@ -18,6 +18,10 @@ set verified_qsf [file join $repo_root quartus de10_lite_qk qsf verified_de10_li
 set qsf_path [file join $project_dir ${revision_name}.qsf]
 
 set verilog_files [list $board_top_file]
+set verilog_assignments [list "De10LiteJtagMatVecTop.v"]
+set qip_assignment "platform_designer/jtag_matvec_system/synthesis/jtag_matvec_system.qip"
+set sdc_assignment "de10_lite_jtag_matvec.sdc"
+set ip_search_assignment "ip/qk_jtag_decode_matvec_reg_top"
 
 set missing 0
 foreach f [concat $verilog_files [list $qsys_file $qip_file $sdc_file]] {
@@ -36,13 +40,13 @@ set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE $device_name
 set_global_assignment -name TOP_LEVEL_ENTITY $top_level
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
-set_global_assignment -name PROJECT_IP_SEARCH_PATHS [file join $project_dir ip qk_jtag_decode_matvec_reg_top]
+set_global_assignment -name IP_SEARCH_PATHS $ip_search_assignment
 
-foreach vf $verilog_files {
+foreach vf $verilog_assignments {
   set_global_assignment -name VERILOG_FILE $vf
 }
-set_global_assignment -name QIP_FILE $qip_file
-set_global_assignment -name SDC_FILE $sdc_file
+set_global_assignment -name QIP_FILE $qip_assignment
+set_global_assignment -name SDC_FILE $sdc_assignment
 
 export_assignments
 project_close

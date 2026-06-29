@@ -50,12 +50,28 @@ Generated system contents:
 - custom Avalon-MM slave component: `qk_jtag_decode_matvec_reg_top`
 - exported debug `LEDR` and `HEX0..HEX5`
 
-The Quartus top-level entity is `De10LiteJtagMatVecTop`, a board-facing wrapper that maps Platform Designer ports back to the verified DE10-Lite names (`CLOCK_50`, `KEY`, `SW`, `LEDR`, `HEX0..HEX5`).
+The Quartus project and revision name is `de10_lite_jtag_matvec`. The Quartus top-level entity is `De10LiteJtagMatVecTop`, a board-facing wrapper that maps Platform Designer ports back to the verified DE10-Lite names (`CLOCK_50`, `KEY`, `SW`, `LEDR`, `HEX0..HEX5`). Keep these names separate: `de10_lite_jtag_matvec` is the project/revision, while `De10LiteJtagMatVecTop` is the Verilog module named in `TOP_LEVEL_ENTITY`.
+
+The checked-in QSF uses project-relative paths for source files and IP outputs so a clean Windows checkout can rebuild without Linux absolute paths:
+
+```text
+set_global_assignment -name TOP_LEVEL_ENTITY De10LiteJtagMatVecTop
+set_global_assignment -name VERILOG_FILE "De10LiteJtagMatVecTop.v"
+set_global_assignment -name QIP_FILE "platform_designer/jtag_matvec_system/synthesis/jtag_matvec_system.qip"
+set_global_assignment -name SDC_FILE "de10_lite_jtag_matvec.sdc"
+```
 
 Build the Platform Designer system and Quartus bitstream:
 
 ```bash
 nix develop -c just fpga-jtag-quartus
+```
+
+On Windows Pocket4, after pulling the Linux-generated repository state, run Quartus without Nix:
+
+```powershell
+cd quartus\de10_lite_jtag_matvec
+quartus_sh.exe --flow compile de10_lite_jtag_matvec
 ```
 
 Expected output after a successful compile:

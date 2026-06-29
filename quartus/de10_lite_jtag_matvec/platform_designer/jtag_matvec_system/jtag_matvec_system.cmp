@@ -1,0 +1,14 @@
+	component jtag_matvec_system is
+		port (
+			CLOCK_50_clk : in  std_logic                    := 'X'; -- clk
+			HEX0_export  : out std_logic_vector(7 downto 0);        -- export
+			HEX1_export  : out std_logic_vector(7 downto 0);        -- export
+			HEX2_export  : out std_logic_vector(7 downto 0);        -- export
+			HEX3_export  : out std_logic_vector(7 downto 0);        -- export
+			HEX4_export  : out std_logic_vector(7 downto 0);        -- export
+			HEX5_export  : out std_logic_vector(7 downto 0);        -- export
+			KEY_reset_n  : in  std_logic                    := 'X'; -- reset_n
+			LEDR_export  : out std_logic_vector(9 downto 0)         -- export
+		);
+	end component jtag_matvec_system;
+

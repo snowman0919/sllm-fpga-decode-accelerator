@@ -64,6 +64,65 @@ Inspect the environment:
 just env-info
 ```
 
+## Linux/Nix and Windows Board Workflow
+
+Use Linux/Nix for development, generation, reproducibility checks, paper assets,
+and the dist package. Windows Pocket4 does not have Nix and should be treated as
+the Quartus/DE10-Lite board runner only.
+
+Linux/Nix responsibilities:
+
+- SpinalHDL Verilog generation and register-bank simulation.
+- Python script validation.
+- ONNX Runtime CPU and MatMulInteger micrograph baselines.
+- Quartus report extraction checks.
+- Paper tables, figures, manuscript edits, and `dist/ai_accel_paper` generation.
+- Commit and push.
+
+Recommended Linux flow:
+
+```bash
+nix develop -c just fpga-jtag-verilog
+nix develop -c just fpga-jtag-regbank-sim
+python scripts/build_ort_fpga_comparison.py
+python scripts/build_dist_package.py
+python scripts/verify_dist_package.py
+git add .
+git commit -m "..."
+git push
+```
+
+Windows Pocket4 responsibilities:
+
+- `git pull` or unpack the Linux-produced repository archive.
+- Quartus compile.
+- `.sof` programming through USB-Blaster.
+- System Console JTAG-to-Avalon benchmark.
+- Board log generation and return to Linux, or a focused commit/push containing
+  the board logs and measured artifacts.
+
+Recommended Windows flow, without Nix:
+
+```powershell
+git pull
+cd quartus\de10_lite_jtag_matvec
+quartus_sh.exe --flow compile de10_lite_jtag_matvec
+cd ..\..
+quartus_pgm.exe -m jtag -c "USB-Blaster [USB-0]" -o "p;quartus\de10_lite_jtag_matvec\output_files\de10_lite_jtag_matvec.sof"
+py -3 windows\run_fpga_jtag_matvec.py --runs 20 --cable "USB-Blaster [USB-0]" --quartus-bin "C:\altera_lite\25.1std\quartus\sopc_builder\bin\system-console.exe" --keep-tcl --log-dir logs\jtag_cycle_counter_real_final
+```
+
+For the JTAG Quartus project, the project/revision name is
+`de10_lite_jtag_matvec` and the Verilog top-level entity is
+`De10LiteJtagMatVecTop`. The checked-in QSF uses project-relative paths so the
+project can be rebuilt from a Windows checkout.
+
+See also:
+
+- `docs/linux_windows_fpga_eval_workflow.md`
+- `docs/windows_board_runbook.md`
+- `docs/quartus_clean_rebuild_notes.md`
+
 ## SpinalHDL Workflow
 
 Generate canonical Verilog and refresh the Quartus import mirror:
