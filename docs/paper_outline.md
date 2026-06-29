@@ -1,53 +1,115 @@
 # Paper Outline
 
-## Abstract
+## Draft Target
 
-- Problem statement: bottleneck location is unclear in ONNX Runtime-based on-device sLLM inference until export, graph structure, runtime execution, memory pressure, prefill, and decode are inspected together.
-- Method summary: ONNX export and graph inspection, ONNX Runtime prefill/decode profiling, PyTorch host-side reference baselines, profiling-derived MatMul category analysis, and primitive-level FPGA validation.
-- Main finding: current ORT CPU profiling shows MatMul as the dominant traced runtime hotspot, with decode MatMul share at 81.1% and `mlp_projection + lm_head` at 88.90% of MatMul time.
-- Hardware scope: the FPGA result validates a small INT8 Decode MatVec primitive and DE10-Lite bitstream configuration only; it is not full Gemma 3 1B execution or measured FPGA speedup.
-- Main contribution: an evidence-bounded workflow connecting ONNX Runtime bottleneck analysis to realistic primitive-level FPGA validation.
-- Numeric claims should appear in tables with an explicit source column before interpretation paragraphs.
+Final draft file:
 
-## Introduction
+```text
+ONNX_Runtime_온디바이스_sLLM_FPGA_Decode_가속기_논문초안.md
+```
 
-- Why on-device sLLM inference matters.
-- Why decode-stage latency matters more than bulk throughput in interactive generation.
-- Why KV-cache growth is a representative structural source of long-context decode memory pressure.
-- Why the study does not assume KV-cache is the only bottleneck before profiling.
-- Why profiling shifted the first hardware direction from QK-only attention to dense decode-stage tiled MatVec/MatMul for MLP projection and `lm_head`.
-- Why a small FPGA board is suitable for validating selected hardware blocks and programming artifacts but not full-model deployment.
+The draft is a submission/shareable Markdown manuscript built from existing repository artifacts. It does not introduce new experiments, recompilation, or changed numeric results.
 
-## Main Body
+## Claim Boundary
 
-- ONNX Runtime profiling setup and assumptions.
-- ONNX export and graph inspection results.
-- Prefill/decode-separated latency sweep by context length.
-- MatMul category analysis:
-  - MatMul is 67.5% of traced phase time.
-  - Decode MatMul is 81.1%; prefill MatMul is 53.4%.
-  - `mlp_projection + lm_head` is 88.90% of MatMul time.
-  - KV-cache is a structural pressure factor, not the only proven bottleneck.
-  - Present numeric results and interpretation as separate subsections.
-- Theoretical KV-cache size analysis.
-- Caveated comparison between theoretical KV-cache growth and measured host process memory growth.
-- PyTorch CPU/CUDA host-side reference baselines, explicitly separated from ONNX Runtime results.
-- Selection of INT8 tiled/sequential Decode MatVec as the first projection-oriented primitive extension, while preserving QK dot-product as a prior narrow attention primitive.
-- SpinalHDL implementation flow and simulation results:
-  - fixed `inputDim=16`, `outputDim=4`
-  - expected/observed outputs `[-271, 239, 287, 797]`
-  - simulation CSV in `paper_assets/tables/decode_matvec_int8_sim.csv`
-- Quartus synthesis and DE10-Lite programming evidence:
-  - resource/timing tables in `paper_assets/tables/decode_matvec_fpga_resource.csv` and `paper_assets/tables/decode_matvec_fpga_timing.csv`
-  - Windows Quartus Programmer configured `de10_lite_decode_matvec.sof` on `10M50DAF484` with `0 errors, 0 warnings`
-  - programming success is bitstream configuration evidence only, not numeric board-output validation by itself
-  - keep FPGA evidence in primitive-level validation tables, not in speedup comparison tables.
-- FPGA Decode accelerator architecture sketch: Host/ORT interface, activation buffer, weight tile streamer, INT8 tiled MatVec engine, accumulator, scale/requant unit, optional element-wise/fusion unit, and optional cache-aware interface.
-- A bridge paragraph explaining how ONNX-centered bottleneck analysis motivates narrow FPGA block validation without claiming full-model acceleration.
-- Limitations and scope boundaries.
+- The study analyzes ONNX Runtime-based on-device sLLM bottlenecks and connects the result to an FPGA Decode accelerator architecture sketch.
+- The strongest measured ONNX Runtime CPUExecutionProvider hotspot is MatMul-centered dense linear algebra.
+- Reported core numbers:
+  - MatMul share of traced prefill + decode phase time: `67.5%`
+  - Decode MatMul share: `81.1%`
+  - Prefill MatMul share: `53.4%`
+  - `mlp_projection + lm_head` share of MatMul time: `88.90%`
+- KV-cache is treated as a representative structural memory-pressure factor, not as the only bottleneck.
+- FPGA evidence is limited to primitive-level INT8 Decode MatVec validation and DE10-Lite bitstream configuration.
+- The draft does not claim complete Gemma 3 1B execution on DE10-Lite, full KV-cache implementation, or end-to-end ONNX Runtime speedup.
+- Roofline/model values are design estimates, not measured acceleration.
+- BitNet b1.58 and MatMul-free LM are discussed only as related work; the project does not implement a MatMul-free model.
 
-## Conclusion
+## Final Manuscript Structure
 
-- Findings should stay focused on on-device small language model inference behavior.
-- The conclusion should discuss selective decode-stage dense projection acceleration opportunities, not generic AI hardware acceleration claims.
-- Do not state that FPGA runs Gemma 3 1B, implements full KV-cache management, or provides measured ONNX Runtime speedup.
+1. Title
+   - Korean title
+   - English title
+2. Author information
+   - 최윤혁
+   - ORCID
+   - 한국디지털미디어고등학교
+   - English name and affiliation
+3. Korean Abstract and Keywords
+4. English Abstract and Keywords
+5. Introduction
+   - 1.1 연구 배경
+   - 1.2 온디바이스 sLLM 추론의 병목 문제
+   - 1.3 ONNX Runtime 기반 분석의 필요성
+   - 1.4 연구 목표와 기여
+6. Background and Related Work
+   - 2.1 Prefill과 Decode
+   - 2.2 KV-cache와 long-context memory pressure
+   - 2.3 ONNX Runtime과 graph-based deployment
+   - 2.4 MatMul 중심 LLM 연산 병목
+   - 2.5 저정밀 및 MatMul-efficient 연구와 본 연구의 차이
+7. Method
+   - 3.1 전체 실험 흐름
+   - 3.2 ONNX export 및 graph inspection
+   - 3.3 ORT profiling setup
+   - 3.4 MatMul category classification 방법
+   - 3.5 FPGA Decode MatVec primitive 설계 방법
+   - 3.6 evidence layer 구분
+8. Experimental Results
+   - Results and interpretation are separated.
+   - Tables include explicit source columns.
+9. Discussion
+   - KV-cache is not treated as the sole explanation.
+   - Decode MatMul dominance is interpreted through dense projection repetition.
+   - MLP projection and `lm_head` motivate tiled MatVec/MatMul rather than QK-only hardware.
+   - DE10-Lite evidence is limited to primitive validation and programming success.
+10. FPGA Decode Accelerator Architecture Proposal
+    - Host/ORT interface
+    - Activation buffer
+    - Weight tile streamer
+    - INT8 tiled MatVec engine
+    - INT32 accumulator
+    - Scale/requant unit
+    - Optional element-wise/fusion unit
+    - Optional cache-aware interface
+11. Limitations
+    - ORT CPUExecutionProvider scope
+    - Synthetic/context sweep scope
+    - MatMul category classification scope
+    - PyTorch baseline and ORT profiling separation
+    - FPGA primitive-level validation scope
+    - Board programming and numeric board-output validation separation
+    - Roofline/design estimate and measured result separation
+12. Conclusion
+13. References
+14. Appendices
+    - A. Artifact inventory
+    - B. Reproducibility commands
+    - C. Claim boundary checklist
+
+## Required Tables
+
+| Table | Caption | Main source |
+| ---: | --- | --- |
+| 1 | ONNX graph inspection 요약 | `onnx_profile/results_onnx/raw/onnx_graph_inspection.json` |
+| 2 | ONNX Runtime profiling 설정 및 산출물 | `docs/onnx_runtime_sweep_report.md`, `paper_assets/tables/ort_context_sweep_latency.csv` |
+| 3 | ONNX Runtime MatMul phase 비중 | `docs/current_bottleneck_implications.md` |
+| 4 | MatMul category별 누적 시간과 비중 | `paper_assets/tables/ort_matmul_category_by_context.csv`, `docs/ort_matmul_hotspot_analysis.md` |
+| 5 | INT8 Decode MatVec RTL simulation 결과 | `paper_assets/tables/decode_matvec_int8_sim.csv` |
+| 6 | Decode MatVec demo Quartus resource 요약 | `paper_assets/tables/decode_matvec_fpga_resource.csv` |
+| 7 | Decode MatVec demo timing 및 board programming 요약 | `paper_assets/tables/decode_matvec_fpga_timing.csv`, `paper_assets/tables/decode_matvec_board_validation.csv` |
+
+## Paper-facing Artifacts
+
+- `paper_assets/tables/ort_context_sweep_latency.csv`
+- `paper_assets/tables/ort_operator_share_by_context.csv`
+- `paper_assets/tables/ort_prefill_decode_comparison.csv`
+- `paper_assets/tables/ort_matmul_category_by_context.csv`
+- `paper_assets/tables/ort_matmul_top_nodes.csv`
+- `paper_assets/tables/fpga_decode_accel_candidate_ops.csv`
+- `paper_assets/tables/fpga_decode_accel_roofline_estimate.csv`
+- `paper_assets/tables/fpga_decode_accel_priority.csv`
+- `paper_assets/tables/decode_matvec_int8_sim.csv`
+- `paper_assets/tables/decode_matvec_fpga_resource.csv`
+- `paper_assets/tables/decode_matvec_fpga_timing.csv`
+- `paper_assets/tables/decode_matvec_board_validation.csv`
