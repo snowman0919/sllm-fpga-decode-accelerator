@@ -48,5 +48,5 @@ set_global_assignment -name IP_SEARCH_PATHS "ip/qk_jtag_decode_matvec_reg_top"
 set_global_assignment -name VERILOG_FILE "De10LiteJtagMatVecTop.v"
 set_global_assignment -name QIP_FILE "platform_designer/jtag_matvec_system/synthesis/jtag_matvec_system.qip"
 set_global_assignment -name SDC_FILE "de10_lite_jtag_matvec.sdc"
-# Reused verified DE10-Lite pin assignments
-source ../de10_lite_qk/qsf/verified_de10_lite_pins.qsf
+# Verified DE10-Lite pin assignments
+source qsf/de10_lite_pins.qsf

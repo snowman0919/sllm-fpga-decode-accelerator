@@ -23,7 +23,7 @@ DEFAULT_MODEL_DIR = Path("/home/monad/develop/ai_accel/gemma3-1B")
 DEFAULT_ONNX_DIR = Path("/home/monad/develop/ai_accel/gemma3-1B-onnx")
 DEFAULT_RESULTS_DIR = Path("onnx_profile/results_onnx")
 DEFAULT_TABLES_DIR = Path("paper_assets/tables")
-DEFAULT_REPORT_PATH = Path("docs/onnx_bottleneck_report.md")
+DEFAULT_REPORT_PATH = Path("onnx_profile/results/reports/onnx_bottleneck_report.md")
 
 PRIMARY_TASK = "text-generation-with-past"
 FALLBACK_TASK = "text-generation"

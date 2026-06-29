@@ -17,7 +17,7 @@ DEFAULT_SWEEP_RAW = Path("onnx_profile/results_onnx_sweep/raw/ort_sweep_raw_runs
 DEFAULT_GRAPH_INSPECTION = Path("onnx_profile/results_onnx/raw/onnx_graph_inspection.json")
 DEFAULT_TABLES_DIR = Path("paper_assets/tables")
 DEFAULT_FIGURES_DIR = Path("paper_assets/figures")
-DEFAULT_REPORT = Path("docs/ort_matmul_hotspot_analysis.md")
+DEFAULT_REPORT = Path("onnx_profile/results/reports/ort_matmul_hotspot_analysis.md")
 
 CATEGORIES = [
     "attention_qkv_projection",

@@ -91,9 +91,8 @@ class DecodeMatVecRegBankSim extends AnyFunSuite {
         assert((debugStatus & 0x2) != 0, s"DEBUG_STATUS done_latched bit not set: $debugStatus")
 
         val repoRoot = new File("../..").getCanonicalFile
-        val captured = new File(repoRoot, "fpga_test/captured/decode_matvec_regbank_cycle_counter_sim.csv")
         val paper = new File(repoRoot, "paper_assets/tables/decode_matvec_regbank_cycle_counter_sim.csv")
-        Seq(captured.getParentFile, paper.getParentFile).foreach(_.mkdirs())
+        paper.getParentFile.mkdirs()
 
         def writeCsv(file: File): Unit = {
           val out = new PrintWriter(file)
@@ -119,7 +118,6 @@ class DecodeMatVecRegBankSim extends AnyFunSuite {
           }
         }
 
-        writeCsv(captured)
         writeCsv(paper)
         println(
           s"DecodeMatVecRegBankSim PASS: result=${observed.mkString("[", ",", "]")} compute_cycles=$computeCycles core_total_cycles=$coreTotalCycles"

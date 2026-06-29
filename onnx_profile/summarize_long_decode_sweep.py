@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 DEFAULT_RESULTS_DIR = Path("onnx_profile/results_onnx_long_decode")
 DEFAULT_TABLES_DIR = Path("paper_assets/tables")
 DEFAULT_FIGURES_DIR = Path("paper_assets/figures")
-DEFAULT_REPORT = Path("docs/ort_long_decode_sweep_report.md")
+DEFAULT_REPORT = Path("onnx_profile/results/reports/ort_long_decode_sweep_report.md")
 SHAPE_OPS = ("Expand", "Concat", "Unsqueeze")
 
 

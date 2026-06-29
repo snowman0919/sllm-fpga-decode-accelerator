@@ -14,18 +14,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 INCLUDE_PATHS = [
+    "README.md",
+    "paper/README.md",
+    "paper/current/manuscript.md",
     "windows",
     "onnx_micrographs",
-    "onnx_custom_op",
-    "docs/claim_boundary.md",
-    "docs/linux_windows_fpga_eval_workflow.md",
-    "docs/windows_board_runbook.md",
-    "docs/fpga_jtag_benchmark_report.md",
-    "docs/ort_vs_fpga_comparison_interpretation.md",
-    "docs/quartus_clean_rebuild_notes.md",
-    "docs/quartus_resource_timing_summary.md",
-    "docs/repository_structure.md",
-    "docs/release_artifacts.md",
+    "docs/01_실험_근거와_주장_범위.md",
+    "docs/02_재현_가이드.md",
+    "docs/03_저장소_구조.md",
     "scripts/extract_quartus_summary.py",
     "scripts/regenerate_fpga_optimized_estimate.py",
     "scripts/build_ort_fpga_comparison.py",
@@ -57,7 +53,6 @@ def copy_path(src: Path, dst: Path) -> None:
             ".pytest_cache",
             "db",
             "incremental_db",
-            "*.qpf",
             "*.sopcinfo",
             "jtag_matvec_system.qsys",
             "jtag_matvec_system",
@@ -136,7 +131,7 @@ runs instead of converting them into passing measurements.
 
 def prune_jtag_quartus_outputs(out_dir: Path) -> None:
     project_dir = out_dir / "quartus/de10_lite_jtag_matvec"
-    for name in ["de10_lite_jtag_matvec.qpf", "de10_lite_jtag_matvec.qsf", "jtag_matvec_system.sopcinfo"]:
+    for name in ["jtag_matvec_system.sopcinfo"]:
         path = project_dir / name
         if path.exists():
             path.unlink()

@@ -52,9 +52,8 @@ class DecodeMatVecInt8Sim extends AnyFunSuite {
         assert(observed == expected, s"expected ${expected.mkString(",")} but observed ${observed.mkString(",")}")
 
         val repoRoot = new File("../..").getCanonicalFile
-        val captured = new File(repoRoot, "fpga_test/captured/decode_matvec_int8_sim.csv")
         val paper = new File(repoRoot, "paper_assets/tables/decode_matvec_int8_sim.csv")
-        Seq(captured.getParentFile, paper.getParentFile).foreach(_.mkdirs())
+        paper.getParentFile.mkdirs()
 
         def writeCsv(file: File): Unit = {
           val out = new PrintWriter(file)
@@ -68,10 +67,8 @@ class DecodeMatVecInt8Sim extends AnyFunSuite {
           }
         }
 
-        writeCsv(captured)
         writeCsv(paper)
         println(s"DecodeMatVecInt8Sim PASS: expected=${expected.mkString("[", ",", "]")} observed=${observed.mkString("[", ",", "]")} cycles=$cycles")
-        println(s"Wrote ${captured.getPath}")
         println(s"Wrote ${paper.getPath}")
       }
   }

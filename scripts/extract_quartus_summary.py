@@ -13,14 +13,13 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_QUARTUS_DIR = PROJECT_ROOT / "quartus/de10_lite_jtag_matvec/output_files"
 DEFAULT_CSV = PROJECT_ROOT / "paper_assets/tables/quartus_resource_timing_summary.csv"
-DEFAULT_MD = PROJECT_ROOT / "docs/quartus_resource_timing_summary.md"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quartus-dir", default=str(DEFAULT_QUARTUS_DIR))
     parser.add_argument("--out-csv", default=str(DEFAULT_CSV))
-    parser.add_argument("--out-md", default=str(DEFAULT_MD))
+    parser.add_argument("--out-md", default="")
     parser.add_argument("--clock-name", default="CLOCK_50")
     parser.add_argument("--clock-target-mhz", type=float, default=50.0)
     return parser.parse_args()
@@ -202,9 +201,11 @@ def main() -> None:
     row["timing_met"] = bool(setup is not None and hold is not None and setup >= 0.0 and hold >= 0.0)
 
     write_csv(Path(args.out_csv), row)
-    write_md(Path(args.out_md), row)
+    if args.out_md:
+        write_md(Path(args.out_md), row)
     print(f"wrote {args.out_csv}")
-    print(f"wrote {args.out_md}")
+    if args.out_md:
+        print(f"wrote {args.out_md}")
 
 
 if __name__ == "__main__":

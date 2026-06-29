@@ -11,7 +11,7 @@ from typing import Any
 
 DEFAULT_MODEL = Path("/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx")
 DEFAULT_TABLE = Path("paper_assets/tables/ort_attention_matmul_candidates.csv")
-DEFAULT_NOTE = Path("docs/ort_attention_qk_classification_note.md")
+DEFAULT_NOTE = Path("onnx_profile/results/reports/ort_attention_qk_classification_note.md")
 
 
 def parse_args() -> argparse.Namespace:

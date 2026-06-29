@@ -87,8 +87,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--fpga-summary",
         type=Path,
-        default=Path("fpga_test/captured/fpga_validation_summary.md"),
-        help="FPGA validation summary markdown to reference in the host/FPGA bridge note.",
+        default=Path("logs/jtag_cycle_counter_clean_rebuild_final/BOARD_RUN_MANIFEST.md"),
+        help="Board evidence manifest to reference in the host/FPGA bridge note.",
     )
     return parser.parse_args()
 

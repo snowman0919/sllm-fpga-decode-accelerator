@@ -16,7 +16,7 @@ FIGURE_DIR = PROJECT_ROOT / "paper_assets/figures"
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out-csv", default=str(TABLE_DIR / "ort_vs_fpga_measured_and_projected_comparison.csv"))
-    parser.add_argument("--out-md", default=str(PROJECT_ROOT / "docs/ort_vs_fpga_comparison_interpretation.md"))
+    parser.add_argument("--out-md", default="")
     parser.add_argument("--out-fig", default=str(FIGURE_DIR / "ort_vs_fpga_latency_decomposition.png"))
     return parser.parse_args()
 
@@ -323,10 +323,12 @@ def main() -> None:
     args = parse_args()
     rows = comparison_rows()
     write_csv(Path(args.out_csv), rows)
-    write_md(Path(args.out_md), rows)
+    if args.out_md:
+        write_md(Path(args.out_md), rows)
     write_figure(Path(args.out_fig), rows)
     print(f"wrote {args.out_csv}")
-    print(f"wrote {args.out_md}")
+    if args.out_md:
+        print(f"wrote {args.out_md}")
     if Path(args.out_fig).exists():
         print(f"wrote {args.out_fig}")
 

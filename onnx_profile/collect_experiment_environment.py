@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 TABLE_PATH = Path("paper_assets/tables/experiment_environment.csv")
-DOC_PATH = Path("docs/experiment_environment.md")
+DOC_PATH = Path("onnx_profile/results/reports/experiment_environment.md")
 
 
 def read_first_cpu_model() -> str:

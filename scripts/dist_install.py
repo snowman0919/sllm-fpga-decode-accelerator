@@ -29,19 +29,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--venv", action="store_true", help="Create/use .venv before installing requirements")
     parser.add_argument("--run-cpu", action="store_true")
     parser.add_argument("--run-ort", action="store_true")
-    parser.add_argument("--run-fpga", action="store_true")
     parser.add_argument("--run-jtag", action="store_true")
     parser.add_argument("--extract-quartus-summary", action="store_true")
     parser.add_argument("--run-full-eval", action="store_true")
     parser.add_argument("--strict", action="store_true", help="Fail when required non-hardware evaluation steps fail")
     parser.add_argument("--require-jtag-pass", action="store_true", help="Fail unless the JTAG summary reports pass_count > 0")
     parser.add_argument("--run-ort-integer", action="store_true", help="Run the optional ONNX Runtime MatMulInteger micrograph baseline")
-    parser.add_argument("--list-ports", action="store_true", help="List serial ports using the packaged FPGA UART runner")
-    parser.add_argument("--port")
     parser.add_argument("--quartus-bin")
     parser.add_argument("--cable", default="USB-Blaster [USB-0]")
     parser.add_argument("--keep-tcl", action="store_true")
-    parser.add_argument("--baud", type=int, default=115200)
     parser.add_argument("--runs", type=int, default=3)
     return parser.parse_args()
 
@@ -296,19 +292,12 @@ def main() -> None:
         args.run_jtag = True
         args.extract_quartus_summary = True
     try:
-        if args.list_ports:
-            run_step(py + ["windows/run_fpga_uart_matvec.py", "--list-ports"], dest, summary, required=False)
         if args.run_cpu:
             run_step(py + ["windows/run_cpu_matvec_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary, required=args.strict)
         if args.run_ort:
             run_step(py + ["windows/run_ort_matvec_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary, required=args.strict)
         if args.run_ort_integer:
             run_step(py + ["windows/run_ort_matvec_integer_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary, required=False)
-        if args.run_fpga:
-            cmd = py + ["windows/run_fpga_uart_matvec.py", "--runs", str(args.runs), "--baud", str(args.baud), "--log-dir", str(log_dir)]
-            if args.port:
-                cmd += ["--port", args.port]
-            run_step(cmd, dest, summary, required=False)
         if args.run_jtag:
             cmd = py + [
                 "windows/run_fpga_jtag_matvec.py",

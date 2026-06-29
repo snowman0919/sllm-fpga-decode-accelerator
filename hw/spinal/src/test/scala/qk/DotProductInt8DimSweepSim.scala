@@ -9,7 +9,6 @@ import java.nio.file.{Files, Path, Paths}
 
 class DotProductInt8DimSweepSim extends AnyFunSuite {
   private val repoRoot: Path = Paths.get("..", "..").toFile.getCanonicalFile.toPath
-  private val capturedCsv: Path = repoRoot.resolve("fpga_test/captured/dot_product_dim_sweep_sim.csv")
   private val paperCsv: Path = repoRoot.resolve("paper_assets/tables/dot_product_dim_sweep_sim.csv")
 
   private def csvLine(columns: Seq[String]): String =
@@ -81,10 +80,8 @@ class DotProductInt8DimSweepSim extends AnyFunSuite {
       )
     ) ++ rows.map(csvLine)
 
-    Seq(capturedCsv, paperCsv).foreach { path =>
-      Files.createDirectories(path.getParent)
-      Files.write(path, lines.mkString("\n").concat("\n").getBytes(StandardCharsets.UTF_8))
-      println(s"Wrote $path")
-    }
+    Files.createDirectories(paperCsv.getParent)
+    Files.write(paperCsv, lines.mkString("\n").concat("\n").getBytes(StandardCharsets.UTF_8))
+    println(s"Wrote $paperCsv")
   }
 }

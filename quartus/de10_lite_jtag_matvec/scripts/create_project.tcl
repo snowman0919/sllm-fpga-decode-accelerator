@@ -14,7 +14,7 @@ set platform_designer_dir [file join $project_dir platform_designer]
 set qsys_file [file join $platform_designer_dir jtag_matvec_system.qsys]
 set qip_file [file join $platform_designer_dir jtag_matvec_system synthesis jtag_matvec_system.qip]
 set sdc_file [file join $project_dir de10_lite_jtag_matvec.sdc]
-set verified_qsf [file join $repo_root quartus de10_lite_qk qsf verified_de10_lite_pins.qsf]
+set verified_qsf [file join $project_dir qsf de10_lite_pins.qsf]
 set qsf_path [file join $project_dir ${revision_name}.qsf]
 
 set verilog_files [list $board_top_file]
@@ -55,8 +55,8 @@ if {[file exists $verified_qsf]} {
   post_message -type info "Including verified DE10-Lite QSF: $verified_qsf"
   set handle [open $qsf_path a]
   puts $handle ""
-  puts $handle "# Reused verified DE10-Lite pin assignments"
-  puts $handle "source ../de10_lite_qk/qsf/verified_de10_lite_pins.qsf"
+  puts $handle "# Verified DE10-Lite pin assignments"
+  puts $handle "source qsf/de10_lite_pins.qsf"
   close $handle
 } else {
   post_message -type warning "Verified DE10-Lite QSF not found: $verified_qsf"

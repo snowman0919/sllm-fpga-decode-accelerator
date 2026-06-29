@@ -48,7 +48,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-nodes-csv", default="paper_assets/tables/ort_matmul_top_nodes.csv")
     parser.add_argument("--graph-inspection", default="onnx_profile/results_onnx/raw/onnx_graph_inspection.json")
     parser.add_argument("--tables-dir", default="paper_assets/tables")
-    parser.add_argument("--summary-md", default="docs/fpga_decode_accel_model_summary.md")
+    parser.add_argument("--summary-md", default="onnx_profile/results/reports/fpga_decode_accel_model_summary.md")
     parser.add_argument("--clock-mhz", type=float, default=50.0)
     parser.add_argument("--mac-lanes", type=int, default=16)
     parser.add_argument("--bandwidth-mbps", type=float, default=400.0)
