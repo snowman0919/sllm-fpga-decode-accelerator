@@ -15,6 +15,7 @@ from pathlib import Path
 
 from matvec_common import (
     DEFAULT_INPUT_DIM,
+    DEFAULT_CLOCK_HZ,
     DEFAULT_OUTPUT_DIM,
     PROJECT_ROOT,
     cpu_reference,
@@ -42,7 +43,6 @@ REG_DEBUG_STATUS = 0x004C
 REG_ACTIVATION = 0x0100
 REG_WEIGHT = 0x0200
 REG_RESULT = 0x0300
-DEFAULT_CLOCK_HZ = 50_000_000
 DEFAULT_SOF = PROJECT_ROOT / "quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof"
 
 
@@ -425,7 +425,7 @@ def main() -> int:
             {
                 "backend": "fpga_jtag_register_offload",
                 "interface": "jtag_to_avalon",
-                "evidence_type": "measured",
+                "evidence_type": "board_measured",
                 "input_dim": args.input_dim,
                 "output_dim": args.output_dim,
                 "macs": macs_per_run,

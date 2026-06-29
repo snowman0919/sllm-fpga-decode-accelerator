@@ -211,23 +211,9 @@ def comparison_rows() -> list[dict[str, object]]:
             }
         )
     else:
-        rows.append(
-            {
-                "backend": "FPGA internal Decode MatVec",
-                "evidence_type": "pending_hardware_measurement",
-                "interface": "jtag_to_avalon_register_bank",
-                "dtype": "int8_inputs_int32_accum",
-                "input_dim": "16",
-                "output_dim": "4",
-                "macs": "64",
-                "correctness_pass": "",
-                **latency_stat_fields(None, None, None),
-                "latency_source": "FPGA COMPUTE_CYCLES register",
-                "measured_or_projected": "pending",
-                "compute_cycles_mean": "",
-                "claim_boundary": "do not report as measured until a real board log reads COMPUTE_CYCLES",
-                "note": "No cycle-counter board log is present in this repository state.",
-            }
+        raise SystemExit(
+            "missing board-measured FPGA cycle-counter row; "
+            "do not build reviewer comparison artifacts from pending hardware evidence"
         )
 
     projected_rows = [
