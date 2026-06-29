@@ -1,0 +1,6 @@
+backend,evidence_type,interface,correctness_pass,latency_ms,latency_source,claim_boundary
+CPU NumPy primitive,measured,host_numpy_int32,True,0.027446,paper_assets/tables/fpga_uart_primitive_benchmark.csv total_latency_ms_mean,measured CPU reference primitive only
+ONNX Runtime MatVec micrograph,measured,CPUExecutionProvider,True,0.075579,paper_assets/tables/ort_micrograph_vs_fpga_uart.csv latency_ms_mean,measured ONNX Runtime micrograph baseline only
+FPGA JTAG register offload,measured,jtag_to_avalon,True,,provided success log r0=-271 r1=239 r2=287 r3=797; numeric JTAG latency not archived,"measured correctness and invocation overhead, not acceleration"
+FPGA optimized compute-only,projected,compute_only,,"0.000133668",paper_assets/tables/fpga_optimized_interface_estimate.csv lanes=16 compute_only lower_bound,"projected estimate, not measured board latency"
+FPGA optimized interface,projected,low_overhead_driver nominal,,"0.050453668",paper_assets/tables/fpga_optimized_interface_estimate.csv lanes=16 low_overhead_driver nominal,"projected estimate, not measured board latency"

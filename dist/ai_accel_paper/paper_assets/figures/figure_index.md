@@ -8,6 +8,7 @@
 | 그림 4 | `paper_assets/figures/ort_long_decode_shape_ops_share.png` | II. 본론 3.3 Long-decode ONNX Runtime sweep 결과 | Decode step 증가에 따른 `Expand`, `Concat`, `Unsqueeze` 합산 비중 | `paper_assets/tables/ort_long_decode_operator_share.csv` | shape/cache pressure indicator only |
 | 그림 5 | `paper_assets/figures/ort_matmul_category_breakdown.png` | II. 본론 3.4 MatMul category 분석 결과 | MatMul category 누적 시간을 전체 MatMul 시간 비중으로 시각화한 결과 | `paper_assets/tables/ort_matmul_category_by_context.csv` | visualizes existing category aggregation only |
 | 그림 6 | `paper_assets/figures/fpga_decode_accelerator_architecture.png` | II. 본론 5. FPGA 기반 Decode 가속기 구조 | ONNX Runtime 병목 분석 결과를 반영한 FPGA Decode tiled MatVec/MatMul accelerator 구조 | `docs/current_bottleneck_implications.md`; `docs/fpga_decode_accelerator_optimization_plan.md` | future architecture sketch; primitive validation only |
+| 그림 7 | `paper_assets/figures/jtag_vs_optimized_fpga_latency_interpretation.png` | II. 본론 5. FPGA 기반 Decode 가속기 구조 | Measured baseline과 projected optimized FPGA estimate를 같은 축에 놓되 직접 speedup claim이 아님을 명시한 해석 그림 | `paper_assets/tables/ort_vs_fpga_projected_comparison.csv` | measured and projected rows are mixed; not a direct speedup claim |
 
 ## HWP/PDF 변환 시 주의사항
 

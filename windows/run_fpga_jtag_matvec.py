@@ -309,26 +309,29 @@ def main() -> int:
     write_summary_md(log_dir / "fpga_jtag_summary.md", "FPGA JTAG MatVec Summary", summary)
 
     if all_pass:
+        reference_text = " ".join(str(int(v)) for v in reference)
+        result_text = str(rows[-1].get("result", ""))
         update_table(
             PROJECT_ROOT / "paper_assets/tables/fpga_jtag_primitive_benchmark.csv",
-            ["backend", "interface", "input_dim", "output_dim", "quartus_tool", "cable"],
+            ["backend", "interface", "evidence_type", "input_dim", "output_dim"],
             {
-                "backend": "fpga_jtag",
-                "interface": "usb_blaster_jtag_to_avalon_master",
+                "backend": "fpga_jtag_register_offload",
+                "interface": "jtag_to_avalon",
+                "evidence_type": "measured",
                 "input_dim": args.input_dim,
                 "output_dim": args.output_dim,
+                "macs": macs_per_run,
                 "runs": args.runs,
                 "correctness_pass": all_pass,
+                "reference": reference_text,
+                "result": result_text,
                 "total_latency_ms_mean": summary["total_latency_ms_mean"],
                 "total_latency_ms_p50": summary["total_latency_ms_p50"],
-                "total_latency_ms_p95": summary["total_latency_ms_p95"],
                 "jtag_write_ms_mean": summary["jtag_write_ms_mean"],
                 "jtag_poll_ms_mean": summary["jtag_poll_ms_mean"],
                 "jtag_read_ms_mean": summary["jtag_read_ms_mean"],
-                "effective_macs_per_s": summary["effective_macs_per_s"],
-                "quartus_tool": tool_name,
-                "cable": args.cable,
-                "note": "Measured only when USB-Blaster JTAG-to-Avalon register offload correctness passes.",
+                "tool_overhead_note": "System Console/JTAG invocation overhead; includes host tool invocation, register writes, polling, and reads.",
+                "interpretation": "correctness/invocation evidence; not compute speedup evidence",
             },
         )
     print(f"wrote {log_dir / 'fpga_jtag_summary.md'}")

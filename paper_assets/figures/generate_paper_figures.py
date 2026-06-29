@@ -13,6 +13,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 ROOT = Path(__file__).resolve().parents[2]
 FIGURES_DIR = ROOT / "paper_assets" / "figures"
 MATMUL_CATEGORY_CSV = ROOT / "paper_assets" / "tables" / "ort_matmul_category_by_context.csv"
+ORT_FPGA_COMPARISON_CSV = ROOT / "paper_assets" / "tables" / "ort_vs_fpga_projected_comparison.csv"
 
 
 def save_research_flow() -> None:
@@ -208,12 +209,65 @@ def save_architecture_diagram() -> None:
     plt.close(fig)
 
 
+def save_jtag_vs_optimized_latency_interpretation() -> None:
+    labels: list[str] = []
+    values: list[float] = []
+    colors: list[str] = []
+    hatches: list[str] = []
+
+    color_by_type = {
+        "measured": "#4C78A8",
+        "projected": "#F28E2B",
+    }
+
+    with ORT_FPGA_COMPARISON_CSV.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            latency = row.get("latency_ms", "")
+            backend = row["backend"]
+            evidence_type = row["evidence_type"]
+            if backend == "FPGA JTAG register offload":
+                continue
+            if not latency:
+                continue
+            labels.append(backend.replace(" ", "\n"))
+            values.append(float(latency))
+            colors.append(color_by_type.get(evidence_type, "#777777"))
+            hatches.append("" if evidence_type == "measured" else "//")
+
+    fig, ax = plt.subplots(figsize=(10.5, 5.6))
+    bars = ax.bar(labels, values, color=colors, edgecolor="#333333", linewidth=0.8)
+    for bar, hatch, value in zip(bars, hatches, values):
+        bar.set_hatch(hatch)
+        ax.text(bar.get_x() + bar.get_width() / 2, value * 1.18, f"{value:.6f} ms", ha="center", va="bottom", fontsize=9)
+
+    ax.set_yscale("log")
+    ax.set_ylim(0.00008, max(values) * 2.2)
+    ax.set_ylabel("Latency or estimate (ms, log scale)")
+    ax.set_title("Measured baselines and projected FPGA estimates\nJTAG correctness is measured; numeric JTAG latency was not archived")
+    ax.grid(axis="y", color="#DDDDDD", linewidth=0.8, which="both")
+    ax.set_axisbelow(True)
+    ax.text(
+        0.5,
+        -0.21,
+        "Measured and projected rows are mixed for interpretation only; JTAG is correctness/invocation evidence, not compute speedup evidence.",
+        ha="center",
+        va="center",
+        fontsize=9.4,
+        color="#333333",
+        transform=ax.transAxes,
+    )
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "jtag_vs_optimized_fpga_latency_interpretation.png", dpi=220)
+    plt.close(fig)
+
+
 def main() -> None:
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     save_research_flow()
     save_matmul_phase_share()
     save_matmul_category_breakdown()
     save_architecture_diagram()
+    save_jtag_vs_optimized_latency_interpretation()
 
 
 if __name__ == "__main__":

@@ -6,7 +6,9 @@ This repository may claim:
 - PyTorch host-side reference baselines as PyTorch results only.
 - FPGA primitive validation for fixed INT8 Decode MatVec or QK-style dot-product blocks.
 - UART-based host-to-FPGA primitive invocation feasibility, correctness, and latency overhead when real logs exist.
-- USB-Blaster JTAG-to-Avalon register invocation feasibility, correctness, and latency overhead when real logs exist.
+- USB-Blaster JTAG-to-Avalon register invocation feasibility and correctness when real passing logs exist.
+- USB-Blaster JTAG-to-Avalon latency overhead only when a numeric passing log is archived; this is invocation overhead, not FPGA compute time.
+- Optimized FPGA interface comparisons as projected design estimates only, separated from measured rows.
 - Gemma-derived partial tile experiments as selected node/category feasibility evidence only.
 
 This repository must not claim:
@@ -16,6 +18,8 @@ This repository must not claim:
 - CPUExecutionProvider speedup unless real logs prove it for the exact measured path.
 - UART as a performance-optimized accelerator interconnect.
 - JTAG offload as a performance-optimized accelerator interconnect.
+- JTAG measured latency as FPGA compute latency or measured speedup evidence.
+- Optimized FPGA design estimates as measured board latency.
 - Process RSS deltas as direct KV-cache allocation measurements.
 - Synthetic tile weights as full Gemma weight evidence.
 
@@ -24,3 +28,9 @@ Paper tables should include FPGA UART numbers only when the corresponding log co
 A no-COM skip summary, timeout summary, failed UART response, stub ONNX graph, or ORT-equivalent UART harness is not a paper result.
 
 A missing-Quartus, missing-USB-Blaster, missing-JTAG-master, timeout, failed register read/write, or failed JTAG correctness summary is not a paper result.
+
+For the current JTAG-to-Avalon MatVec result, the measured evidence is the correctness result `[-271, 239, 287, 797]` from the register invocation path. The provided success record does not include an archived numeric latency breakdown, so the paper-facing JTAG benchmark table leaves latency fields blank and treats the result as correctness/invocation evidence only.
+
+Optimized FPGA comparison rows must be labeled `projected` or `design estimate`. They may use assumptions such as weight preloading, batched register access, DMA, or shared-memory-style invocation, but they must not be described as measured speedup over ONNX Runtime.
+
+No current artifact supports a measured full-model acceleration claim or measured ONNX Runtime end-to-end speedup claim.

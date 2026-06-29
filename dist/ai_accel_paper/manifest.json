@@ -9,13 +9,23 @@
     },
     {
       "path": "docs/claim_boundary.md",
-      "sha256": "a3992d40b2186817ff7321ab6e599dee2f228c176c6b3aabf72ff3212ed9ee01",
-      "bytes": 1574
+      "sha256": "7cd9e6611acfc7cd8a5cbb6d7275a1bdc2c83f8818829fb4ff31bf0acb5226cf",
+      "bytes": 2711
     },
     {
       "path": "docs/de10_lite_uart_wiring.md",
       "sha256": "ef3cd2f9390cdb7cacc03b7412a539687ff7925b26861fe3608fac48c2fdb2da",
       "bytes": 3192
+    },
+    {
+      "path": "docs/fpga_jtag_benchmark_report.md",
+      "sha256": "ea657193ac552a3771a815c8596bf94456acac43bbcc90d785a0153b33e2e444",
+      "bytes": 1784
+    },
+    {
+      "path": "docs/fpga_optimized_interface_model.md",
+      "sha256": "fc9509b7f77e40e7c65f92c215f2006fd95101c024e9d583173072bfd60248a1",
+      "bytes": 2508
     },
     {
       "path": "docs/fpga_uart_benchmark_report.md",
@@ -39,8 +49,8 @@
     },
     {
       "path": "docs/jtag_matvec_offload.md",
-      "sha256": "c127cc69fab9e2b0b7e0bae88339214319fbc6f45a6014283e4171cd4236c3aa",
-      "bytes": 4213
+      "sha256": "2c3faf8a4f9f19f28018c7c0afc453ad4122aeeea07b12bfa4ffcf4c0d446222",
+      "bytes": 4660
     },
     {
       "path": "docs/uart_protocol.md",
@@ -114,13 +124,18 @@
     },
     {
       "path": "paper_assets/figures/figure_index.csv",
-      "sha256": "2d5db89bc007363f9ebbe415091baf7ebf1009bd21e4d5922275f818eeb5643d",
-      "bytes": 2346
+      "sha256": "58a9b573816d0e876fdffcdd2cd7585fa0c0fc8d00c3ebf469d5d8ad261470b6",
+      "bytes": 2832
     },
     {
       "path": "paper_assets/figures/figure_index.md",
-      "sha256": "50e98bb8ec626bbfaaf338ec778f0e95b0b9c914b2eaa94538976606e0cea39b",
-      "bytes": 2519
+      "sha256": "3dac69b3eaf91c6a8eba54dab567951ca5b04f02d19bc326895aa5ac9afc2264",
+      "bytes": 2927
+    },
+    {
+      "path": "paper_assets/figures/jtag_vs_optimized_fpga_latency_interpretation.png",
+      "sha256": "54b80e2045c4c19793aad905e301ae9d0a7e9f1f7347cd34cad38ef955abe5e9",
+      "bytes": 161130
     },
     {
       "path": "paper_assets/tables/.gitkeep",
@@ -191,6 +206,16 @@
       "path": "paper_assets/tables/fpga_dim_sweep_timing.csv",
       "sha256": "b79f9b796754b7d3348085fd6995c56ca8d2c0e7fbbe6f242fb34b040d8396fa",
       "bytes": 10551
+    },
+    {
+      "path": "paper_assets/tables/fpga_jtag_primitive_benchmark.csv",
+      "sha256": "4345565c208f1a288ddbbe747684423d50472e0a32550756a4b1cd48429804bf",
+      "bytes": 519
+    },
+    {
+      "path": "paper_assets/tables/fpga_optimized_interface_estimate.csv",
+      "sha256": "8ee88a0c24c76651b48ab0d037d1a7eaafe54eb1158d229ef2218025d981933b",
+      "bytes": 3522
     },
     {
       "path": "paper_assets/tables/fpga_resource_summary.csv",
@@ -316,6 +341,11 @@
       "path": "paper_assets/tables/ort_session_summary.csv",
       "sha256": "15e1ec96cca7a83cb86733f6df95d7de4124d31f3417d013be6c092891d9a9aa",
       "bytes": 379
+    },
+    {
+      "path": "paper_assets/tables/ort_vs_fpga_projected_comparison.csv",
+      "sha256": "f81efc46e6c066b5dcf3c3fb3dd4866f4ec8c44cd0523b80da54d8cf07c9b4b9",
+      "bytes": 1090
     },
     {
       "path": "paper_assets/tables/torch_decode_latency_by_context.csv",
@@ -449,8 +479,8 @@
     },
     {
       "path": "windows/run_fpga_jtag_matvec.py",
-      "sha256": "31591c41b3c967b5e57ddb0198e72ae15bf49f222aa271e1c00c5c5b34dbba2d",
-      "bytes": 13260
+      "sha256": "ec965f4f4a5bdd62fa835a7e422fcb5fe28983e8ee2ccc32ddcef9713ec0c690",
+      "bytes": 13450
     },
     {
       "path": "windows/run_fpga_uart_matvec.py",

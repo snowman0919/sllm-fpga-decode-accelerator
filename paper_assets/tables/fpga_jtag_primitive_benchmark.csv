@@ -1,0 +1,2 @@
+backend,interface,evidence_type,input_dim,output_dim,macs,runs,correctness_pass,reference,result,total_latency_ms_mean,total_latency_ms_p50,jtag_write_ms_mean,jtag_poll_ms_mean,jtag_read_ms_mean,tool_overhead_note,interpretation
+fpga_jtag_register_offload,jtag_to_avalon,measured,16,4,64,1,True,"-271 239 287 797","-271 239 287 797",,,,,,"System Console/JTAG invocation overhead; numeric latency breakdown was not archived with the provided success log.","correctness/invocation evidence; not compute speedup evidence"
