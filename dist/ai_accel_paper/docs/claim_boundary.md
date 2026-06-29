@@ -31,9 +31,9 @@ A no-COM skip summary, timeout summary, failed UART response, stub ONNX graph, o
 
 A missing-Quartus, missing-USB-Blaster, missing-JTAG-master, timeout, failed register read/write, or failed JTAG correctness summary is not a paper result.
 
-For the current JTAG-to-Avalon MatVec result, the measured evidence is the correctness result `[-271, 239, 287, 797]` from the register invocation path. The provided success record does not include an archived numeric latency breakdown, so the paper-facing JTAG benchmark table leaves latency fields blank and treats the result as correctness/invocation evidence only.
+For the current JTAG-to-Avalon MatVec result, the measured evidence is the correctness result `[-271, 239, 287, 797]` from the register invocation path, plus the archived 20-run JTAG total invocation latency and internal cycle-counter register values. The JTAG total latency is invocation overhead only and must not be used as FPGA compute latency.
 
-The register bank now includes `COMPUTE_CYCLES`, `CORE_TOTAL_CYCLES`, `LAST_RUN_ID`, and `DEBUG_STATUS`, and the Windows runner can archive those fields. In the current repository state, no repeated real-board cycle-counter log has been added, so FPGA internal compute latency remains pending rather than measured.
+The register bank includes `COMPUTE_CYCLES`, `CORE_TOTAL_CYCLES`, `LAST_RUN_ID`, and `DEBUG_STATUS`. The current Windows Pocket4 board log records `pass_count=20`, `fail_count=0`, `COMPUTE_CYCLES=65`, and 1.3 us compute time at 50 MHz for the fixed 16x4 INT8 Decode MatVec primitive. This is board-measured internal primitive compute evidence only, not full ONNX model acceleration evidence.
 
 Optimized FPGA comparison rows must be labeled `projected` or `design estimate`. They may use assumptions such as weight preloading, batched register access, DMA, or shared-memory-style invocation, but they must not be described as measured speedup over ONNX Runtime.
 

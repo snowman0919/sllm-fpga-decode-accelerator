@@ -9,8 +9,8 @@
     },
     {
       "path": "docs/claim_boundary.md",
-      "sha256": "328a95669a0a75342748e10ff98439205986effe38d6f44ad8ea9dd4c577b9b0",
-      "bytes": 3346
+      "sha256": "36ad0bdf0b7281949b22f43e66a792c7d89de33fe0ad172d758d27698a5907e2",
+      "bytes": 3403
     },
     {
       "path": "docs/de10_lite_uart_wiring.md",
@@ -19,8 +19,8 @@
     },
     {
       "path": "docs/fpga_jtag_benchmark_report.md",
-      "sha256": "5c97f6fc1fdd33fa71c24b12607134421c91796314b20c160883a508ef954afc",
-      "bytes": 3535
+      "sha256": "3a8d65692703df08676fbd5ce757ab0a6be44601b36c5cf31845867672a63da3",
+      "bytes": 4422
     },
     {
       "path": "docs/fpga_optimized_interface_model.md",
@@ -49,8 +49,13 @@
     },
     {
       "path": "docs/jtag_matvec_offload.md",
-      "sha256": "f0116ca270b004f24ffeb079d3da0ebeb4820dc0e32a8c474924c597999af9dc",
-      "bytes": 5866
+      "sha256": "01cff288879cd73201f4900abac868163923e852a846effdb64c8a8d6b46f60f",
+      "bytes": 6006
+    },
+    {
+      "path": "docs/linux_windows_fpga_eval_workflow.md",
+      "sha256": "4e6740206ad25e9dd8e38378746df83a4b2f4df270eb4f799614b3e8c3ecb925",
+      "bytes": 2900
     },
     {
       "path": "docs/onnx_vs_fpga_eval_protocol.md",
@@ -59,8 +64,13 @@
     },
     {
       "path": "docs/ort_vs_fpga_comparison_interpretation.md",
-      "sha256": "82ca5da28f62eefaef4167b6fd210d4a7626334dba69931faa4c490d7da5230a",
-      "bytes": 1715
+      "sha256": "8205273c400f82dfcbeabd1e0192a9c067b3faca7069becc56d45821845390e2",
+      "bytes": 1851
+    },
+    {
+      "path": "docs/quartus_clean_rebuild_notes.md",
+      "sha256": "1d460c9731df20140d79e730b435163f5ed70c8f6873e1a1b13fb48f91fa3525",
+      "bytes": 2655
     },
     {
       "path": "docs/quartus_resource_timing_summary.md",
@@ -76,6 +86,11 @@
       "path": "docs/uart_protocol.md",
       "sha256": "66278709dce2f0d96b991c46afbddde2462b40d4172081d207c09a8a240d8ea3",
       "bytes": 1936
+    },
+    {
+      "path": "docs/windows_board_runbook.md",
+      "sha256": "815694a245233d7db18a9ef47ba04d6a45a55c523fd935525e12e6c4bd752db2",
+      "bytes": 3228
     },
     {
       "path": "docs/windows_test_guide.md",
@@ -244,8 +259,8 @@
     },
     {
       "path": "paper_assets/tables/fpga_jtag_cycle_counter_summary.csv",
-      "sha256": "94af5605dbf198ac20ebee321190570014fb5e22ff0cc94e686fbd8a6572bdcf",
-      "bytes": 555
+      "sha256": "d5ae0f64ea8e54b39276f06834b0447955ec2c2dc1673d8f5c44f2af50f45757",
+      "bytes": 561
     },
     {
       "path": "paper_assets/tables/fpga_jtag_primitive_benchmark.csv",
@@ -329,8 +344,8 @@
     },
     {
       "path": "paper_assets/tables/onnx_runtime_integer_micrograph_baseline.csv",
-      "sha256": "fe53d6b5afaa321584df600e07694dcdc21d0dc876fda9f71d40e7d7b24c713d",
-      "bytes": 580
+      "sha256": "92909fa6019e27fdede318f59ef5bbde8f633bfd020e5399752d51eecd5eb55b",
+      "bytes": 714
     },
     {
       "path": "paper_assets/tables/ort_attention_matmul_candidates.csv",
@@ -399,8 +414,8 @@
     },
     {
       "path": "paper_assets/tables/ort_vs_fpga_measured_and_projected_comparison.csv",
-      "sha256": "77c770ad2b3ae5b2ec3e752812a725299a2a44c59042a786eb404fd0465af2de",
-      "bytes": 2196
+      "sha256": "fe127ef076f5ce645018bf42a6ec989ef5970406be401f52e3960d81847abc05",
+      "bytes": 2717
     },
     {
       "path": "paper_assets/tables/ort_vs_fpga_projected_comparison.csv",
@@ -439,8 +454,8 @@
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/README.md",
-      "sha256": "fa54d67d552b488a423afd21e0843bbb680cda1f9101499b731a5e227e4466c9",
-      "bytes": 2976
+      "sha256": "9745a2f0522c189579a5c2ecd1429e5b854caf8428a2f8eea9fdcfa69d9a937b",
+      "bytes": 3872
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/de10_lite_jtag_matvec.sdc",
@@ -529,8 +544,8 @@
     },
     {
       "path": "quartus/de10_lite_jtag_matvec/scripts/create_project.tcl",
-      "sha256": "ea5726af92accdaa30ac2e170d82778fcc6e19918c8038a810eedf5e1b4b9aed",
-      "bytes": 2349
+      "sha256": "0c8d3b156e725c7c38a33382c5434c3aa3b2b2eef52bb80a495cbfde897d1d25",
+      "bytes": 2578
     },
     {
       "path": "quartus/de10_lite_uart_matvec/README.md",
@@ -549,8 +564,8 @@
     },
     {
       "path": "scripts/build_ort_fpga_comparison.py",
-      "sha256": "21916b6a091d2140a4620ad5eba32140763cc87c504a4881bd4937a274d72b4a",
-      "bytes": 13374
+      "sha256": "cb29bac97de786549de66e835370578937b1728425eafa198b3d47ad1a6c5eea",
+      "bytes": 14886
     },
     {
       "path": "scripts/extract_quartus_summary.py",

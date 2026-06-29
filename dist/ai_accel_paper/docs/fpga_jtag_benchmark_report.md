@@ -4,6 +4,8 @@
 
 The current paper-facing JTAG evidence is a measured correctness, invocation, and internal cycle-counter result for the fixed INT8 Decode MatVec primitive over a USB-Blaster JTAG-to-Avalon register path.
 
+The experiment is framed as profiled bottleneck primitive evidence. ONNX Runtime profiling identifies decode-stage MatMul/projection work as the main target; this board experiment reduces that target to a deterministic 16x4 INT8 Decode MatVec primitive and measures the FPGA internal compute cycles for that primitive.
+
 Recorded result:
 
 | field | value |
@@ -21,6 +23,7 @@ Recorded result:
 | JTAG total latency mean / p50 / p95 | `7756.72185 ms / 7734.1137 ms / 7819.554125 ms` |
 | `COMPUTE_CYCLES` mean / p50 / p95 | `65 / 65 / 65` |
 | compute time at 50 MHz mean / p50 / p95 | `1.3 us / 1.3 us / 1.3 us` |
+| Windows ORT MatMulInteger baseline mean / p50 / p95 | `13.012 us / 11.0 us / 17.3 us` |
 
 The paper-facing CSV is `paper_assets/tables/fpga_jtag_primitive_benchmark.csv`.
 
@@ -57,6 +60,8 @@ compute_time_us = compute_cycles / 50_000_000 * 1e6
 
 If Quartus timing extraction provides an Fmax, an additional `compute_time_at_fmax_us` value may be reported as timing-analysis-derived context. Keep that value separate from the 50 MHz board-clock conversion.
 
+Under the same fixed 16x4 INT8 MatVec primitive condition, the Windows board-host ONNX Runtime MatMulInteger micrograph baseline measured mean/p50/p95 latency of `13.012 / 11.0 / 17.3 us`. The FPGA internal cycle counter measured `1.3 us` at 50 MHz. This comparison is limited to primitive compute latency and does not include a production offload interface.
+
 ## Claim Boundary
 
 Allowed interpretation:
@@ -64,6 +69,7 @@ Allowed interpretation:
 - JTAG measured result: correctness/invocation evidence.
 - JTAG latency, when present: low-speed invocation overhead.
 - Internal `COMPUTE_CYCLES`: primitive compute latency evidence only.
+- ORT MatMulInteger versus FPGA internal cycle comparison: fixed 16x4 profiled bottleneck primitive comparison only.
 - The result supports primitive feasibility on a real board path.
 
 Disallowed interpretation:
