@@ -33,5 +33,8 @@ fpga_test/captured/*
 
 paper_assets/figures/*
 !paper_assets/figures/.gitkeep
+!paper_assets/figures/ort_matmul_category_share.png
 paper_assets/tables/*
 !paper_assets/tables/.gitkeep
+!paper_assets/tables/ort_matmul_category_by_context.csv
+!paper_assets/tables/ort_matmul_top_nodes.csv
