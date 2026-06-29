@@ -1,0 +1,5 @@
+dim,mac_cycles,estimated_cycles_sequential_mac,board_clock_mhz,estimated_latency_us_50mhz,observed_cycles_from_sim,observed_latency_us_50mhz,fmax_corner,fmax_mhz,theoretical_latency_us_at_fmax,notes
+16,16,17,50.0,0.340,17,0.340,Slow 1200mV 85C,95.600,0.178,Sequential single-MAC INT8 QK dot-product estimate. This is a primitive-level latency estimate only.
+32,32,33,50.0,0.660,33,0.660,Slow 1200mV 85C,87.400,0.378,Sequential single-MAC INT8 QK dot-product estimate. This is a primitive-level latency estimate only.
+64,64,65,50.0,1.300,65,1.300,Slow 1200mV 85C,78.130,0.832,Sequential single-MAC INT8 QK dot-product estimate. This is a primitive-level latency estimate only.
+128,128,129,50.0,2.580,129,2.580,Slow 1200mV 85C,73.630,1.752,Sequential single-MAC INT8 QK dot-product estimate. This is a primitive-level latency estimate only.

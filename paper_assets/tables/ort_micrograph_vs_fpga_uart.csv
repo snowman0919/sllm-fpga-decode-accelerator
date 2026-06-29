@@ -1,0 +1,2 @@
+backend,graph,provider,custom_op,input_dim,output_dim,dtype,correctness_pass,latency_ms_mean,latency_ms_p50,latency_ms_p95,uart_txrx_ms_mean,note
+onnxruntime_cpu,matvec_cpu_baseline.onnx,CPUExecutionProvider,False,16,4,float32,True,0.063135,0.014327,0.153809,,Real ONNX Runtime CPUExecutionProvider MatMul micrograph baseline.
