@@ -18,33 +18,33 @@
 
 ## Latency Summary
 
-- Context `128`, decode `1`: prefill `247.375 ms`, decode/token `143.206 ms`, MatMul share prefill `83.1%`, decode `86.0%`.
-- Context `128`, decode `2`: prefill `247.375 ms`, decode/token `139.193 ms`, MatMul share prefill `83.1%`, decode `86.3%`.
-- Context `128`, decode `4`: prefill `247.375 ms`, decode/token `153.442 ms`, MatMul share prefill `83.1%`, decode `87.6%`.
-- Context `128`, decode `8`: prefill `247.375 ms`, decode/token `139.875 ms`, MatMul share prefill `83.1%`, decode `86.4%`.
-- Context `512`, decode `1`: prefill `868.861 ms`, decode/token `148.753 ms`, MatMul share prefill `72.0%`, decode `84.3%`.
-- Context `512`, decode `2`: prefill `868.861 ms`, decode/token `147.697 ms`, MatMul share prefill `72.0%`, decode `83.7%`.
-- Context `512`, decode `4`: prefill `868.861 ms`, decode/token `144.894 ms`, MatMul share prefill `72.0%`, decode `83.8%`.
-- Context `512`, decode `8`: prefill `868.861 ms`, decode/token `141.185 ms`, MatMul share prefill `72.0%`, decode `84.6%`.
-- Context `1024`, decode `1`: prefill `2195.164 ms`, decode/token `169.562 ms`, MatMul share prefill `56.6%`, decode `78.4%`.
-- Context `1024`, decode `2`: prefill `2195.164 ms`, decode/token `160.479 ms`, MatMul share prefill `56.6%`, decode `78.8%`.
-- Context `1024`, decode `4`: prefill `2195.164 ms`, decode/token `152.485 ms`, MatMul share prefill `56.6%`, decode `80.5%`.
-- Context `1024`, decode `8`: prefill `2195.164 ms`, decode/token `152.230 ms`, MatMul share prefill `56.6%`, decode `82.1%`.
-- Context `2048`, decode `1`: prefill `5610.581 ms`, decode/token `205.640 ms`, MatMul share prefill `48.5%`, decode `69.2%`.
-- Context `2048`, decode `2`: prefill `5610.581 ms`, decode/token `183.094 ms`, MatMul share prefill `48.5%`, decode `69.9%`.
-- Context `2048`, decode `4`: prefill `5610.581 ms`, decode/token `174.665 ms`, MatMul share prefill `48.5%`, decode `72.8%`.
-- Context `2048`, decode `8`: prefill `5610.581 ms`, decode/token `173.685 ms`, MatMul share prefill `48.5%`, decode `74.6%`.
+- Context `128`, decode `1`: prefill `250.475 ms`, decode/token `157.668 ms`, MatMul share prefill `77.1%`, decode `82.2%`.
+- Context `128`, decode `2`: prefill `250.475 ms`, decode/token `145.891 ms`, MatMul share prefill `77.1%`, decode `87.1%`.
+- Context `128`, decode `4`: prefill `250.475 ms`, decode/token `154.602 ms`, MatMul share prefill `77.1%`, decode `87.4%`.
+- Context `128`, decode `8`: prefill `250.475 ms`, decode/token `144.057 ms`, MatMul share prefill `77.1%`, decode `86.7%`.
+- Context `512`, decode `1`: prefill `856.681 ms`, decode/token `164.573 ms`, MatMul share prefill `71.7%`, decode `83.7%`.
+- Context `512`, decode `2`: prefill `856.681 ms`, decode/token `162.026 ms`, MatMul share prefill `71.7%`, decode `83.0%`.
+- Context `512`, decode `4`: prefill `856.681 ms`, decode/token `156.978 ms`, MatMul share prefill `71.7%`, decode `84.2%`.
+- Context `512`, decode `8`: prefill `856.681 ms`, decode/token `152.071 ms`, MatMul share prefill `71.7%`, decode `85.1%`.
+- Context `1024`, decode `1`: prefill `2330.855 ms`, decode/token `179.041 ms`, MatMul share prefill `55.5%`, decode `82.1%`.
+- Context `1024`, decode `2`: prefill `2330.855 ms`, decode/token `189.636 ms`, MatMul share prefill `55.5%`, decode `79.4%`.
+- Context `1024`, decode `4`: prefill `2330.855 ms`, decode/token `157.771 ms`, MatMul share prefill `55.5%`, decode `81.6%`.
+- Context `1024`, decode `8`: prefill `2330.855 ms`, decode/token `197.350 ms`, MatMul share prefill `55.5%`, decode `81.6%`.
+- Context `2048`, decode `1`: prefill `5782.708 ms`, decode/token `198.687 ms`, MatMul share prefill `48.9%`, decode `70.7%`.
+- Context `2048`, decode `2`: prefill `5782.708 ms`, decode/token `196.203 ms`, MatMul share prefill `48.9%`, decode `71.5%`.
+- Context `2048`, decode `4`: prefill `5782.708 ms`, decode/token `176.494 ms`, MatMul share prefill `48.9%`, decode `72.4%`.
+- Context `2048`, decode `8`: prefill `5782.708 ms`, decode/token `170.136 ms`, MatMul share prefill `48.9%`, decode `74.5%`.
 
 ## Operator Findings
 
-- Context `128` prefill top ops: `MatMul` 598636us, `SimplifiedLayerNormalization` 25600us, `Mul` 25361us, `Add` 9239us, `Gather` 9184us.
-- Context `128` decode 8 top ops: `MatMul` 2747502us, `Mul` 54512us, `Concat` 54128us, `Unsqueeze` 52901us, `Gather` 43141us.
-- Context `512` prefill top ops: `MatMul` 1856229us, `Mul` 391870us, `Add` 90495us, `Where` 77777us, `SimplifiedLayerNormalization` 38482us.
-- Context `512` decode 8 top ops: `MatMul` 2724704us, `Expand` 68349us, `Concat` 65012us, `Unsqueeze` 50139us, `Mul` 47710us.
-- Context `1024` prefill top ops: `MatMul` 3708708us, `Mul` 1395611us, `Add` 473769us, `Where` 399057us, `Tanh` 175264us.
-- Context `1024` decode 8 top ops: `MatMul` 2860909us, `Expand` 158675us, `Concat` 92071us, `Unsqueeze` 49213us, `Mul` 46552us.
-- Context `2048` prefill top ops: `MatMul` 8150092us, `Mul` 3142071us, `Where` 1978703us, `Add` 1475960us, `Softmax` 469388us.
-- Context `2048` decode 8 top ops: `MatMul` 2979900us, `Expand` 414792us, `Concat` 153904us, `FusedMatMul` 95083us, `Unsqueeze` 51445us.
+- Context `128` prefill top ops: `MatMul` 562234us, `SimplifiedLayerNormalization` 67591us, `Mul` 31653us, `Add` 9337us, `Unsqueeze` 7193us.
+- Context `128` decode 8 top ops: `MatMul` 2855042us, `Unsqueeze` 49724us, `Mul` 47833us, `Concat` 45483us, `SimplifiedLayerNormalization` 43612us.
+- Context `512` prefill top ops: `MatMul` 1823128us, `Mul` 393346us, `Add` 86877us, `Where` 72274us, `SimplifiedLayerNormalization` 48010us.
+- Context `512` decode 8 top ops: `MatMul` 2959962us, `Expand` 70177us, `Concat` 66936us, `Unsqueeze` 51750us, `Mul` 48028us.
+- Context `1024` prefill top ops: `MatMul` 3865142us, `Mul` 1527319us, `Add` 510774us, `Where` 415062us, `Tanh` 165389us.
+- Context `1024` decode 8 top ops: `MatMul` 3694603us, `Expand` 187069us, `Concat` 136009us, `Unsqueeze` 85290us, `FusedMatMul` 63065us.
+- Context `2048` prefill top ops: `MatMul` 8460286us, `Mul` 3201130us, `Where` 1985918us, `Add` 1551530us, `Softmax` 492400us.
+- Context `2048` decode 8 top ops: `MatMul` 2915126us, `Expand` 414235us, `Concat` 150814us, `FusedMatMul` 91792us, `Unsqueeze` 51256us.
 
 ## Interpretation Limits
 

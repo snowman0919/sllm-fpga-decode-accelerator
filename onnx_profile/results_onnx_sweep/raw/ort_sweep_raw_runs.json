@@ -5,7 +5,7 @@
       "context_length": 128,
       "decode_steps": 0,
       "run_index": 0,
-      "elapsed_s": 0.272451546999946,
+      "elapsed_s": 0.22998637199998484,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/prefill_ctx128_run0.json"
     },
     {
@@ -13,7 +13,7 @@
       "context_length": 128,
       "decode_steps": 0,
       "run_index": 1,
-      "elapsed_s": 0.2515086860003066,
+      "elapsed_s": 0.2896258319997287,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/prefill_ctx128_run1.json"
     },
     {
@@ -21,7 +21,7 @@
       "context_length": 128,
       "decode_steps": 0,
       "run_index": 2,
-      "elapsed_s": 0.2181660380010726,
+      "elapsed_s": 0.23181416499937768,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/prefill_ctx128_run2.json"
     },
     {
@@ -29,9 +29,9 @@
       "context_length": 128,
       "decode_steps": 1,
       "run_index": 0,
-      "elapsed_s": 0.15152828599821078,
+      "elapsed_s": 0.14514393400168046,
       "step_latencies_s": [
-        0.15152828599821078
+        0.14514393400168046
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps1_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -41,9 +41,9 @@
       "context_length": 128,
       "decode_steps": 1,
       "run_index": 1,
-      "elapsed_s": 0.1354707030004647,
+      "elapsed_s": 0.18237281999972765,
       "step_latencies_s": [
-        0.1354707030004647
+        0.18237281999972765
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps1_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -53,9 +53,9 @@
       "context_length": 128,
       "decode_steps": 1,
       "run_index": 2,
-      "elapsed_s": 0.14261814600104117,
+      "elapsed_s": 0.14548832699802006,
       "step_latencies_s": [
-        0.14261814600104117
+        0.14548832699802006
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps1_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -65,10 +65,10 @@
       "context_length": 128,
       "decode_steps": 2,
       "run_index": 0,
-      "elapsed_s": 0.27105696400030865,
+      "elapsed_s": 0.29222555399974226,
       "step_latencies_s": [
-        0.13660403600079007,
-        0.13445292799951858
+        0.15073996399951284,
+        0.14148559000022942
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps2_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -78,10 +78,10 @@
       "context_length": 128,
       "decode_steps": 2,
       "run_index": 1,
-      "elapsed_s": 0.28141534899987164,
+      "elapsed_s": 0.28770777200043085,
       "step_latencies_s": [
-        0.14233313200020348,
-        0.13908221699966816
+        0.14382105299955583,
+        0.14388671900087502
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps2_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -91,10 +91,10 @@
       "context_length": 128,
       "decode_steps": 2,
       "run_index": 2,
-      "elapsed_s": 0.28268576499976916,
+      "elapsed_s": 0.29541027399682207,
       "step_latencies_s": [
-        0.1413341709994711,
-        0.14135159400029806
+        0.15737195199835696,
+        0.1380383219984651
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps2_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -104,12 +104,12 @@
       "context_length": 128,
       "decode_steps": 4,
       "run_index": 0,
-      "elapsed_s": 0.5602735999964352,
+      "elapsed_s": 0.7165729590051342,
       "step_latencies_s": [
-        0.1556382550006674,
-        0.13389583099706215,
-        0.1355778269971779,
-        0.13516168700152775
+        0.22312445900024613,
+        0.18863133700142498,
+        0.15522285800034297,
+        0.1495943050031201
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps4_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -119,12 +119,12 @@
       "context_length": 128,
       "decode_steps": 4,
       "run_index": 1,
-      "elapsed_s": 0.6654219069969258,
+      "elapsed_s": 0.5725747949982178,
       "step_latencies_s": [
-        0.1633895119994122,
-        0.19643681999878027,
-        0.15145038999980898,
-        0.15414518499892438
+        0.14596250199974747,
+        0.13901319099750253,
+        0.1409719289986242,
+        0.14662717300234362
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps4_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -134,12 +134,12 @@
       "context_length": 128,
       "decode_steps": 4,
       "run_index": 2,
-      "elapsed_s": 0.615609784003027,
+      "elapsed_s": 0.5660818239994114,
       "step_latencies_s": [
-        0.1485707520005235,
-        0.1557282440007839,
-        0.15227064099963172,
-        0.1590401470020879
+        0.13970349299779627,
+        0.14493484899867326,
+        0.14122770200265222,
+        0.14021578000028967
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps4_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -149,16 +149,16 @@
       "context_length": 128,
       "decode_steps": 8,
       "run_index": 0,
-      "elapsed_s": 1.1075531010028499,
+      "elapsed_s": 1.1692677249957342,
       "step_latencies_s": [
-        0.1506270099998801,
-        0.13579883900092682,
-        0.13881603499976336,
-        0.13464943699727883,
-        0.13705108800058952,
-        0.13727255500270985,
-        0.13647405799929402,
-        0.13686407900240738
+        0.16940770999644883,
+        0.14066578799975105,
+        0.14376657699904172,
+        0.13858043700020062,
+        0.15022042200143915,
+        0.14394249599718023,
+        0.14341365700238384,
+        0.13927063799928874
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps8_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -168,16 +168,16 @@
       "context_length": 128,
       "decode_steps": 8,
       "run_index": 1,
-      "elapsed_s": 1.1219765580026433,
+      "elapsed_s": 1.1439419889975397,
       "step_latencies_s": [
-        0.16736792599840555,
-        0.13325275200259057,
-        0.1348314399983792,
-        0.13844476300073438,
-        0.1379382990016893,
-        0.14088353600163828,
-        0.13450768700204208,
-        0.13475015499716392
+        0.1498383649995958,
+        0.13854107999941334,
+        0.14317735100121354,
+        0.14617576300224755,
+        0.13816132899955846,
+        0.14759543999753078,
+        0.13843627899768762,
+        0.14201638200029265
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps8_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -187,16 +187,16 @@
       "context_length": 128,
       "decode_steps": 8,
       "run_index": 2,
-      "elapsed_s": 1.1274601709956187,
+      "elapsed_s": 1.1441672010005277,
       "step_latencies_s": [
-        0.18095102599909296,
-        0.13485220300208312,
-        0.13658348399985698,
-        0.13407479699890246,
-        0.13549320599850034,
-        0.1384150789999694,
-        0.13351469899862423,
-        0.1335756769985892
+        0.14379057299811393,
+        0.1429990969991195,
+        0.14045438999892212,
+        0.1427788920009334,
+        0.13721974299915018,
+        0.14399887500258046,
+        0.14390113600165932,
+        0.14902449500004877
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_128/decode_ctx128_steps8_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -206,7 +206,7 @@
       "context_length": 512,
       "decode_steps": 0,
       "run_index": 0,
-      "elapsed_s": 0.8714280290005263,
+      "elapsed_s": 0.8387173669980257,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/prefill_ctx512_run0.json"
     },
     {
@@ -214,7 +214,7 @@
       "context_length": 512,
       "decode_steps": 0,
       "run_index": 1,
-      "elapsed_s": 0.9307007009992958,
+      "elapsed_s": 0.864484089997859,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/prefill_ctx512_run1.json"
     },
     {
@@ -222,7 +222,7 @@
       "context_length": 512,
       "decode_steps": 0,
       "run_index": 2,
-      "elapsed_s": 0.804455579000205,
+      "elapsed_s": 0.8668421269976534,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/prefill_ctx512_run2.json"
     },
     {
@@ -230,9 +230,9 @@
       "context_length": 512,
       "decode_steps": 1,
       "run_index": 0,
-      "elapsed_s": 0.14631628099959926,
+      "elapsed_s": 0.19073653500163346,
       "step_latencies_s": [
-        0.14631628099959926
+        0.19073653500163346
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps1_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -242,9 +242,9 @@
       "context_length": 512,
       "decode_steps": 1,
       "run_index": 1,
-      "elapsed_s": 0.1565451070018753,
+      "elapsed_s": 0.15177342499737279,
       "step_latencies_s": [
-        0.1565451070018753
+        0.15177342499737279
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps1_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -254,9 +254,9 @@
       "context_length": 512,
       "decode_steps": 1,
       "run_index": 2,
-      "elapsed_s": 0.14339832900077454,
+      "elapsed_s": 0.1512083250017895,
       "step_latencies_s": [
-        0.14339832900077454
+        0.1512083250017895
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps1_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -266,10 +266,10 @@
       "context_length": 512,
       "decode_steps": 2,
       "run_index": 0,
-      "elapsed_s": 0.2892000259962515,
+      "elapsed_s": 0.31202218400358106,
       "step_latencies_s": [
-        0.14337014599732356,
-        0.14582987999892794
+        0.15731380800207262,
+        0.15470837600150844
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps2_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -279,10 +279,10 @@
       "context_length": 512,
       "decode_steps": 2,
       "run_index": 1,
-      "elapsed_s": 0.290826129999914,
+      "elapsed_s": 0.330245258002833,
       "step_latencies_s": [
-        0.14750846199967782,
-        0.14331766800023615
+        0.17594945600285428,
+        0.15429580199997872
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps2_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -292,10 +292,10 @@
       "context_length": 512,
       "decode_steps": 2,
       "run_index": 2,
-      "elapsed_s": 0.306154100002459,
+      "elapsed_s": 0.3298915270024736,
       "step_latencies_s": [
-        0.15111120700021274,
-        0.15504289300224627
+        0.17602606400032528,
+        0.15386546300214832
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps2_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -305,12 +305,12 @@
       "context_length": 512,
       "decode_steps": 4,
       "run_index": 0,
-      "elapsed_s": 0.5846485909969488,
+      "elapsed_s": 0.6078171499975724,
       "step_latencies_s": [
-        0.15818274800039944,
-        0.14523411899790517,
-        0.14137556399873574,
-        0.1398561599999084
+        0.1587674619986501,
+        0.14742427899909671,
+        0.15227119100018172,
+        0.14935421799964388
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps4_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -320,12 +320,12 @@
       "context_length": 512,
       "decode_steps": 4,
       "run_index": 1,
-      "elapsed_s": 0.5893339440008276,
+      "elapsed_s": 0.64603050200094,
       "step_latencies_s": [
-        0.15639840500080027,
-        0.14478631900055916,
-        0.14497506299812812,
-        0.14317415700134006
+        0.18642382500183885,
+        0.16334089600059087,
+        0.14693595800054027,
+        0.14932982299797004
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps4_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -335,12 +335,12 @@
       "context_length": 512,
       "decode_steps": 4,
       "run_index": 2,
-      "elapsed_s": 0.5647493429933093,
+      "elapsed_s": 0.6298868589983613,
       "step_latencies_s": [
-        0.14175049899859005,
-        0.14315095499841846,
-        0.14034679799806327,
-        0.1395010909982375
+        0.17241981500046677,
+        0.15520326199839474,
+        0.15205843199873925,
+        0.15020535000076052
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps4_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -350,16 +350,16 @@
       "context_length": 512,
       "decode_steps": 8,
       "run_index": 0,
-      "elapsed_s": 1.1317986070062034,
+      "elapsed_s": 1.2074464010001975,
       "step_latencies_s": [
-        0.14272818300014478,
-        0.1444430919982551,
-        0.1419744320010068,
-        0.13925693300188868,
-        0.1406580290022248,
-        0.14140769200093928,
-        0.14050178900288302,
-        0.14082845699886093
+        0.15690517400071258,
+        0.1500081810008851,
+        0.1549337739998009,
+        0.14443512900106725,
+        0.15159578999737278,
+        0.1501617969988729,
+        0.1490403450006852,
+        0.15036621100080083
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps8_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -369,16 +369,16 @@
       "context_length": 512,
       "decode_steps": 8,
       "run_index": 1,
-      "elapsed_s": 1.1264641790003225,
+      "elapsed_s": 1.1832520669995574,
       "step_latencies_s": [
-        0.14489964300082647,
-        0.13930742199954693,
-        0.13983827400079463,
-        0.1401271300019289,
-        0.14014566499827197,
-        0.14050225100072566,
-        0.14023407599961502,
-        0.1414097179986129
+        0.1479103479978221,
+        0.14881409000008716,
+        0.14828128299996024,
+        0.14382798000224284,
+        0.14956173099926673,
+        0.14862797200112254,
+        0.15209374199912418,
+        0.14413492099993164
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps8_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -388,16 +388,16 @@
       "context_length": 512,
       "decode_steps": 8,
       "run_index": 2,
-      "elapsed_s": 1.1301865050045308,
+      "elapsed_s": 1.259003490995383,
       "step_latencies_s": [
-        0.14209879700138117,
-        0.1393900940020103,
-        0.13929293700130074,
-        0.13914112400016165,
-        0.1396512259998417,
-        0.14019856999948388,
-        0.14738275600029738,
-        0.14303100100005395
+        0.1527882199989108,
+        0.1446885689983901,
+        0.1527755659990362,
+        0.143670227000257,
+        0.14433392499995534,
+        0.14962424199984525,
+        0.21281538399853162,
+        0.1583073580004566
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_512/decode_ctx512_steps8_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -407,7 +407,7 @@
       "context_length": 1024,
       "decode_steps": 0,
       "run_index": 0,
-      "elapsed_s": 2.1953157329990063,
+      "elapsed_s": 2.5079071580003074,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/prefill_ctx1024_run0.json"
     },
     {
@@ -415,7 +415,7 @@
       "context_length": 1024,
       "decode_steps": 0,
       "run_index": 1,
-      "elapsed_s": 2.295671754000068,
+      "elapsed_s": 2.303228222997859,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/prefill_ctx1024_run1.json"
     },
     {
@@ -423,7 +423,7 @@
       "context_length": 1024,
       "decode_steps": 0,
       "run_index": 2,
-      "elapsed_s": 2.0945050439986517,
+      "elapsed_s": 2.1814310510017094,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/prefill_ctx1024_run2.json"
     },
     {
@@ -431,9 +431,9 @@
       "context_length": 1024,
       "decode_steps": 1,
       "run_index": 0,
-      "elapsed_s": 0.15682339699924341,
+      "elapsed_s": 0.16615630200249143,
       "step_latencies_s": [
-        0.15682339699924341
+        0.16615630200249143
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps1_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -443,9 +443,9 @@
       "context_length": 1024,
       "decode_steps": 1,
       "run_index": 1,
-      "elapsed_s": 0.1918193430028623,
+      "elapsed_s": 0.1584485749990563,
       "step_latencies_s": [
-        0.1918193430028623
+        0.1584485749990563
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps1_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -455,9 +455,9 @@
       "context_length": 1024,
       "decode_steps": 1,
       "run_index": 2,
-      "elapsed_s": 0.16004293699734262,
+      "elapsed_s": 0.21251691799989203,
       "step_latencies_s": [
-        0.16004293699734262
+        0.21251691799989203
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps1_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -467,10 +467,10 @@
       "context_length": 1024,
       "decode_steps": 2,
       "run_index": 0,
-      "elapsed_s": 0.32571465000364697,
+      "elapsed_s": 0.4476289869999164,
       "step_latencies_s": [
-        0.17241095300050802,
-        0.15330369700313895
+        0.2343997460011451,
+        0.21322924099877127
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps2_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -480,10 +480,10 @@
       "context_length": 1024,
       "decode_steps": 2,
       "run_index": 1,
-      "elapsed_s": 0.322342554001807,
+      "elapsed_s": 0.3468658759993559,
       "step_latencies_s": [
-        0.168391839000833,
-        0.15395071500097401
+        0.1819093359990802,
+        0.1649565400002757
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps2_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -493,10 +493,10 @@
       "context_length": 1024,
       "decode_steps": 2,
       "run_index": 2,
-      "elapsed_s": 0.3148139760050981,
+      "elapsed_s": 0.3433184290006466,
       "step_latencies_s": [
-        0.16141903000243474,
-        0.15339494600266335
+        0.1656432540003152,
+        0.17767517500033136
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps2_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -506,12 +506,12 @@
       "context_length": 1024,
       "decode_steps": 4,
       "run_index": 0,
-      "elapsed_s": 0.6220692419956322,
+      "elapsed_s": 0.6340151879994664,
       "step_latencies_s": [
-        0.1734536849980941,
-        0.15313126999899396,
-        0.14916683100091177,
-        0.14631745599763235
+        0.16239824099830003,
+        0.16053733399894554,
+        0.1518552699999418,
+        0.15922434300227906
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps4_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -521,12 +521,12 @@
       "context_length": 1024,
       "decode_steps": 4,
       "run_index": 1,
-      "elapsed_s": 0.60230868799772,
+      "elapsed_s": 0.6340758439982892,
       "step_latencies_s": [
-        0.1562704149982892,
-        0.1537294039990229,
-        0.1470500079994963,
-        0.14525886100091157
+        0.16084461599893984,
+        0.1618692909978563,
+        0.15877915500095696,
+        0.1525827820005361
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps4_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -536,12 +536,12 @@
       "context_length": 1024,
       "decode_steps": 4,
       "run_index": 2,
-      "elapsed_s": 0.6054437589991721,
+      "elapsed_s": 0.6251579390009283,
       "step_latencies_s": [
-        0.15472951999981888,
-        0.15424357599840732,
-        0.14959896599975764,
-        0.1468716970011883
+        0.15584958899853518,
+        0.15571061200171243,
+        0.15689237900005537,
+        0.15670535900062532
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps4_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -551,16 +551,16 @@
       "context_length": 1024,
       "decode_steps": 8,
       "run_index": 0,
-      "elapsed_s": 1.2665334200064535,
+      "elapsed_s": 1.2296988509951916,
       "step_latencies_s": [
-        0.16340603299977374,
-        0.17438164799750666,
-        0.169356936999975,
-        0.15765475300213438,
-        0.1534410630010825,
-        0.15280643200094346,
-        0.14838403000248945,
-        0.1471025240025483
+        0.16495508000298287,
+        0.15996668499792577,
+        0.1478289999977278,
+        0.1487733809990459,
+        0.14890718800234026,
+        0.15661503500086837,
+        0.15264761799699045,
+        0.15000486399731017
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps8_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -570,16 +570,16 @@
       "context_length": 1024,
       "decode_steps": 8,
       "run_index": 1,
-      "elapsed_s": 1.2008733809961996,
+      "elapsed_s": 1.5160796990021481,
       "step_latencies_s": [
-        0.16416581800149288,
-        0.1541772119999223,
-        0.14840465200177277,
-        0.1493761120000272,
-        0.14720642599786515,
-        0.14616488100000424,
-        0.14601946099719498,
-        0.14535881899792003
+        0.15777919000174734,
+        0.15206114800093928,
+        0.15699941599814338,
+        0.1528019960023812,
+        0.20865600199977052,
+        0.24385369299852755,
+        0.22877723399869865,
+        0.2151510200019402
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps8_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -589,16 +589,16 @@
       "context_length": 1024,
       "decode_steps": 8,
       "run_index": 2,
-      "elapsed_s": 1.1861236299992015,
+      "elapsed_s": 1.990623500001675,
       "step_latencies_s": [
-        0.15122308900026837,
-        0.15338962899841135,
-        0.14908851099971798,
-        0.14461706400106777,
-        0.14523268899938557,
-        0.1447892750002211,
-        0.15250354299860192,
-        0.14527983000152744
+        0.26116719399942667,
+        0.260528102000535,
+        0.2556685559975449,
+        0.2455696409997472,
+        0.25007944400203996,
+        0.24727820399857592,
+        0.25870076100181905,
+        0.21163159800198628
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_1024/decode_ctx1024_steps8_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -608,7 +608,7 @@
       "context_length": 2048,
       "decode_steps": 0,
       "run_index": 0,
-      "elapsed_s": 5.398751818000164,
+      "elapsed_s": 5.579006133000803,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/prefill_ctx2048_run0.json"
     },
     {
@@ -616,7 +616,7 @@
       "context_length": 2048,
       "decode_steps": 0,
       "run_index": 1,
-      "elapsed_s": 5.835125293000601,
+      "elapsed_s": 6.029456821997883,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/prefill_ctx2048_run1.json"
     },
     {
@@ -624,7 +624,7 @@
       "context_length": 2048,
       "decode_steps": 0,
       "run_index": 2,
-      "elapsed_s": 5.5978663509995386,
+      "elapsed_s": 5.739660923001793,
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/prefill_ctx2048_run2.json"
     },
     {
@@ -632,9 +632,9 @@
       "context_length": 2048,
       "decode_steps": 1,
       "run_index": 0,
-      "elapsed_s": 0.18464531599965994,
+      "elapsed_s": 0.18987380000180565,
       "step_latencies_s": [
-        0.18464531599965994
+        0.18987380000180565
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps1_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -644,9 +644,9 @@
       "context_length": 2048,
       "decode_steps": 1,
       "run_index": 1,
-      "elapsed_s": 0.24201937199904933,
+      "elapsed_s": 0.2146993409987772,
       "step_latencies_s": [
-        0.24201937199904933
+        0.2146993409987772
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps1_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -656,9 +656,9 @@
       "context_length": 2048,
       "decode_steps": 1,
       "run_index": 2,
-      "elapsed_s": 0.1902552880019357,
+      "elapsed_s": 0.19148830300036934,
       "step_latencies_s": [
-        0.1902552880019357
+        0.19148830300036934
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps1_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -668,10 +668,10 @@
       "context_length": 2048,
       "decode_steps": 2,
       "run_index": 0,
-      "elapsed_s": 0.3584457149991067,
+      "elapsed_s": 0.3809771810010716,
       "step_latencies_s": [
-        0.18075051299820188,
-        0.17769520200090483
+        0.19721215500248945,
+        0.18376502599858213
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps2_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -681,10 +681,10 @@
       "context_length": 2048,
       "decode_steps": 2,
       "run_index": 1,
-      "elapsed_s": 0.38013244600006146,
+      "elapsed_s": 0.4047146060001978,
       "step_latencies_s": [
-        0.18856006900023203,
-        0.19157237699982943
+        0.2055618800004595,
+        0.19915272599973832
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps2_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -694,10 +694,10 @@
       "context_length": 2048,
       "decode_steps": 2,
       "run_index": 2,
-      "elapsed_s": 0.3599863790004747,
+      "elapsed_s": 0.39152829099839437,
       "step_latencies_s": [
-        0.18319528400024865,
-        0.17679109500022605
+        0.200220624999929,
+        0.19130766599846538
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps2_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -707,12 +707,12 @@
       "context_length": 2048,
       "decode_steps": 4,
       "run_index": 0,
-      "elapsed_s": 0.7004869030024565,
+      "elapsed_s": 0.7033179459976964,
       "step_latencies_s": [
-        0.1823046310018981,
-        0.18120898100096383,
-        0.17217213500043727,
-        0.16480115599915734
+        0.18692753299910692,
+        0.1816621039979509,
+        0.1694686910013843,
+        0.16525961799925426
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps4_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -722,12 +722,12 @@
       "context_length": 2048,
       "decode_steps": 4,
       "run_index": 1,
-      "elapsed_s": 0.6946143349960039,
+      "elapsed_s": 0.7202919659976033,
       "step_latencies_s": [
-        0.18184159099837416,
-        0.17836100099884789,
-        0.16905129899896565,
-        0.1653604439998162
+        0.20728869999948074,
+        0.1793876099982299,
+        0.16998956599854864,
+        0.16362609000134398
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps4_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -737,12 +737,12 @@
       "context_length": 2048,
       "decode_steps": 4,
       "run_index": 2,
-      "elapsed_s": 0.7008799360010016,
+      "elapsed_s": 0.694317912999395,
       "step_latencies_s": [
-        0.18228206099956878,
-        0.1877877000006265,
-        0.16737847100012004,
-        0.1634317040006863
+        0.18206262700186926,
+        0.17692472400085535,
+        0.1698332149971975,
+        0.16549734699947294
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps4_run2.json",
       "decode_mode": "with_past_kv_cache"
@@ -752,16 +752,16 @@
       "context_length": 2048,
       "decode_steps": 8,
       "run_index": 0,
-      "elapsed_s": 1.3530669150059111,
+      "elapsed_s": 1.3699770019993593,
       "step_latencies_s": [
-        0.18053854800018598,
-        0.17686887300078524,
-        0.16813149199879263,
-        0.1650216170019121,
-        0.16502996300187078,
-        0.16547188399999868,
-        0.16518031200030237,
-        0.16682422600206337
+        0.18490366399782943,
+        0.1801150930004951,
+        0.17086063500028104,
+        0.16395457399994484,
+        0.16748279499734053,
+        0.16602191800120636,
+        0.16959726999994018,
+        0.16704105300232186
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps8_run0.json",
       "decode_mode": "with_past_kv_cache"
@@ -771,16 +771,16 @@
       "context_length": 2048,
       "decode_steps": 8,
       "run_index": 1,
-      "elapsed_s": 1.3762796329974663,
+      "elapsed_s": 1.3609412930018152,
       "step_latencies_s": [
-        0.1997817240007862,
-        0.17750406899722293,
-        0.16674052799862693,
-        0.16604345599989756,
-        0.16369581700200797,
-        0.17209485599960317,
-        0.1660994639969431,
-        0.1643197190023784
+        0.1812222379994637,
+        0.1787858719981159,
+        0.169774542999221,
+        0.16548976299964124,
+        0.16859992900208454,
+        0.16459062099966104,
+        0.16711522700279602,
+        0.16536310000083176
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps8_run1.json",
       "decode_mode": "with_past_kv_cache"
@@ -790,16 +790,16 @@
       "context_length": 2048,
       "decode_steps": 8,
       "run_index": 2,
-      "elapsed_s": 1.439088155002537,
+      "elapsed_s": 1.3523556299987831,
       "step_latencies_s": [
-        0.18044825900142314,
-        0.18071014300221577,
-        0.17709481300335028,
-        0.18856937300006393,
-        0.17724755800009007,
-        0.20584219499869505,
-        0.16455243899690686,
-        0.16462337499979185
+        0.1818509209988406,
+        0.17885567800112767,
+        0.1691683449971606,
+        0.16324451700347709,
+        0.16448337499969057,
+        0.16363075099798152,
+        0.16689181699985056,
+        0.1642302260006545
       ],
       "profile_json": "/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/onnx_profile/results_onnx_sweep/raw/context_2048/decode_ctx2048_steps8_run2.json",
       "decode_mode": "with_past_kv_cache"
