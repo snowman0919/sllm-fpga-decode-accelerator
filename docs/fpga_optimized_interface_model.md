@@ -21,18 +21,19 @@ The estimate uses the fixed primitive dimensions already used by the board valid
 | input dimension | 16 |
 | output dimension | 4 |
 | MACs | 64 |
-| clock | 59.85 MHz |
-| clock source | Quartus slow 1200mV 85C `CLOCK_50` Fmax |
+| board clock | 50 MHz |
+| Fmax clock | read from `paper_assets/tables/quartus_resource_timing_summary.csv` |
 | control overhead | 4 cycles |
 
 For each lane count, cycles are computed as:
 
 ```text
 cycles = ceil(macs / lanes) + control_overhead_cycles
-compute_time_ms = cycles / clock_hz * 1000
+compute_time_us_50mhz = cycles / 50_000_000 * 1e6
+compute_time_us_fmax = cycles / fmax_hz * 1e6
 ```
 
-Lane candidates are 1, 4, 8, and 16. The 16-lane projected compute-only lower bound is 8 cycles, or 0.000133668 ms at 59.85 MHz.
+Lane candidates are 1, 4, 8, and 16. The generated CSV keeps `clock_hz_board`, `clock_hz_fmax`, `compute_time_us_50mhz`, and `compute_time_us_fmax` as separate columns so the DE10-Lite 50 MHz board-clock conversion is not mixed with timing-analysis Fmax context.
 
 ## Optimized Interface Assumptions
 
