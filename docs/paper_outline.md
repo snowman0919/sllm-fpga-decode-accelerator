@@ -23,7 +23,7 @@ Keep the current Korean and English titles:
 - Korean: ONNX Runtime 기반 온디바이스 소형 언어모델 추론의 병목 분석 및 FPGA 기반 Decode 가속기 구조 설계
 - English: Bottleneck Analysis of ONNX Runtime-based On-device Small Language Model Inference and Design of an FPGA-based Decode Accelerator Architecture
 
-The title already includes the on-device scope and Decode accelerator direction. It avoids stronger wording such as full Gemma FPGA execution, ONNX Runtime speedup, or completed accelerator implementation.
+Alternatives including "온디바이스 지향" and "Decode MatVec" were reviewed. The current title is kept because it already includes the on-device scope and Decode accelerator direction while avoiding a narrower primitive-only framing or stronger wording such as full Gemma FPGA execution, ONNX Runtime speedup, or completed accelerator implementation.
 
 ## Claim Boundary
 
@@ -34,9 +34,9 @@ The title already includes the on-device scope and Decode accelerator direction.
   - Decode MatMul share: `81.1%`
   - Prefill MatMul share: `53.4%`
   - `mlp_projection + lm_head` share of MatMul time: `88.90%`
-- The long-decode sweep uses runs `1`, warmup `0`; treat it as operator-share trend evidence, not a stable latency benchmark.
+- The long-decode sweep uses runs `1`, warmup `0`; treat it as operator-share trend evidence from trace 수집 node 시간, not a stable latency benchmark.
 - KV-cache is treated as a representative structural memory-pressure factor, not as the only bottleneck.
-- FPGA evidence is limited to primitive-level INT8 Decode MatVec validation and DE10-Lite bitstream configuration.
+- FPGA evidence is limited to primitive 수준 INT8 Decode MatVec validation and DE10-Lite bitstream configuration.
 - The draft does not claim complete Gemma 3 1B execution on DE10-Lite, full KV-cache implementation, or end-to-end ONNX Runtime speedup.
 - Roofline/model values are design estimates, not measured acceleration.
 - PagedAttention/vLLM, FlashAttention, GPTQ, SmoothQuant, AWQ, BitNet b1.58, MatMul-free LM, FlightLLM, and ONNX Runtime documentation are discussed only as related work or deployment context; the project does not implement those systems.
@@ -77,7 +77,7 @@ The title already includes the on-device scope and Decode accelerator direction.
    - KV-cache is not treated as the sole explanation.
    - Decode MatMul dominance is interpreted through dense projection repetition.
    - MLP projection and `lm_head` motivate tiled MatVec/MatMul rather than QK-only hardware.
-   - DE10-Lite evidence is limited to primitive-level validation and bitstream configuration success.
+   - DE10-Lite evidence is limited to primitive 수준 검증 and bitstream configuration success.
    - Add a requirements bridge from ONNX/ORT observations to FPGA accelerator requirements.
 10. FPGA Decode Accelerator Architecture Proposal
     - 6.1 설계 목표와 비목표
@@ -92,7 +92,7 @@ The title already includes the on-device scope and Decode accelerator direction.
     - Synthetic/context sweep scope
     - MatMul category classification scope
     - PyTorch baseline and ORT profiling separation
-    - FPGA primitive-level validation scope
+    - FPGA primitive 수준 검증 scope
     - Board programming and numeric board-output validation separation
     - Roofline/design estimate and measured result separation
 12. Conclusion

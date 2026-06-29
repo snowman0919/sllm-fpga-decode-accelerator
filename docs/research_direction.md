@@ -32,7 +32,7 @@ The current DE10-Lite hardware work is not a full accelerator. It is a feasibili
    - Prefill latency, decode latency, and process RSS snapshots
    - Baseline evidence only; these values are not ONNX Runtime results
 
-3. FPGA primitive validation
+3. FPGA primitive 수준 검증
    - Deterministic INT8 Q/K vector generation
    - RTL simulation of INT8 QK dot-product
    - Quartus synthesis and dim sweep
@@ -74,14 +74,14 @@ The current DE10-Lite hardware work is not a full accelerator. It is a feasibili
    - ONNX graph inspection
    - ONNX Runtime profiling design
    - PyTorch CPU/CUDA host-side reference baseline
-   - INT8 QK dot-product primitive validation flow
+   - INT8 QK dot-product primitive 수준 검증 flow
 
 4. Results
    - ONNX export and graph findings
    - ONNX Runtime prefill/decode profiling
    - Host-side PyTorch reference baseline
    - Theoretical KV-cache size and process RSS caveats
-   - FPGA simulation, synthesis, dim sweep, and DE10-Lite primitive validation
+   - FPGA simulation, synthesis, dim sweep, and DE10-Lite primitive 수준 검증
 
 5. FPGA Decode Accelerator Architecture
    - Primitive selection from profiling results
@@ -96,7 +96,7 @@ The current DE10-Lite hardware work is not a full accelerator. It is a feasibili
    - What the data supports
    - What the data does not support
    - Difference between ONNX Runtime profiling and PyTorch reference baselines
-   - Difference between primitive validation and full-model acceleration
+   - Difference between primitive 수준 검증 and full-model acceleration
 
 7. Conclusion
    - Bottleneck-analysis findings

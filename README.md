@@ -5,11 +5,11 @@ This repository is a reproducible research skeleton for the topic:
 - Korean: ONNX Runtime 기반 온디바이스 소형 언어모델 추론의 병목 분석 및 FPGA 기반 Decode 가속기 구조 설계
 - English: Bottleneck Analysis of ONNX Runtime-based On-device Small Language Model Inference and Design of an FPGA-based Decode Accelerator Architecture
 
-The manuscript keeps this title. It already captures the on-device scope and Decode accelerator direction without implying full Gemma execution or measured ONNX Runtime acceleration.
+The manuscript keeps this title. Alternatives including "온디바이스 지향" or "Decode MatVec" were considered, but the current title already captures the on-device scope and Decode accelerator direction without narrowing the paper to one primitive or implying full Gemma execution or measured ONNX Runtime acceleration.
 
 ## Project Purpose
 
-The goal is to study where bottlenecks actually appear in ONNX Runtime-based on-device small language model inference, then use those profiling results to choose decode-stage primitives that are realistic FPGA hardware candidates. This repository is intentionally minimal and focuses on export, graph inspection, runtime profiling, host-side baselines, and primitive-level FPGA validation instead of overbuilding or overclaiming a full accelerator.
+The goal is to study where bottlenecks actually appear in ONNX Runtime-based on-device small language model inference, then use those profiling results to choose decode-stage primitives that are realistic FPGA hardware candidates. This repository is intentionally minimal and focuses on export, graph inspection, runtime profiling, host-side baselines, and primitive 수준 검증 instead of overbuilding or overclaiming a full accelerator.
 
 ## Research Framing
 
@@ -29,7 +29,7 @@ The goal is to study where bottlenecks actually appear in ONNX Runtime-based on-
 - Are the bottlenecks located in model export, graph structure, runtime execution, memory pressure, prefill, or decode?
 - Which decode-stage primitives exposed by that analysis are suitable for FPGA hardware implementation?
 
-For the current paper-facing hardware work, the FPGA result is a primitive-level feasibility validation of a small INT8 Decode MatVec block. A fuller FPGA Decode accelerator architecture can later extend toward projection-general tiled MatVec/MatMul, weight streaming, output tiling, cache-aware host binding, QK/V attention primitives, and the Host/ORT offload 경계.
+For the current paper-facing hardware work, the FPGA result is primitive 수준 검증 of a small INT8 Decode MatVec block. A fuller FPGA Decode accelerator architecture can later extend toward projection-general tiled MatVec/MatMul, weight streaming, output tiling, cache-aware host binding, QK/V attention primitives, and the Host/ORT offload 경계(offload boundary).
 
 ## Repository Layout
 
