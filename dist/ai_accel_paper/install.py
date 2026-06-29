@@ -12,7 +12,7 @@ import sys
 import urllib.error
 import urllib.request
 from datetime import datetime
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 
 DEFAULT_BASE_URL = "https://ftp.kotori9.dev/ai_accel_paper/"
@@ -41,47 +41,85 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def same_or_child(path: Path, parent: Path) -> bool:
-    try:
-        path.relative_to(parent)
-        return True
-    except ValueError:
-        return False
+def looks_like_windows_path(value: str | Path) -> bool:
+    text = str(value)
+    return "\\" in text or (len(text) >= 2 and text[1] == ":")
 
 
-def windows_path_text(path: Path) -> str:
-    return str(path).replace("/", "\\").lower().rstrip("\\/")
+def is_drive_root(path: Path | PureWindowsPath) -> bool:
+    if isinstance(path, PureWindowsPath):
+        return bool(path.anchor) and str(path) == path.anchor
+    return path.parent == path
 
 
-def protected_roots(quartus_bin: str | None) -> list[Path]:
-    roots: list[Path] = []
+def path_key(path: Path | PureWindowsPath) -> str:
+    if isinstance(path, PureWindowsPath):
+        return str(path).replace("/", "\\").lower().rstrip("\\/")
     if os.name == "nt":
+        return str(path).replace("/", "\\").lower().rstrip("\\/")
+    return str(path)
+
+
+def same_or_child(path: Path | PureWindowsPath, parent: Path | PureWindowsPath) -> bool:
+    child_key = path_key(path)
+    parent_key = path_key(parent)
+    if not parent_key or child_key == parent_key:
+        return child_key == parent_key
+    separator = "\\" if isinstance(path, PureWindowsPath) or isinstance(parent, PureWindowsPath) or os.name == "nt" else "/"
+    return child_key.startswith(parent_key + separator)
+
+
+def normalized_path(value: str | Path) -> Path | PureWindowsPath:
+    text = str(value)
+    if looks_like_windows_path(text):
+        return PureWindowsPath(text)
+    return Path(text).expanduser().resolve()
+
+
+def add_protected_root(roots: list[Path | PureWindowsPath], root: Path | PureWindowsPath) -> None:
+    if is_drive_root(root):
+        return
+    roots.append(root)
+
+
+def protected_roots(quartus_bin: str | None) -> list[Path | PureWindowsPath]:
+    roots: list[Path | PureWindowsPath] = []
+    windows_style_quartus = bool(quartus_bin and looks_like_windows_path(quartus_bin))
+    if os.name == "nt" or windows_style_quartus:
+        default_drive = "C:"
+        if quartus_bin and windows_style_quartus:
+            qdrive = PureWindowsPath(quartus_bin).drive
+            if qdrive:
+                default_drive = qdrive
         for env_name in ["ProgramFiles", "ProgramFiles(x86)"]:
             value = os.environ.get(env_name)
             if value:
-                roots.append(Path(value))
-        system_drive = os.environ.get("SystemDrive", "C:")
-        roots.extend(
-            [
-                Path(system_drive + "\\altera_lite"),
-                Path(system_drive + "\\intelFPGA_lite"),
-                Path(system_drive + "\\intelFPGA"),
-            ]
-        )
+                add_protected_root(roots, PureWindowsPath(value))
+        if not os.environ.get("ProgramFiles"):
+            add_protected_root(roots, PureWindowsPath(default_drive + "\\Program Files"))
+        if not os.environ.get("ProgramFiles(x86)"):
+            add_protected_root(roots, PureWindowsPath(default_drive + "\\Program Files (x86)"))
+        system_drive = os.environ.get("SystemDrive", default_drive)
+        for name in ["altera_lite", "intelFPGA_lite", "intelFPGA"]:
+            add_protected_root(roots, PureWindowsPath(system_drive + "\\") / name)
     if quartus_bin:
-        qpath = Path(quartus_bin)
+        qpath = PureWindowsPath(quartus_bin) if looks_like_windows_path(quartus_bin) else Path(quartus_bin)
         parts_lower = [part.lower() for part in qpath.parts]
-        for marker in ["quartus", "altera_lite", "intelfpga_lite", "intelfpga"]:
+        for marker in ["altera_lite", "intelfpga_lite", "intelfpga"]:
             if marker in parts_lower:
                 idx = parts_lower.index(marker)
-                roots.append(Path(*qpath.parts[: idx + 1]))
-                if idx > 0:
-                    roots.append(Path(*qpath.parts[:idx]))
+                add_protected_root(roots, type(qpath)(*qpath.parts[: idx + 1]))
+        if "quartus" in parts_lower:
+            idx = parts_lower.index("quartus")
+            if idx > 0:
+                add_protected_root(roots, type(qpath)(*qpath.parts[:idx]))
     unique: list[Path] = []
     seen: set[str] = set()
     for root in roots:
-        resolved = root.expanduser().resolve()
-        key = windows_path_text(resolved) if os.name == "nt" else str(resolved)
+        resolved = root if isinstance(root, PureWindowsPath) else root.expanduser().resolve()
+        if is_drive_root(resolved):
+            continue
+        key = path_key(resolved)
         if key not in seen:
             unique.append(resolved)
             seen.add(key)
@@ -89,7 +127,7 @@ def protected_roots(quartus_bin: str | None) -> list[Path]:
 
 
 def assert_safe_package_root(package_root: Path, quartus_bin: str | None) -> None:
-    resolved = package_root.expanduser().resolve()
+    resolved = normalized_path(package_root)
     for root in protected_roots(quartus_bin):
         if same_or_child(resolved, root):
             raise SystemExit(
