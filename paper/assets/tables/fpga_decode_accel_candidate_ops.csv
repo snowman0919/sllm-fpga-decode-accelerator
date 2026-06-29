@@ -1,0 +1,6 @@
+category,total_ms,decode_ms,prefill_ms,matmul_share_pct,decode_matmul_share_pct,prefill_matmul_share_pct,call_count,representative_input_dim,representative_output_dim,design_note
+mlp_projection,23163.29,15016.566,8146.724,61.09,64.71,55.38,14976,1152,6912,Highest cumulative MatMul time; repeated gate/up/down projection maps naturally to tiled INT8 MatVec/MatMul.
+lm_head,10546.54,6079.624,4466.916,27.81,26.2,30.36,192,1152,262144,Large vocabulary projection makes full weight streaming unavoidable; tiled streaming and partial top-k/reduction should be studied.
+attention_qkv_projection,1861.004,1212.377,648.627,4.91,5.22,4.41,14976,1152,1024,"Dense linear projection candidate, but measured share is far below MLP and lm_head in the current ORT profile."
+attention_output_projection,1343.254,746.767,596.487,3.54,3.22,4.05,4992,1024,1152,Dense projection candidate with moderate reuse of the same MatVec datapath.
+attention_v_weighted_sum,1001.248,149.655,851.593,2.64,0.64,5.79,4992,128,256,Attention data movement candidate; shape depends on context and KV-cache stream layout.

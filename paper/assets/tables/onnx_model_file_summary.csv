@@ -1,0 +1,9 @@
+file_name,path,size_bytes,size_mib,kind
+chat_template.jinja,/home/monad/develop/ai_accel/gemma3-1B-onnx/chat_template.jinja,1532,0.001,support
+config.json,/home/monad/develop/ai_accel/gemma3-1B-onnx/config.json,1620,0.002,support
+generation_config.json,/home/monad/develop/ai_accel/gemma3-1B-onnx/generation_config.json,210,0.0,support
+model.onnx,/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx,1469171,1.401,onnx_model
+model.onnx_data,/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx_data,15622513152,14898.79,external_data
+special_tokens_map.json,/home/monad/develop/ai_accel/gemma3-1B-onnx/special_tokens_map.json,662,0.001,support
+tokenizer.json,/home/monad/develop/ai_accel/gemma3-1B-onnx/tokenizer.json,33384568,31.838,support
+tokenizer_config.json,/home/monad/develop/ai_accel/gemma3-1B-onnx/tokenizer_config.json,1155387,1.102,support

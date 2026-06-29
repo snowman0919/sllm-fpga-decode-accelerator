@@ -1,0 +1,57 @@
+dim,corner,analysis,clock,slack_ns,tns_ns,fmax_mhz,restricted_fmax_mhz,source_report
+16,Slow 1200mV 85C,Setup,CLOCK_50,9.540,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Slow 1200mV 85C,Hold,CLOCK_50,0.340,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Slow 1200mV 85C,Minimum Pulse Width,CLOCK_50,9.732,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Slow 1200mV 0C,Setup,CLOCK_50,10.419,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Slow 1200mV 0C,Hold,CLOCK_50,0.304,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Slow 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.752,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Fast 1200mV 0C,Setup,CLOCK_50,15.551,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Fast 1200mV 0C,Hold,CLOCK_50,0.148,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Fast 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.469,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.summary
+16,Slow 1200mV 85C,Fmax,CLOCK_50,,,95.6,95.6,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.rpt
+16,Slow 1200mV 0C,Fmax,CLOCK_50,,,104.37,104.37,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.rpt
+16,Multicorner,Worst-case Setup,CLOCK_50,9.540,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.rpt
+16,Multicorner,Worst-case Hold,CLOCK_50,0.148,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.rpt
+16,Multicorner,Worst-case Minimum Pulse Width,CLOCK_50,9.469,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim16/output_files/dot_product_dim16.sta.rpt
+32,Slow 1200mV 85C,Setup,CLOCK_50,8.559,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Slow 1200mV 85C,Hold,CLOCK_50,0.347,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Slow 1200mV 85C,Minimum Pulse Width,CLOCK_50,9.719,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Slow 1200mV 0C,Setup,CLOCK_50,9.496,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Slow 1200mV 0C,Hold,CLOCK_50,0.311,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Slow 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.740,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Fast 1200mV 0C,Setup,CLOCK_50,15.128,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Fast 1200mV 0C,Hold,CLOCK_50,0.152,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Fast 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.472,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.summary
+32,Slow 1200mV 85C,Fmax,CLOCK_50,,,87.4,87.4,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.rpt
+32,Slow 1200mV 0C,Fmax,CLOCK_50,,,95.2,95.2,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.rpt
+32,Multicorner,Worst-case Setup,CLOCK_50,8.559,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.rpt
+32,Multicorner,Worst-case Hold,CLOCK_50,0.152,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.rpt
+32,Multicorner,Worst-case Minimum Pulse Width,CLOCK_50,9.472,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim32/output_files/dot_product_dim32.sta.rpt
+64,Slow 1200mV 85C,Setup,CLOCK_50,7.201,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Slow 1200mV 85C,Hold,CLOCK_50,0.340,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Slow 1200mV 85C,Minimum Pulse Width,CLOCK_50,9.733,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Slow 1200mV 0C,Setup,CLOCK_50,8.277,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Slow 1200mV 0C,Hold,CLOCK_50,0.304,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Slow 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.751,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Fast 1200mV 0C,Setup,CLOCK_50,14.501,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Fast 1200mV 0C,Hold,CLOCK_50,0.148,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Fast 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.470,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.summary
+64,Slow 1200mV 85C,Fmax,CLOCK_50,,,78.13,78.13,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.rpt
+64,Slow 1200mV 0C,Fmax,CLOCK_50,,,85.3,85.3,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.rpt
+64,Multicorner,Worst-case Setup,CLOCK_50,7.201,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.rpt
+64,Multicorner,Worst-case Hold,CLOCK_50,0.148,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.rpt
+64,Multicorner,Worst-case Minimum Pulse Width,CLOCK_50,9.470,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim64/output_files/dot_product_dim64.sta.rpt
+128,Slow 1200mV 85C,Setup,CLOCK_50,6.419,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Slow 1200mV 85C,Hold,CLOCK_50,0.341,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Slow 1200mV 85C,Minimum Pulse Width,CLOCK_50,9.728,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Slow 1200mV 0C,Setup,CLOCK_50,7.582,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Slow 1200mV 0C,Hold,CLOCK_50,0.305,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Slow 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.748,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Fast 1200mV 0C,Setup,CLOCK_50,14.244,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Fast 1200mV 0C,Hold,CLOCK_50,0.148,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Fast 1200mV 0C,Minimum Pulse Width,CLOCK_50,9.474,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.summary
+128,Slow 1200mV 85C,Fmax,CLOCK_50,,,73.63,73.63,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.rpt
+128,Slow 1200mV 0C,Fmax,CLOCK_50,,,80.53,80.53,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.rpt
+128,Multicorner,Worst-case Setup,CLOCK_50,6.419,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.rpt
+128,Multicorner,Worst-case Hold,CLOCK_50,0.148,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.rpt
+128,Multicorner,Worst-case Minimum Pulse Width,CLOCK_50,9.474,0.000,,,/home/monad/develop/ai_accel/sllm-fpga-decode-accelerator/quartus/dim_sweep/projects/dim128/output_files/dot_product_dim128.sta.rpt

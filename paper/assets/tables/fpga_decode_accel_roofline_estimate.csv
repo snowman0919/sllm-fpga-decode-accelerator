@@ -1,0 +1,6 @@
+category,representative_input_dim,representative_output_dim,int8_macs_per_token_est,weight_bytes_int8_stream_est,activation_bytes_int8_est,accumulator_output_bytes_int32_est,assumed_mac_lanes,assumed_clock_mhz,assumed_stream_bandwidth_mbps,compute_time_us_est,stream_time_us_est,likely_bound,bandwidth_risk
+mlp_projection,1152,6912,7962624,7962624,1152,27648,16,50.0,400.0,9953.28,19978.56,bandwidth-bound,high
+lm_head,1152,262144,301989888,301989888,1152,1048576,16,50.0,400.0,377487.36,757599.04,bandwidth-bound,high
+attention_qkv_projection,1152,1024,1179648,1179648,1152,4096,16,50.0,400.0,1474.56,2962.24,bandwidth-bound,high
+attention_output_projection,1024,1152,1179648,1179648,1024,4608,16,50.0,400.0,1474.56,2963.2,bandwidth-bound,high
+attention_v_weighted_sum,128,256,32768,32768,128,1024,16,50.0,400.0,40.96,84.8,bandwidth-bound,high
