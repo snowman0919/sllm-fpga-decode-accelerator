@@ -145,8 +145,29 @@ fpga-jtag-quartus:
     echo "quartus_sh not found. Set QUARTUS_ROOT or add Quartus to PATH."
     exit 1
   }
+  qsys_script=$(quartus_find_tool qsys-script) || {
+    echo "qsys-script not found. Set QUARTUS_ROOT or add Quartus to PATH."
+    exit 1
+  }
+  qsys_generate=$(quartus_find_tool qsys-generate) || {
+    echo "qsys-generate not found. Set QUARTUS_ROOT or add Quartus to PATH."
+    exit 1
+  }
+  pushd quartus/de10_lite_jtag_matvec/platform_designer >/dev/null
+  "$qsys_script" \
+    --script=create_jtag_matvec_system.tcl \
+    --search-path='../ip/qk_jtag_decode_matvec_reg_top,$'
+  test -f jtag_matvec_system.qsys
+  "$qsys_generate" jtag_matvec_system.qsys \
+    --synthesis=VERILOG \
+    --output-directory=jtag_matvec_system \
+    --search-path='../ip/qk_jtag_decode_matvec_reg_top,$' \
+    --family="MAX 10" \
+    --part=10M50DAF484C7G
+  test -f jtag_matvec_system/synthesis/jtag_matvec_system.v
+  popd >/dev/null
   "$quartus_sh" -t quartus/de10_lite_jtag_matvec/scripts/create_project.tcl
-  echo "Project scaffold created. Platform Designer JTAG-to-Avalon Master integration is still required before board validation."
+  "$quartus_sh" -t quartus/de10_lite_jtag_matvec/scripts/compile.tcl
 
 fpga-uart-quartus:
   #!/usr/bin/env bash

@@ -23,6 +23,15 @@ quartus/de10_lite_decode_matvec/incremental_db/
 quartus/de10_lite_decode_matvec/output_files/
 quartus/de10_lite_decode_matvec/*.qpf
 quartus/de10_lite_decode_matvec/*.qsf
+quartus/de10_lite_jtag_matvec/db/
+quartus/de10_lite_jtag_matvec/incremental_db/
+quartus/de10_lite_jtag_matvec/output_files/
+quartus/de10_lite_jtag_matvec/*.qpf
+quartus/de10_lite_jtag_matvec/*.qsf
+quartus/de10_lite_jtag_matvec/*.sopcinfo
+quartus/de10_lite_jtag_matvec/platform_designer/jtag_matvec_system.qsys
+quartus/de10_lite_jtag_matvec/platform_designer/jtag_matvec_system.sopcinfo
+quartus/de10_lite_jtag_matvec/platform_designer/jtag_matvec_system/
 quartus/dim_sweep/*
 !quartus/dim_sweep/README.md
 

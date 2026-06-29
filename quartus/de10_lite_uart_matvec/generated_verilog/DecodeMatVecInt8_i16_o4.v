@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.14.2    git head : 78f29dc66110fc099a777992b6daa2f803ab445e
 // Component : DecodeMatVecInt8_i16_o4
-// Git hash  : 237705502c61bdade8c30f703bb21970ecf91c07
+// Git hash  : 1208ca558d19c22255120e09bbf59ad4f8340c06
 
 `timescale 1ns/1ps 
 module DecodeMatVecInt8_i16_o4 (
