@@ -16,20 +16,30 @@ ONNX_Runtime_온디바이스_sLLM_FPGA_Decode_가속기_논문양식본.md
 
 The draft is a submission/shareable Markdown manuscript built from existing repository artifacts. It does not introduce new experiments, recompilation, or changed numeric results.
 
+## Title Decision
+
+Keep the current Korean and English titles:
+
+- Korean: ONNX Runtime 기반 온디바이스 소형 언어모델 추론의 병목 분석 및 FPGA 기반 Decode 가속기 구조 설계
+- English: Bottleneck Analysis of ONNX Runtime-based On-device Small Language Model Inference and Design of an FPGA-based Decode Accelerator Architecture
+
+The title already includes the on-device scope and Decode accelerator direction. It avoids stronger wording such as full Gemma FPGA execution, ONNX Runtime speedup, or completed accelerator implementation.
+
 ## Claim Boundary
 
-- The study analyzes ONNX Runtime-based on-device sLLM bottlenecks and connects the result to an FPGA Decode accelerator architecture sketch.
+- The study analyzes ONNX Runtime-based on-device sLLM bottlenecks and connects the result to an FPGA Decode accelerator structure proposal.
 - The strongest measured ONNX Runtime CPUExecutionProvider hotspot is MatMul-centered dense linear algebra.
 - Reported core numbers:
-  - MatMul share of traced prefill + decode phase time: `67.5%`
+  - MatMul share of traced prefill + decode node time: `67.5%`
   - Decode MatMul share: `81.1%`
   - Prefill MatMul share: `53.4%`
   - `mlp_projection + lm_head` share of MatMul time: `88.90%`
+- The long-decode sweep uses runs `1`, warmup `0`; treat it as operator-share trend evidence, not a stable latency benchmark.
 - KV-cache is treated as a representative structural memory-pressure factor, not as the only bottleneck.
 - FPGA evidence is limited to primitive-level INT8 Decode MatVec validation and DE10-Lite bitstream configuration.
 - The draft does not claim complete Gemma 3 1B execution on DE10-Lite, full KV-cache implementation, or end-to-end ONNX Runtime speedup.
 - Roofline/model values are design estimates, not measured acceleration.
-- BitNet b1.58 and MatMul-free LM are discussed only as related work; the project does not implement a MatMul-free model.
+- PagedAttention/vLLM, FlashAttention, GPTQ, SmoothQuant, AWQ, BitNet b1.58, MatMul-free LM, FlightLLM, and ONNX Runtime documentation are discussed only as related work or deployment context; the project does not implement those systems.
 
 ## Final Manuscript Structure
 
@@ -52,15 +62,14 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
    - 2.1 Prefill과 Decode
    - 2.2 KV-cache와 long-context memory pressure
    - 2.3 ONNX Runtime과 graph-based deployment
-   - 2.4 MatMul 중심 LLM 연산 병목
-   - 2.5 저정밀 및 MatMul-efficient 연구와 본 연구의 차이
+   - 2.4 Attention optimization, quantization, FPGA LLM accelerator 연구와 본 연구의 차이
 7. Method
    - 3.1 전체 실험 흐름
    - 3.2 ONNX export 및 graph inspection
    - 3.3 ORT profiling setup
    - 3.4 MatMul category classification 방법
    - 3.5 FPGA Decode MatVec primitive 설계 방법
-   - 3.6 evidence layer 구분
+   - 3.6 증거 계층 구분
 8. Experimental Results
    - Results and interpretation are separated.
    - Tables include explicit source columns.
@@ -68,11 +77,11 @@ The draft is a submission/shareable Markdown manuscript built from existing repo
    - KV-cache is not treated as the sole explanation.
    - Decode MatMul dominance is interpreted through dense projection repetition.
    - MLP projection and `lm_head` motivate tiled MatVec/MatMul rather than QK-only hardware.
-   - DE10-Lite evidence is limited to primitive validation and programming success.
+   - DE10-Lite evidence is limited to primitive-level validation and bitstream configuration success.
    - Add a requirements bridge from ONNX/ORT observations to FPGA accelerator requirements.
 10. FPGA Decode Accelerator Architecture Proposal
     - 6.1 설계 목표와 비목표
-    - 6.2 Host/ORT offload boundary
+    - 6.2 Host/ORT offload 경계
     - 6.3 Decode tiled MatVec dataflow
     - 6.4 Weight streaming and tiling strategy
     - 6.5 `lm_head` 처리 전략
