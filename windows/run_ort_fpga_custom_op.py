@@ -14,7 +14,6 @@ from matvec_common import (
     DEFAULT_BAUDRATE,
     DEFAULT_INPUT_DIM,
     DEFAULT_OUTPUT_DIM,
-    PROJECT_ROOT,
     build_matvec_request,
     cpu_reference,
     deterministic_activation,
@@ -27,7 +26,6 @@ from matvec_common import (
     resolve_log_dir,
     serial_read_exact,
     timer,
-    update_table,
     write_csv,
     write_json,
     write_summary_md,
@@ -50,6 +48,8 @@ def skipped(log_dir, reason: str, args: argparse.Namespace) -> None:
     summary = {
         "backend": "ort_equivalent_uart_bridge",
         "custom_op": False,
+        "execution_mode": "ort_equivalent_uart_bridge",
+        "true_custom_op_dll_loaded": False,
         "skipped": True,
         "reason": reason,
         "port": args.port or "",
@@ -111,6 +111,8 @@ def main() -> None:
                     "graph": "matvec_fpga_custom_stub.onnx",
                     "provider": "UART bridge outside ORT",
                     "custom_op": False,
+                    "execution_mode": "ort_equivalent_uart_bridge",
+                    "true_custom_op_dll_loaded": False,
                     "input_dim": args.input_dim,
                     "output_dim": args.output_dim,
                     "dtype": "int8_to_int32",
@@ -136,6 +138,8 @@ def main() -> None:
         "graph": "matvec_fpga_custom_stub.onnx",
         "provider": "UART bridge outside ORT",
         "custom_op": False,
+        "execution_mode": "ort_equivalent_uart_bridge",
+        "true_custom_op_dll_loaded": False,
         "input_dim": args.input_dim,
         "output_dim": args.output_dim,
         "dtype": "int8_to_int32",
@@ -145,30 +149,11 @@ def main() -> None:
         "latency_ms_p50": round(latency["p50"], 6),
         "latency_ms_p95": round(latency["p95"], 6),
         "uart_txrx_ms_mean": round(txrx_mean, 6),
-        "note": "Graph-level equivalent harness only; not a true ORT custom-op DLL.",
+        "note": "Graph-level equivalent harness only; not a true ORT custom-op DLL and not a paper result.",
     }
     write_csv(log_dir / "ort_fpga_custom_op.csv", rows)
     write_json(log_dir / "ort_fpga_custom_op_summary.json", summary)
     write_summary_md(log_dir / "ort_fpga_custom_op_summary.md", "ORT-Equivalent FPGA UART Summary", summary)
-    update_table(
-        PROJECT_ROOT / "paper_assets/tables/ort_micrograph_vs_fpga_uart.csv",
-        ["backend", "graph", "provider", "custom_op", "input_dim", "output_dim"],
-        {
-            "backend": "ort_equivalent_uart_bridge",
-            "graph": "matvec_fpga_custom_stub.onnx",
-            "provider": "UART bridge outside ORT",
-            "custom_op": False,
-            "input_dim": args.input_dim,
-            "output_dim": args.output_dim,
-            "dtype": "int8_to_int32",
-            "correctness_pass": all_pass,
-            "latency_ms_mean": round(latency["mean"], 6),
-            "latency_ms_p50": round(latency["p50"], 6),
-            "latency_ms_p95": round(latency["p95"], 6),
-            "uart_txrx_ms_mean": round(txrx_mean, 6),
-            "note": "Equivalent UART bridge; speedup and true custom-op execution are not claimed.",
-        },
-    )
     print(f"wrote {log_dir / 'ort_fpga_custom_op_summary.md'}")
 
 

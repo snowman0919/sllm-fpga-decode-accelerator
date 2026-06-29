@@ -26,6 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-cpu", action="store_true")
     parser.add_argument("--run-ort", action="store_true")
     parser.add_argument("--run-fpga", action="store_true")
+    parser.add_argument("--list-ports", action="store_true", help="List serial ports using the packaged FPGA UART runner")
     parser.add_argument("--port")
     parser.add_argument("--baud", type=int, default=115200)
     parser.add_argument("--runs", type=int, default=3)
@@ -111,6 +112,8 @@ def main() -> None:
     log_dir = dest / "logs" / datetime.now().strftime("%Y%m%d_%H%M%S")
     log_dir.mkdir(parents=True, exist_ok=True)
     summary: list[dict[str, object]] = []
+    if args.list_ports:
+        run_step(py + ["windows/run_fpga_uart_matvec.py", "--list-ports"], dest, summary)
     if args.run_cpu:
         run_step(py + ["windows/run_cpu_matvec_baseline.py", "--runs", str(args.runs), "--log-dir", str(log_dir)], dest, summary)
     if args.run_ort:

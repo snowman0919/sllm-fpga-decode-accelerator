@@ -1,0 +1,54 @@
+# DE10-Lite UART Decode MatVec QSF template.
+#
+# This file is intentionally not sourced by create_project.tcl. Copy the real
+# assignments into a verified QSF after choosing the physical GPIO header pins.
+# Do not uncomment arbitrary examples; use the DE10-Lite manual and measured
+# board wiring.
+
+# Clock input, replace <PIN_CLOCK_50> with the verified 50 MHz clock pin.
+# set_location_assignment PIN_<PIN_CLOCK_50> -to CLOCK_50
+# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
+
+# UART over external 3.3 V USB-UART adapter.
+# Adapter TXD -> FPGA UART_RXD.
+# Adapter RXD <- FPGA UART_TXD.
+# set_location_assignment PIN_<TBD_GPIO_RX_PIN> -to UART_RXD
+# set_location_assignment PIN_<TBD_GPIO_TX_PIN> -to UART_TXD
+# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_RXD
+# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to UART_TXD
+
+# KEY inputs. The current top exposes KEY[1:0] for debug; boot reset is internal.
+# set_location_assignment PIN_<TBD_KEY0_PIN> -to KEY[0]
+# set_location_assignment PIN_<TBD_KEY1_PIN> -to KEY[1]
+# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[0]
+# set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[1]
+
+# Switches.
+# set_location_assignment PIN_<TBD_SW0_PIN> -to SW[0]
+# set_location_assignment PIN_<TBD_SW1_PIN> -to SW[1]
+# set_location_assignment PIN_<TBD_SW2_PIN> -to SW[2]
+# set_location_assignment PIN_<TBD_SW3_PIN> -to SW[3]
+# set_location_assignment PIN_<TBD_SW4_PIN> -to SW[4]
+# set_location_assignment PIN_<TBD_SW5_PIN> -to SW[5]
+# set_location_assignment PIN_<TBD_SW6_PIN> -to SW[6]
+# set_location_assignment PIN_<TBD_SW7_PIN> -to SW[7]
+# set_location_assignment PIN_<TBD_SW8_PIN> -to SW[8]
+# set_location_assignment PIN_<TBD_SW9_PIN> -to SW[9]
+
+# LEDs.
+# set_location_assignment PIN_<TBD_LEDR0_PIN> -to LEDR[0]
+# set_location_assignment PIN_<TBD_LEDR1_PIN> -to LEDR[1]
+# set_location_assignment PIN_<TBD_LEDR2_PIN> -to LEDR[2]
+# set_location_assignment PIN_<TBD_LEDR3_PIN> -to LEDR[3]
+# set_location_assignment PIN_<TBD_LEDR4_PIN> -to LEDR[4]
+# set_location_assignment PIN_<TBD_LEDR5_PIN> -to LEDR[5]
+# set_location_assignment PIN_<TBD_LEDR6_PIN> -to LEDR[6]
+# set_location_assignment PIN_<TBD_LEDR7_PIN> -to LEDR[7]
+# set_location_assignment PIN_<TBD_LEDR8_PIN> -to LEDR[8]
+# set_location_assignment PIN_<TBD_LEDR9_PIN> -to LEDR[9]
+
+# HEX display segment assignments must cover HEX0[6:0] through HEX5[6:0].
+# Use existing verified DE10-Lite HEX assignments if available.
+# set_location_assignment PIN_<TBD_HEX0_0_PIN> -to HEX0[0]
+# ...
+# set_location_assignment PIN_<TBD_HEX5_6_PIN> -to HEX5[6]

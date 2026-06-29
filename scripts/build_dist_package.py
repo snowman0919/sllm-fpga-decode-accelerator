@@ -19,6 +19,8 @@ INCLUDE_PATHS = [
     "onnx_custom_op",
     "docs/uart_protocol.md",
     "docs/windows_test_guide.md",
+    "docs/de10_lite_uart_wiring.md",
+    "docs/fpga_uart_benchmark_report.md",
     "docs/ftp_upload_plan.md",
     "docs/claim_boundary.md",
     "docs/gemma_partial_offload_plan.md",
@@ -26,6 +28,8 @@ INCLUDE_PATHS = [
     "paper_assets/tables",
     "paper_assets/figures/figure_index.md",
     "paper_assets/figures/figure_index.csv",
+    "quartus/de10_lite_uart_matvec/README.md",
+    "quartus/de10_lite_uart_matvec/qsf",
 ]
 
 
@@ -67,6 +71,12 @@ Run locally:
 
 ```powershell
 python install.py --local . --run-cpu --run-ort
+```
+
+List serial ports:
+
+```powershell
+python install.py --local . --list-ports
 ```
 
 Run optional FPGA UART validation:

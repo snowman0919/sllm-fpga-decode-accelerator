@@ -28,8 +28,14 @@ This runs a small `float32` MatMul graph with `CPUExecutionProvider`. The dtype 
 
 ## FPGA UART Primitive
 
+List available serial ports:
+
 ```powershell
-python windows\run_fpga_uart_matvec.py --port COM5 --baud 115200 --runs 10
+python windows\run_fpga_uart_matvec.py --list-ports
+```
+
+```powershell
+python windows\run_fpga_uart_matvec.py --port COM5 --baud 115200 --runs 10 --dump-request-hex --dump-response-hex
 ```
 
 The expected FPGA bitstream implements the fixed `input_dim=16`, `output_dim=4` UART MatVec command. If the board is not connected or the port cannot be opened, the script writes a skipped summary and exits without fabricating a result row.

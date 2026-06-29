@@ -26,3 +26,9 @@ EOF
 ```
 
 After upload, verify that `manifest.json` and `checksums.sha256` are reachable and match the local package.
+
+The package can list Windows serial ports before any FPGA run:
+
+```powershell
+python install.py --local . --list-ports
+```

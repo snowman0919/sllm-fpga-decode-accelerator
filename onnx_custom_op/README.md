@@ -1,6 +1,6 @@
 # FPGA MatVec ONNX Runtime Custom Op
 
-The current repository includes an ORT-equivalent UART bridge harness in `windows/run_ort_fpga_custom_op.py`. That script is intentionally marked `custom_op=false` because it does not load a native ONNX Runtime custom-op DLL.
+The current repository includes an ORT-equivalent UART bridge harness in `windows/run_ort_fpga_custom_op.py`. That script is intentionally marked `custom_op=false` and `execution_mode=ort_equivalent_uart_bridge` because it does not load a native ONNX Runtime custom-op DLL.
 
 A true custom-op implementation should:
 
@@ -10,4 +10,4 @@ A true custom-op implementation should:
 - return an `int32[4]` result
 - record COM port, baudrate, timeout, correctness status, and latency breakdown
 
-Paper text must treat the current harness as invocation feasibility only until a DLL is built, loaded by ONNX Runtime, and validated against a CPU reference.
+Paper text must not report the current stub ONNX graph or equivalent UART harness as custom-op execution evidence. Treat it as invocation-path development only until a DLL is built, loaded by ONNX Runtime, and validated against a CPU reference.

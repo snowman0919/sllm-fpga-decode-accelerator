@@ -1,2 +1,2 @@
 source_model,source_node,category,tile_shape,weight_source,activation_source,backend,correctness_pass,latency_ms_mean,uart_overhead_ms_mean,note
-Gemma 3 1B ONNX profile artifacts,/model/layers.4/mlp/up_proj/MatMul,mlp_projection,"[1,16]x[16,4]",deterministic_synthetic_tile,deterministic_synthetic_activation,onnxruntime_cpu,True,0.071651,,Gemma-derived tile shape/category with synthetic tile values; not full Gemma ONNX execution.
+Gemma 3 1B ONNX profile artifacts,/model/layers.4/mlp/up_proj/MatMul,mlp_projection,"[1,16]x[16,4]",deterministic_synthetic_tile,deterministic_synthetic_activation,onnxruntime_cpu,True,0.069371,,Gemma-derived tile shape/category with synthetic tile values; not full Gemma ONNX execution.

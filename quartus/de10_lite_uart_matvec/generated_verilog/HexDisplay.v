@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.14.2    git head : 78f29dc66110fc099a777992b6daa2f803ab445e
 // Component : HexDisplay
-// Git hash  : c33fa14b562a1d718de6c6c58c2697455dcc44e3
+// Git hash  : 237705502c61bdade8c30f703bb21970ecf91c07
 
 `timescale 1ns/1ps 
 module HexDisplay (

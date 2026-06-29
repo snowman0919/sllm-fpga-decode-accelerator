@@ -18,3 +18,5 @@ This repository must not claim:
 - Synthetic tile weights as full Gemma weight evidence.
 
 Paper tables should include FPGA UART numbers only when the corresponding log contains a passing correctness check, latency breakdown, COM port, baudrate, and environment information.
+
+A no-COM skip summary, timeout summary, failed UART response, stub ONNX graph, or ORT-equivalent UART harness is not a paper result.

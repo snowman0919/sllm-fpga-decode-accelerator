@@ -11,6 +11,23 @@ This plan selects small MatMul tiles from measured Gemma ONNX MatMul categories.
 
 ## Candidates
 
+## Current Implementation Status
+
+Available now:
+
+- candidate selection from existing ORT MatMul hotspot artifacts
+- Gemma-derived small tile ONNX CPU baseline
+- FPGA stub/equivalent harness files for packaging and future integration
+
+Not available yet:
+
+- full Gemma ONNX patched execution
+- full node replacement correctness
+- true ONNX Runtime custom-op DLL execution
+- end-to-end Gemma speedup evidence
+
+Any paper use must describe this as Gemma-derived partial tile feasibility only.
+
 ### mlp_projection: `/model/layers.4/mlp/up_proj/MatMul`
 
 - input_shape: [1, 128, 1152]

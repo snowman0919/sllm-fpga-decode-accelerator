@@ -10,6 +10,12 @@ Run locally:
 python install.py --local . --run-cpu --run-ort
 ```
 
+List serial ports:
+
+```powershell
+python install.py --local . --list-ports
+```
+
 Run optional FPGA UART validation:
 
 ```powershell
