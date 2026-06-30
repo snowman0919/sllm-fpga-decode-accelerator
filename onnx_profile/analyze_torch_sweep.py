@@ -29,31 +29,31 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--latency-csv",
         type=Path,
-        default=Path("paper_assets/tables/torch_decode_latency_by_context.csv"),
+        default=Path("assets/torch_decode_latency_by_context.csv"),
         help="Input CSV with per-context latency measurements.",
     )
     parser.add_argument(
         "--memory-csv",
         type=Path,
-        default=Path("paper_assets/tables/torch_memory_by_context.csv"),
+        default=Path("assets/torch_memory_by_context.csv"),
         help="Input CSV with per-context memory measurements.",
     )
     parser.add_argument(
         "--tables-dir",
         type=Path,
-        default=Path("paper_assets/tables"),
+        default=Path("assets"),
         help="Output directory for paper-ready CSV tables.",
     )
     parser.add_argument(
         "--figures-dir",
         type=Path,
-        default=Path("paper_assets/figures"),
+        default=Path("assets"),
         help="Output directory for paper-ready figures.",
     )
     parser.add_argument(
         "--summary-md",
         type=Path,
-        default=Path("paper_assets/torch_sweep_analysis_summary.md"),
+        default=Path("assets/torch.md"),
         help="Output Markdown summary path.",
     )
     parser.add_argument(

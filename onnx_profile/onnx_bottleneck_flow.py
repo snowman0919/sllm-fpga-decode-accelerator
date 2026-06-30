@@ -22,7 +22,7 @@ from run_profile import profile_model
 DEFAULT_MODEL_DIR = Path("/home/monad/develop/ai_accel/gemma3-1B")
 DEFAULT_ONNX_DIR = Path("/home/monad/develop/ai_accel/gemma3-1B-onnx")
 DEFAULT_RESULTS_DIR = Path("onnx_profile/results_onnx")
-DEFAULT_TABLES_DIR = Path("paper_assets/tables")
+DEFAULT_TABLES_DIR = Path("assets")
 DEFAULT_REPORT_PATH = Path("onnx_profile/results/reports/onnx_bottleneck_report.md")
 
 PRIMARY_TASK = "text-generation-with-past"
@@ -395,7 +395,7 @@ def inspect_flow(args: argparse.Namespace) -> dict[str, Any]:
                 }
             )
     write_csv(
-        args.paper_tables_dir / "onnx_graph_io_summary.csv",
+        args.paper_tables_dir / "c02.csv",
         ["io_type", "name", "elem_type", "shape", "is_cache_io"],
         io_rows,
     )
@@ -405,7 +405,7 @@ def inspect_flow(args: argparse.Namespace) -> dict[str, Any]:
         for op_type, count in sorted(op_counter.items(), key=lambda item: (-item[1], item[0]))
     ]
     write_csv(
-        args.paper_tables_dir / "onnx_operator_histogram.csv",
+        args.paper_tables_dir / "c01.csv",
         ["op_type", "count", "is_key_op"],
         histogram_rows,
     )
@@ -583,7 +583,7 @@ def profile_flow(args: argparse.Namespace) -> dict[str, Any]:
             }
         )
     write_csv(
-        args.paper_tables_dir / "ort_session_summary.csv",
+        args.paper_tables_dir / "c05.csv",
         list(session_rows[0].keys()) if session_rows else ["attempt"],
         session_rows or [{"attempt": "none"}],
     )
@@ -595,7 +595,7 @@ def profile_flow(args: argparse.Namespace) -> dict[str, Any]:
         op_rows,
     )
     write_csv(
-        args.paper_tables_dir / "ort_provider_summary.csv",
+        args.paper_tables_dir / "c03.csv",
         ["provider", "node_count", "total_dur_us", "avg_dur_us"],
         provider_rows,
     )

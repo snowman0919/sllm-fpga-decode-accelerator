@@ -420,7 +420,7 @@ def main() -> int:
         reference_text = " ".join(str(int(v)) for v in reference)
         result_text = str(passing_rows[-1].get("result", ""))
         update_table(
-            PROJECT_ROOT / "paper_assets/tables/fpga_jtag_primitive_benchmark.csv",
+            PROJECT_ROOT / "assets/c12.csv",
             ["backend", "interface", "evidence_type", "input_dim", "output_dim"],
             {
                 "backend": "fpga_jtag_register_offload",
@@ -451,7 +451,7 @@ def main() -> int:
             },
         )
         update_table(
-            PROJECT_ROOT / "paper_assets/tables/fpga_jtag_cycle_counter_summary.csv",
+            PROJECT_ROOT / "assets/c13.csv",
             ["backend", "interface", "evidence_type", "input_dim", "output_dim"],
             {
                 "backend": "fpga_internal_cycle_counter",

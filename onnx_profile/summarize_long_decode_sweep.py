@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 
 
 DEFAULT_RESULTS_DIR = Path("onnx_profile/results_onnx_long_decode")
-DEFAULT_TABLES_DIR = Path("paper_assets/tables")
-DEFAULT_FIGURES_DIR = Path("paper_assets/figures")
+DEFAULT_TABLES_DIR = Path("assets")
+DEFAULT_FIGURES_DIR = Path("assets")
 DEFAULT_REPORT = Path("onnx_profile/results/reports/ort_long_decode_sweep_report.md")
 SHAPE_OPS = ("Expand", "Concat", "Unsqueeze")
 
@@ -142,7 +142,7 @@ def render_figures(latency: list[dict[str, Any]], shares: list[dict[str, Any]], 
     ax.grid(True, alpha=0.3)
     ax.legend()
     fig.tight_layout()
-    fig.savefig(figures_dir / "ort_long_decode_matmul_share.png", dpi=220)
+    fig.savefig(figures_dir / "f03.png", dpi=220)
     plt.close(fig)
 
     fig, ax = plt.subplots(figsize=(8.5, 4.8))
@@ -158,7 +158,7 @@ def render_figures(latency: list[dict[str, Any]], shares: list[dict[str, Any]], 
     ax.grid(True, alpha=0.3)
     ax.legend()
     fig.tight_layout()
-    fig.savefig(figures_dir / "ort_long_decode_shape_ops_share.png", dpi=220)
+    fig.savefig(figures_dir / "f04.png", dpi=220)
     plt.close(fig)
 
 
@@ -208,10 +208,10 @@ def render_report(latency: list[dict[str, Any]], shares: list[dict[str, Any]], r
             "",
             "## Artifacts",
             "",
-            "- `paper_assets/tables/ort_long_decode_sweep_latency.csv`",
-            "- `paper_assets/tables/ort_long_decode_operator_share.csv`",
-            "- `paper_assets/figures/ort_long_decode_matmul_share.png`",
-            "- `paper_assets/figures/ort_long_decode_shape_ops_share.png`",
+            "- `assets/c06.csv`",
+            "- `assets/c07.csv`",
+            "- `assets/f03.png`",
+            "- `assets/f04.png`",
         ]
     )
     report_path.parent.mkdir(parents=True, exist_ok=True)
@@ -220,11 +220,11 @@ def render_report(latency: list[dict[str, Any]], shares: list[dict[str, Any]], r
 
 def main() -> None:
     args = parse_args()
-    latency = latency_rows(read_csv(args.results_dir / "tables" / "ort_context_sweep_latency.csv"))
+    latency = latency_rows(read_csv(args.results_dir / "tables" / "c04.csv"))
     shares = operator_share_rows(read_csv(args.results_dir / "tables" / "ort_operator_latency_by_context.csv"))
 
     write_csv(
-        args.tables_dir / "ort_long_decode_sweep_latency.csv",
+        args.tables_dir / "c06.csv",
         [
             "provider",
             "context_length",
@@ -240,7 +240,7 @@ def main() -> None:
         latency,
     )
     write_csv(
-        args.tables_dir / "ort_long_decode_operator_share.csv",
+        args.tables_dir / "c07.csv",
         [
             "provider",
             "context_length",

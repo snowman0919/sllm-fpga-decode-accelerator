@@ -84,7 +84,7 @@ def inspect_onnx_model(model_path: Path) -> dict[str, Any]:
 def write_outputs(report: dict[str, Any], out_dir: Path, model_path: Path) -> tuple[Path, Path, Path]:
     raw_dir = out_dir / "raw"
     tables_dir = out_dir / "tables"
-    paper_tables_dir = Path("paper_assets/tables")
+    paper_tables_dir = Path("assets")
     raw_dir.mkdir(parents=True, exist_ok=True)
     tables_dir.mkdir(parents=True, exist_ok=True)
     paper_tables_dir.mkdir(parents=True, exist_ok=True)

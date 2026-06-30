@@ -91,7 +91,7 @@ class DecodeMatVecRegBankSim extends AnyFunSuite {
         assert((debugStatus & 0x2) != 0, s"DEBUG_STATUS done_latched bit not set: $debugStatus")
 
         val repoRoot = new File("../..").getCanonicalFile
-        val paper = new File(repoRoot, "paper_assets/tables/decode_matvec_regbank_cycle_counter_sim.csv")
+        val paper = new File(repoRoot, "assets/sim_reg.csv")
         paper.getParentFile.mkdirs()
 
         def writeCsv(file: File): Unit = {

@@ -92,7 +92,7 @@ def main() -> None:
     write_summary_md(log_dir / "cpu_matvec_summary.md", "CPU MatVec Baseline Summary", summary)
 
     update_table(
-        PROJECT_ROOT / "paper_assets/tables/onnx_runtime_aligned_micrograph_baseline.csv",
+        PROJECT_ROOT / "assets/c17.csv",
         ["backend", "interface", "dtype", "input_dim", "output_dim"],
         {
             "backend": "cpu_numpy_primitive_baseline",
@@ -114,7 +114,7 @@ def main() -> None:
         },
     )
     update_table(
-        PROJECT_ROOT / "paper_assets/tables/fpga_uart_primitive_benchmark.csv",
+        PROJECT_ROOT / "assets/fpga_uart.csv",
         ["backend", "input_dim", "output_dim", "baudrate"],
         {
             "backend": "cpu_numpy_int32",

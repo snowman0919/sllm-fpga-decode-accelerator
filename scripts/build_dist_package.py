@@ -26,11 +26,7 @@ INCLUDE_PATHS = [
     "scripts/regenerate_fpga_optimized_estimate.py",
     "scripts/build_ort_fpga_comparison.py",
     "scripts/verify_dist_package.py",
-    "paper_assets/tables",
-    "paper_assets/figures/figure_index.md",
-    "paper_assets/figures/figure_index.csv",
-    "paper_assets/figures/jtag_vs_optimized_fpga_latency_interpretation.png",
-    "paper_assets/figures/ort_vs_fpga_latency_decomposition.png",
+    "assets",
     "quartus/de10_lite_jtag_matvec",
 ]
 

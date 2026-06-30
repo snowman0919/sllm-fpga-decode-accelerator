@@ -550,8 +550,8 @@ def main() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     raw_dir = args.out_dir / "raw"
     tables_dir = args.out_dir / "tables"
-    paper_tables_dir = repo_root / "paper_assets" / "tables"
-    paper_figures_dir = repo_root / "paper_assets" / "figures"
+    paper_tables_dir = repo_root / "assets"
+    paper_figures_dir = repo_root / "assets"
 
     raw_dir.mkdir(parents=True, exist_ok=True)
     tables_dir.mkdir(parents=True, exist_ok=True)

@@ -52,7 +52,7 @@ class DecodeMatVecInt8Sim extends AnyFunSuite {
         assert(observed == expected, s"expected ${expected.mkString(",")} but observed ${observed.mkString(",")}")
 
         val repoRoot = new File("../..").getCanonicalFile
-        val paper = new File(repoRoot, "paper_assets/tables/decode_matvec_int8_sim.csv")
+        val paper = new File(repoRoot, "assets/c10.csv")
         paper.getParentFile.mkdirs()
 
         def writeCsv(file: File): Unit = {

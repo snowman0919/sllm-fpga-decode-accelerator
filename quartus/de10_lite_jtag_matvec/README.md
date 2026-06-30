@@ -88,6 +88,6 @@ The Windows runner generates a System Console Tcl script and invokes `system-con
 python windows\run_fpga_jtag_matvec.py --runs 10 --cable "USB-Blaster [USB-0]"
 ```
 
-With `--keep-tcl`, generated System Console scripts are archived with the log directory. Passing runs update both `paper_assets/tables/fpga_jtag_primitive_benchmark.csv` and `paper_assets/tables/fpga_jtag_cycle_counter_summary.csv`; failed runs are preserved separately and are not treated as successful measurements.
+With `--keep-tcl`, generated System Console scripts are archived with the log directory. Passing runs update both `assets/c12.csv` and `assets/c13.csv`; failed runs are preserved separately and are not treated as successful measurements.
 
 Without Quartus tools, USB-Blaster, or a JTAG-to-Avalon master service, the runner writes a skipped summary and exits gracefully without creating a paper benchmark row.

@@ -7,5 +7,5 @@ Python,3.13.13,platform.python_version()
 onnxruntime,1.26.0,Python package
 onnx,1.21.0,Python package
 Quartus,Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition,quartus_sh --version
-FPGA device,10M50DAF484,paper_assets/tables/decode_matvec_board_validation.csv
+FPGA device,10M50DAF484,assets/decode_matvec_board_validation.csv
 ORT provider for sweeps,CPUExecutionProvider,sweep configuration

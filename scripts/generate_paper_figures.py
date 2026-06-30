@@ -10,10 +10,10 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 
-ROOT = Path(__file__).resolve().parents[2]
-FIGURES_DIR = ROOT / "paper_assets" / "figures"
-MATMUL_CATEGORY_CSV = ROOT / "paper_assets" / "tables" / "ort_matmul_category_by_context.csv"
-ORT_FPGA_COMPARISON_CSV = ROOT / "paper_assets" / "tables" / "ort_vs_fpga_projected_comparison.csv"
+ROOT = Path(__file__).resolve().parents[1]
+ASSET_DIR = ROOT / "assets"
+MATMUL_CATEGORY_CSV = ASSET_DIR / "c09.csv"
+ORT_FPGA_COMPARISON_CSV = ASSET_DIR / "c14.csv"
 
 
 def save_research_flow() -> None:
@@ -78,7 +78,7 @@ def save_research_flow() -> None:
         transform=ax.transAxes,
     )
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "research_flow.png", dpi=220)
+    fig.savefig(ASSET_DIR / "f01.png", dpi=220)
     plt.close(fig)
 
 
@@ -97,7 +97,7 @@ def save_matmul_phase_share() -> None:
     for bar, value in zip(bars, values):
         ax.text(bar.get_x() + bar.get_width() / 2, value + 2.0, f"{value:.1f}%", ha="center", va="bottom", fontsize=10.5)
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "ort_matmul_phase_share.png", dpi=220)
+    fig.savefig(ASSET_DIR / "f02.png", dpi=220)
     plt.close(fig)
 
 
@@ -139,7 +139,7 @@ def save_matmul_category_breakdown() -> None:
     for bar, value in zip(bars, values):
         ax.text(value + 1.0, bar.get_y() + bar.get_height() / 2, f"{value:.2f}%", va="center", fontsize=10)
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "ort_matmul_category_breakdown.png", dpi=220)
+    fig.savefig(ASSET_DIR / "f05.png", dpi=220)
     plt.close(fig)
 
 
@@ -205,7 +205,7 @@ def save_architecture_diagram() -> None:
     )
 
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "fpga_decode_accelerator_architecture.png", dpi=220)
+    fig.savefig(ASSET_DIR / "f06.png", dpi=220)
     plt.close(fig)
 
 
@@ -257,12 +257,12 @@ def save_jtag_vs_optimized_latency_interpretation() -> None:
         transform=ax.transAxes,
     )
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "jtag_vs_optimized_fpga_latency_interpretation.png", dpi=220)
+    fig.savefig(ASSET_DIR / "f07.png", dpi=220)
     plt.close(fig)
 
 
 def main() -> None:
-    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    ASSET_DIR.mkdir(parents=True, exist_ok=True)
     save_research_flow()
     save_matmul_phase_share()
     save_matmul_category_breakdown()

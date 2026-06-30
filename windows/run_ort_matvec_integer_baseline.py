@@ -151,7 +151,7 @@ def main() -> None:
     write_json(log_dir / "ort_matmulinteger_summary.json", summary)
     write_summary_md(log_dir / "ort_matmulinteger_summary.md", "ORT MatMulInteger Micrograph Summary", summary)
     update_table(
-        PROJECT_ROOT / "paper_assets/tables/onnx_runtime_integer_micrograph_baseline.csv",
+        PROJECT_ROOT / "assets/c18.csv",
         ["backend", "interface", "dtype", "input_dim", "output_dim"],
         {
             "backend": "onnxruntime_matmulinteger_micrograph",

@@ -15,8 +15,8 @@ from typing import Any
 DEFAULT_MODEL = Path("/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx")
 DEFAULT_SWEEP_RAW = Path("onnx_profile/results_onnx_sweep/raw/ort_sweep_raw_runs.json")
 DEFAULT_GRAPH_INSPECTION = Path("onnx_profile/results_onnx/raw/onnx_graph_inspection.json")
-DEFAULT_TABLES_DIR = Path("paper_assets/tables")
-DEFAULT_FIGURES_DIR = Path("paper_assets/figures")
+DEFAULT_TABLES_DIR = Path("assets")
+DEFAULT_FIGURES_DIR = Path("assets")
 DEFAULT_REPORT = Path("onnx_profile/results/reports/ort_matmul_hotspot_analysis.md")
 
 CATEGORIES = [
@@ -540,7 +540,7 @@ phase별 MatMul category 비중은 다음과 같다.
 
 {markdown_table(phase_rows, [("phase", "phase"), ("category", "category"), ("call_count", "call_count"), ("total_ms", "total_us"), ("share", "share_pct")])}
 
-세부 context/decode-step별 값은 `paper_assets/tables/ort_matmul_category_by_context.csv`에 저장했다. `paper_assets/figures/ort_matmul_category_share.png`는 같은 값을 stacked share로 시각화한다.
+세부 context/decode-step별 값은 `assets/c09.csv`에 저장했다. `assets/ort_cat.png`는 같은 값을 stacked share로 시각화한다.
 
 ## Top MatMul Nodes
 
@@ -582,9 +582,9 @@ def main() -> None:
     category_rows = aggregate_categories(events)
     top_rows = aggregate_top_nodes(events)
 
-    category_path = args.tables_dir / "ort_matmul_category_by_context.csv"
+    category_path = args.tables_dir / "c09.csv"
     top_nodes_path = args.tables_dir / "ort_matmul_top_nodes.csv"
-    figure_path = args.figures_dir / "ort_matmul_category_share.png"
+    figure_path = args.figures_dir / "ort_cat.png"
 
     write_csv(
         category_path,

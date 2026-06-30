@@ -47,8 +47,7 @@ JTAG total invocation latency는 System Console 실행, JTAG service 접근, reg
 | 경로 | 역할 |
 | --- | --- |
 | `paper/current/manuscript.md` | canonical 논문 원고 |
-| `paper_assets/tables/` | 논문에 들어가는 최종 CSV 표 |
-| `paper_assets/figures/` | 논문에 들어가는 최종 그림 |
+| `assets/` | 논문에 들어가는 최종 CSV/PNG 자료 |
 | `docs/01_실험_근거와_주장_범위.md` | 측정 근거, claim boundary, 수치 해석 |
 | `docs/02_재현_가이드.md` | Linux/Nix와 Windows Pocket4 재현 절차 |
 | `docs/03_저장소_구조.md` | main/examine 역할과 artifact 정책 |
@@ -70,8 +69,8 @@ paper/current/manuscript.md
 
 1. 이 `README.md`
 2. `paper/current/manuscript.md`
-3. `paper_assets/tables/fpga_jtag_cycle_counter_summary.csv`
-4. `paper_assets/tables/ort_vs_fpga_measured_and_projected_comparison.csv`
+3. `assets/c13.csv`
+4. `assets/c14.csv`
 5. `docs/02_재현_가이드.md`
 
 ## 재현 방법
@@ -104,11 +103,11 @@ py -3 windows\run_fpga_jtag_matvec.py --runs 20 --cable "USB-Blaster [USB-0]" --
 
 - Primary board manifest: `logs/jtag_cycle_counter_clean_rebuild_final/BOARD_RUN_MANIFEST.md`
 - Historical prior board manifest: `logs/remote_board_eval/BOARD_RUN_MANIFEST.md`
-- FPGA cycle counter table: `paper_assets/tables/fpga_jtag_cycle_counter_summary.csv`
-- FPGA JTAG primitive table: `paper_assets/tables/fpga_jtag_primitive_benchmark.csv`
-- ORT integer baseline table: `paper_assets/tables/onnx_runtime_integer_micrograph_baseline.csv`
-- Measured/projected comparison: `paper_assets/tables/ort_vs_fpga_measured_and_projected_comparison.csv`
-- Quartus resource/timing: `paper_assets/tables/quartus_resource_timing_summary.csv`
+- FPGA cycle counter table: `assets/c13.csv`
+- FPGA JTAG primitive table: `assets/c12.csv`
+- ORT integer baseline table: `assets/c18.csv`
+- Measured/projected comparison: `assets/c14.csv`
+- Quartus resource/timing: `assets/c11.csv`
 
 ## examine 브랜치
 

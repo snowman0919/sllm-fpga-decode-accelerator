@@ -11,4 +11,4 @@
 
 이 파일들은 `quartus/de10_lite_jtag_matvec/generated_verilog/`로 mirror되어 clean rebuild에 사용된다.
 
-시뮬레이션 workspace는 이 디렉터리 아래에 생성될 수 있지만, 논문 근거로 쓰는 값은 `paper_assets/tables/`의 요약 CSV와 board manifest를 기준으로 한다.
+시뮬레이션 workspace는 이 디렉터리 아래에 생성될 수 있지만, 논문 근거로 쓰는 값은 `assets/`의 요약 CSV와 board manifest를 기준으로 한다.

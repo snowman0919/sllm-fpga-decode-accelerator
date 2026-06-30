@@ -3,8 +3,8 @@
 ## Experimental Conditions
 
 - Baseline under analysis: PyTorch CPU host-side reference baseline. This summary does not describe ONNX Runtime execution or end-to-end FPGA decode acceleration.
-- Input latency table used for analysis: `paper_assets/tables/torch_decode_latency_by_context.csv`
-- Input memory table used for analysis: `paper_assets/tables/torch_memory_by_context.csv`
+- Input latency table used for analysis: `assets/torch_decode_latency_by_context.csv`
+- Input memory table used for analysis: `assets/torch_memory_by_context.csv`
 - Device and dtype recorded in the sweep: `cpu` / `bfloat16`
 - Context lengths analyzed: 128, 512, 1024, 2048, 4096, 8192, 16384, 32768
 - Decode tokens per run: 16

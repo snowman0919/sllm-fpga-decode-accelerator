@@ -9,7 +9,7 @@ import java.nio.file.{Files, Path, Paths}
 
 class DotProductInt8DimSweepSim extends AnyFunSuite {
   private val repoRoot: Path = Paths.get("..", "..").toFile.getCanonicalFile.toPath
-  private val paperCsv: Path = repoRoot.resolve("paper_assets/tables/dot_product_dim_sweep_sim.csv")
+  private val paperCsv: Path = repoRoot.resolve("assets/dot_dim.csv")
 
   private def csvLine(columns: Seq[String]): String =
     columns.map { value =>

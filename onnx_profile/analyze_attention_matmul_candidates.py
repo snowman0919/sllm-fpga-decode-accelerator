@@ -10,7 +10,7 @@ from typing import Any
 
 
 DEFAULT_MODEL = Path("/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx")
-DEFAULT_TABLE = Path("paper_assets/tables/ort_attention_matmul_candidates.csv")
+DEFAULT_TABLE = Path("assets/ort_attention_matmul_candidates.csv")
 DEFAULT_NOTE = Path("onnx_profile/results/reports/ort_attention_qk_classification_note.md")
 
 
@@ -112,7 +112,7 @@ The fallback analysis inspects the exported ONNX graph directly, using MatMul no
 - Confirmed `attention_qk_score` graph nodes: `{confirmed_qk}`.
 - Confirmed `attention_v_weighted_sum` graph nodes: `{confirmed_v}`.
 - Unconfirmed candidate nodes: `{candidates}`.
-- Output table: `paper_assets/tables/ort_attention_matmul_candidates.csv`.
+- Output table: `assets/ort_attention_matmul_candidates.csv`.
 
 ## Interpretation Boundary
 

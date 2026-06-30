@@ -133,7 +133,7 @@ def main() -> None:
     write_json(log_dir / "ort_micrograph_cpu_summary.json", summary)
     write_summary_md(log_dir / "ort_micrograph_cpu_summary.md", "ORT MatVec CPU Micrograph Summary", summary)
     update_table(
-        PROJECT_ROOT / "paper_assets/tables/onnx_runtime_aligned_micrograph_baseline.csv",
+        PROJECT_ROOT / "assets/c17.csv",
         ["backend", "interface", "dtype", "input_dim", "output_dim"],
         {
             "backend": "onnxruntime_matvec_micrograph",
@@ -157,7 +157,7 @@ def main() -> None:
         },
     )
     update_table(
-        PROJECT_ROOT / "paper_assets/tables/ort_micrograph_vs_fpga_uart.csv",
+        PROJECT_ROOT / "assets/ort_uart.csv",
         ["backend", "graph", "provider", "custom_op", "input_dim", "output_dim"],
         {
             "backend": "onnxruntime_cpu",

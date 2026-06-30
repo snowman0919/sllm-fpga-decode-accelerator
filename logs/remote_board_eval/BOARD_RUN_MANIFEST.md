@@ -42,7 +42,7 @@ Primary files:
 - `logs/jtag_cycle_counter_clean_rebuild_final/jtag_cycle_counter_clean_rebuild_final/fpga_jtag_summary.json`
 - `logs/jtag_cycle_counter_clean_rebuild_final/jtag_cycle_counter_clean_rebuild_final/fpga_jtag_matvec.csv`
 - `quartus/de10_lite_jtag_matvec/output_files/de10_lite_jtag_matvec.sof`
-- `paper_assets/tables/quartus_resource_timing_summary.csv`
+- `assets/c11.csv`
 
 Historical prior files:
 

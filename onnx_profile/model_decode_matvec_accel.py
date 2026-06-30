@@ -44,10 +44,10 @@ ARCH_NOTES = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--category-csv", default="paper_assets/tables/ort_matmul_category_by_context.csv")
-    parser.add_argument("--top-nodes-csv", default="paper_assets/tables/ort_matmul_top_nodes.csv")
+    parser.add_argument("--category-csv", default="assets/c09.csv")
+    parser.add_argument("--top-nodes-csv", default="assets/matmul_top.csv")
     parser.add_argument("--graph-inspection", default="onnx_profile/results_onnx/raw/onnx_graph_inspection.json")
-    parser.add_argument("--tables-dir", default="paper_assets/tables")
+    parser.add_argument("--tables-dir", default="assets")
     parser.add_argument("--summary-md", default="onnx_profile/results/reports/fpga_decode_accel_model_summary.md")
     parser.add_argument("--clock-mhz", type=float, default=50.0)
     parser.add_argument("--mac-lanes", type=int, default=16)
@@ -244,9 +244,9 @@ def main() -> None:
     for idx, row in enumerate(priority_rows, start=1):
         row["priority_rank"] = idx
 
-    write_csv(tables_dir / "fpga_decode_accel_candidate_ops.csv", candidate_rows)
-    write_csv(tables_dir / "fpga_decode_accel_roofline_estimate.csv", roofline_rows)
-    write_csv(tables_dir / "fpga_decode_accel_priority.csv", priority_rows)
+    write_csv(tables_dir / "accel_ops.csv", candidate_rows)
+    write_csv(tables_dir / "c16.csv", roofline_rows)
+    write_csv(tables_dir / "accel_pri.csv", priority_rows)
 
     summary_path.parent.mkdir(parents=True, exist_ok=True)
     graph_line = "not available"
@@ -290,9 +290,9 @@ def main() -> None:
             "",
             "## Generated Tables",
             "",
-            "- `paper_assets/tables/fpga_decode_accel_candidate_ops.csv`",
-            "- `paper_assets/tables/fpga_decode_accel_roofline_estimate.csv`",
-            "- `paper_assets/tables/fpga_decode_accel_priority.csv`",
+            "- `assets/accel_ops.csv`",
+            "- `assets/c16.csv`",
+            "- `assets/accel_pri.csv`",
             "",
         ])
     )

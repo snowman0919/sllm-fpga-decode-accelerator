@@ -9,15 +9,14 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-TABLE_DIR = PROJECT_ROOT / "paper_assets/tables"
-FIGURE_DIR = PROJECT_ROOT / "paper_assets/figures"
+ASSET_DIR = PROJECT_ROOT / "assets"
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--out-csv", default=str(TABLE_DIR / "ort_vs_fpga_measured_and_projected_comparison.csv"))
+    parser.add_argument("--out-csv", default=str(ASSET_DIR / "c14.csv"))
     parser.add_argument("--out-md", default="")
-    parser.add_argument("--out-fig", default=str(FIGURE_DIR / "ort_vs_fpga_latency_decomposition.png"))
+    parser.add_argument("--out-fig", default=str(ASSET_DIR / "f08.png"))
     return parser.parse_args()
 
 
@@ -70,11 +69,11 @@ def latency_stat_fields(
 
 
 def comparison_rows() -> list[dict[str, object]]:
-    aligned = TABLE_DIR / "onnx_runtime_aligned_micrograph_baseline.csv"
-    integer = TABLE_DIR / "onnx_runtime_integer_micrograph_baseline.csv"
-    jtag = TABLE_DIR / "fpga_jtag_primitive_benchmark.csv"
-    cycles = TABLE_DIR / "fpga_jtag_cycle_counter_summary.csv"
-    projected = TABLE_DIR / "fpga_optimized_interface_estimate.csv"
+    aligned = ASSET_DIR / "c17.csv"
+    integer = ASSET_DIR / "c18.csv"
+    jtag = ASSET_DIR / "c12.csv"
+    cycles = ASSET_DIR / "c13.csv"
+    projected = ASSET_DIR / "c19.csv"
 
     rows: list[dict[str, object]] = []
     cpu = first_row(aligned, backend="cpu_numpy_primitive_baseline")

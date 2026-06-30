@@ -12,7 +12,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_QUARTUS_DIR = PROJECT_ROOT / "quartus/de10_lite_jtag_matvec/output_files"
-DEFAULT_CSV = PROJECT_ROOT / "paper_assets/tables/quartus_resource_timing_summary.csv"
+DEFAULT_CSV = PROJECT_ROOT / "assets/c11.csv"
 
 
 def parse_args() -> argparse.Namespace:

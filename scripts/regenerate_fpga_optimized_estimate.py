@@ -9,8 +9,8 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_QUARTUS_SUMMARY = PROJECT_ROOT / "paper_assets/tables/quartus_resource_timing_summary.csv"
-DEFAULT_OUT = PROJECT_ROOT / "paper_assets/tables/fpga_optimized_interface_estimate.csv"
+DEFAULT_QUARTUS_SUMMARY = PROJECT_ROOT / "assets/c11.csv"
+DEFAULT_OUT = PROJECT_ROOT / "assets/c19.csv"
 BOARD_CLOCK_HZ = 50_000_000
 
 

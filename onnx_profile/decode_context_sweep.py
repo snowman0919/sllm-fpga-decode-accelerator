@@ -81,7 +81,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--paper-tables-dir",
         type=Path,
-        default=Path("paper_assets/tables"),
+        default=Path("assets"),
         help="Optional directory where paper-facing CSV copies are written.",
     )
     parser.add_argument(

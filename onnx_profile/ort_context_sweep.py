@@ -28,8 +28,8 @@ from run_profile import (
 
 DEFAULT_MODEL = Path("/home/monad/develop/ai_accel/gemma3-1B-onnx/model.onnx")
 DEFAULT_OUT_DIR = Path("onnx_profile/results_onnx_sweep")
-DEFAULT_TABLES_DIR = Path("paper_assets/tables")
-DEFAULT_FIGURES_DIR = Path("paper_assets/figures")
+DEFAULT_TABLES_DIR = Path("assets")
+DEFAULT_FIGURES_DIR = Path("assets")
 DEFAULT_REPORT = Path("onnx_profile/results/reports/onnx_runtime_sweep_report.md")
 DEFAULT_CONTEXTS = [128, 512, 1024, 2048]
 DEFAULT_DECODE_STEPS = [1, 2, 4, 8]
@@ -358,7 +358,7 @@ def render_figures(args: argparse.Namespace, latency_rows: list[dict[str, Any]],
         plt.grid(True, alpha=0.3)
         plt.legend()
         plt.tight_layout()
-        plt.savefig(args.paper_figures_dir / "ort_operator_share_by_context.png", dpi=160)
+        plt.savefig(args.paper_figures_dir / "ort_ops.png", dpi=160)
         plt.close()
 
 
@@ -419,9 +419,9 @@ def render_report(args: argparse.Namespace, latency_rows: list[dict[str, Any]], 
             "## Artifacts",
             "",
             f"- Status JSON: `{(args.out_dir / 'raw' / 'ort_sweep_status.json').resolve()}`",
-            f"- Latency CSV: `{(args.paper_tables_dir / 'ort_context_sweep_latency.csv').resolve()}`",
+            f"- Latency CSV: `{(args.paper_tables_dir / 'c04.csv').resolve()}`",
             f"- Operator latency CSV: `{(args.paper_tables_dir / 'ort_operator_latency_by_context.csv').resolve()}`",
-            f"- Operator share CSV: `{(args.paper_tables_dir / 'ort_operator_share_by_context.csv').resolve()}`",
+            f"- Operator share CSV: `{(args.paper_tables_dir / 'c08.csv').resolve()}`",
             f"- Prefill/decode comparison CSV: `{(args.paper_tables_dir / 'ort_prefill_decode_comparison.csv').resolve()}`",
         ]
     )
@@ -574,9 +574,9 @@ def run_sweep(args: argparse.Namespace) -> dict[str, Any]:
 
     write_json(raw_dir / "ort_sweep_raw_runs.json", {"runs": raw_runs})
     write_json(raw_dir / "ort_sweep_operator_runs.json", {"operator_runs": operator_run_rows})
-    write_csv(args.paper_tables_dir / "ort_context_sweep_latency.csv", ["phase", "context_length", "decode_steps", "runs", "warmup_runs", "latency_mean_ms", "latency_p50_ms", "latency_std_ms", "per_token_mean_ms", "profile_jsons", "status", "error"], latency_rows)
+    write_csv(args.paper_tables_dir / "c04.csv", ["phase", "context_length", "decode_steps", "runs", "warmup_runs", "latency_mean_ms", "latency_p50_ms", "latency_std_ms", "per_token_mean_ms", "profile_jsons", "status", "error"], latency_rows)
     write_csv(args.paper_tables_dir / "ort_operator_latency_by_context.csv", ["phase", "context_length", "decode_steps", "op_type", "provider", "profile_count", "call_count", "total_us", "mean_us"], operator_rows)
-    write_csv(args.paper_tables_dir / "ort_operator_share_by_context.csv", ["phase", "context_length", "decode_steps", "operator_group", "call_count", "total_us", "phase_total_us", "share_pct"], shares)
+    write_csv(args.paper_tables_dir / "c08.csv", ["phase", "context_length", "decode_steps", "operator_group", "call_count", "total_us", "phase_total_us", "share_pct"], shares)
     write_csv(args.paper_tables_dir / "ort_prefill_decode_comparison.csv", ["context_length", "decode_steps", "prefill_mean_ms", "decode_total_mean_ms", "decode_per_token_mean_ms", "matmul_prefill_share_pct", "matmul_decode_share_pct", "top_prefill_op", "top_decode_op"], comparisons)
     render_figures(args, latency_rows, shares)
     report_path = render_report(args, latency_rows, operator_rows, comparisons, status)
@@ -585,9 +585,9 @@ def run_sweep(args: argparse.Namespace) -> dict[str, Any]:
     status["outputs"] = {
         "raw_runs": str((raw_dir / "ort_sweep_raw_runs.json").resolve()),
         "operator_runs": str((raw_dir / "ort_sweep_operator_runs.json").resolve()),
-        "latency_csv": str((args.paper_tables_dir / "ort_context_sweep_latency.csv").resolve()),
+        "latency_csv": str((args.paper_tables_dir / "c04.csv").resolve()),
         "operator_latency_csv": str((args.paper_tables_dir / "ort_operator_latency_by_context.csv").resolve()),
-        "operator_share_csv": str((args.paper_tables_dir / "ort_operator_share_by_context.csv").resolve()),
+        "operator_share_csv": str((args.paper_tables_dir / "c08.csv").resolve()),
         "comparison_csv": str((args.paper_tables_dir / "ort_prefill_decode_comparison.csv").resolve()),
         "report": str(report_path.resolve()),
     }
@@ -596,7 +596,7 @@ def run_sweep(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def report_only(args: argparse.Namespace) -> Path:
-    latency_rows = [convert_row(row) for row in read_csv_rows(args.paper_tables_dir / "ort_context_sweep_latency.csv")]
+    latency_rows = [convert_row(row) for row in read_csv_rows(args.paper_tables_dir / "c04.csv")]
     operator_rows = [convert_row(row) for row in read_csv_rows(args.paper_tables_dir / "ort_operator_latency_by_context.csv")]
     comparison = [convert_row(row) for row in read_csv_rows(args.paper_tables_dir / "ort_prefill_decode_comparison.csv")]
     status_path = args.out_dir / "raw" / "ort_sweep_status.json"

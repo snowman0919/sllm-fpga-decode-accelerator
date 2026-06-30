@@ -10,7 +10,7 @@ import subprocess
 from pathlib import Path
 
 
-TABLE_PATH = Path("paper_assets/tables/experiment_environment.csv")
+TABLE_PATH = Path("assets/c15.csv")
 DOC_PATH = Path("onnx_profile/results/reports/experiment_environment.md")
 
 
@@ -69,7 +69,7 @@ def main() -> None:
         {"item": "onnxruntime", "value": python_package_version("onnxruntime"), "source": "Python package"},
         {"item": "onnx", "value": python_package_version("onnx"), "source": "Python package"},
         {"item": "Quartus", "value": run_version(["quartus_sh", "--version"]), "source": "quartus_sh --version"},
-        {"item": "FPGA device", "value": "10M50DAF484", "source": "paper_assets/tables/decode_matvec_board_validation.csv"},
+        {"item": "FPGA device", "value": "10M50DAF484", "source": "assets/decode_matvec_board_validation.csv"},
         {"item": "ORT provider for sweeps", "value": "CPUExecutionProvider", "source": "sweep configuration"},
     ]
     TABLE_PATH.parent.mkdir(parents=True, exist_ok=True)
