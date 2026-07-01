@@ -1,0 +1,13 @@
+command: ssh win 'bash -lc "pwd; ls -la ~/dev/qinst; find ~/dev/qinst -maxdepth 3 -type f | head -100"'
+exit_code: 0
+
+stdout/stderr:
+/mnt/c/Users/dbsgu
+ls: cannot access '/home/kotori9/dev/qinst': No such file or directory
+find: '/home/kotori9/dev/qinst': No such file or directory
+
+command: ssh win 'bash -lc "ls -la /mnt/c/Users/dbsgu/dev/qinst 2>/dev/null; find /mnt/c/Users/dbsgu/dev/qinst -maxdepth 3 -type f 2>/dev/null | head -100"'
+exit_code: 0
+
+stdout/stderr:
+<no output>

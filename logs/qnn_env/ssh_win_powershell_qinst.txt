@@ -1,0 +1,7 @@
+command: ssh win "powershell -NoProfile -Command '$p = Join-Path $HOME \"dev/qinst\"; Write-Output (\"HOME=\" + $HOME); Write-Output (\"QNN=\" + $p); Write-Output (Test-Path $p); if (Test-Path $p) { Get-ChildItem -Recurse $p | Select-Object -First 200 FullName }'"
+exit_code: 0
+
+stdout/stderr:
+HOME=C:\Users\dbsgu
+QNN=C:\Users\dbsgu\dev\qinst
+False
