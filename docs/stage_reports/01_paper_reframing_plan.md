@@ -12,9 +12,9 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 
 최종 논문은 "FPGA의 ONNX Runtime 대비 전체 실행 우위"는 성능 논문이 아니다. 핵심 정체성은 다음과 같다.
 
-> Snapdragon 8+ Gen 1급 Android 장치와 ONNX Runtime 실행 계층에서 decode 병목을 실측하고, 이 병목 중 projection-heavy INT8 MatVec/MatMul primitive를 후속 FPGA 구조 요구사항으로 정리한다. DE10-Lite 결과는 full accelerator가 아니라 INT8 MatVec core의 correctness와 cycle-level board anchor이다.
+> Snapdragon 8+ Gen 1급 Android 장치와 ONNX Runtime 실행 계층에서 decode 병목을 실측하고, 이 병목 중 projection-heavy INT8 MatVec/MatMul primitive를 후속 FPGA 구조 요구사항으로 정리한다. DE10-Lite 결과는 full accelerator가 아니라 INT8 MatVec core의 correctness와 cycle-level board validation이다.
 
-따라서 본문 중심어는 "가속기 설계"가 아니라 "가속기 구조 제안"으로 통일한다. 기존 fixed 16x4 결과는 설계 전체의 성능 증거가 아니라, 최소 연산 코어가 FPGA toolchain과 실제 보드에서 동작함을 보이는 검증 anchor로 사용한다.
+따라서 본문 중심어는 "가속기 설계"가 아니라 "가속기 구조 제안"으로 통일한다. 기존 fixed 16x4 결과는 설계 전체의 성능 증거가 아니라, 최소 연산 코어가 FPGA toolchain과 실제 보드에서 동작함을 보이는 검증 기준로 사용한다.
 
 ## 연구 질문
 
@@ -29,7 +29,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 
 1. Snapdragon 8+ Gen 1 기반 Lenovo Y700에서 ONNX Runtime CPU/가능한 EP 경로와 대표 decode micrograph를 실행하여, 온디바이스 decode 병목과 최적화/양자화 경로의 남는 연산 부담을 측정한다.
 2. ONNX graph/operator profiling 결과를 실제 Gemma 계열 projection shape, arithmetic intensity, weight streaming, activation reuse, output tile 요구사항으로 연결하여 FPGA offload 조건을 정량화한다.
-3. DE10-Lite에서 INT8 MatVec core의 RTL simulation, clean rebuild, JTAG-to-Avalon correctness, internal cycle counter 측정을 확보하고, 이를 full system acceleration이 아닌 tiled INT8 MatVec accelerator 구조 제안의 하드웨어 검증 anchor로 제시한다.
+3. DE10-Lite에서 INT8 MatVec core의 RTL simulation, clean rebuild, JTAG-to-Avalon correctness, internal cycle counter 측정을 확보하고, 이를 full system acceleration이 아닌 tiled INT8 MatVec accelerator 구조 제안의 하드웨어 검증 기준로 제시한다.
 
 Y700 실험이 Gemma 전체 모델 실행에 실패할 경우 1번 기여문은 다음처럼 낮춘다.
 

@@ -10,7 +10,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 
 ## 초록 초안
 
-온디바이스 sLLM 추론에서는 모델 크기뿐 아니라 runtime graph, execution provider, quantization state, decode cache 처리 방식이 token latency를 결정한다. 본 연구는 Snapdragon 8+ Gen 1 기반 Lenovo Y700에서 ONNX Runtime 대표 decode micrograph를 실행해 온디바이스 decode 병목을 측정하고, 해당 병목에서 도출되는 memory-centric low-bit MatVec/MatMul 구조 요구사항을 분석한다. 또한 DE10-Lite에서 INT8 MatVec core의 RTL simulation, clean rebuild, JTAG-to-Avalon correctness, internal cycle counter 측정을 수행하여 fixed 16x4 primitive가 CPU reference와 동일한 결과를 반환하고 65 compute cycles로 완료됨을 확인한다. 본 결과는 Gemma 전체 FPGA 실행이나 ONNX Runtime 전체 실행 성능 주장이 아니라, Y700 병목 분석에서 도출된 구조 요구사항과 DE10-Lite 기능 검증 anchor를 결합한 결과이다.
+온디바이스 sLLM 추론에서는 모델 크기뿐 아니라 runtime graph, execution provider, quantization state, decode cache 처리 방식이 token latency를 결정한다. 본 연구는 Snapdragon 8+ Gen 1 기반 Lenovo Y700에서 ONNX Runtime 대표 decode micrograph를 실행해 온디바이스 decode 병목을 측정하고, 해당 병목에서 도출되는 memory-centric low-bit MatVec/MatMul 구조 요구사항을 분석한다. 또한 DE10-Lite에서 INT8 MatVec core의 RTL simulation, clean rebuild, JTAG-to-Avalon correctness, internal cycle counter 측정을 수행하여 fixed 16x4 primitive가 CPU reference와 동일한 결과를 반환하고 65 compute cycles로 완료됨을 확인한다. 본 결과는 Gemma 전체 FPGA 실행이나 ONNX Runtime 전체 실행 성능 주장이 아니라, Y700 병목 분석에서 도출된 구조 요구사항과 DE10-Lite 기능 검증 기준를 결합한 결과이다.
 
 ## 핵심 기여
 
@@ -50,7 +50,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 - CPU EP baseline.
 - NNAPI EP 시도 및 결과.
 - QNN EP 시도 및 결과.
-- 실패한 backend는 integration blocked 또는 attempted but not used로 기록.
+- 실패한 backend는 QNN EP 실행 경로 미확보 또는 attempted but not used로 기록.
 
 ### 3.3 모델 및 micrograph
 
@@ -65,7 +65,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 ### 3.4 FPGA 검증 계층
 
 - fixed 16x4 INT8 MatVec primitive.
-- optional parameterization evidence는 본문 중심에서 내리고, board-measured 16x4 anchor와 구조 요구사항을 분리한다.
+- optional parameterization evidence는 본문 중심에서 내리고, board-measured 16x4 검증 기준와 구조 요구사항을 분리한다.
 - evidence type 정의:
   - measured
   - board_measured
@@ -138,7 +138,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 - 최종 결론:
   - 온디바이스 ORT decode 병목에서 projection-heavy primitive를 확인/검토했다.
   - FPGA 구조는 tiled INT8 MatVec/MatMul과 memory/interface co-design을 요구한다.
-  - DE10-Lite는 core validation anchor이며, 실용 offload는 상위 interface와 memory system이 필요하다.
+  - DE10-Lite는 core validation 검증 기준이며, 실용 offload는 상위 interface와 memory system이 필요하다.
 
 ## 최종 표
 

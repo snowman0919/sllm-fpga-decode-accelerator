@@ -41,7 +41,7 @@ Android shell에는 `python3`/`python`이 없었다. Termux package는 설치되
 
 - CPU EP: 실행 성공
 - NNAPI EP: 실행 성공
-- QNN EP: tested AAR build에서 provider 미지원, `integration_blocked`
+- QNN EP: tested AAR build에서 provider 미지원, `qnn_path_unavailable`
 - available providers in APK: `[CPU, NNAPI, XNNPACK, WEBGPU]`
 
 ## 논문 반영

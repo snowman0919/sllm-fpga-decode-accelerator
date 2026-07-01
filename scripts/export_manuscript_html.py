@@ -22,6 +22,12 @@ def inline_md(text: str) -> str:
     return escaped
 
 
+def html_image_src(src: str) -> str:
+    if src.startswith("paper_assets/"):
+        return f"../../{src}"
+    return src
+
+
 def convert_table(lines: list[str]) -> str:
     rows = [[c.strip() for c in line.strip().strip("|").split("|")] for line in lines]
     header = rows[0]
@@ -69,7 +75,7 @@ def markdown_to_html(md: str) -> str:
             if match:
                 alt, src = match.groups()
                 html_lines.append(
-                    f'<figure><img src="{html.escape(src)}" alt="{html.escape(alt)}">'
+                    f'<figure><img src="{html.escape(html_image_src(src))}" alt="{html.escape(alt)}">'
                     f"<figcaption>{inline_md(alt)}</figcaption></figure>"
                 )
             continue

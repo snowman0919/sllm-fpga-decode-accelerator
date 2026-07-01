@@ -29,7 +29,7 @@
 
 ## Y700 baseline table 상태
 
-`paper_assets/tables/y700_onnx_runtime_baseline.csv`에는 Android APK benchmark에서 확보한 CPU/NNAPI latency와 QNN integration blocked 행이 들어 있다. 최종 원고에서는 representative micrograph latency로만 해석하고 Gemma 전체 모델 실행 결과로 쓰지 않는다.
+`paper_assets/tables/y700_onnx_runtime_baseline.csv`에는 Android APK benchmark에서 확보한 CPU/NNAPI latency와 QNN QNN EP 실행 경로 미확보 행이 들어 있다. 최종 원고에서는 representative micrograph latency로만 해석하고 Gemma 전체 모델 실행 결과로 쓰지 않는다.
 
 장치 연결 후 `scripts/y700_run_onnx_micrographs.py`가 성공하면 이 표는 CPU/NNAPI/QNN provider별 attempt 또는 completed 상태를 담도록 갱신한다.
 

@@ -8,8 +8,8 @@
 
 - 논문 제목은 유지했다.
 - Y700 ONNX Runtime micrograph 결과를 온디바이스 병목 근거로 유지했다.
-- DE10-Lite 16x4 INT8 MatVec의 1.3 us는 64 MAC smoke-test core의 internal cycle-counter 기능 검증 anchor로 명시했다.
-- 1.3 us를 빠른 AI 가속 성능 또는 ONNX Runtime 대비 우위로 해석하지 않도록 본문을 수정했다.
+- DE10-Lite 16x4 INT8 MatVec의 1.3 us는 64 MAC PoC core의 internal cycle-counter 기능 검증 기준로 명시했다.
+- 1.3 us를 projection-scale 가속 결과로 해석하지 않도록 본문을 수정했다.
 - JTAG total latency는 System Console host-tool invocation overhead이며 internal compute time과 별개라고 정리했다.
 - 기존 원고에서 구현되지 않은 세부 구성요소를 확정 구조처럼 나열하던 문장을 제거했다.
 - planned/projected medium/projection-tile configuration sweep은 본문 중심 표에서 제거했다.
@@ -25,4 +25,4 @@
 
 ## 남은 검토 지점
 
-5장에는 HWP 변환 전 사용자가 직접 검토할 수 있도록 `저자 검토 필요` 표시를 남겼다. 이 표시는 최종 제출 직전 유지 여부를 사용자가 결정해야 한다.
+5장에는 HWP 변환 전 사용자가 직접 검토할 수 있도록 `제출 전 검토 표시` 표시를 남겼다. 이 표시는 최종 제출 직전 유지 여부를 사용자가 결정해야 한다.

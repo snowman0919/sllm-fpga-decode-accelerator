@@ -79,7 +79,7 @@ nix develop -c just fpga-jtag-verilog
 
 현재 표의 evidence boundary:
 
-- `smoke_board_anchor`: board_measured, 기존 16x4 clean rebuild 및 board run 근거
+- `poc_board_validation`: board_measured, 기존 16x4 clean rebuild 및 board run 근거
 - `small_tiled_sim`: simulation only, 64x16 tileDim=4
 - 설계 공간 예시는 본문 중심 결과에서 제외하고, 필요 시 보조 artifact로만 둔다.
 
@@ -92,7 +92,7 @@ nix develop -c just fpga-jtag-verilog
 - multi-lane board synthesis/timing sweep
 - DE10-Lite board programming for tileDim>1
 
-따라서 최종 논문에서는 tileDim=4 결과를 "simulation으로 확인한 parameterization step"으로만 사용한다. board-measured 수치로 사용할 수 있는 것은 여전히 16x4, tileDim=1, COMPUTE_CYCLES=65 anchor뿐이다.
+따라서 최종 논문에서는 tileDim=4 결과를 "simulation으로 확인한 parameterization step"으로만 사용한다. board-measured 수치로 사용할 수 있는 것은 여전히 16x4, tileDim=1, COMPUTE_CYCLES=65 검증 기준뿐이다.
 
 ## 다음 작업
 

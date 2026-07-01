@@ -4,7 +4,7 @@
 
 ## 결론
 
-Lenovo Y700(TB320FC)에서 ONNX Runtime Android APK 기반 representative micrograph benchmark를 수행했다. CPU EP와 NNAPI EP는 실행되었고, QNN EP는 사용한 `onnxruntime-android:1.27.0` AAR build에서 지원되지 않아 `integration_blocked`로 기록했다.
+Lenovo Y700(TB320FC)에서 ONNX Runtime Android APK 기반 representative micrograph benchmark를 수행했다. CPU EP와 NNAPI EP는 실행되었고, QNN EP는 사용한 `onnxruntime-android:1.27.0` AAR build에서 지원되지 않아 `qnn_path_unavailable`로 기록했다.
 
 ## 실행 경로
 
@@ -30,16 +30,16 @@ adb pull /sdcard/Android/data/edu.dimigo.y700ort/files/y700_onnx_runtime
 
 | micrograph | op | CPU EP p50 | NNAPI EP p50 | QNN EP |
 | --- | --- | ---: | ---: | --- |
-| attention output 1024x1152 | MatMulInteger | 0.738 ms | 0.518 ms | integration blocked |
-| `lm_head` tile 1152x4096 | MatMulInteger | 3.582 ms | 2.989 ms | integration blocked |
-| MLP projection 1152x6912 | MatMulInteger | 3.428 ms | 3.333 ms | integration blocked |
-| smoke 16x4 | MatMulInteger | 0.051 ms | 0.159 ms | integration blocked |
+| attention output 1024x1152 | MatMulInteger | 0.738 ms | 0.518 ms | QNN EP 실행 경로 미확보 |
+| `lm_head` tile 1152x4096 | MatMulInteger | 3.582 ms | 2.989 ms | QNN EP 실행 경로 미확보 |
+| MLP projection 1152x6912 | MatMulInteger | 3.428 ms | 3.333 ms | QNN EP 실행 경로 미확보 |
+| smoke 16x4 | MatMulInteger | 0.051 ms | 0.159 ms | QNN EP 실행 경로 미확보 |
 
 ## 해석
 
-- 16x4 smoke graph는 provider dispatch overhead 영향을 크게 받으므로 FPGA core cycle과 직접 비교하지 않는다.
+- 16x4 16x4 provider-overhead graph는 provider dispatch overhead 영향을 크게 받으므로 FPGA core cycle과 직접 비교하지 않는다.
 - Projection-scale micrograph에서는 NNAPI가 CPU EP보다 낮은 p50을 보이는 경우가 있었지만, 이것을 전체 sLLM 실행 개선으로 해석하지 않는다.
-- QNN은 provider가 build에 없었으므로 실패 결과가 아니라 integration blocked로 기록한다.
+- QNN은 provider가 build에 없었으므로 실패 결과가 아니라 QNN EP 실행 경로 미확보로 기록한다.
 
 ## 논문 반영 방식
 

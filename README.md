@@ -35,8 +35,8 @@ JTAG total invocation latency는 System Console 실행, JTAG service 접근, reg
 ## 이 래포가 주장하지 않는 것
 
 - Gemma 3 1B 전체를 DE10-Lite에서 실행했다는 주장
-- ONNX Runtime 전체 모델의 end-to-end 가속 주장
-- sLLM inference 전체 speedup 주장
+- ONNX Runtime 전체 모델의 전체 실행 가속 주장
+- sLLM inference 전체 속도 향상 주장
 - JTAG total latency를 FPGA compute latency로 해석하는 주장
 - projected interface estimate를 board-measured latency로 해석하는 주장
 

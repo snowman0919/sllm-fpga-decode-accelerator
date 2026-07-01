@@ -59,7 +59,7 @@
 | memory bits | 512 / 1,677,312 |
 | Fmax | 56.670 MHz |
 
-이 결과는 core correctness 및 cycle-level anchor이다. 실제 projection-scale acceleration을 의미하지 않는다. 특히 검증된 core는 1-lane sequential MAC 성격이고, roofline의 16/64-lane 행은 구조 모델이다. 최종 원고에서는 이 둘을 같은 measured 성능으로 병치하지 않는다.
+이 결과는 core correctness 및 cycle-level validation이다. 실제 projection-scale acceleration을 의미하지 않는다. 특히 검증된 core는 1-lane sequential MAC 성격이고, roofline의 16/64-lane 행은 구조 모델이다. 최종 원고에서는 이 둘을 같은 measured 성능으로 병치하지 않는다.
 
 ## Interface 모델
 
@@ -76,7 +76,7 @@
 
 최종 원고에서는 다음 해석을 사용한다.
 
-> DE10-Lite의 16x4 INT8 MatVec 결과는 연산 코어의 기능 정합성과 cycle counter 검증 anchor이다. 실제 projection-scale offload는 weight movement, output tile 처리, invocation overhead가 지배할 수 있으므로, compute lane 수만으로 acceleration을 주장할 수 없다. 따라서 최종 원고는 구현되지 않은 datapath를 확정하지 않고, activation/partial-sum reuse, weight residency, low-overhead interface를 후속 구조 요구사항으로만 정리한다.
+> DE10-Lite의 16x4 INT8 MatVec 결과는 연산 코어의 기능 정합성과 cycle counter 검증 기준이다. 실제 projection-scale offload는 weight movement, output tile 처리, invocation overhead가 지배할 수 있으므로, compute lane 수만으로 acceleration을 주장할 수 없다. 따라서 최종 원고는 구현되지 않은 datapath를 확정하지 않고, activation/partial-sum reuse, weight residency, low-overhead interface를 후속 구조 요구사항으로만 정리한다.
 
 ## 남은 작업
 

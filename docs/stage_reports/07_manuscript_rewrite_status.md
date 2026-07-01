@@ -4,13 +4,13 @@
 
 ## 요약
 
-`paper/current/manuscript.md`를 새 제목과 새 연구 정체성에 맞게 전면 재구성했다. 이후 Lenovo Y700 APK benchmark 결과를 반영하여 CPU EP/NNAPI EP latency와 QNN integration blocked 상태를 본문 표와 그림에 포함했다.
+`paper/current/manuscript.md`를 새 제목과 새 연구 정체성에 맞게 전면 재구성했다. 이후 Lenovo Y700 APK benchmark 결과를 반영하여 CPU EP/NNAPI EP latency와 QNN QNN EP 실행 경로 미확보 상태를 본문 표와 그림에 포함했다.
 
 ## 반영한 방향
 
 - 최종 제목을 `온디바이스 ONNX Runtime sLLM 추론의 Decode 병목 분석과 FPGA 기반 INT8 MatVec 가속기 구조 제안`으로 변경했다.
 - 기존 16x4 INT8 MatVec 결과를 ONNX Runtime latency와 직접 비교하는 구도를 제거했다.
-- FPGA 결과는 DE10-Lite board-level correctness와 internal cycle counter anchor로만 배치했다.
+- FPGA 결과는 DE10-Lite board-level correctness와 internal cycle counter 검증 기준로만 배치했다.
 - JTAG total latency는 host-tool invocation overhead로 분리했고 compute latency로 해석하지 않았다.
 - ONNX Runtime profiling, Android/Y700 실행 하네스, micrograph manifest, FPGA validation, roofline/interface model을 서로 다른 evidence layer로 분리했다.
 - Ryzen/host CPUExecutionProvider trace는 온디바이스 결과가 아니라 기존 host profiling artifact로 낮춰 서술했다.
@@ -39,7 +39,7 @@
 ## 아직 최종본이 아닌 이유
 
 - Gemma 전체 모델 실행은 아직 확보하지 않았고, 현재 온디바이스 latency는 representative ONNX micrograph 기준이다.
-- QNN은 tested AAR build에서 provider 미지원으로 integration blocked이다.
+- QNN은 tested AAR build에서 provider 미지원으로 QNN EP 실행 경로 미확보이다.
 - HWP 직접 생성 도구가 로컬/Nix/Windows PATH에서 확인되지 않았다.
 - 논문 문장은 Y700 micrograph 수치 기준으로 갱신되었지만 HWP 제출본은 아직 생성되지 않았다.
 

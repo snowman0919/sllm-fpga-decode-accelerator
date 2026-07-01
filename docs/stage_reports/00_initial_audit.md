@@ -28,7 +28,7 @@
 
 1. 최종 제목의 "온디바이스" 중심성과 달리 현 원고의 핵심 실험은 Ryzen 7 9700X 및 ORT CPUExecutionProvider 중심이다.
 2. 초록부터 결론까지 반복되는 면책 문장이 기여를 약하게 보이게 한다.
-3. 16x4 INT8 MatVec 결과가 correctness/cycle anchor인지, ORT micrograph latency 비교인지, projected interface estimate인지 표에서 혼동될 수 있다.
+3. 16x4 INT8 MatVec 결과가 correctness/cycle-level validation인지, ORT micrograph latency 비교인지, projected interface estimate인지 표에서 혼동될 수 있다.
 4. FPGA 구조가 아직 fixed primitive 중심으로 서술되어 parameterized tiled INT8 MatVec/MatMul accelerator proposal로 충분히 확장되지 않았다.
 5. 실제 projection shape, bandwidth-bound 조건, host/offload interface 요구사항이 정량적으로 부족해 CPU/ORT 병목과 FPGA 구조 사이의 다리가 약하다.
 
@@ -37,10 +37,10 @@
 1. "정직하지만 방어문이 많다"는 인상을 줄이고, 기여를 결과 중심으로 재서술한다.
 2. Ryzen 실험만으로 온디바이스를 주장하지 않고, Lenovo Y700 실측을 본문 중심으로 세운다.
 3. float32 ONNX profiling의 한계를 보완하기 위해 optimized/quantized/MatMulInteger 경로를 추가한다.
-4. QNN/NNAPI는 성공하면 결과로, 실패하면 attempted but not used 또는 integration blocked로 기록한다.
+4. QNN/NNAPI는 성공하면 결과로, 실패하면 attempted but not used 또는 QNN EP 실행 경로 미확보로 기록한다.
 5. 16x4 microbench는 latency 우열 비교가 아니라 기능 동등성 및 internal cycle-counter 검증으로만 쓴다.
 6. CPU/ORT operator share와 FPGA offload 가능성을 arithmetic intensity, memory bandwidth, interface overhead로 연결한다.
-7. DE10-Lite는 projection-scale acceleration platform이 아니라 core validation과 cycle anchor platform으로 정의한다.
+7. DE10-Lite는 projection-scale acceleration platform이 아니라 core validation과 cycle-level validation platform으로 정의한다.
 8. 표와 그림에서 measured, board_measured, simulation, projected, invocation overhead를 분리한다.
 9. 제목과 본문 표현은 "가속기 설계"보다 "가속기 구조 제안"으로 통일한다.
 10. 절대경로, 내부 CSV 약어, 긴 해시, 깨진 캡션, 오타를 제출본에서 제거한다.
@@ -62,7 +62,7 @@
 ### FPGA / DE10-Lite
 
 - 기존 clean rebuild board evidence는 유지 가능하다.
-- 추가 확장은 parameterized/multi-lane/tiled synthesis sweep을 목표로 하되, board programming은 최소 anchor 하나만 유지해도 충분하다.
+- 추가 확장은 parameterized/multi-lane/tiled synthesis sweep을 목표로 하되, board programming은 최소 검증 기준 하나만 유지해도 충분하다.
 - KR260은 RMA 중이므로 실제 low-latency shared-memory offload claim은 하지 않는다.
 
 ### HWP

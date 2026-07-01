@@ -14,8 +14,8 @@
 ## 주장하지 않는 것
 
 - Gemma 3 1B 전체를 DE10-Lite에서 실행했다는 주장
-- ONNX Runtime 전체 모델의 end-to-end acceleration 주장
-- sLLM inference 전체 speedup 주장
+- ONNX Runtime 전체 모델의 전체 실행 acceleration 주장
+- sLLM inference 전체 속도 향상 주장
 - JTAG offload를 performance-optimized accelerator interconnect로 보는 주장
 - JTAG total latency를 FPGA compute latency로 해석하는 주장
 - projected estimate를 measured board latency로 해석하는 주장

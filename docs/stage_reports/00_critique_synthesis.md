@@ -19,7 +19,7 @@
 | 1 | "온디바이스" 주장 근거가 Ryzen 7 9700X 중심이라 약하다. | Lenovo Y700 Snapdragon 8+ Gen 1 실험을 본문 핵심 근거로 올리고, Ryzen 결과는 historical/desktop reference로 축소한다. |
 | 2 | float32 ONNX profiling은 실제 배포형 온디바이스 병목을 대표하기 어렵다. | optimized ONNX, quantized/QDQ 또는 MatMulInteger micrograph, 가능하면 NNAPI/QNN 시도 결과를 분리 보고한다. |
 | 3 | CPU/ORT profiling과 FPGA primitive 사이의 정량적 연결이 약하다. | projection shape, arithmetic intensity, bandwidth, compute lane, interface overhead를 roofline/offload 모델로 연결한다. |
-| 4 | 16x4 microbench latency 비교는 framework dispatch overhead와 FPGA compute latency를 섞는다. | 16x4 결과는 correctness와 board cycle-counter anchor로만 두고, latency 우열 비교 표는 폐기 또는 측정 성격별로 재구성한다. |
+| 4 | 16x4 microbench latency 비교는 framework dispatch overhead와 FPGA compute latency를 섞는다. | 16x4 결과는 correctness와 board cycle-counter 검증 기준로만 두고, latency 우열 비교 표는 폐기 또는 측정 성격별로 재구성한다. |
 | 5 | 방어문이 너무 많아 논문이 스스로 기여를 깎는다. | 금지 claim은 유지하되, 본문 반복 면책을 줄이고 한계는 방법/논의/결론의 지정 위치로 압축한다. |
 | 6 | FPGA 파트가 toy primitive에 머물러 "구조 설계" 제목을 지탱하지 못한다. | 제목과 본문을 "구조 제안"으로 정렬하고, parameterized tiled INT8 MatVec/MatMul datapath, tile mapping, resource/timing sweep을 추가한다. |
 | 7 | bandwidth-bound 조건을 정직하게 수식화하지 않았다. | Gemma projection shape별 weight bytes, activation reuse, output bytes, required bandwidth, compute/stream time을 표로 제시한다. |
@@ -38,7 +38,7 @@
 ## 유지할 요소
 
 - ONNX export, graph inspection, runtime profiling, FPGA board validation을 증거 계층으로 구분한 기본 태도.
-- DE10-Lite clean rebuild `.sof` SHA-256, pass_count=20/fail_count=0, reference/result 일치, COMPUTE_CYCLES=65라는 board-level anchor.
+- DE10-Lite clean rebuild `.sof` SHA-256, pass_count=20/fail_count=0, reference/result 일치, COMPUTE_CYCLES=65라는 board-level 검증 기준.
 - JTAG total latency를 compute latency로 해석하지 않는 claim boundary.
 - MatMul category에서 `mlp_projection`과 `lm_head`를 중심으로 projection-heavy decode primitive를 분석한 방향.
 
@@ -54,6 +54,6 @@
 
 최종 원고는 다음 문장으로 요약될 수 있어야 한다.
 
-> 본 연구는 Snapdragon 8+ Gen 1급 Lenovo Y700에서 ONNX Runtime 대표 decode micrograph의 병목을 실측하고, 남는 projection-heavy INT8 MatVec/MatMul primitive에서 도출되는 memory-centric low-bit 구조 요구사항을 분석한다. DE10-Lite 결과는 전체 시스템 가속 결과가 아니라 INT8 MatVec core의 correctness와 cycle-level board anchor이다.
+> 본 연구는 Snapdragon 8+ Gen 1급 Lenovo Y700에서 ONNX Runtime 대표 decode micrograph의 병목을 실측하고, 남는 projection-heavy INT8 MatVec/MatMul primitive에서 도출되는 memory-centric low-bit 구조 요구사항을 분석한다. DE10-Lite 결과는 전체 시스템 가속 결과가 아니라 INT8 MatVec core의 correctness와 cycle-level board validation이다.
 
 이 기준을 벗어나 전체 실행 가속, Gemma 전체 모델의 FPGA 실행, FPGA의 ORT 대비 우위라는 식의 claim으로 읽히는 표현은 삭제한다.
