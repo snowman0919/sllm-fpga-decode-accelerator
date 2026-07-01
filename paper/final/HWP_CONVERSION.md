@@ -34,6 +34,7 @@
 - Nix LibreOffice 25.8.5.2는 `docx -> pdf` 변환은 수행했지만 `docx -> hwp` 변환은 `no export filter`로 실패했다.
 - 같은 LibreOffice 실행에서 `hwpx` source는 load되지 않았다.
 - PyPI의 `hwp5` 0.1.0은 HWP 문서 변환 패키지가 아니라 calendar/ICS 분석 패키지였고, `hwpx` 1.1.1도 실사용 가능한 HWP writer를 제공하지 않았다.
+- `ssh win` Windows 환경에서도 PATH/registry/COM 자동화 후보에서 Hancom 또는 HWP 저장 도구가 확인되지 않았다.
 
 ## 제출 전 확인
 

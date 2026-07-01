@@ -87,6 +87,7 @@
 - repo 안에서 사용할 수 있는 HWP 원본 양식 또는 HWP 직접 저장 도구를 확인하지 못했다.
 - 상위 `../paper/`의 학술지 HWPX 양식을 이용해 `paper/final/final_manuscript.hwpx`를 생성했고, pandoc 기반 DOCX 중간본도 생성했다.
 - Nix LibreOffice로 `docx -> hwp`를 시도했지만 export filter가 없어 실패했고, `hwpx` 입력도 열리지 않았다.
+- `ssh win` Windows 환경에서도 Hancom 실행 파일, registry 항목, COM 자동화 ProgID가 확인되지 않았다.
 - 검토용 PDF `paper/final/final_manuscript.pdf`는 생성했지만, 이는 HWP 제출본을 대체하지 않는다.
 - Hancom Office에서 HWPX 또는 DOCX를 열어 `.hwp`로 저장하는 수동 변환 절차가 필요하다.
 

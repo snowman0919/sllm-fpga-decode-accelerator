@@ -20,6 +20,7 @@
 - Nix LibreOffice 25.8.5.2에서 `docx -> pdf`는 성공했고, 검토용 PDF는 14쪽으로 생성되었다.
 - PyPI `hwp5`/`hwpx` 패키지를 확인했으나 legacy `.hwp` writer 또는 HWPX-to-HWP converter가 아니었다.
 - `ssh win`의 Windows PATH 및 Program Files/User profile 검색에서도 `hwp.exe`, `soffice.exe`, `pandoc.exe`가 확인되지 않았다.
+- `ssh win`의 Windows registry와 Hancom COM ProgID 후보도 확인했으나 Hancom/HWP 자동화 경로가 없었다.
 - `scripts/build_final_hwpx.py`로 HWPX 양식 기반 중간본을 생성했고 ZIP 무결성 검사를 통과했다.
 
 ## 필요한 사용자 판단

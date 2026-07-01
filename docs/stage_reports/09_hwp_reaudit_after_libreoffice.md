@@ -15,10 +15,13 @@
 - LibreOffice를 통한 `docx -> pdf`는 성공했고, `paper/final/final_manuscript.pdf` 검토본을 생성했다. PDF는 14쪽이다.
 - PyPI의 `hwp5` 0.1.0은 calendar/ICS 분석용 패키지였고 HWP 문서 writer가 아니었다.
 - PyPI의 `hwpx` 1.1.1은 실사용 가능한 HWPX/HWP 변환기를 포함하지 않았다.
+- `ssh win` Windows 환경에서 `hwp.exe`, `Hwp.exe`, `HwpConverter.exe`, `soffice.exe`, `libreoffice.exe`, `pandoc.exe`를 `Get-Command`로 확인했지만 PATH에 등록된 변환 도구가 없었다.
+- 같은 Windows 환경의 uninstall registry에서 Hancom/HWP/Hangul/한컴/LibreOffice/OpenOffice/Pandoc 항목이 확인되지 않았다.
+- Hancom 자동화 COM 후보인 `HWPFrame.HwpObject`, `HWPFrame.HwpObject.1`, `HwpCtrl.HwpCtrl`, `HwpObject.HwpObject`는 모두 `REGDB_E_CLASSNOTREG`로 실패했다.
 
 ## 결론
 
-현재 Linux/Nix/pandoc/Python 패키지 경로에서는 legacy `.hwp`를 생성할 수 있는 검증된 writer가 없다. `paper/final/final_manuscript.hwp`는 아직 미생성 상태이며, Hancom Office에서 `paper/final/final_manuscript.hwpx` 또는 `paper/final/final_manuscript.docx`를 열어 `.hwp`로 저장하는 절차가 필요하다.
+현재 Linux/Nix/pandoc/Python 패키지 경로와 `ssh win` Windows 경로 모두에서 legacy `.hwp`를 생성할 수 있는 검증된 writer가 없다. `paper/final/final_manuscript.hwp`는 아직 미생성 상태이며, Hancom Office가 설치된 환경에서 `paper/final/final_manuscript.hwpx` 또는 `paper/final/final_manuscript.docx`를 열어 `.hwp`로 저장하는 절차가 필요하다.
 
 ## 산출물 상태
 
