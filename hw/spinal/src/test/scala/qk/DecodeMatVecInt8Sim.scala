@@ -8,16 +8,17 @@ import spinal.core.sim._
 import spinal.sim._
 
 class DecodeMatVecInt8Sim extends AnyFunSuite {
-  test("DecodeMatVecInt8 matches deterministic software reference") {
-    val cfg = DecodeMatVecInt8.DemoConfig
+  private def runCoreSimulation(cfg: DecodeMatVecInt8Config): (Seq[Int], Int) = {
     val activation = DecodeMatVecInt8Stimulus.deterministicActivation(cfg.inputDim)
     val weights = DecodeMatVecInt8Stimulus.deterministicWeights(cfg)
     val expected = DecodeMatVecInt8Stimulus.expectedOutputs(cfg)
+    var observed = Seq.empty[Int]
+    var cycles = 0
 
     SimConfig
       .withWave
       .workspacePath("generated/simWorkspace")
-      .compile(new DecodeMatVecInt8Demo)
+      .compile(new DecodeMatVecInt8(cfg))
       .doSim { dut =>
         dut.clockDomain.forkStimulus(period = 10)
         dut.io.start #= false
@@ -36,8 +37,8 @@ class DecodeMatVecInt8Sim extends AnyFunSuite {
         dut.clockDomain.waitSampling()
         dut.io.start #= false
 
-        var cycles = 0
-        val timeout = (cfg.inputDim * cfg.outputDim) + 12
+        cycles = 0
+        val timeout = ((cfg.inputDim / cfg.tileDim) * cfg.outputDim) + 12
         while (!dut.io.done.toBoolean && cycles < timeout) {
           dut.clockDomain.waitSampling()
           cycles += 1
@@ -45,31 +46,47 @@ class DecodeMatVecInt8Sim extends AnyFunSuite {
 
         assert(dut.io.done.toBoolean, s"DecodeMatVecInt8 did not complete after $cycles cycles")
 
-        val observed = (0 until cfg.outputDim).map { idx =>
+        observed = (0 until cfg.outputDim).map { idx =>
           dut.io.outputs(idx).toInt
         }
 
         assert(observed == expected, s"expected ${expected.mkString(",")} but observed ${observed.mkString(",")}")
-
-        val repoRoot = new File("../..").getCanonicalFile
-        val paper = new File(repoRoot, "assets/c10.csv")
-        paper.getParentFile.mkdirs()
-
-        def writeCsv(file: File): Unit = {
-          val out = new PrintWriter(file)
-          try {
-            out.println("output_index,expected,observed,pass,input_dim,output_dim,cycles")
-            for (idx <- 0 until cfg.outputDim) {
-              out.println(s"$idx,${expected(idx)},${observed(idx)},${expected(idx) == observed(idx)},${cfg.inputDim},${cfg.outputDim},$cycles")
-            }
-          } finally {
-            out.close()
-          }
-        }
-
-        writeCsv(paper)
-        println(s"DecodeMatVecInt8Sim PASS: expected=${expected.mkString("[", ",", "]")} observed=${observed.mkString("[", ",", "]")} cycles=$cycles")
-        println(s"Wrote ${paper.getPath}")
       }
+
+    (observed, cycles)
+  }
+
+  test("DecodeMatVecInt8 matches deterministic software reference") {
+    val cfg = DecodeMatVecInt8.DemoConfig
+    val expected = DecodeMatVecInt8Stimulus.expectedOutputs(cfg)
+    val (observed, cycles) = runCoreSimulation(cfg)
+
+    val repoRoot = new File("../..").getCanonicalFile
+    val paper = new File(repoRoot, "assets/c10.csv")
+    paper.getParentFile.mkdirs()
+
+    def writeCsv(file: File): Unit = {
+      val out = new PrintWriter(file)
+      try {
+        out.println("output_index,expected,observed,pass,input_dim,output_dim,tile_dim,cycles")
+        for (idx <- 0 until cfg.outputDim) {
+          out.println(s"$idx,${expected(idx)},${observed(idx)},${expected(idx) == observed(idx)},${cfg.inputDim},${cfg.outputDim},${cfg.tileDim},$cycles")
+        }
+      } finally {
+        out.close()
+      }
+    }
+
+    writeCsv(paper)
+    println(s"DecodeMatVecInt8Sim PASS: expected=${expected.mkString("[", ",", "]")} observed=${observed.mkString("[", ",", "]")} cycles=$cycles")
+    println(s"Wrote ${paper.getPath}")
+  }
+
+  test("DecodeMatVecInt8 tileDim=4 matches deterministic software reference") {
+    val cfg = DecodeMatVecInt8Config(inputDim = 64, outputDim = 16, tileDim = 4)
+    val expected = DecodeMatVecInt8Stimulus.expectedOutputs(cfg)
+    val (observed, cycles) = runCoreSimulation(cfg)
+    assert(observed == expected)
+    assert(cycles <= (cfg.inputDim / cfg.tileDim) * cfg.outputDim + 4)
   }
 }

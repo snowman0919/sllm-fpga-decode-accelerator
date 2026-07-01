@@ -72,8 +72,49 @@ fpga-paper-package:
   #!/usr/bin/env bash
   command -v python3 >/dev/null 2>&1 || { echo "python3 is required. Enter the Nix shell with 'nix develop' first."; exit 1; }
   python3 scripts/build_ort_fpga_comparison.py
+  python3 scripts/build_final_analysis_tables.py
   python3 scripts/build_dist_package.py
   python3 scripts/verify_dist_package.py
+
+y700-device-info log_dir="logs/y700_onnx_runtime":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/y700_collect_device_info.py --log-dir "{{log_dir}}"
+
+y700-micrographs log_dir="logs/y700_onnx_runtime" runs="20" warmup="2" suite="smoke":
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/y700_run_onnx_micrographs.py --log-dir "{{log_dir}}" --runs "{{runs}}" --warmup "{{warmup}}" --suite "{{suite}}"
+
+y700-apk:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/build_y700_ort_benchmark_apk.py
+
+final-micrographs:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/generate_final_micrographs.py
+
+final-analysis-tables:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/build_final_analysis_tables.py
+
+final-figures:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/generate_final_figures.py
+
+final-html:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/export_manuscript_html.py
+
+final-hwpx:
+  #!/usr/bin/env bash
+  command -v python3 >/dev/null 2>&1 || { echo "python3 is required."; exit 1; }
+  python3 scripts/build_final_hwpx.py
 
 fpga-jtag-quartus:
   #!/usr/bin/env bash
@@ -109,9 +150,18 @@ verify:
   #!/usr/bin/env bash
   python3 -m py_compile \
     scripts/extract_quartus_summary.py \
+    scripts/build_final_analysis_tables.py \
     scripts/build_ort_fpga_comparison.py \
     scripts/build_dist_package.py \
     scripts/verify_dist_package.py \
+    scripts/android_ort_micrograph_runner.py \
+    scripts/build_y700_ort_benchmark_apk.py \
+    scripts/build_final_hwpx.py \
+    scripts/generate_final_micrographs.py \
+    scripts/generate_final_figures.py \
+    scripts/export_manuscript_html.py \
+    scripts/y700_collect_device_info.py \
+    scripts/y700_run_onnx_micrographs.py \
     windows/run_fpga_jtag_matvec.py \
     windows/run_cpu_matvec_baseline.py \
     windows/run_ort_matvec_baseline.py \

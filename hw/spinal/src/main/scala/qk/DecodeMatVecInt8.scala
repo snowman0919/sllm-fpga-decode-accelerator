@@ -11,7 +11,9 @@ case class DecodeMatVecInt8Config(
 ) {
   require(inputDim > 0, "inputDim must be positive")
   require(outputDim > 0, "outputDim must be positive")
-  require(tileDim == 1, "current primitive validates the sequential tileDim=1 mode")
+  require(tileDim > 0, "tileDim must be positive")
+  require(tileDim <= inputDim, "tileDim must not exceed inputDim")
+  require(inputDim % tileDim == 0, "inputDim must be divisible by tileDim")
   require(dataWidth > 0, "dataWidth must be positive")
   require(accWidth >= (dataWidth * 2), "accWidth should safely hold a single product")
 }
@@ -19,8 +21,10 @@ case class DecodeMatVecInt8Config(
 object DecodeMatVecInt8 {
   val DemoConfig: DecodeMatVecInt8Config = DecodeMatVecInt8Config(inputDim = 16, outputDim = 4)
 
-  def definitionName(cfg: DecodeMatVecInt8Config): String =
-    s"DecodeMatVecInt8_i${cfg.inputDim}_o${cfg.outputDim}"
+  def definitionName(cfg: DecodeMatVecInt8Config): String = {
+    val base = s"DecodeMatVecInt8_i${cfg.inputDim}_o${cfg.outputDim}"
+    if (cfg.tileDim == 1) base else s"${base}_t${cfg.tileDim}"
+  }
 }
 
 object DecodeMatVecInt8Stimulus {
@@ -75,7 +79,7 @@ class DecodeMatVecInt8(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoConfig
 
   private val inputIndexWidth = Math.max(log2Up(cfg.inputDim), 1)
   private val outputIndexWidth = Math.max(log2Up(cfg.outputDim), 1)
-  private val lastInputIndex = U(cfg.inputDim - 1, inputIndexWidth bits)
+  private val lastTileInputIndex = U(cfg.inputDim - cfg.tileDim, inputIndexWidth bits)
   private val lastOutputIndex = U(cfg.outputDim - 1, outputIndexWidth bits)
 
   val busyReg = Reg(Bool()) init (False)
@@ -100,10 +104,14 @@ class DecodeMatVecInt8(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoConfig
       outputRegs(idx) := 0
     }
   } elsewhen (busyReg) {
-    val product = (io.activation(inputIndexReg) * io.weights(outputIndexReg)(inputIndexReg)).resize(cfg.accWidth)
-    val nextAcc = (accReg + product).resize(cfg.accWidth)
+    val laneProducts = (0 until cfg.tileDim).map { lane =>
+      val laneIndex = (inputIndexReg + U(lane, inputIndexWidth bits)).resized
+      (io.activation(laneIndex) * io.weights(outputIndexReg)(laneIndex)).resize(cfg.accWidth)
+    }
+    val tileSum = laneProducts.reduce((left, right) => (left + right).resize(cfg.accWidth)).resize(cfg.accWidth)
+    val nextAcc = (accReg + tileSum).resize(cfg.accWidth)
 
-    when(inputIndexReg === lastInputIndex) {
+    when(inputIndexReg === lastTileInputIndex) {
       outputRegs(outputIndexReg) := nextAcc
       accReg := 0
       inputIndexReg := 0
@@ -116,7 +124,7 @@ class DecodeMatVecInt8(cfg: DecodeMatVecInt8Config = DecodeMatVecInt8.DemoConfig
       }
     } otherwise {
       accReg := nextAcc
-      inputIndexReg := inputIndexReg + 1
+      inputIndexReg := inputIndexReg + cfg.tileDim
     }
   }
 }

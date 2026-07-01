@@ -162,7 +162,7 @@ def write_md(path: Path, row: dict[str, object]) -> None:
     lines.extend(
         [
             "",
-            "Claim boundary: this is implementation/resource/timing evidence for the fixed FPGA primitive and JTAG register path. It is not an end-to-end ONNX Runtime or full-model speedup result.",
+            "Claim boundary: this is implementation/resource/timing evidence for the fixed FPGA primitive and JTAG register path. It is not a whole-graph runtime acceleration result.",
         ]
     )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

@@ -1,0 +1,3 @@
+environment,evidence_type,status,model,board_platform,hardware,android_release,claim_boundary
+Lenovo Y700 Android,environment_check,device_connected,TB320FC,taro,qcom,15,Device info only. No ONNX Runtime latency is implied.
+DE10-Lite/Pocket4 board path,board_validation_environment,existing_board_manifest_available,DE10-Lite MAX 10,10M50DAF484C7G,USB-Blaster JTAG,,"FPGA core validation environment, not connected to Lenovo Y700 as a low-latency offload path."

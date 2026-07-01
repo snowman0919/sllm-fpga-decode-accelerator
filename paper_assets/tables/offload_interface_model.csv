@@ -1,0 +1,7 @@
+interface,evidence_type,usable_for,performance_claim_allowed,typical_boundary
+USB-Blaster JTAG/System Console,measured_invocation_overhead,correctness/debug register access,no,Host tool invocation dominates; not a low-latency offload path.
+UART/USB serial,projected,bring-up/correctness for small payloads,no,Too little bandwidth for projection-scale weight streaming.
+USB3/FT600-class streaming,projected,external FPGA streaming prototype,model_only_until_measured,"Could test activation/output streaming, but weight streaming remains a bandwidth driver."
+Ethernet/UDP streaming,projected,external board prototype,model_only_until_measured,Latency and packetization overhead must be measured before acceleration claims.
+AXI DMA/shared memory on KR260/Zynq-class SoC,future_path,practical low-overhead accelerator integration,future_work,Requires KR260 or similar platform; current KR260 is unavailable due to RMA.
+Snapdragon QNN/NNAPI EP,attempt_required,on-device accelerator baseline,only_if_y700_log_succeeds,Must be reported as attempted but not used or integration blocked if it fails on Y700.

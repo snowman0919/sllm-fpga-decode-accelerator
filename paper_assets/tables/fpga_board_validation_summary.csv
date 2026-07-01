@@ -1,0 +1,2 @@
+artifact,evidence_type,input_dim,output_dim,macs,pass_count,fail_count,correctness_pass,compute_cycles,compute_time_us_50mhz,logic_elements_used,logic_elements_available,dsp_9bit_elements_used,dsp_9bit_elements_available,memory_bits_used,memory_bits_available,fmax_mhz,timing_met,claim_boundary
+DE10-Lite INT8 MatVec core,board_measured,16,4,64,20,0,True,65.0,1.3,2560,49760,1,288,512,1677312,56.670,True,Core correctness and internal cycle anchor only; not whole-model or whole-offload acceleration evidence.

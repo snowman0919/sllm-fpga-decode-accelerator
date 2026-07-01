@@ -1,0 +1,17 @@
+role,model_name,execution_provider,kind,input_dim,output_dim,mean_ms,p50_ms,p95_ms,claim_boundary
+smoke_16x4,matvec_cpu_baseline.onnx,CPU,float_matmul,16,4,0.034799,0.034349,0.038094,Representative ONNX Runtime Android micrograph latency.
+smoke_16x4,matvec_int8_matmulinteger.onnx,CPU,matmulinteger,16,4,0.054076,0.051485,0.064391,Representative ONNX Runtime Android micrograph latency.
+attention_output_projection,gemma_attention_output_projection_1024x1152_float.onnx,CPU,float_matmul,1024,1152,2.268490,1.135730,8.917177,Representative ONNX Runtime Android micrograph latency.
+attention_output_projection,gemma_attention_output_projection_1024x1152_matmulinteger.onnx,CPU,matmulinteger,1024,1152,1.542326,0.737864,2.819753,Representative ONNX Runtime Android micrograph latency.
+lm_head_tile,gemma_lm_head_tile_1152x4096_float.onnx,CPU,float_matmul,1152,4096,7.573016,5.587657,16.507326,Representative ONNX Runtime Android micrograph latency.
+lm_head_tile,gemma_lm_head_tile_1152x4096_matmulinteger.onnx,CPU,matmulinteger,1152,4096,5.121320,3.582136,12.761268,Representative ONNX Runtime Android micrograph latency.
+mlp_projection,gemma_mlp_projection_1152x6912_float.onnx,CPU,float_matmul,1152,6912,10.378763,10.051172,12.064734,Representative ONNX Runtime Android micrograph latency.
+mlp_projection,gemma_mlp_projection_1152x6912_matmulinteger.onnx,CPU,matmulinteger,1152,6912,3.442503,3.427839,3.557123,Representative ONNX Runtime Android micrograph latency.
+smoke_16x4,matvec_cpu_baseline.onnx,NNAPI,float_matmul,16,4,0.231219,0.197188,0.323895,Representative ONNX Runtime Android micrograph latency.
+smoke_16x4,matvec_int8_matmulinteger.onnx,NNAPI,matmulinteger,16,4,0.169477,0.158959,0.215813,Representative ONNX Runtime Android micrograph latency.
+attention_output_projection,gemma_attention_output_projection_1024x1152_float.onnx,NNAPI,float_matmul,1024,1152,0.969104,0.980521,1.122414,Representative ONNX Runtime Android micrograph latency.
+attention_output_projection,gemma_attention_output_projection_1024x1152_matmulinteger.onnx,NNAPI,matmulinteger,1024,1152,0.575617,0.518334,0.745722,Representative ONNX Runtime Android micrograph latency.
+lm_head_tile,gemma_lm_head_tile_1152x4096_float.onnx,NNAPI,float_matmul,1152,4096,6.127086,5.856459,7.130895,Representative ONNX Runtime Android micrograph latency.
+lm_head_tile,gemma_lm_head_tile_1152x4096_matmulinteger.onnx,NNAPI,matmulinteger,1152,4096,3.853310,2.988881,6.517250,Representative ONNX Runtime Android micrograph latency.
+mlp_projection,gemma_mlp_projection_1152x6912_float.onnx,NNAPI,float_matmul,1152,6912,9.064807,9.390442,10.219078,Representative ONNX Runtime Android micrograph latency.
+mlp_projection,gemma_mlp_projection_1152x6912_matmulinteger.onnx,NNAPI,matmulinteger,1152,6912,3.346432,3.332890,3.443781,Representative ONNX Runtime Android micrograph latency.
