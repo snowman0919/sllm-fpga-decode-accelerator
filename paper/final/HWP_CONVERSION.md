@@ -5,6 +5,7 @@
 - `paper/current/manuscript.md`
 - `paper/final/final_manuscript.docx`
 - `paper/final/final_manuscript.hwpx`
+- `paper/final/final_manuscript.pdf`
 - `paper/final/final_manuscript_intermediate.html`
 - `paper/final/final_manuscript_intermediate.md`
 
@@ -24,7 +25,15 @@
 - Markdown -> DOCX: 완료
 - Markdown -> HTML: 완료
 - Markdown -> HWPX template intermediate: 완료
+- DOCX -> PDF: 완료, LibreOffice 기준 14쪽
 - DOCX/HWPX -> HWP: 현재 환경에서 실행 도구 없음
+
+## 추가 확인한 차단 근거
+
+- pandoc 3.1.3은 `docx`와 `odt` output은 지원하지만 `hwp`/`hwpx` output writer가 없다.
+- Nix LibreOffice 25.8.5.2는 `docx -> pdf` 변환은 수행했지만 `docx -> hwp` 변환은 `no export filter`로 실패했다.
+- 같은 LibreOffice 실행에서 `hwpx` source는 load되지 않았다.
+- PyPI의 `hwp5` 0.1.0은 HWP 문서 변환 패키지가 아니라 calendar/ICS 분석 패키지였고, `hwpx` 1.1.1도 실사용 가능한 HWP writer를 제공하지 않았다.
 
 ## 제출 전 확인
 

@@ -15,4 +15,4 @@
 | DE10-Lite 한계와 bandwidth-bound 조건 부족 | compute cycle만 강조 | interface model과 weight streaming roofline 추가 | 7장 | actual streaming 미측정 | 부분 해결 |
 | measured/projected/simulation 혼동 | 표가 다른 evidence를 섞음 | 표 1과 각 결과 표에 evidence type 명시 | 3장, 5-7장 | 없음 | 해결 |
 | 10쪽 이하 압축 필요 | 이전 원고가 장황함 | 214-line compact draft로 재작성 | 전체 원고 | HWP 조판 미확인 | 부분 해결 |
-| HWP 최종본 필요 | Markdown 중심 | pandoc DOCX/HTML 중간본과 HWPX 양식 기반 중간본 생성, HWP 변환 차단 사유와 수동 변환 절차 기록 | `paper/final/`, `08_hwp_conversion_blocker.md` | 직접 HWP 저장 도구 미확보 | 부분 해결 |
+| HWP 최종본 필요 | Markdown 중심 | pandoc DOCX/HTML, HWPX 양식 기반 중간본, LibreOffice PDF 검토본 생성. LibreOffice/Python 기반 HWP 변환 실패를 기록 | `paper/final/`, `08_hwp_conversion_blocker.md`, `09_hwp_reaudit_after_libreoffice.md` | 직접 HWP 저장 도구 미확보, PDF 14쪽 | 부분 해결 |

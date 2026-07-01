@@ -2,7 +2,7 @@
 
 작성 시점: 2026-07-01
 
-이 문서는 2026-07-01 working draft 기준의 자기평가이다. Lenovo Y700 Android APK micrograph 실측과 DE10-Lite board rerun은 확보되었고, DOCX/HWPX 중간본도 생성했다. 다만 HWP 직접 저장 도구가 없어 최종 `.hwp` 제출본은 아직 생성하지 못했다.
+이 문서는 2026-07-01 working draft 기준의 자기평가이다. Lenovo Y700 Android APK micrograph 실측과 DE10-Lite board rerun은 확보되었고, DOCX/HWPX/PDF 중간본도 생성했다. 다만 HWP 직접 저장 도구가 없어 최종 `.hwp` 제출본은 아직 생성하지 못했다.
 
 ## 1. 제목-주장-증거 일치성
 
@@ -71,8 +71,9 @@
 ## 11. 분량
 
 - 평가: 해결
-- Markdown 기준 214 lines로, HWP 10쪽 이하를 목표로 할 수 있는 압축 원고이다.
-- 실제 HWP 조판 후 페이지 수 확인이 필요하다.
+- Markdown 기준 222 lines로, 원고 자체는 압축했다.
+- LibreOffice PDF 검토본은 14쪽으로 생성되었으므로, HWP 10쪽 이하 목표는 아직 증명되지 않았다.
+- 실제 HWP 조판 후 페이지 수 확인과 추가 압축 판단이 필요하다.
 
 ## 12. 참고문헌
 
@@ -85,10 +86,12 @@
 - 평가: 부분 해결
 - repo 안에서 사용할 수 있는 HWP 원본 양식 또는 HWP 직접 저장 도구를 확인하지 못했다.
 - 상위 `../paper/`의 학술지 HWPX 양식을 이용해 `paper/final/final_manuscript.hwpx`를 생성했고, pandoc 기반 DOCX 중간본도 생성했다.
+- Nix LibreOffice로 `docx -> hwp`를 시도했지만 export filter가 없어 실패했고, `hwpx` 입력도 열리지 않았다.
+- 검토용 PDF `paper/final/final_manuscript.pdf`는 생성했지만, 이는 HWP 제출본을 대체하지 않는다.
 - Hancom Office에서 HWPX 또는 DOCX를 열어 `.hwp`로 저장하는 수동 변환 절차가 필요하다.
 
 ## 14. 제출 리스크
 
 - 평가: 중간-높음
-- 가장 큰 리스크는 HWP 최종본 미생성이다.
-- 연구 방향, Markdown 원고, DOCX/HWPX 중간본, 주요 표/그림, Y700/FPGA 로그는 정리되었지만, `.hwp` 파일이 필수이면 제출 완료 조건은 아직 충족하지 못했다.
+- 가장 큰 리스크는 HWP 최종본 미생성과 10쪽 이하 조판 미확인이다.
+- 연구 방향, Markdown 원고, DOCX/HWPX/PDF 중간본, 주요 표/그림, Y700/FPGA 로그는 정리되었지만, `.hwp` 파일이 필수이면 제출 완료 조건은 아직 충족하지 못했다.
