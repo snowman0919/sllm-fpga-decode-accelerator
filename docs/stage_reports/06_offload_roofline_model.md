@@ -76,7 +76,7 @@
 
 최종 원고에서는 다음 해석을 사용한다.
 
-> DE10-Lite의 16x4 INT8 MatVec 결과는 연산 코어의 기능 정합성과 cycle counter 검증 anchor이다. 실제 Gemma projection-scale offload는 weight streaming, output tiling, invocation overhead가 지배할 수 있으므로, compute lane 수만으로 acceleration을 주장할 수 없다. 따라서 제안 구조는 tiled MAC array뿐 아니라 activation reuse, weight tile streamer, output tile buffer, low-overhead DMA/shared-memory 또는 USB3-class streaming interface를 함께 요구한다.
+> DE10-Lite의 16x4 INT8 MatVec 결과는 연산 코어의 기능 정합성과 cycle counter 검증 anchor이다. 실제 projection-scale offload는 weight movement, output tile 처리, invocation overhead가 지배할 수 있으므로, compute lane 수만으로 acceleration을 주장할 수 없다. 따라서 최종 원고는 구현되지 않은 datapath를 확정하지 않고, activation/partial-sum reuse, weight residency, low-overhead interface를 후속 구조 요구사항으로만 정리한다.
 
 ## 남은 작업
 

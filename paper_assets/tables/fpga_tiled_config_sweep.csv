@@ -1,5 +1,5 @@
 config_name,evidence_type,input_dim,output_dim,tile_dim_or_lanes,macs,rtl_simulation,quartus_synthesis,board_run,current_role,claim_boundary
 smoke_board_anchor,board_measured,16,4,1,64,pass,pass_existing_clean_rebuild,pass_existing_20_of_20,DE10-Lite correctness and cycle-counter anchor,Measured only for fixed 16x4 sequential core.
 small_tiled_sim,simulation,64,16,4,1024,pass,not_run,not_run,Input-lane parameterization check,Simulation only; not a measured board or timing result.
-medium_candidate,planned_or_projected,128,32,8,4096,not_run,not_run,not_run,Candidate for later synthesis sweep,Design-space placeholder only.
-projection_tile_candidate,planned_or_projected,256,64,16,16384,not_run,not_run,not_run,Representative projection tile candidate,Design-space placeholder only; not measured.
+design_space_example_medium,planned_or_projected,128,32,8,4096,not_run,not_run,not_run,Supplementary design-space example,Not used as a manuscript result.
+design_space_example_large,planned_or_projected,256,64,16,16384,not_run,not_run,not_run,Supplementary design-space example,Not used as a manuscript result.

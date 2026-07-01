@@ -1,0 +1,6 @@
+structure_candidate,bottleneck_addressed,paper_status,claim_boundary
+"1.58-bit-family conversion + adder-based accelerator","Area and energy burden of multiplier-centric MatVec","author follow-up proposal","No converter or training/quantization flow is implemented in this paper"
+"Bottleneck-offload FPGA NPU","Repeated projection-heavy MatVec/MatMul cost","author follow-up proposal","No Android-FPGA integrated measurement is reported"
+"SRAM-like scratchpad FPGA","Activation, partial sum, hot tile, cache metadata, and output tile reuse","author follow-up proposal","No scratchpad board implementation is reported"
+"DDR2/LPDDR2 multi-channel weight memory","Large projection weight residency and aggregate bandwidth","custom board candidate","4Gbit die x8 to x16 is a theoretical 4GB to 8GB capacity example"
+"Custom connector between compute FPGA and scratchpad FPGA","Bandwidth between separated compute and memory roles","follow-up artifact / portfolio direction","Requires validation of pin count, signal integrity, clock-domain crossing, protocol, aggregate bandwidth, and board design"

@@ -81,16 +81,13 @@ nix develop -c just fpga-jtag-verilog
 
 - `smoke_board_anchor`: board_measured, 기존 16x4 clean rebuild 및 board run 근거
 - `small_tiled_sim`: simulation only, 64x16 tileDim=4
-- `medium_candidate`: planned/projected only
-- `projection_tile_candidate`: planned/projected only
+- 설계 공간 예시는 본문 중심 결과에서 제외하고, 필요 시 보조 artifact로만 둔다.
 
 ## 중요한 경계
 
 이번 변경은 full tiled accelerator 구현이 아니다. 특히 다음은 아직 구현/측정하지 않았다.
 
-- weight tile streamer
 - output tile buffer
-- scale/requant unit
 - runtime/host offload protocol
 - multi-lane board synthesis/timing sweep
 - DE10-Lite board programming for tileDim>1

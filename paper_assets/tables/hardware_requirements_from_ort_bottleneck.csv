@@ -1,0 +1,6 @@
+requirement,evidence,structural_meaning,paper_status
+projection-heavy MatVec/MatMul priority,"mlp_projection + lm_head account for 88.90% of MatMul time","Consider common path for MLP, attention output, and lm_head rather than QK-only logic",analysis_result
+low-bit weight-resident path,"lm_head and MLP tiles require large weight movement","Avoid repeated weight transfer through memory-centric placement",requirement
+activation and partial-sum reuse,"Decode repeats at token granularity","Reuse activation, partial sum, hot tile, and output tile buffers",author_followup_proposal
+provider/runtime boundary reduction,"16x4 micrograph is dominated by dispatch overhead","Use projection-scale boundary analysis rather than tiny primitive latency comparison",analysis_result
+separate graph/cache claim boundary,"shape/cache operators grow in long-decode traces","Treat graph/runtime specialization as a separate follow-up task",future_work

@@ -12,7 +12,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 
 최종 논문은 "FPGA의 ONNX Runtime 대비 전체 실행 우위"는 성능 논문이 아니다. 핵심 정체성은 다음과 같다.
 
-> Snapdragon 8+ Gen 1급 Android 장치와 ONNX Runtime 실행 계층에서 decode 병목을 실측하고, 이 병목 중 projection-heavy INT8 MatVec/MatMul primitive를 FPGA tiled datapath로 옮기기 위해 필요한 구조 조건을 제안한다. DE10-Lite 결과는 full accelerator가 아니라 INT8 MatVec core의 correctness와 cycle-level board anchor이다.
+> Snapdragon 8+ Gen 1급 Android 장치와 ONNX Runtime 실행 계층에서 decode 병목을 실측하고, 이 병목 중 projection-heavy INT8 MatVec/MatMul primitive를 후속 FPGA 구조 요구사항으로 정리한다. DE10-Lite 결과는 full accelerator가 아니라 INT8 MatVec core의 correctness와 cycle-level board anchor이다.
 
 따라서 본문 중심어는 "가속기 설계"가 아니라 "가속기 구조 제안"으로 통일한다. 기존 fixed 16x4 결과는 설계 전체의 성능 증거가 아니라, 최소 연산 코어가 FPGA toolchain과 실제 보드에서 동작함을 보이는 검증 anchor로 사용한다.
 
@@ -20,7 +20,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 
 1. Snapdragon 8+ Gen 1급 온디바이스 환경에서 ONNX Runtime sLLM/대표 decode graph의 병목은 무엇인가?
 2. optimized ONNX, quantized ONNX 또는 MatMulInteger 경로에서도 projection-heavy primitive가 남는가?
-3. 해당 primitive를 FPGA INT8 tiled MatVec/MatMul 구조로 offload하려면 어떤 datapath, tiling, memory/interface 조건이 필요한가?
+3. 해당 primitive를 후속 FPGA INT8 MatVec/MatMul 구조로 옮기려면 어떤 memory/interface 조건이 필요한가?
 4. DE10-Lite에서 검증 가능한 범위와 실제 실용 offload interface 사이에는 어떤 간극이 있는가?
 
 ## 최종 기여문 초안

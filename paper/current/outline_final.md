@@ -10,13 +10,13 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 
 ## 초록 초안
 
-온디바이스 sLLM 추론에서는 모델 크기뿐 아니라 runtime graph, execution provider, quantization state, decode cache 처리 방식이 token latency를 결정한다. 본 연구는 Snapdragon 8+ Gen 1 기반 Lenovo Y700에서 ONNX Runtime 기반 sLLM 또는 대표 decode micrograph를 실행해 온디바이스 decode 병목을 측정하고, 해당 병목이 FPGA INT8 MatVec/MatMul 구조로 옮겨질 때 필요한 tiling, memory bandwidth, host/offload interface 조건을 분석한다. 또한 DE10-Lite에서 INT8 MatVec core의 RTL simulation, clean rebuild, JTAG-to-Avalon correctness, internal cycle counter 측정을 수행하여 fixed 16x4 primitive가 CPU reference와 동일한 결과를 반환하고 65 compute cycles로 완료됨을 확인한다. 본 결과는 full Gemma FPGA 실행이나 ONNX Runtime end-to-end speedup이 아니라, ONNX Runtime 병목 분석에서 도출된 projection-heavy primitive를 FPGA tiled datapath 구조 요구사항으로 연결한 분석 및 core-level validation이다.
+온디바이스 sLLM 추론에서는 모델 크기뿐 아니라 runtime graph, execution provider, quantization state, decode cache 처리 방식이 token latency를 결정한다. 본 연구는 Snapdragon 8+ Gen 1 기반 Lenovo Y700에서 ONNX Runtime 대표 decode micrograph를 실행해 온디바이스 decode 병목을 측정하고, 해당 병목에서 도출되는 memory-centric low-bit MatVec/MatMul 구조 요구사항을 분석한다. 또한 DE10-Lite에서 INT8 MatVec core의 RTL simulation, clean rebuild, JTAG-to-Avalon correctness, internal cycle counter 측정을 수행하여 fixed 16x4 primitive가 CPU reference와 동일한 결과를 반환하고 65 compute cycles로 완료됨을 확인한다. 본 결과는 Gemma 전체 FPGA 실행이나 ONNX Runtime 전체 실행 성능 주장이 아니라, Y700 병목 분석에서 도출된 구조 요구사항과 DE10-Lite 기능 검증 anchor를 결합한 결과이다.
 
 ## 핵심 기여
 
 1. Snapdragon 8+ Gen 1 기반 Lenovo Y700에서 ONNX Runtime CPU/가능한 EP 경로와 대표 decode workload를 측정해 온디바이스 decode 병목을 분석한다.
-2. ONNX graph/operator profiling 결과를 Gemma 계열 projection shape, arithmetic intensity, bandwidth, tile reuse, interface overhead와 연결하여 FPGA offload 조건을 정량화한다.
-3. DE10-Lite에서 INT8 MatVec core의 correctness와 internal cycle counter를 board-level로 확인하고, 이를 full accelerator가 아니라 tiled INT8 MatVec 구조 제안의 검증 anchor로 제시한다.
+2. ONNX graph/operator profiling 결과를 Gemma 계열 projection shape, arithmetic intensity, bandwidth, tile reuse, interface overhead와 연결하여 후속 FPGA 구조 요구사항을 정량화한다.
+3. DE10-Lite에서 INT8 MatVec core의 correctness와 internal cycle counter를 board-level로 확인하고, 이를 full accelerator가 아니라 저자 후속 구조 제안의 검증 출발점으로 제시한다.
 
 ## 1. 서론
 
@@ -36,7 +36,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 - FPGA LLM accelerator: FTRANS, DFX, FlightLLM 등.
 - 본 연구 위치:
   - full model mapping이 아니라 ONNX Runtime profiling에서 offload boundary를 도출하는 연구.
-  - QK-only가 아니라 projection-general INT8 MatVec/MatMul 구조 요구사항 제안.
+  - QK-only가 아니라 projection-heavy low-bit MatVec/MatMul 구조 요구사항 제안.
 
 ## 3. 실험 방법
 
@@ -65,7 +65,7 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
 ### 3.4 FPGA 검증 계층
 
 - fixed 16x4 INT8 MatVec primitive.
-- parameterized/tiled config simulation/synthesis sweep.
+- optional parameterization evidence는 본문 중심에서 내리고, board-measured 16x4 anchor와 구조 요구사항을 분리한다.
 - evidence type 정의:
   - measured
   - board_measured
@@ -84,21 +84,19 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
   - projection-heavy primitive가 남는지.
   - MatMul보다 cache/shape overhead가 커질 경우 FPGA offload boundary를 어떻게 바꿔야 하는지.
 
-## 5. FPGA 기반 INT8 MatVec 가속기 구조 제안
+## 5. 병목 분석 기반 FPGA 구조 요구사항과 저자 후속 구조 제안
 
 - profiling 결과에서 구조 요구사항으로 연결:
-  - projection-general datapath
-  - activation reuse
-  - weight tile streaming
-  - INT32 accumulation
-  - output tiling/top-k 또는 host reduction
-  - cache-aware host interface
-- Gemma projection shape tile mapping:
-  - hidden size 1152
-  - MLP projection
-  - lm_head tile
-  - attention output projection
-- 구조 그림: Host/ORT boundary, activation buffer, weight tile streamer, MAC lanes, accumulator, output tile buffer.
+  - projection-heavy MatVec/MatMul 우선
+  - low-bit weight-resident 경로
+  - activation, partial sum, hot tile 재사용
+  - provider/runtime 호출 경계 축소
+  - graph/cache 처리와 성능 claim 분리
+- 저자 후속 구조 제안:
+  - 1.58bit 계열 변환 기반 가산기 accelerator
+  - 병목 offload FPGA NPU
+  - SRAM-like scratchpad FPGA
+  - DDR2/LPDDR2 다채널 weight memory
 
 ## 6. FPGA 구현 및 검증 결과
 
@@ -110,10 +108,6 @@ Decode Bottleneck Analysis of On-device ONNX Runtime sLLM Inference and an FPGA-
   - COMPUTE_CYCLES=65
   - compute time 1.3 us @ 50 MHz
 - JTAG total latency는 correctness/debug invocation overhead로만 표기.
-- parameterized/multi-lane/tiled sweep 결과:
-  - 성공 config
-  - 실패 config
-  - resource/timing 한계
 - 16x4 latency 우열 비교는 하지 않는다.
 
 ## 7. Offload interface 및 bandwidth/roofline 분석

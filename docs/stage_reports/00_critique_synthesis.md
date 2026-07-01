@@ -48,12 +48,12 @@
 - long-decode runs=1/warmup=0 데이터를 latency benchmark처럼 보이게 하는 표기.
 - 16x4 primitive의 compute latency와 ORT MatMulInteger dispatch latency를 직접 우열 비교하는 문장.
 - 긴 SHA-256, 내부 CSV 약어, 절대경로의 본문 노출.
-- "full sLLM 실행이 아니다"류 반복 면책. 필요한 위치에 한 번씩만 둔다.
+- 전체 실행 범위가 아니라는 반복 면책. 필요한 위치에 한 번씩만 둔다.
 
 ## 최종 개정 기준
 
 최종 원고는 다음 문장으로 요약될 수 있어야 한다.
 
-> 본 연구는 Snapdragon 8+ Gen 1급 Lenovo Y700에서 ONNX Runtime 기반 sLLM 또는 대표 decode micrograph의 병목을 실측하고, 남는 projection-heavy INT8 MatVec/MatMul primitive를 어떤 FPGA tiled datapath와 offload interface 조건에서 다룰 수 있는지 분석한다. DE10-Lite 결과는 full system acceleration이 아니라 INT8 MatVec core의 correctness와 cycle-level board anchor이다.
+> 본 연구는 Snapdragon 8+ Gen 1급 Lenovo Y700에서 ONNX Runtime 대표 decode micrograph의 병목을 실측하고, 남는 projection-heavy INT8 MatVec/MatMul primitive에서 도출되는 memory-centric low-bit 구조 요구사항을 분석한다. DE10-Lite 결과는 전체 시스템 가속 결과가 아니라 INT8 MatVec core의 correctness와 cycle-level board anchor이다.
 
 이 기준을 벗어나 전체 실행 가속, Gemma 전체 모델의 FPGA 실행, FPGA의 ORT 대비 우위라는 식의 claim으로 읽히는 표현은 삭제한다.
