@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.LongBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -69,6 +70,7 @@ public class MainActivity extends Activity {
                     writeOutputs(outDir, rows, false);
                 }
             }
+            rows.add(runFullGemmaProbe(env, providers));
             writeOutputs(outDir, rows, true);
             setStatus("Benchmark complete: " + outDir.getAbsolutePath());
         } catch (Throwable t) {
@@ -148,6 +150,60 @@ public class MainActivity extends Activity {
         return row;
     }
 
+    private ResultRow runFullGemmaProbe(OrtEnvironment env, String availableProviders) {
+        ResultRow row = new ResultRow();
+        row.modelName = "gemma3-1B-onnx/full_decode_step_probe";
+        row.kind = "full_gemma_onnx_decode_step";
+        row.executionProvider = "CPU";
+        row.inputDim = 1152;
+        row.outputDim = 262144;
+        row.warmup = 0;
+        row.runs = 1;
+        row.availableProviders = availableProviders;
+
+        File modelDir = new File(getExternalFilesDir(null), "gemma3-1B-onnx");
+        File modelFile = new File(modelDir, "model.onnx");
+        File dataFile = new File(modelDir, "model.onnx_data");
+        if (!modelFile.isFile() || !dataFile.isFile()) {
+            row.status = "artifact_missing";
+            row.error = sanitize("Expected model.onnx and model.onnx_data under " + modelDir.getAbsolutePath());
+            return row;
+        }
+
+        Map<String, OnnxTensor> inputs = new HashMap<>();
+        try (OrtSession.SessionOptions opts = new OrtSession.SessionOptions()) {
+            opts.setOptimizationLevel(OrtSession.SessionOptions.OptLevel.BASIC_OPT);
+            long loadStart = System.nanoTime();
+            try (OrtSession session = env.createSession(modelFile.getAbsolutePath(), opts)) {
+                double loadMs = (System.nanoTime() - loadStart) / 1_000_000.0;
+                inputs.put("input_ids", OnnxTensor.createTensor(env, makeLongBuffer(new long[] {2}), new long[] {1, 1}));
+                inputs.put("attention_mask", OnnxTensor.createTensor(env, makeLongBuffer(new long[] {1, 1}), new long[] {1, 2}));
+                for (int i = 0; i < 26; i++) {
+                    inputs.put("past_key_values." + i + ".key",
+                            OnnxTensor.createTensor(env, makeFloatBuffer(256, 0), new long[] {1, 1, 1, 256}));
+                    inputs.put("past_key_values." + i + ".value",
+                            OnnxTensor.createTensor(env, makeFloatBuffer(256, 0), new long[] {1, 1, 1, 256}));
+                }
+
+                long runStart = System.nanoTime();
+                try (OrtSession.Result ignored = session.run(inputs)) {
+                    row.meanMs = (System.nanoTime() - runStart) / 1_000_000.0;
+                }
+                row.status = "completed";
+                row.minMs = loadMs;
+                row.error = sanitize("session_load_ms stored in min_ms; one decode-like step latency stored in mean_ms");
+            }
+        } catch (Throwable t) {
+            row.status = "integration_blocked";
+            row.error = sanitize(t.toString());
+        } finally {
+            for (OnnxTensor tensor : inputs.values()) {
+                tensor.close();
+            }
+        }
+        return row;
+    }
+
     private byte[] readAsset(String name) throws Exception {
         try (InputStream input = getAssets().open(name);
              ByteArrayOutputStream output = new ByteArrayOutputStream()) {
@@ -177,6 +233,16 @@ public class MainActivity extends Activity {
         }
         bytes.rewind();
         return bytes;
+    }
+
+    private LongBuffer makeLongBuffer(long[] values) {
+        ByteBuffer bytes = ByteBuffer.allocateDirect(values.length * 8).order(ByteOrder.nativeOrder());
+        LongBuffer longs = bytes.asLongBuffer();
+        for (long value : values) {
+            longs.put(value);
+        }
+        longs.rewind();
+        return longs;
     }
 
     private void fillStats(ResultRow row, double[] values) {
