@@ -161,12 +161,15 @@ public class MainActivity extends Activity {
         row.runs = 1;
         row.availableProviders = availableProviders;
 
-        File modelDir = new File(getExternalFilesDir(null), "gemma3-1B-onnx");
+        File internalModelDir = new File(getFilesDir(), "gemma3-1B-onnx");
+        File externalModelDir = new File(getExternalFilesDir(null), "gemma3-1B-onnx");
+        File modelDir = hasGemmaArtifacts(internalModelDir) ? internalModelDir : externalModelDir;
         File modelFile = new File(modelDir, "model.onnx");
         File dataFile = new File(modelDir, "model.onnx_data");
         if (!modelFile.isFile() || !dataFile.isFile()) {
             row.status = "artifact_missing";
-            row.error = sanitize("Expected model.onnx and model.onnx_data under " + modelDir.getAbsolutePath());
+            row.error = sanitize("Expected model.onnx and model.onnx_data under "
+                    + internalModelDir.getAbsolutePath() + " or " + externalModelDir.getAbsolutePath());
             return row;
         }
 
@@ -202,6 +205,10 @@ public class MainActivity extends Activity {
             }
         }
         return row;
+    }
+
+    private boolean hasGemmaArtifacts(File modelDir) {
+        return new File(modelDir, "model.onnx").isFile() && new File(modelDir, "model.onnx_data").isFile();
     }
 
     private byte[] readAsset(String name) throws Exception {

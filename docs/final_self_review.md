@@ -6,14 +6,15 @@
 
 - 평가: 부분 해결
 - 제목의 "가속기 구조 제안"은 구현 완료가 아니라 병목 분석에서 도출한 구조 요구사항과 후속 설계 방향으로 제한했다.
-- Y700 micrograph, 기존 ORT profiling, DE10-Lite PoC 검증을 분리해 배치했다.
-- 남은 한계: Gemma 전체 graph latency가 아니라 representative projection micrograph 기준이다.
+- Y700 full Gemma ONNX graph probe, Y700 micrograph, 기존 ORT profiling, DE10-Lite PoC 검증을 분리해 배치했다.
+- 남은 한계: full Gemma probe는 runs 1의 CPU EP feasibility probe이며 tokenizer 포함 generation throughput이나 안정적인 token latency benchmark는 아니다.
 
 ## 2. 온디바이스 근거의 강도
 
 - 평가: 부분 해결
+- Lenovo Y700 Android APK에서 Gemma 3 1B ONNX full graph를 CPU EP로 로드하고 artificial past length 1 조건의 단일 decode-like step을 실행했다. session load는 30001.342 ms, step latency는 430.476 ms로 기록했다.
 - Lenovo Y700 Android APK로 CPU EP와 NNAPI EP의 projection micrograph latency를 확보했다.
-- 이 결과는 full decode share를 직접 측정한 것이 아니라, 온디바이스 projection 연산의 절대 latency와 provider granularity를 보여주는 근거로 해석했다.
+- full graph probe는 모델 단위 실행 가능성 근거로, micrograph는 온디바이스 projection 연산의 절대 latency와 provider granularity를 보여주는 근거로 해석했다.
 
 ## 3. QNN/NPU 경로 처리
 
@@ -28,9 +29,10 @@
 
 - 평가: 부분 해결
 - ORT profiling은 decode trace의 operator share를, Y700 micrograph는 Android provider별 absolute latency를 보여주는 서로 다른 evidence layer로 정리했다.
+- Y700 full Gemma probe를 추가해 micrograph가 전체 모델 실행 실패의 대체물처럼 보이는 약점을 줄였다.
 - "같은 결론"처럼 full decode share를 암시할 수 있는 표현은 제거했다.
 - `attention_qk_score` 0%는 QK 연산이 없다는 뜻이 아니라 ONNX Runtime graph optimization/fused operator 내부로 흡수되었거나 event classifier가 MatMul event로 분류하지 못한 결과로 제한했다.
-- Micrograph는 full graph 대체 주장이 아니라 Android full export, dynamic KV-cache shape, graph copy 비용과 dense projection dispatch/compute 비용을 분리하기 위한 실험 설계로 설명했다.
+- Micrograph는 full graph 대체 주장이 아니라 dense projection dispatch/compute 비용을 분리하기 위한 실험 설계로 설명했다. Full graph probe는 load 및 최소 decode-like step 가능성 확인으로 별도 배치했다.
 
 ## 5. DE10-Lite PoC 해석 범위
 
@@ -76,6 +78,6 @@
 ## 11. 제출 리스크
 
 - 평가: 중간
-- 가장 큰 리스크는 legacy HWP 직접 생성 불가, LibreOffice 기준 16쪽 분량, QAIRT direct QNN 결과가 ORT QNN EP/full decode 결과가 아니라는 해석 경계이다.
-- 논문 성격은 선행 병목 분석 + 온디바이스 micrograph + DE10-Lite PoC + 후속 구조 요구사항으로 정리되어, 구현 논문으로 과장되는 위험은 이전보다 낮다.
+- 가장 큰 리스크는 legacy HWP 직접 생성 불가, LibreOffice 기준 16쪽 분량, full Gemma probe가 runs 1 feasibility probe라는 해석 경계, QAIRT direct QNN 결과가 ORT QNN EP/full decode 결과가 아니라는 점이다.
+- 논문 성격은 선행 병목 분석 + 온디바이스 full graph probe + 온디바이스 micrograph + DE10-Lite PoC + 후속 구조 요구사항으로 정리되어, 구현 논문으로 과장되는 위험은 이전보다 낮다.
 - 7월 2일 비평 원문은 `docs/OpenRouter Chat Thu Jul 02 2026.md`로 보존했다. 해당 원문은 review transcript라 금지 표현을 포함하지만, 제출 원고와 대응 문서에서는 해당 표현을 제거하거나 학술적 표현으로 바꾸었다.

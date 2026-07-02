@@ -7,7 +7,7 @@
 - `paper/final/final_manuscript_intermediate.html`
 - `paper/final/final_manuscript.docx`
 - `paper/final/final_manuscript.hwpx`
-- `paper/final/final_manuscript.pdf`
+- `paper/final/final_manuscript.pdf`는 이전 LibreOffice 변환본이며, 현재 세션에서는 PDF 엔진 부재로 Gemma full graph probe 반영 후 재생성하지 못했다.
 
 ## 권장 변환 절차: HOP 사용
 
@@ -23,7 +23,8 @@
 ## 자동 변환 한계
 
 - Pandoc은 `.hwp` writer를 제공하지 않는다.
-- LibreOffice는 `docx -> pdf` 변환은 가능했지만 `docx -> hwp` export filter가 없었다.
+- 이전 환경에서는 LibreOffice로 `docx -> pdf` 변환이 가능했지만, 현재 PATH에는 `libreoffice`/`soffice`가 없어 PDF를 재생성하지 못했다.
+- 현재 PATH에는 `xelatex`, `typst`, `tectonic`, `wkhtmltopdf`, `weasyprint`도 없어 pandoc 기반 PDF 재생성 경로가 막혀 있다.
 - 현재 Linux 작업 환경의 PATH에는 HOP 실행 파일이 없었다.
 - HOP v0.3.1 Linux x64 `.deb`를 임시 확인한 결과 실행 파일은 `hop-desktop` GUI 앱이며, 현재 headless 세션에서는 GTK backend 초기화가 실패해 자동 `.hwp` 저장을 수행할 수 없었다.
 - 현재 `ssh win` Windows 환경에서 Hancom 실행 파일, registry 항목, COM 자동화 ProgID가 확인되지 않았다.

@@ -1,0 +1,2 @@
+model_name,execution_provider,status,model_onnx_bytes,external_data_bytes,session_load_ms,decode_like_step_ms,warmup,runs,input_shape,past_cache_shape,available_providers,notes
+gemma3-1B-onnx/full_decode_step_probe,CPU,completed,1468819,5207504384,30001.342385,430.475885,0,1,"input_ids [1,1], attention_mask [1,2]","26 layers x key/value [1,1,1,256]","[CPU, NNAPI, XNNPACK, WEBGPU]","Y700 ONNX Runtime Android full graph feasibility probe; not full text generation throughput"

@@ -1,0 +1,7 @@
+4.8G	/data/local/tmp/gemma3-1B-onnx
+4.8G	files/gemma3-1B-onnx
+total 28
+-rw-rw---- 1 u0_a370 ext_data_rw    5 2026-07-02 10:50 DONE
+-rw-rw---- 1 u0_a370 ext_data_rw    8 2026-07-02 10:49 RUNNING
+-rw-rw---- 1 u0_a370 ext_data_rw 5.2K 2026-07-02 10:50 benchmark_y700_ort_android.csv
+-rw-rw---- 1 u0_a370 ext_data_rw  10K 2026-07-02 10:50 benchmark_y700_ort_android.json

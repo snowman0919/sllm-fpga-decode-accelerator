@@ -1,0 +1,5 @@
+total 4.8M
+-rw-r--r-- 1 u0_a370 u0_a370 1.4M 2026-07-02 10:49 model.onnx
+-rw-r--r-- 1 u0_a370 u0_a370 4.8G 2026-07-02 10:49 model.onnx_data
+Filesystem      Size Used Avail Use% Mounted on
+/dev/fuse       450G 386G   64G  86% /storage/emulated
