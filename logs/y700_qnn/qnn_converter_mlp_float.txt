@@ -1,0 +1,5 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+modeltools::IrGraph::reEvalMacsParams: Re-evaluated graph statistics after IrOptimizer optimization passes:
+modeltools::IrGraph::reEvalMacsParams: Total MACs: 1152
+modeltools::IrGraph::reEvalMacsParams: Total Params Count: 0

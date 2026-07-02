@@ -1,0 +1,8 @@
+:: [Info] ::  Mirror: https://www.python.org/ftp/python
+:: [Info] ::  Mirror: https://downloads.python.org/pypy/versions.json
+:: [Info] ::  Mirror: https://api.github.com/repos/oracle/graalpython/releases
+:: [Downloading] ::  3.10.11 ...
+:: [Downloading] ::  From https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe
+:: [Downloading] ::  To   C:\Users\dbsgu\.pyenv\pyenv-win\install_cache\python-3.10.11-amd64.exe
+:: [Installing] ::  3.10.11 ...
+:: [Info] :: completed! 3.10.11

@@ -1,0 +1,297 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+usage: snpe-onnx-to-dlc [--out_node OUT_NAMES] [--input_type INPUT_NAME INPUT_TYPE]
+                        [--input_dtype INPUT_NAME INPUT_DTYPE] [--input_encoding  [ ...]]
+                        [--input_layout INPUT_NAME INPUT_LAYOUT] [--custom_io CUSTOM_IO]
+                        [--preserve_io [PRESERVE_IO ...]]
+                        [--dump_qairt_io_config_yaml [DUMP_QAIRT_IO_CONFIG_YAML]]
+                        [--enable_framework_trace] [--dry_run [DRY_RUN]] [-d INPUT_NAME INPUT_DIM]
+                        [-n] [-b BATCH] [-s SYMBOL_NAME VALUE]
+                        [--dump_custom_io_config_template DUMP_CUSTOM_IO_CONFIG_TEMPLATE]
+                        [--quantization_overrides QUANTIZATION_OVERRIDES] [--keep_quant_nodes]
+                        [--disable_batchnorm_folding] [--expand_lstm_op_structure]
+                        [--expand_sparse_op_structure] [--keep_disconnected_nodes]
+                        [--preserve_onnx_output_order]
+                        [--apply_masked_softmax {compressed,uncompressed}]
+                        [--packed_masked_softmax_inputs PACKED_MASKED_SOFTMAX_INPUTS [PACKED_MASKED_SOFTMAX_INPUTS ...]]
+                        [--packed_max_seq PACKED_MAX_SEQ] --input_network INPUT_NETWORK
+                        [--debug [DEBUG]] [-o OUTPUT_PATH] [--copyright_file COPYRIGHT_FILE]
+                        [--float_bitwidth FLOAT_BITWIDTH] [--float_bw FLOAT_BW]
+                        [--float_bias_bitwidth FLOAT_BIAS_BITWIDTH] [--float_bias_bw FLOAT_BIAS_BW]
+                        [--model_version MODEL_VERSION]
+                        [--validation_target RUNTIME_TARGET PROCESSOR_TARGET] [--strict]
+                        [--udo_config_paths CUSTOM_OP_CONFIG_PATHS [CUSTOM_OP_CONFIG_PATHS ...]]
+                        [--op_package_lib OP_PACKAGE_LIB]
+                        [--converter_op_package_lib CONVERTER_OP_PACKAGE_LIB]
+                        [-p PACKAGE_NAME | --op_package_config CUSTOM_OP_CONFIG_PATHS [CUSTOM_OP_CONFIG_PATHS ...]]
+                        [-h]
+
+Script to convert ONNX model into DLC
+
+required arguments:
+  --input_network INPUT_NETWORK, -i INPUT_NETWORK
+                        Path to the source framework model.
+
+optional arguments:
+  --out_node OUT_NAMES, --out_name OUT_NAMES
+                        Name of the graph's output Tensor Names. Multiple output names should be
+                        provided separately like:
+                            --out_name out_1 --out_name out_2
+  --input_type INPUT_NAME INPUT_TYPE, -t INPUT_NAME INPUT_TYPE
+                        Type of data expected by each input op/layer. Type for each input is
+                        |default| if not specified. For example: "data" image.Note that the quotes
+                        should always be included in order to handle special characters, spaces,etc.
+                        For multiple inputs specify multiple --input_type on the command line.
+                        Eg:
+                           --input_type "data1" image --input_type "data2" opaque
+                        These options get used by DSP runtime and following descriptions state how
+                        input will be handled for each option.
+                        Image:
+                        Input is float between 0-255 and the input's mean is 0.0f and the input's
+                        max is 255.0f. We will cast the float to uint8ts and pass the uint8ts to the
+                        DSP.
+                        Default:
+                        Pass the input as floats to the dsp directly and the DSP will quantize it.
+                        Opaque:
+                        Assumes input is float because the consumer layer(i.e next layer) requires
+                        it as float, therefore it won't be quantized.
+                        Choices supported:
+                           image
+                           default
+                           opaque
+  --input_dtype INPUT_NAME INPUT_DTYPE
+                        The names and datatype of the network input layers specified in the format
+                        [input_name datatype], for example:
+                            'data' 'float32'
+                        Default is float32 if not specified
+                        Note that the quotes should always be included in order to handlespecial
+                        characters, spaces, etc.
+                        For multiple inputs specify multiple --input_dtype on the command line like:
+                            --input_dtype 'data1' 'float32' --input_dtype 'data2' 'float32'
+  --input_encoding  [ ...], -e  [ ...]
+                        Usage:     --input_encoding "INPUT_NAME" INPUT_ENCODING_IN
+                        [INPUT_ENCODING_OUT]
+                        Input encoding of the network inputs. Default is bgr.
+                        e.g.
+                           --input_encoding "data" rgba
+                        Quotes must wrap the input node name to handle special characters,
+                        spaces, etc. To specify encodings for multiple inputs, invoke
+                        --input_encoding for each one.
+                        e.g.
+                            --input_encoding "data1" rgba --input_encoding "data2" other
+                        Optionally, an output encoding may be specified for an input node by
+                        providing a second encoding. The default output encoding is bgr.
+                        e.g.
+                            --input_encoding "data3" rgba rgb
+                        Input encoding types:
+                             image color encodings: bgr,rgb, nv21, nv12, ...
+                            time_series: for inputs of rnn models;
+                            other: not available above or is unknown.
+                        Supported encodings:
+                           bgr
+                           rgb
+                           rgba
+                           argb32
+                           nv21
+                           nv12
+                           time_series
+                           other
+  --input_layout INPUT_NAME INPUT_LAYOUT, -l INPUT_NAME INPUT_LAYOUT
+                        Layout of each input tensor. If not specified, it will use the default
+                        based on the Source Framework, shape of input and input encoding.
+                        Accepted values are-
+                            NCDHW, NDHWC, NCHW, NHWC, HWIO, OIHW, NFC, NCF, NTF, TNF, NF, NC, F,
+                        NONTRIVIAL
+                        N = Batch, C = Channels, D = Depth, H = Height, W = Width, F = Feature, T =
+                        Time
+                        NDHWC/NCDHW used for 5d inputs
+                        NHWC/NCHW used for 4d image-like inputs
+                        NFC/NCF used for inputs to Conv1D or other 1D ops
+                        NTF/TNF used for inputs with time steps like the ones used for LSTM op
+                        NF used for 2D inputs, like the inputs to Dense/FullyConnected layers
+                        NC used for 2D inputs with 1 for batch and other for Channels (rarely used)
+                        F used for 1D inputs, e.g. Bias tensor
+                        NONTRIVIAL for everything elseFor multiple inputs specify multiple
+                        --input_layout on the command line.
+                        Eg:
+                            --input_layout "data1" NCHW --input_layout "data2" NCHW
+  --custom_io CUSTOM_IO
+                        Use this option to specify a yaml file for custom IO.
+  --preserve_io [PRESERVE_IO ...]
+                        Use this option to preserve IO layout and datatype. The different ways of
+                        using this option are as follows:
+                            --preserve_io layout <space separated list of names of inputs and
+                        outputs of the graph>
+                            --preserve_io datatype <space separated list of names of inputs and
+                        outputs of the graph>
+                        In this case, user should also specify the string - layout or datatype in
+                        the command to indicate that converter needs to
+                        preserve the layout or datatype. e.g.
+                           --preserve_io layout input1 input2 output1
+                           --preserve_io datatype input1 input2 output1
+                        Optionally, the user may choose to preserve the layout and/or datatype for
+                        all the inputs and outputs of the graph.
+                        This can be done in the following two ways:
+                            --preserve_io layout
+                            --preserve_io datatype
+                        Additionally, the user may choose to preserve both layout and datatypes for
+                        all IO tensors by just passing the option as follows:
+                            --preserve_io
+                        Note: Only one of the above usages are allowed at a time.
+                        Note: --custom_io gets higher precedence than --preserve_io.
+  --dump_qairt_io_config_yaml [DUMP_QAIRT_IO_CONFIG_YAML]
+                        Use this option to dump a yaml file which contains the equivalent I/O
+                        configurations of QAIRT Converter along with the QAIRT Converter Command and
+                        can be passed to QAIRT Converter using the option --io_config.
+  --enable_framework_trace
+                        Use this option to enable converter to trace the op/tensor change
+                        information.
+                        Currently framework op trace is supported only for ONNX converter.
+  --dry_run [DRY_RUN]   Evaluates the model without actually converting any ops, and returns
+                        unsupported ops/attributes as well as unused inputs and/or outputs if any.
+                        Leave empty or specify "info" to see dry run as a table, or specify "debug"
+                        to show more detailed messages only"
+  -d INPUT_NAME INPUT_DIM, --input_dim INPUT_NAME INPUT_DIM
+                        The name and dimension of all the input buffers to the network specified in
+                        the format [input_name comma-separated-dimensions],
+                        for example: 'data' 1,224,224,3.
+                        Note that the quotes should always be included in order to handle special
+                        characters, spaces, etc.
+                        NOTE: This feature works only with Onnx 1.6.0 and above
+  -n, --no_simplification
+                        Do not attempt to simplify the model automatically. This may prevent some
+                        models from properly converting
+                        when sequences of unsupported static operations are present.
+  -b BATCH, --batch BATCH
+                        The batch dimension override. This will take the first dimension of all
+                        inputs and treat it as a batch dim, overriding it with the value provided
+                        here. For example:
+                        --batch 6
+                        will result in a shape change from [1,3,224,224] to [6,3,224,224].
+                        If there are inputs without batch dim this should not be used and each input
+                        should be overridden independently using -d option for input dimension
+                        overrides.
+  -s SYMBOL_NAME VALUE, --define_symbol SYMBOL_NAME VALUE
+                        This option allows overriding specific input dimension symbols. For instance
+                        you might see input shapes specified with variables such as :
+                        data: [1,3,height,width]
+                        To override these simply pass the option as:
+                        --define_symbol height 224 --define_symbol width 448
+                        which results in dimensions that look like:
+                        data: [1,3,224,448]
+  --dump_custom_io_config_template DUMP_CUSTOM_IO_CONFIG_TEMPLATE
+                        Dumps the yaml template for Custom I/O configuration. This file canbe edited
+                        as per the custom requirements and passed using the option --custom_ioUse
+                        this option to specify a yaml file to which the custom IO config template is
+                        dumped.
+  --disable_batchnorm_folding
+  --expand_lstm_op_structure
+                        Enables optimization that breaks the LSTM op to equivalent math ops
+  --expand_sparse_op_structure
+                        Expand sparse op structure, such as ElementwiseNeuron, ElementwiseSum.
+  --keep_disconnected_nodes
+                        Disable Optimization that removes Ops not connected to the main graph.
+                        This optimization uses output names provided over commandline OR
+                        inputs/outputs extracted from the Source model to determine the main graph
+  --preserve_onnx_output_order
+                        Preserve the ONNX output order in the converted graph. Note: This may
+                        slightly impact performance.
+  --debug [DEBUG]       Run the converter in debug mode.
+  -o OUTPUT_PATH, --output_path OUTPUT_PATH
+                        Path where the converted Output model should be saved.If not specified, the
+                        converter model will be written to a file with same name as the input model
+  --copyright_file COPYRIGHT_FILE
+                        Path to copyright file. If provided, the content of the file will be added
+                        to the output model.
+  --float_bitwidth FLOAT_BITWIDTH
+                        Use the --float_bitwidth option to convert the graph to the specified float
+                        bitwidth, either 32 (default), 16, or bf16.
+  --float_bw FLOAT_BW   Note: --float_bw is deprecated, use --float_bitwidth.
+  --float_bias_bitwidth FLOAT_BIAS_BITWIDTH
+                        Use the --float_bias_bitwidth option to select the bitwidth to use for float
+                        bias tensor
+  --float_bias_bw FLOAT_BIAS_BW
+                        Note: --float_bias_bw is deprecated, use --float_bias_bitwidth.
+  --model_version MODEL_VERSION
+                        User-defined ASCII string to identify the model, only first 64 bytes will be
+                        stored
+  --validation_target RUNTIME_TARGET PROCESSOR_TARGET
+                        Note: This option is deprecated.
+                        A combination of processor and runtime target against which model will be
+                        validated.
+                        Choices for RUNTIME_TARGET:
+                           {cpu, gpu, dsp}.
+                        Choices for PROCESSOR_TARGET:
+                           {snapdragon_801, snapdragon_820, snapdragon_835}.
+                        If not specified, will validate model against {snapdragon_820,
+                        snapdragon_835} across all runtime targets.
+  --strict              Note: This option is deprecated.
+                        If specified, will validate in strict mode whereby model will not be
+                        produced if it violates constraints of the specified validation target. If
+                        not specified, will validate model in permissive mode against the specified
+                        validation target.
+  --udo_config_paths CUSTOM_OP_CONFIG_PATHS [CUSTOM_OP_CONFIG_PATHS ...], -udo CUSTOM_OP_CONFIG_PATHS [CUSTOM_OP_CONFIG_PATHS ...]
+                        Path to the UDO configs (space separated, if multiple)
+  -h, --help            show this help message and exit
+
+Custom Op Package Options:
+  --op_package_lib OP_PACKAGE_LIB, -opl OP_PACKAGE_LIB
+                        Use this argument to pass an op package library for quantization. Must be in
+                        the form <op_package_lib_path:interfaceProviderName> and be separated by a
+                        comma for multiple package libs
+  --converter_op_package_lib CONVERTER_OP_PACKAGE_LIB, -cpl CONVERTER_OP_PACKAGE_LIB
+                        Absolute path to converter op package library compiled by the OpPackage
+                        generator. Must be separated by a comma for multiple package libraries.
+                        Note: Order of converter op package libraries must follow the order of xmls.
+                        Ex1: --converter_op_package_lib absolute_path_to/libExample.so
+                        Ex2: -cpl absolute_path_to/libExample1.so,absolute_path_to/libExample2.so
+  -p PACKAGE_NAME, --package_name PACKAGE_NAME
+                        A global package name to be used for each node in the Model.cpp file.
+                        Defaults to Qnn header defined package name
+  --op_package_config CUSTOM_OP_CONFIG_PATHS [CUSTOM_OP_CONFIG_PATHS ...], -opc CUSTOM_OP_CONFIG_PATHS [CUSTOM_OP_CONFIG_PATHS ...]
+                        Path to a Qnn Op Package XML configuration file that contains user defined
+                        custom operations.
+
+Quantizer Options:
+  --quantization_overrides QUANTIZATION_OVERRIDES
+                        Use this option to specify a json file with parameters to use for
+                        quantization. These will override any quantization data carried from
+                        conversion (eg TF fake quantization) or calculated during the normal
+                        quantization process. Format defined as per AIMET specification.
+  --keep_quant_nodes    Use this option to keep activation quantization nodes in the graph rather
+                        than stripping them.
+
+Masked Softmax Optimization Options:
+  --apply_masked_softmax {compressed,uncompressed}
+                        This flag enables the pass that creates a MaskedSoftmax Op and
+                        rewrites the graph to include this Op. MaskedSoftmax Op may not
+                        be supported by all the QNN backends. Please check the
+                        supplemental backend XML for the targeted backend.
+                        This argument takes a string parameter input that selects
+                        the mode of MaskedSoftmax Op.
+                        'compressed' value rewrites the graph with the compressed version of
+                        MaskedSoftmax Op.
+                        'uncompressed' value rewrites the graph with the uncompressed version of
+                        MaskedSoftmax Op.
+  --packed_masked_softmax_inputs PACKED_MASKED_SOFTMAX_INPUTS [PACKED_MASKED_SOFTMAX_INPUTS ...]
+                        Mention the input ids tensor name which will be packed in the single
+                        inference.
+                        This is applicable only for Compressed MaskedSoftmax Op.
+                        This will create a new input to the graph named 'position_ids'
+                        with same shape as the provided input name in this flag.
+                        During runtime, this input shall be provided with the token
+                        locations for individual sequences so that the same will be
+                        internally passed to positional embedding layer.
+                        E.g. If 2 sequences of length 20 and 30 are packed together
+                        in single batch of 64 tokens then this new input 'position_ids' should have
+                        value [0, 1, ..., 19, 0, 1, ..., 29, 0, 0, 0, ..., 0]
+                        Usage: --packed_masked_softmax input_ids
+                        Packed model will enable the user to pack multiple sequences into
+                        single batch of inference.
+  --packed_max_seq PACKED_MAX_SEQ
+                        Number of sequences packed in the single input ids and
+                        single attention mask inputs. Applicable only for
+                        Compressed MaskedSoftmax Op.
+
+Note: Only one of: {'package_name', 'op_package_config'} can be specified Note: Only one of:
+{'package_name', 'op_package_config'} can be specified

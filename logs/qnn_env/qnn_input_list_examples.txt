@@ -1,0 +1,10 @@
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Models\SESR\input_list_dynamic.txt
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Models\SESR\input_list_dynamic_quant.txt
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Models\spoken_digit\input_list.txt
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Models\word_rnn\input_list.txt
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\QAIRT\python\input_list.txt
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\QNN\converter\models\input_list_float.txt
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\SNPE\NativeCpp\SampleCode_CAPI\Psnpe\OutputAsyncMode\ProcessInputList.cpp
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\SNPE\NativeCpp\SampleCode_CAPI\Psnpe\OutputAsyncMode\ProcessInputList.hpp
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\SNPE\NativeCpp\SampleCode_CAPI\Psnpe\SyncMode\ProcessInputList.cpp
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\SNPE\NativeCpp\SampleCode_CAPI\Psnpe\SyncMode\ProcessInputList.hpp

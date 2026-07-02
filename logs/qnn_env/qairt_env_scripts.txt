@@ -1,0 +1,5 @@
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\bin\aimet_env_setup.sh
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\bin\envcheck
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\bin\envcheck.ps1
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\bin\envsetup.ps1
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\bin\envsetup.sh

@@ -1,0 +1,11 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+2026-07-02 08:55:23,319 -    INFO - qnn-model-lib-generator: Model cpp file path  : C:\Users\dbsgu\Dev\sllm_qnn_exp\out\lm_head_float_qnn.cpp
+2026-07-02 08:55:23,319 -    INFO - qnn-model-lib-generator: Model bin file path  : None
+2026-07-02 08:55:23,319 -    INFO - qnn-model-lib-generator: Library target       : [['windows-x86_64']]
+2026-07-02 08:55:23,319 -    INFO - qnn-model-lib-generator: Library name         : lm_head_float_qnn
+2026-07-02 08:55:23,319 -    INFO - qnn-model-lib-generator: Output directory     : C:\Users\dbsgu\Dev\sllm_qnn_exp\lib
+2026-07-02 08:55:23,319 -    INFO - qnn-model-lib-generator: Build type           : Release
+2026-07-02 08:55:23,319 -    INFO - qnn-model-lib-generator: Clean-up             : False
+2026-07-02 08:55:23,319 - WARNING - qnn-model-lib-generator: Runtime will fail if .cpp needs data in .raw files when building model library
+2026-07-02 08:55:23,320 -    INFO - qnn-model-lib-generator: Output library name  : lm_head_float_qnn

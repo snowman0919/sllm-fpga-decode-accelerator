@@ -1,0 +1,8 @@
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Genie\Genie\Makefile.aarch64-qnx
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Genie\Genie\make\Makefile.aarch64-qnx
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Genie\genie-t2t-run\Makefile.aarch64-qnx
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\examples\Genie\genie-t2t-run\make\Makefile.aarch64-qnx
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\android\platform-validator.aar
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\android\psnpe-release.aar
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\android\qtld-release.aar
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\android\snpe-release.aar

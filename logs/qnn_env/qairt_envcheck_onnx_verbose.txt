@@ -1,0 +1,19 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+
+Name                           Value                                                                                   
+----                           -----                                                                                   
+checkTfLite                    False                                                                                   
+checkOnnx                      True                                                                                    
+checkTensorflow                False                                                                                   
+enableVerbose                  True                                                                                    
+checkMSVC                      False                                                                                   
+checkPyTorch                   False                                                                                   
+
+
+
+Checking ONNX
+--------------------------------------------------------------
+ONNX is set-up successfully
+--------------------------------------------------------------
+

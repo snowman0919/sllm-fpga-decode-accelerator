@@ -18,9 +18,11 @@
 ## 3. QNN/NPU 경로 처리
 
 - 평가: 부분 해결
-- `ssh win` 접속은 성공했지만 지정 경로 `C:\Users\dbsgu\dev\qinst`가 확인되지 않아 QNN SDK 구조를 파악하지 못했다.
-- 원고 표현은 "본 실험 환경에서는 QNN EP 실행 경로를 확보하지 못했다"로 정리했다.
-- 남은 한계: Snapdragon NPU backend 성능 평가는 후속 과제이다.
+- 사용자가 제공한 Windows Pocket4의 QAIRT 2.47.0 설치본으로 `qnn-onnx-converter`, `snpe-onnx-to-dlc`, Android `qnn-net-run` direct DLC 경로를 확보했다.
+- ONNX Runtime Android AAR에는 QNN EP가 없었으므로 ORT QNN EP 결과는 아니다.
+- QAIRT direct HTP 실험에서 `lm_head` tile은 10회 평균 NetRun execute 3.415 ms, accelerator execute 1.668 ms로 측정되었다.
+- MLP projection은 HTP 평균 NetRun execute 19.536 ms로 측정되어 shape와 data movement가 여전히 병목이 될 수 있음을 보여준다.
+- 남은 한계: dynamic weight input을 사용한 float MatMul DLC 결과이므로 weight-resident deployment나 full decode 성능으로 일반화할 수 없다.
 
 ## 4. 기존 ORT profiling과 Y700 실험의 연결
 
@@ -54,7 +56,7 @@
 ## 8. 방어문과 제출본 문체
 
 - 평가: 부분 해결
-- `제출 전 검토 표시`, `QNN EP 실행 경로 미확보`, `PoC`, `검증 기준` 같은 제출본에 부적절한 표현을 원고에서 제거했다.
+- `제출 전 검토 표시`, 개발 로그식 QNN 실패 표현, 과도한 방어문을 원고에서 제거했다.
 - 부정문을 줄이고, 측정한 것과 후속 과제를 중심으로 다시 썼다.
 
 ## 9. 표/그림과 분량
@@ -62,7 +64,7 @@
 - 평가: 부분 해결
 - 표는 evidence layer, Y700 result, ORT bottleneck, hardware requirements, DE10-Lite PoC, roofline, follow-up direction 중심으로 유지했다.
 - 그림 경로는 repo 기준 `paper_assets/...`로 바꿨고, HWPX 변환 스크립트가 이를 처리하도록 수정했다.
-- LibreOffice PDF는 이전 기준 14쪽이었으며, 최신 변환 후에도 10쪽 이하 여부는 Hancom/HWP 조판에서 재확인이 필요하다.
+- LibreOffice PDF는 QNN 보강 후 16쪽이며, 10쪽 이하 목표에는 미달한다. Hancom/HWP 조판에서 표 폭과 관련 연구/방법 절 압축이 추가로 필요하다.
 
 ## 10. HWP 양식 적합성
 
@@ -74,6 +76,6 @@
 ## 11. 제출 리스크
 
 - 평가: 중간
-- 가장 큰 리스크는 QNN/NPU backend 미측정, legacy HWP 직접 생성 불가, HWP 조판 페이지 수 미확인이다.
+- 가장 큰 리스크는 legacy HWP 직접 생성 불가, LibreOffice 기준 16쪽 분량, QAIRT direct QNN 결과가 ORT QNN EP/full decode 결과가 아니라는 해석 경계이다.
 - 논문 성격은 선행 병목 분석 + 온디바이스 micrograph + DE10-Lite PoC + 후속 구조 요구사항으로 정리되어, 구현 논문으로 과장되는 위험은 이전보다 낮다.
 - 7월 2일 비평 원문은 `docs/OpenRouter Chat Thu Jul 02 2026.md`로 보존했다. 해당 원문은 review transcript라 금지 표현을 포함하지만, 제출 원고와 대응 문서에서는 해당 표현을 제거하거나 학술적 표현으로 바꾸었다.

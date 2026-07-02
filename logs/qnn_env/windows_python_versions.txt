@@ -1,0 +1,5 @@
+ -V:3.12 *        C:\Users\dbsgu\AppData\Local\Programs\Python\Python312\python.exe
+* 3.11.9 (set by C:\Users\dbsgu\.pyenv\pyenv-win\version)
+  3.14.2
+C:\Users\dbsgu\.pyenv\pyenv-win\versions\3.11.9
+C:\Users\dbsgu\.pyenv\pyenv-win\versions\3.14.2

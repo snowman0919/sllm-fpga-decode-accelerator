@@ -1,0 +1,65 @@
+Name: numpy
+Version: 2.4.6
+Summary: Fundamental package for array computing in Python
+Home-page: 
+Author: Travis E. Oliphant et al.
+Author-email: 
+License: 
+Location: C:\Users\dbsgu\AppData\Roaming\Python\Python311\site-packages
+Requires: 
+Required-by: ml_dtypes, onnx, onnxruntime
+---
+Name: onnx
+Version: 1.22.0
+Summary: Open Neural Network Exchange
+Home-page: 
+Author: 
+Author-email: ONNX Contributors <onnx-technical-discuss@lists.lfaidata.foundation>
+License: 
+Location: C:\Users\dbsgu\AppData\Roaming\Python\Python311\site-packages
+Requires: ml_dtypes, numpy, protobuf, typing_extensions
+Required-by: 
+---
+Name: onnxruntime
+Version: 1.27.0
+Summary: ONNX Runtime is a runtime accelerator for Machine Learning models
+Home-page: https://onnxruntime.ai
+Author: Microsoft Corporation
+Author-email: onnxruntime@microsoft.com
+License: MIT License
+Location: C:\Users\dbsgu\AppData\Roaming\Python\Python311\site-packages
+Requires: flatbuffers, numpy, packaging, protobuf
+Required-by: 
+---
+Name: packaging
+Version: 26.2
+Summary: Core utilities for Python packages
+Home-page: 
+Author: 
+Author-email: Donald Stufft <donald@stufft.io>
+License: 
+Location: C:\Users\dbsgu\AppData\Roaming\Python\Python311\site-packages
+Requires: 
+Required-by: onnxruntime
+---
+Name: protobuf
+Version: 7.35.1
+Summary: 
+Home-page: https://developers.google.com/protocol-buffers/
+Author: protobuf@googlegroups.com
+Author-email: protobuf@googlegroups.com
+License: 3-Clause BSD License
+Location: C:\Users\dbsgu\AppData\Roaming\Python\Python311\site-packages
+Requires: 
+Required-by: onnx, onnxruntime
+---
+Name: sympy
+Version: 1.14.0
+Summary: Computer algebra system (CAS) in Python
+Home-page: https://sympy.org
+Author: SymPy development team
+Author-email: sympy@googlegroups.com
+License: BSD
+Location: C:\Users\dbsgu\AppData\Roaming\Python\Python311\site-packages
+Requires: mpmath
+Required-by: 

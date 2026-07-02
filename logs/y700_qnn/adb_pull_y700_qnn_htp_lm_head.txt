@@ -1,0 +1,5 @@
+/data/local/tmp/sllm_qnn/out/lm_head_htp
+/data/local/tmp/sllm_qnn/out/lm_head_htp/Result_0
+/data/local/tmp/sllm_qnn/out/lm_head_htp/Result_0/output.raw
+/data/local/tmp/sllm_qnn/out/lm_head_htp/execution_metadata.yaml
+/data/local/tmp/sllm_qnn/out/lm_head_htp/qnn-profiling-data_0.log

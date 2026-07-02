@@ -1,0 +1,10 @@
+
+Name                        Length
+----                        ------
+QnnModelDlc.dll            2649280
+QnnModelDlc.lib               2622
+QnnCpu.dll                 4889792
+QnnCpu.lib                    1776
+QnnCpuNetRunExtensions.dll  273600
+
+

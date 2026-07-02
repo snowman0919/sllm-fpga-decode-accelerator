@@ -1,0 +1,56 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+qnn-net-run pid:33956
+     0.1ms [  INFO ] qnn-net-run build version: v2.47.0.260601114230
+qnn-net-run build version: v2.47.0.260601114230
+qnn-net-run log level is : QNN_LOG_LEVEL_INFO
+     8.0ms [  INFO ] Inferences will run in sync mode
+Processing inference input(s):
+activation -> C:\Users\dbsgu\Dev\sllm_qnn_exp\inputs\activation_1x1152_f32.raw
+weight -> C:\Users\dbsgu\Dev\sllm_qnn_exp\inputs\weight_1152x6912_f32.raw
+    13.4ms [  INFO ] No BackendExtensions lib provided;initializing NetRunBackend Interface
+    13.4ms [  INFO ] opMapping is not required for the specified backend
+    13.4ms [  INFO ] Profiling turned on; level = 1
+    17.7ms [  INFO ] Backend     build version: v2.47.0.260601114230
+    17.9ms [  INFO ] WindowsFileIO callback: WindowsFileIO
+    25.1ms [ ERROR ] WindowsFileIO couldn't open libcdsprpc.dll
+    25.1ms [  INFO ] Initialized WindowsFileIO callback
+    12.2ms [  INFO ] [QNN_CPU] CpuBackend creation start
+    12.2ms [  INFO ] [QNN_CPU] CpuBackend creation end
+    25.5ms [  INFO ] Initializing logging in the System Library. Callback: [00007FF64F72F530], Log Level: [3]
+    28.6ms [  INFO ] Determining if there is a executable cache in the DLC
+    28.6ms [  INFO ] Current backend does not support init from cache.
+    15.8ms [  INFO ] [QNN_CPU]  Code: QNN_DEVICE_ERROR_UNSUPPORTED_FEATURE
+    29.2ms [WARNING] Unable to find a device with NetRunDeviceKeyDefault in Library NetRunBackendLibKeyDefault
+    16.1ms [  INFO ] [QNN_CPU] QnnContext create start
+    16.1ms [  INFO ] [QNN_CPU] QnnContext create end
+    29.9ms [  INFO ] Composing Graphs
+Composing Graphs
+    30.0ms [  INFO ] Composing Graph for DLC = C:\Users\dbsgu\Dev\sllm_qnn_exp\out\mlp_float.dlc
+    30.0ms [WARNING] Profile Logger with name = C:\Users\dbsgu\Dev\sllm_qnn_exp\run_mlp_cpu doesn't exist! Returning nullptr
+    30.1ms [  INFO ] Initializing logging in the System Library. Callback: [00007FF64F72F530], Log Level: [3]
+    38.5ms [  INFO ] [QNN_CPU] CpuGraph creation start
+    38.5ms [  INFO ] [QNN_CPU] CpuGraph creation end
+    38.5ms [  INFO ] [QNN_CPU] QnnGraph create end
+    38.8ms [  INFO ] [QNN_CPU] QnnGraph_retrieve start
+    38.8ms [  INFO ] [QNN_CPU] QnnGraph_retrieve end
+    52.0ms [  INFO ] Graphs composed
+    52.1ms [  INFO ] Finalizing Graphs
+Finalizing Graphs
+    38.9ms [  INFO ] [QNN_CPU] QnnGraph finalize start
+    47.1ms [  INFO ] [QNN_CPU] QnnGraph finalize end
+    60.4ms [  INFO ] Graphs Finalized
+    60.4ms [  INFO ] Executing Graphs
+Executing Graphs
+    79.1ms [  INFO ] [QNN_CPU] QnnGraph execute start
+    88.6ms [  INFO ] [QNN_CPU] QnnGraph execute end
+   101.9ms [  INFO ] Making the directory: C:\Users\dbsgu\Dev\sllm_qnn_exp\run_mlp_cpu/Result_0
+   101.9ms [  INFO ] FileName: output.raw
+   109.4ms [  INFO ] Executed Graph
+Finished Executing Graphs
+   111.7ms [  INFO ] Freeing graphsInfo
+    98.5ms [  INFO ] [QNN_CPU] QnnContext Free start
+   104.3ms [  INFO ] [QNN_CPU] QnnContext Free end
+   105.7ms [  INFO ] [QNN_CPU] QnnBackend Free start
+   105.8ms [  INFO ] [QNN_CPU] QnnBackend Free end
+   119.0ms [  INFO ] WindowsFileIO callback: ~WindowsFileIO

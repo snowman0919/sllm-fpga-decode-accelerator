@@ -1,0 +1,24 @@
+Collecting pyyaml
+  Downloading pyyaml-6.0.3-cp310-cp310-win_amd64.whl (158 kB)
+     -------------------------------------- 158.6/158.6 kB 9.3 MB/s eta 0:00:00
+Collecting attrs
+  Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+     ---------------------------------------- 67.5/67.5 kB 3.6 MB/s eta 0:00:00
+Collecting scipy
+  Downloading scipy-1.15.3-cp310-cp310-win_amd64.whl (41.3 MB)
+     --------------------------------------- 41.3/41.3 MB 29.7 MB/s eta 0:00:00
+Collecting pandas
+  Downloading pandas-2.3.3-cp310-cp310-win_amd64.whl (11.3 MB)
+     --------------------------------------- 11.3/11.3 MB 31.2 MB/s eta 0:00:00
+Requirement already satisfied: numpy<2.5,>=1.23.5 in c:\users\dbsgu\appdata\roaming\python\python310\site-packages (from scipy) (2.2.6)
+Collecting pytz>=2020.1
+  Downloading pytz-2026.2-py2.py3-none-any.whl (510 kB)
+     ------------------------------------- 510.1/510.1 kB 31.2 MB/s eta 0:00:00
+Collecting python-dateutil>=2.8.2
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting tzdata>=2022.7
+  Using cached tzdata-2026.2-py2.py3-none-any.whl (349 kB)
+Collecting six>=1.5
+  Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Installing collected packages: pytz, tzdata, six, scipy, pyyaml, attrs, python-dateutil, pandas
+Successfully installed attrs-26.1.0 pandas-2.3.3 python-dateutil-2.9.0.post0 pytz-2026.2 pyyaml-6.0.3 scipy-1.15.3 six-1.17.0 tzdata-2026.2

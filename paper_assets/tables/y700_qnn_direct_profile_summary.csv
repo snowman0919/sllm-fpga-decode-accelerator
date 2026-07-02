@@ -1,0 +1,5 @@
+model,backend,runs,netrun_mean_us,netrun_p50_us,netrun_p95_us,backend_or_accel_mean_us,backend_or_accel_p50_us,backend_or_accel_p95_us,accel_excluding_wait_mean_us,qnn_execute_mean_us,rpc_execute_mean_us,notes
+lm_head tile 1152x4096,QNN CPU,10,14191.7,12709.0,26670.95,12031.7,10749.5,22503.5,,,,DLC path; dynamic weight input; not ORT QNN EP; excludes graph init/finalize except NetRun per-inference IO/misc
+MLP projection 1152x6912,QNN CPU,10,16077.8,15884.5,19954.8,12398.6,12245.0,15957.55,,,,DLC path; dynamic weight input; not ORT QNN EP; excludes graph init/finalize except NetRun per-inference IO/misc
+lm_head tile 1152x4096,QNN HTP,10,3414.9,3166.0,4253.4,1667.5,1769.5,1897.65,1577.6,3397.2,2131.7,DLC path; dynamic weight input; not ORT QNN EP; excludes graph init/finalize except NetRun per-inference IO/misc
+MLP projection 1152x6912,QNN HTP,10,19536.3,19124.5,23533.0,13945.2,13789.0,15886.9,13744.5,19497.4,16276.2,DLC path; dynamic weight input; not ORT QNN EP; excludes graph init/finalize except NetRun per-inference IO/misc

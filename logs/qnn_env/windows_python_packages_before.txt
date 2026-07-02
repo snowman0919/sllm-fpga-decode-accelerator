@@ -1,0 +1,2 @@
+Python 3.11.9
+pip 24.0 from C:\Users\dbsgu\.pyenv\pyenv-win\versions\3.11.9\Lib\site-packages\pip (python 3.11)

@@ -1,0 +1,4 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+|Layers             | Ops                                     | Inputs  | Outputs  | Attributes  |
+|MatVecMatMulInteger| MatMulInteger: unsupported in Converter |         |          |             |

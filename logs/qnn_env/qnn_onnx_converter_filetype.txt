@@ -1,0 +1,13 @@
+
+
+FullName : C:\Users\dbsgu\Dev\qairt\2.47.0.260601\bin\x86_64-windows-msvc\qnn-onnx-converter
+Length   : 5475
+Mode     : -a----
+
+
+
+#!/usr/bin/env python3
+# -*- mode: python -*-
+# ==============================================================================
+#
+#  Copyright (c) 2020-2024 Qualcomm Technologies, Inc.

@@ -1,0 +1,8 @@
+List of devices attached
+HA1XEE8V               device product:TB320FC model:TB320FC device:TB320FC transport_id:3
+
+TB320FC
+taro
+qcom
+15
+arm64-v8a,armeabi-v7a,armeabi

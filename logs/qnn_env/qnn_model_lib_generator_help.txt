@@ -1,0 +1,32 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+usage: qnn-model-lib-generator [-h] -c CPP [-b BIN]
+                               [-t LIB_TARGETS [LIB_TARGETS ...]]
+                               [-l LIB_NAME] [-o OUTPUT_DIR] [-d]
+                               [--debug_build] [--clean_up]
+
+options:
+  -h, --help            show this help message and exit
+
+required arguments:
+  -c CPP, --cpp CPP     Filepath for the qnn model .cpp file
+
+optional arguments:
+  -b BIN, --bin BIN     Filepath for the qnn model .bin file. (Note: if not
+                        passed, runtime will fail if .cpp needs any items from
+                        a .bin file.)
+  -t LIB_TARGETS [LIB_TARGETS ...], --lib_targets LIB_TARGETS [LIB_TARGETS ...]
+                        Specifies the targets to build the models for.
+                        Supported targets: windows-aarch64, windows-x86_64.
+                        Default: [windows-aarch64, windows-x86_64]
+  -l LIB_NAME, --lib_name LIB_NAME
+                        Specifies the name to use for libraries. Default: uses
+                        name in <model>.bin if provided, else generic
+                        qnn_model
+  -o OUTPUT_DIR, --output_dir OUTPUT_DIR
+                        Location for saving output libraries. Default:
+                        C:\Users\dbsgu\lib
+  -d, --debug           Set log level as debug mode
+  --debug_build         Set to build for debug version, if thisflag is not
+                        set, it will build for releaseversion.
+  --clean_up            Clean-up temporary files in build process

@@ -1,0 +1,5 @@
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\python\qti\aisw\converters\common\linux-aarch64-oe-gcc11.2\libPyIrGraph.so
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\python\qti\aisw\converters\common\linux-x86_64\libPyIrGraph.so
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\python\qti\aisw\converters\common\linux-x86_64\libPyIrGraph310.so
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\python\qti\aisw\converters\common\windows-arm64ec\libPyIrGraph310.pyd
+C:\Users\dbsgu\Dev\qairt\2.47.0.260601\lib\python\qti\aisw\converters\common\windows-x86_64\libPyIrGraph310.pyd

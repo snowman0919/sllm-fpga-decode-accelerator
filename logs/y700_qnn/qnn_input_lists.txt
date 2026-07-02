@@ -1,0 +1,2 @@
+activation:=C:\Users\dbsgu\Dev\sllm_qnn_exp\inputs\activation_1x1152_f32.raw weight:=C:\Users\dbsgu\Dev\sllm_qnn_exp\inputs\weight_1152x4096_f32.raw
+activation:=C:\Users\dbsgu\Dev\sllm_qnn_exp\inputs\activation_1x1152_f32.raw weight:=C:\Users\dbsgu\Dev\sllm_qnn_exp\inputs\weight_1152x6912_f32.raw

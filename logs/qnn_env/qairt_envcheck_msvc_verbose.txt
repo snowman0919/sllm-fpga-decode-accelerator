@@ -1,0 +1,31 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+
+Name                           Value                                                                                   
+----                           -----                                                                                   
+checkTfLite                    False                                                                                   
+checkOnnx                      False                                                                                   
+checkTensorflow                False                                                                                   
+enableVerbose                  True                                                                                    
+checkMSVC                      True                                                                                    
+checkPyTorch                   False                                                                                   
+
+
+
+Checking MSVC Toolchain
+--------------------------------------------------------------
+WARNING: The version of VS BuildTools 14.44.35207 found has not been validated. Recommended to use known stable VS 
+BuildTools version 14.34
+WARNING: The version of Visual C++(x64) 19.44.35223 found has not been validated. Recommended to use known stable 
+Visual C++(x64) version 19.34
+Name              Version      
+----              -------      
+Visual Studio     17.14.37012.4
+VS Build Tools    14.44.35207  
+Visual C++(x86)   19.44.35223  
+Visual C++(arm64) Not Installed
+Windows SDK       10.0.26100   
+CMake             Not Installed
+clang-cl          Not Installed
+--------------------------------------------------------------
+

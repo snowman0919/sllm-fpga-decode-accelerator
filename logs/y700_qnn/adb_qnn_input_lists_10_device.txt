@@ -1,0 +1,3 @@
+     10 /data/local/tmp/sllm_qnn/inputs/lm_head_input_list_10.txt
+     10 /data/local/tmp/sllm_qnn/inputs/mlp_input_list_10.txt
+     20 total

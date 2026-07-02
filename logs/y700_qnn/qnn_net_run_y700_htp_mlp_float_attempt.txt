@@ -1,0 +1,10 @@
+qnn-net-run pid:25946
+qnn-net-run build version: v2.47.0.260601114230
+qnn-net-run log level is : QNN_LOG_LEVEL_INFO
+Processing inference input(s):
+activation -> /data/local/tmp/sllm_qnn/inputs/activation_1x1152_f32.raw
+weight -> /data/local/tmp/sllm_qnn/inputs/weight_1152x6912_f32.raw
+Composing Graphs
+Finalizing Graphs
+Executing Graphs
+Finished Executing Graphs

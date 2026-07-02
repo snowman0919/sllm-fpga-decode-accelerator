@@ -12,7 +12,7 @@
 | `attention_qk_score` 0% 해석 부족 | QK 연산이 없다는 오해 가능 | ONNX Runtime graph optimization/fused operator 내부 흡수 가능성을 명시하고 kernel-level profiling 필요성을 추가 | 4장 | fused kernel 내부 비용은 미분해 | 해결 |
 | 16x4 DE10-Lite 결과 과대해석 위험 | 1.3 us가 acceleration처럼 보일 수 있었음 | 64 MAC PoC의 기능 정합성 및 cycle-level validation으로 제한 | 6장 | projection-scale FPGA 측정 없음 | 해결 |
 | JTAG latency와 internal compute 혼동 | 서로 다른 물리량이 같은 축에 놓일 위험 | JTAG는 host-tool invocation overhead로 분리 | 6장 | 실용 interface 실측 없음 | 해결 |
-| QNN 실패 표현이 개발 로그식임 | `QNN EP 실행 경로 미확보` 표현이 본문에 있었음 | "QNN EP 실행 경로를 확보하지 못했다"로 변경 | 초록, 3장, 8장 | QNN SDK 경로 미확인 | 부분 해결 |
+| QNN/NPU 경로가 약함 | ORT AAR에서 QNN EP가 없고 기존 원고는 실패 표현 중심이었음 | QAIRT 2.47 direct DLC 경로로 Y700 QNN CPU/HTP 실행을 추가하고, ORT QNN EP와 분리해 표 2a에 반영 | 초록, 3장, 5장, 8장, `docs/stage_reports/11_qnn_qairt_y700_direct_run.md` | ORT QNN EP 결과가 아니며 dynamic weight input float MatMul DLC 결과 | 부분 해결 |
 | 1.58bit 제안과 INT8 PoC 연결 비약 | 후속 구조가 본문 중심으로 커졌음 | 1.58bit/MatMul-free는 후속 특기자 산출물 후보로 낮추고 본문에서는 memory-centric 요구사항의 확장 후보로 제한 | 5장, 7장, 8장 | 후속 구조 구현 없음 | 부분 해결 |
 | DDR2/LPDDR2/SRAM-like FPGA는 구현 결과 아님 | custom board가 구현처럼 읽힐 수 있었음 | weight-resident memory pool 후보로 제한 | 5장, 7장 | 보드 설계/검증 없음 | 해결 |
 | 표/그림의 evidence type 분리 필요 | measured/projected/proposal 혼동 위험 | 표 1 및 각 절에서 measured/projected/proposal/PoC 구분 | 3장, 5-7장 | 일부 CSV artifact에는 보조 design-space 행 존재 | 부분 해결 |

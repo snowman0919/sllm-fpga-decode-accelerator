@@ -1,0 +1,8 @@
+
+Name                        Length
+----                        ------
+activation_1x1152_f32.raw     4608
+weight_1152x4096_f32.raw  18874368
+weight_1152x6912_f32.raw  31850496
+
+

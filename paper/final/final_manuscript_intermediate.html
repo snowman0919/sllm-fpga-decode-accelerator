@@ -26,50 +26,50 @@
 <p>Yunhyuk Choi</p>
 <p>Korea Digital Media High School</p>
 <h2>초록</h2>
-<p>온디바이스 소형 언어모델(sLLM) 추론에서는 모델 크기뿐 아니라 ONNX graph 구조, execution provider, quantization 상태, decode cache 처리 방식, host/offload interface가 token 단위 실행 비용을 결정한다. 본 연구는 Gemma 계열 sLLM의 ONNX Runtime profiling 결과와 대표 projection micrograph manifest를 바탕으로 decode 단계의 병목을 분석하고, 이를 FPGA 기반 INT8 MatVec 구조 요구사항 및 후속 설계 방향으로 정리한다. 기존 ONNX Runtime CPUExecutionProvider profiling에서는 MatMul이 decode trace node 시간의 81.1%를 차지했으며, MatMul 내부에서는 <code>mlp_projection</code>과 <code>lm_head</code>가 88.90%를 차지했다. Lenovo Y700(TB320FC, Snapdragon 8+ Gen 1급 taro platform)에서는 ONNX Runtime 1.27.0 Android APK로 representative projection micrograph를 실행했다. INT8 MatMulInteger p50 latency는 CPU EP에서 attention output 0.738 ms, <code>lm_head</code> tile 3.582 ms, MLP projection 3.428 ms였고, NNAPI EP에서는 각각 0.518 ms, 2.989 ms, 3.333 ms였다. 본 실험 환경에서는 QNN EP 실행 경로를 확보하지 못했으므로, Snapdragon NPU backend 평가는 후속 과제로 남긴다. FPGA 측면에서는 DE10-Lite에서 16x4 INT8 MatVec primitive의 board-level correctness를 확인했고, 20회 JTAG-to-Avalon 호출에서 CPU reference와 동일한 결과 및 internal cycle counter 기준 65 cycles, 1.3 us @ 50 MHz를 확보했다. 이 1.3 us 값은 64 MAC PoC core의 기능 정합성과 cycle-level 측정 가능성을 확인한 결과이며, projection-scale 가속 결과로 해석하지 않는다. JTAG total latency는 host-tool invocation overhead로만 분리한다. 후속 구조 방향은 memory-centric low-bit MatVec 요구사항을 중심으로 정리하며, 1.58bit 계열 변환 기반 가산기 accelerator, SRAM-like scratchpad FPGA, DDR2/LPDDR2 다채널 weight memory는 이후 특기자 산출물에서 구현할 구조 후보로 한정한다.</p>
+<p>온디바이스 소형 언어모델(sLLM) 추론에서는 모델 크기뿐 아니라 ONNX graph 구조, execution provider, quantization 상태, decode cache 처리 방식, host/offload interface가 token 단위 실행 비용을 결정한다. 본 연구는 Gemma 계열 sLLM의 ONNX Runtime profiling 결과와 Lenovo Y700(TB320FC, Snapdragon 8+ Gen 1급 taro platform)에서 실행한 representative projection micrograph 실측을 결합해 decode 단계의 projection-heavy 병목을 분석하고, 그 결과를 FPGA 기반 INT8 MatVec 구조 요구사항으로 정리한다. 기존 ONNX Runtime CPUExecutionProvider profiling에서는 MatMul이 decode trace node 시간의 81.1%를 차지했으며, MatMul 내부에서는 <code>mlp_projection</code>과 <code>lm_head</code>가 88.90%를 차지했다. Y700의 ONNX Runtime 1.27.0 Android APK 실험에서 INT8 MatMulInteger p50 latency는 CPU EP 기준 attention output 0.738 ms, <code>lm_head</code> tile 3.582 ms, MLP projection 3.428 ms였고, NNAPI EP에서는 각각 0.518 ms, 2.989 ms, 3.333 ms였다. 추가로 QAIRT 2.47.0의 <code>qnn-net-run</code> direct DLC 경로를 사용해 Y700 QNN HTP 실행을 확인했으며, float <code>lm_head</code> tile의 10회 평균 NetRun execute는 3.415 ms, accelerator execute는 1.668 ms였다. 반면 MLP projection에서는 HTP 평균 NetRun execute가 19.536 ms로 측정되어, QNN/HTP 경로에서도 shape와 weight movement가 성능을 지배할 수 있음을 보였다. DE10-Lite에서는 16x4 INT8 MatVec 연산 단위의 board-level correctness를 확인했으며, 20회 JTAG-to-Avalon 호출에서 CPU reference와 동일한 결과 및 internal cycle counter 기준 65 cycles, 1.3 us @ 50 MHz를 확보했다. 이 보드 검증은 병목 분석에서 도출한 MatVec 계열 연산을 하드웨어 연산 단위로 구현하고 cycle-level로 관측할 수 있음을 보이는 PoC이다. Roofline/interface 분석은 weight movement가 projection-scale offload의 지배 조건임을 보이며, 후속 구조는 weight residency와 provider/runtime 호출 경계를 함께 줄이는 memory-centric low-bit MatVec 방향으로 귀결된다.</p>
 <p><strong>키워드:</strong> ONNX Runtime, 온디바이스 추론, 소형 언어모델, decode, MatMul, MatVec, FPGA, INT8, DE10-Lite</p>
 <h2>Abstract</h2>
-<p>On-device small language model inference is shaped not only by model size, but also by ONNX graph structure, execution providers, quantization state, decode-cache handling, and host/offload interfaces. This study analyzes decode-stage bottlenecks using ONNX Runtime profiling results and representative projection micrograph manifests for Gemma-class sLLM workloads, then summarizes the observed workload characteristics as requirements for an FPGA-based INT8 MatVec path and as a follow-up architecture direction. In the existing ONNX Runtime CPUExecutionProvider profile, MatMul accounts for 81.1% of traced decode node time, while <code>mlp_projection</code> and <code>lm_head</code> together account for 88.90% of MatMul time. On a Lenovo Y700 Android tablet, an ONNX Runtime 1.27.0 APK benchmark reports INT8 MatMulInteger p50 latencies of 0.738 ms, 3.582 ms, and 3.428 ms for attention-output, <code>lm_head</code> tile, and MLP projection micrographs on the CPU EP; the corresponding NNAPI EP p50 latencies are 0.518 ms, 2.989 ms, and 3.333 ms. The QNN EP execution path was not secured in this experimental environment, so Snapdragon NPU backend evaluation remains future work. On the FPGA side, a 16x4 INT8 MatVec primitive is validated on DE10-Lite with board-level correctness: 20 JTAG-to-Avalon invocations match the CPU reference, and the internal cycle counter reports 65 cycles, or 1.3 us at 50 MHz. The 1.3 us value demonstrates functional correctness and cycle-level observability for a 64-MAC PoC core; it is not projection-scale acceleration evidence. JTAG total latency is separated as host-tool invocation overhead. The follow-up direction is framed as memory-centric low-bit MatVec requirements, while 1.58-bit-family conversion, SRAM-like scratchpad FPGA reuse, and multi-channel DDR2/LPDDR2 weight memory are scoped as candidates for subsequent work.</p>
+<p>On-device small language model inference is shaped not only by model size, but also by ONNX graph structure, execution providers, quantization state, decode-cache handling, and host/offload interfaces. This study analyzes decode-stage projection bottlenecks by combining ONNX Runtime profiling results for Gemma-class sLLM workloads with representative projection micrograph measurements on a Lenovo Y700 Android tablet. In the existing ONNX Runtime CPUExecutionProvider profile, MatMul accounts for 81.1% of traced decode node time, while <code>mlp_projection</code> and <code>lm_head</code> together account for 88.90% of MatMul time. On the Y700, an ONNX Runtime 1.27.0 APK benchmark reports INT8 MatMulInteger p50 latencies of 0.738 ms, 3.582 ms, and 3.428 ms for attention-output, <code>lm_head</code> tile, and MLP projection micrographs on the CPU EP; the corresponding NNAPI EP p50 latencies are 0.518 ms, 2.989 ms, and 3.333 ms. A separate QAIRT 2.47.0 <code>qnn-net-run</code> direct DLC experiment confirms QNN HTP execution on the Y700: for a float <code>lm_head</code> tile, the 10-run mean NetRun execute time is 3.415 ms and the accelerator execute time is 1.668 ms. For the MLP projection, however, the HTP mean NetRun execute time is 19.536 ms, showing that shape and weight movement can still dominate the QNN/HTP path. On the FPGA side, a 16x4 INT8 MatVec compute unit is validated on DE10-Lite with board-level correctness: 20 JTAG-to-Avalon invocations match the CPU reference, and the internal cycle counter reports 65 cycles, or 1.3 us at 50 MHz. This validation is used as a PoC for functional correctness and cycle-level observability of an INT8 MatVec unit, while the roofline/interface analysis shows that projection-scale offload is dominated by weight movement and requires a memory-centric low-bit MatVec path with weight residency and a low-overhead invocation boundary.</p>
 <p><strong>Keyword:</strong> ONNX Runtime, on-device inference, small language model, decode, MatMul, MatVec, FPGA, INT8, DE10-Lite</p>
 <h2>1. 서론</h2>
 <p>온디바이스 sLLM 추론은 클라우드 의존성을 낮추고 개인정보 보호와 저지연 응답 가능성을 제공하지만, 실제 배포 계층에서는 모델 파라미터 수만으로 병목을 설명하기 어렵다. Autoregressive language model은 prompt 전체를 처리하는 prefill과 다음 token을 반복 생성하는 decode로 나뉜다. Decode에서는 token dimension이 작아지더라도 hidden dimension, projection dimension, cache tensor의 lifetime은 유지되므로 각 token마다 projection, cache access, graph-level shape operation이 결합된다.</p>
-<p>본 연구는 FPGA가 전체 모델을 더 빠르게 실행했다는 성능 주장이 아니라, ONNX Runtime에서 관측되는 decode 병목을 분석하고 이를 FPGA INT8 MatVec/MatMul 구조 요구사항으로 변환하는 것을 목표로 한다. 특히 기존 LLM accelerator 논의가 attention 또는 QK score 중심으로 흐르기 쉬운 점을 고려하여, 실제 ONNX Runtime trace에서 MLP projection과 <code>lm_head</code>가 차지하는 비중을 확인하고, QK-only가 아닌 projection-heavy low-bit MatVec/MatMul 경로의 필요성을 검토한다.</p>
-<p>본 연구의 기여는 세 가지이다. 첫째, ONNX export, graph inspection, runtime profiling, Android/Y700 실행 하네스, FPGA primitive 검증을 증거 계층별로 분리한다. 둘째, MatMul 중에서도 <code>mlp_projection</code>과 <code>lm_head</code>가 큰 비중을 차지한다는 점을 바탕으로 memory-centric low-bit MatVec/MatMul 구조 요구사항을 도출한다. 셋째, DE10-Lite 16x4 INT8 MatVec primitive의 board-level correctness와 cycle-level validation을 제시하되, 이를 full accelerator 성능으로 해석하지 않고 후속 구조 설계의 검증 출발점으로 둔다.</p>
+<p>본 연구는 ONNX Runtime에서 관측되는 decode 병목을 분석하고, 이를 FPGA INT8 MatVec/MatMul 구조 요구사항으로 변환하는 것을 목표로 한다. 특히 기존 LLM accelerator 논의가 attention 또는 QK score 중심으로 흐르기 쉬운 점을 고려하여, 실제 ONNX Runtime trace에서 MLP projection과 <code>lm_head</code>가 차지하는 비중을 확인하고, QK-only가 아닌 projection-heavy low-bit MatVec/MatMul 경로의 필요성을 검토한다.</p>
+<p>본 연구의 기여는 세 가지이다. 첫째, ONNX export, graph inspection, runtime profiling, Android/Y700 실행 하네스, FPGA 연산 단위 검증을 증거 계층별로 분리한다. 둘째, MatMul 중에서도 <code>mlp_projection</code>과 <code>lm_head</code>가 큰 비중을 차지한다는 점을 바탕으로 memory-centric low-bit MatVec/MatMul 구조 요구사항을 도출한다. 셋째, DE10-Lite 16x4 INT8 MatVec 연산 단위의 board-level correctness와 cycle-level validation을 제시하고, 이를 projection-scale 구조 요구사항 및 offload granularity 분석과 연결한다.</p>
 <figure><img src="../../paper_assets/figures/research_flow.png" alt="그림 1. 전체 연구 흐름"><figcaption>그림 1. 전체 연구 흐름</figcaption></figure>
 <p>그림 1은 Android/Y700 실행 경로, ONNX Runtime 분석, FPGA core validation, projection-scale roofline/interface model을 서로 다른 증거 계층으로 분리한 연구 흐름을 나타낸다.</p>
 <h2>2. 관련 연구 및 배경</h2>
 <p>Transformer 추론에서 prefill은 입력 prompt 전체를 한 번에 처리하고, decode는 cache를 참조하며 token을 순차적으로 생성한다. Decode 단계는 batch와 token dimension이 작아질 수 있지만, 각 layer의 MLP projection, attention projection, <code>lm_head</code> projection은 반복된다. 따라서 decode 병목은 attention score 계산뿐 아니라 dense projection, cache movement, graph-level shape operation을 함께 보아야 한다.</p>
-<p>KV-cache는 long-context decode에서 핵심 구조이다. Orca는 autoregressive serving에서 iteration-level scheduling의 중요성을 보였고[10], vLLM/PagedAttention은 KV-cache를 block 단위로 관리하여 memory fragmentation과 scheduling 문제를 줄이는 방향을 제시했다[3]. FlashAttention 계열 연구는 attention kernel의 I/O-aware tiling과 work partitioning을 최적화한다[4][11]. 이러한 연구들은 decode와 memory movement의 중요성을 보여주지만, 본 연구는 serving scheduler나 attention kernel 자체를 구현하지 않는다.</p>
+<p>KV-cache는 long-context decode에서 핵심 구조이다. Orca는 autoregressive serving에서 iteration-level scheduling의 중요성을 보였고[10], vLLM/PagedAttention은 KV-cache를 block 단위로 관리하여 memory fragmentation과 scheduling 문제를 줄이는 방향을 제시했다[3]. FlashAttention 계열 연구는 attention kernel의 I/O-aware tiling과 work partitioning을 최적화한다[4][11]. 이러한 연구들은 decode와 memory movement의 중요성을 보여준다. 본 연구는 이 맥락에서 ONNX Runtime 배포 계층의 projection, cache movement, graph-level shape operation을 측정 대상으로 삼는다.</p>
 <p>ONNX Runtime은 graph optimization과 execution provider를 통해 같은 ONNX graph라도 CPU, NNAPI, QNN 등 다양한 경로로 실행할 수 있다[9]. 온디바이스 배포에서는 provider 선택, quantization state, graph rewrite가 병목을 크게 바꿀 수 있다. GPTQ, SmoothQuant, AWQ와 같은 quantization 연구는 LLM 배포에서 weight/activation 표현 방식이 실행 비용과 정확도에 함께 영향을 준다는 점을 보여준다[5][6][7]. 본 연구는 현재 확보된 CPUExecutionProvider trace와 Android 실행 하네스를 분리하여, 측정된 값과 아직 실행되지 않은 경로를 혼동하지 않는다.</p>
-<p>FPGA 기반 transformer accelerator 연구로는 FTRANS, DFX, FlightLLM 등이 있다[8][12][13]. 이 연구들은 full model mapping, multi-FPGA appliance, complete mapping flow 등 더 큰 시스템 범위를 다룬다. 본 연구는 이와 달리 full model FPGA 실행이나 custom ONNX Runtime execution provider를 제시하지 않는다. 대신 ONNX Runtime profiling에서 도출된 projection-heavy primitive를 대상으로, 어떤 memory-centric low-bit MatVec 요구사항이 필요한지 분석하고, 최소 INT8 MatVec core가 실제 보드에서 동작함을 확인한다.</p>
+<p>FPGA 기반 transformer accelerator 연구로는 FTRANS, DFX, FlightLLM 등이 있다[8][12][13]. 이 연구들은 full model mapping, multi-FPGA appliance, complete mapping flow 등 더 큰 시스템 범위를 다룬다. 본 연구는 그 이전 단계의 runtime-hardware boundary에 초점을 둔다. ONNX Runtime profiling에서 projection-heavy primitive를 식별하고, Android provider 경로에서 대표 projection micrograph의 latency를 측정한 뒤, DE10-Lite의 최소 INT8 MatVec core 검증과 roofline model을 통해 후속 FPGA 구조가 만족해야 할 memory/interface 조건을 도출한다.</p>
 <h2>3. 실험 방법</h2>
-<p>본 연구의 증거 계층은 표 1과 같이 구분한다. 이 구분은 측정값, 시뮬레이션, projected model, invocation overhead가 같은 성능 순위처럼 읽히지 않도록 하기 위한 핵심 방법론이다.</p>
+<p>본 연구의 증거 계층은 표 1과 같이 구분한다. 이 구분은 측정값, projected model, invocation overhead를 같은 성능 순위로 혼동하지 않기 위한 방법론이다.</p>
 <p><strong>표 1. 실험 환경 및 증거 계층 요약</strong></p>
 <table>
 <thead><tr>
 <th>환경</th>
 <th>evidence type</th>
 <th>상태</th>
-<th>claim boundary</th>
+<th>해석 범위</th>
 </tr></thead>
 <tbody>
 <tr>
 <td>Lenovo Y700 Android</td>
 <td>measured APK micrograph</td>
 <td>completed</td>
-<td>CPU/NNAPI latency 확보, QNN EP 실행 경로 미확보</td>
+<td>CPU/NNAPI provider latency</td>
 </tr>
 <tr>
 <td>ONNX Runtime CPU profile</td>
 <td>measured host profile</td>
 <td>기존 profiling artifact</td>
-<td>Ryzen/host CPUExecutionProvider trace, Y700 측정 아님</td>
+<td>trace node time의 operator share</td>
 </tr>
 <tr>
 <td>ONNX micrograph manifest</td>
 <td>graph evidence</td>
 <td>available</td>
-<td>대표 graph shape 확인, Gemma 전체 모델 실행 아님</td>
+<td>representative projection shape</td>
 </tr>
 <tr>
 <td>DE10-Lite INT8 MatVec</td>
@@ -81,16 +81,16 @@
 <td>Projection roofline</td>
 <td>projected</td>
 <td>model only</td>
-<td>measured latency가 아닌 bandwidth/weight-movement estimate</td>
+<td>bandwidth/weight-movement estimate</td>
 </tr>
 <tr>
-<td>저자 후속 구조 제안</td>
+<td>후속 구조 방향</td>
 <td>proposal</td>
-<td>not implemented</td>
-<td>1.58bit 변환, scratchpad FPGA, DDR2/LPDDR2 다채널 memory는 구현 결과가 아님</td>
+<td>requirement only</td>
+<td>memory-centric low-bit MatVec 방향</td>
 </tr>
 </tbody></table>
-<p>Lenovo Y700 경로에서는 <code>adb</code>로 연결된 TB320FC 장치에서 ONNX Runtime 1.27.0 Android APK를 실행했다. 장치는 Android 15, arm64-v8a ABI, Qualcomm taro platform으로 확인되었으며, <code>/proc/meminfo</code>의 MemTotal은 15,578,208 kB로 기록되었다. APK는 ONNX model을 asset으로 포함하고 <code>session.run</code> wall-clock latency를 warmup 3회, 측정 20회로 기록한다. CPUExecutionProvider와 NNAPIExecutionProvider는 실행되었다. QNNExecutionProvider는 사용한 AAR build의 available provider 목록에 없었고, 별도로 지정된 Windows QNN 설치 경로도 확인되지 않아 본 제출본에서는 QNN EP 실행 경로를 확보하지 못했다.</p>
+<p>Lenovo Y700 경로에서는 <code>adb</code>로 연결된 TB320FC 장치에서 ONNX Runtime 1.27.0 Android APK를 실행했다. 장치는 Android 15, arm64-v8a ABI, Qualcomm taro platform으로 확인되었으며, <code>/proc/meminfo</code>의 MemTotal은 15,578,208 kB로 기록되었다. APK는 ONNX model을 asset으로 포함하고 <code>session.run</code> wall-clock latency를 warmup 3회, 측정 20회로 기록한다. CPUExecutionProvider와 NNAPIExecutionProvider는 실행되었다. 사용한 ONNX Runtime Android AAR의 available provider 목록은 <code>[CPU, NNAPI, XNNPACK, WEBGPU]</code>였으므로 ORT QNN Execution Provider는 APK 안에서 사용할 수 없었다. 대신 Windows Pocket4의 QAIRT 2.47.0 설치본을 사용해 <code>qnn-onnx-converter</code>, <code>snpe-onnx-to-dlc</code>, Android <code>qnn-net-run</code> direct DLC 경로를 별도로 검증했다.</p>
 <p><strong>표 2. Lenovo Y700 ONNX Runtime projection micrograph 결과</strong></p>
 <table>
 <thead><tr>
@@ -106,30 +106,76 @@
 <td>INT8 MatMulInteger</td>
 <td>0.738 ms</td>
 <td>0.518 ms</td>
-<td>실행 경로 미확보</td>
+<td>ORT AAR 미지원</td>
 </tr>
 <tr>
 <td><code>lm_head</code> tile 1152x4096</td>
 <td>INT8 MatMulInteger</td>
 <td>3.582 ms</td>
 <td>2.989 ms</td>
-<td>실행 경로 미확보</td>
+<td>ORT AAR 미지원</td>
 </tr>
 <tr>
 <td>MLP projection 1152x6912</td>
 <td>INT8 MatMulInteger</td>
 <td>3.428 ms</td>
 <td>3.333 ms</td>
-<td>실행 경로 미확보</td>
+<td>ORT AAR 미지원</td>
 </tr>
 <tr>
 <td>16x4 provider overhead probe</td>
 <td>INT8 MatMulInteger</td>
 <td>0.051 ms</td>
 <td>0.159 ms</td>
-<td>실행 경로 미확보</td>
+<td>ORT AAR 미지원</td>
 </tr>
 </tbody></table>
+<p>QAIRT direct 경로는 ORT QNN EP와 동일한 API 경로가 아니므로 표 2와 직접 합산하지 않는다. <code>MatMulInteger</code> micrograph는 QAIRT ONNX converter의 dry-run에서 <code>MatMulInteger: unsupported in Converter</code>로 보고되었다. 따라서 QNN direct 실행은 float MatMul DLC로 제한하고, weight를 initializer가 아닌 입력 tensor로 두는 기존 micrograph 구조를 유지했다. 이 조건은 QNN HTP 지원 여부와 실행 overhead를 확인하는 데에는 유용하지만, weight-resident deployment model을 대표하지 않는다.</p>
+<p><strong>표 2a. Lenovo Y700 QAIRT <code>qnn-net-run</code> direct DLC 결과</strong></p>
+<table>
+<thead><tr>
+<th>graph</th>
+<th>backend</th>
+<th>runs</th>
+<th>NetRun execute mean/p50/p95</th>
+<th>backend 또는 accelerator mean/p50/p95</th>
+<th>비고</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>lm_head</code> tile 1152x4096 float</td>
+<td>QNN CPU</td>
+<td>10</td>
+<td>14.192 / 12.709 / 26.671 ms</td>
+<td>12.032 / 10.750 / 22.504 ms</td>
+<td>direct DLC, dynamic weight input</td>
+</tr>
+<tr>
+<td>MLP projection 1152x6912 float</td>
+<td>QNN CPU</td>
+<td>10</td>
+<td>16.078 / 15.885 / 19.955 ms</td>
+<td>12.399 / 12.245 / 15.958 ms</td>
+<td>direct DLC, dynamic weight input</td>
+</tr>
+<tr>
+<td><code>lm_head</code> tile 1152x4096 float</td>
+<td>QNN HTP</td>
+<td>10</td>
+<td>3.415 / 3.166 / 4.253 ms</td>
+<td>1.668 / 1.770 / 1.898 ms</td>
+<td>accelerator execute, HVX threads 4</td>
+</tr>
+<tr>
+<td>MLP projection 1152x6912 float</td>
+<td>QNN HTP</td>
+<td>10</td>
+<td>19.536 / 19.125 / 23.533 ms</td>
+<td>13.945 / 13.789 / 15.887 ms</td>
+<td>accelerator execute, HVX threads 4</td>
+</tr>
+</tbody></table>
+<p>표 2a의 HTP 결과는 <code>lm_head</code> tile에서는 provider/accelerator 경계가 의미 있는 실행 경로가 될 수 있음을 보여준다. 반면 MLP projection에서는 HTP의 accelerator execute 및 RPC/QNN execute 시간이 커져 CPU direct 실행과 비교해 일관된 이득으로 해석하기 어렵다. 이 차이는 projection workload를 단순히 accelerator에 보내는 것만으로 충분하지 않고, weight residency, input/output movement, graph initialization/finalization, invocation granularity를 함께 다뤄야 함을 뒷받침한다.</p>
 <p>대표 micrograph는 표 3과 같이 생성하였다. 파일명은 intended role을 나타낼 수 있으나, 본 논문에서는 graph inspection으로 확인한 operator, dtype, tensor shape를 기준으로 해석한다.</p>
 <p><strong>표 3. ONNX micrograph manifest 요약</strong></p>
 <table>
@@ -189,7 +235,7 @@
 <td>INT8 -&gt; INT32</td>
 </tr>
 </tbody></table>
-<p>FPGA 검증은 SpinalHDL 기반 INT8 MatVec core, Verilator simulation, Quartus clean rebuild, DE10-Lite JTAG-to-Avalon register invocation으로 구성된다. JTAG path는 correctness/debug path이며, performance interface로 해석하지 않는다.</p>
+<p>FPGA 검증은 SpinalHDL 기반 INT8 MatVec core, Verilator simulation, Quartus clean rebuild, DE10-Lite JTAG-to-Avalon register invocation으로 구성된다. JTAG-to-Avalon path는 board-level correctness 확인에 사용하고, 연산 latency는 RTL 내부 cycle counter로 기록한다.</p>
 <h2>4. ONNX Runtime 및 Micrograph 병목 분석</h2>
 <p>기존 ONNX Runtime CPUExecutionProvider profiling에서는 decode trace node 시간 중 MatMul이 81.1%를 차지했다. Prefill과 decode를 합산한 trace node 시간에서는 MatMul share가 67.5%, prefill에서는 53.4%였다. Long-decode trace에서도 MatMul은 주요 operator group으로 유지되지만, context 2048과 decode 256 조건에서는 <code>Expand + Concat + Unsqueeze</code> 합산 비중이 17.71%까지 증가했다. 이 결과는 decode 병목이 dense projection만으로도, KV-cache만으로도 완전히 설명되지 않으며 두 계층을 함께 다뤄야 함을 의미한다.</p>
 <p><strong>표 4. ONNX Runtime profiling 기반 decode 병목 요약</strong></p>
@@ -224,54 +270,56 @@
 <p>MatMul category 분석에서는 <code>mlp_projection</code>과 <code>lm_head</code>가 전체 MatMul 시간의 88.90%를 차지했다. 따라서 후속 FPGA 구조 요구사항은 QK dot-product 전용 block보다 MLP, attention projection, <code>lm_head</code>에 공통 적용 가능한 low-bit MatVec/MatMul 처리를 우선 고려해야 한다. <code>attention_qk_score</code>가 runtime classifier에서 0.00%로 나타난 것은 QK 연산 부재가 아니라, ONNX Runtime graph optimization 과정에서 MatMul, Add, Softmax가 attention 또는 fused operator 내부로 흡수되었거나 현재 event classifier에서 확정 가능한 MatMul event로 분류되지 않았음을 뜻한다. 그러므로 QK 비용의 세부 분해는 kernel-level profiling 또는 optimization-disabled trace가 필요하다.</p>
 <p>Long-decode sweep의 일부 결과는 runs 1, warmup 0 조건으로 수집된 exploratory trace이다. 그러므로 latency benchmark로 해석하지 않고 operator share 경향으로만 사용한다. 최종 온디바이스 latency 판단은 Y700 APK micrograph benchmark를 우선한다.</p>
 <figure><img src="../../paper_assets/figures/y700_onnx_runtime_bottleneck.png" alt="그림 2. Lenovo Y700 ONNX Runtime INT8 projection micrograph 결과"><figcaption>그림 2. Lenovo Y700 ONNX Runtime INT8 projection micrograph 결과</figcaption></figure>
-<p>그림 2는 INT8 MatMulInteger projection micrograph의 p50 latency를 CPU EP와 NNAPI EP로 나누어 나타낸다. 16x4 graph에서는 provider dispatch overhead가 지배적이므로 구조 비교에 쓰지 않고, 1024~6912 output dimension의 projection micrograph를 온디바이스 projection 연산의 절대 latency와 provider granularity를 살피는 근거로 사용한다. 전체 Gemma graph 대신 micrograph를 사용한 이유는 Android 환경의 full export, dynamic KV-cache shape, graph copy 비용을 한꺼번에 섞지 않고 dense projection 연산의 provider별 dispatch와 compute 비용을 격리하기 위해서이다.</p>
-<h2>5. 병목 분석 기반 FPGA 구조 요구사항과 저자 후속 구조 제안</h2>
+<p>그림 2는 INT8 MatMulInteger projection micrograph의 p50 latency를 CPU EP와 NNAPI EP로 나누어 나타낸다. 16x4 graph에서는 provider dispatch overhead가 지배적이므로 구조 비교에 쓰지 않고, 1024~6912 output dimension의 projection micrograph를 온디바이스 projection 연산의 절대 latency와 provider granularity를 살피는 근거로 사용한다. QAIRT direct QNN 실험은 이 결과를 대체하지 않고, QNN HTP 경로가 graph shape와 data movement에 민감하다는 추가 근거로만 사용한다. 전체 Gemma graph 대신 micrograph를 사용한 이유는 Android 환경의 full export, dynamic KV-cache shape, graph copy 비용을 한꺼번에 섞지 않고 dense projection 연산의 provider별 dispatch와 compute 비용을 격리하기 위해서이다.</p>
+<h2>5. 병목 분석 기반 FPGA 구조 요구사항</h2>
 <p>기존 ONNX Runtime profiling은 decode trace 안에서 projection-heavy MatMul의 비중을 보여주고, Y700 micrograph는 해당 projection shape가 Android provider 경로에서 어느 정도의 절대 latency를 갖는지 보여준다. 두 증거는 같은 현상을 직접 동일하게 측정한 것이 아니라, 병목 후보와 온디바이스 실행 비용을 서로 다른 계층에서 보완한다. 따라서 후속 FPGA 구조는 단순히 MAC core cycle을 줄이는 방향보다 weight movement, activation reuse, partial sum reuse, output tile 처리, provider/runtime 호출 경계의 비용을 함께 줄이는 memory-centric low-bit MatVec 구조가 되어야 한다.</p>
-<p><strong>표 5. ONNX Runtime 병목에서 도출한 하드웨어 요구사항</strong></p>
+<h3>5.1 Projection workload와 FPGA 구성요소의 대응</h3>
+<p>본 연구에서 도출한 FPGA 구조 요구사항은 단순히 MatMul 비중이 높다는 사실에서 바로 도출되지 않는다. Decode 단계의 projection workload는 token activation vector가 상대적으로 작고, 반복적으로 참조되는 weight matrix가 크다는 데이터 특성을 갖는다. 따라서 FPGA offload가 의미를 가지려면 연산 코어 자체보다 weight movement, activation reuse, output tile 처리, invocation granularity가 함께 설계되어야 한다. Y700 micrograph에서 16x4 graph는 NNAPI EP가 CPU EP보다 느렸지만, 1024~6912 output dimension을 갖는 projection graph에서는 NNAPI EP가 유리하거나 유사한 결과를 보였다. QAIRT HTP direct 실행에서도 <code>lm_head</code> tile은 accelerator execute가 1.668 ms로 관측된 반면, 더 큰 MLP projection은 NetRun execute 평균이 19.536 ms로 증가했다. 이는 작은 연산을 잘게 offload하는 방식보다 projection tile 단위의 충분히 큰 granularity와 weight-resident data path를 함께 갖는 하드웨어 경계가 필요함을 시사한다.</p>
+<p><strong>표 5. ONNX/Decode 병목과 FPGA 구조 요소의 대응</strong></p>
 <table>
 <thead><tr>
-<th>요구사항</th>
-<th>근거</th>
-<th>구조적 의미</th>
-<th>본 논문 상태</th>
+<th>ONNX/Decode 병목</th>
+<th>데이터 특성</th>
+<th>FPGA 구조 요구사항</th>
+<th>이번 논문 근거</th>
 </tr></thead>
 <tbody>
 <tr>
-<td>projection-heavy MatVec/MatMul 우선</td>
-<td><code>mlp_projection + lm_head</code>가 MatMul 시간의 88.90%</td>
-<td>QK 전용보다 MLP, attention output, <code>lm_head</code> 공통 경로 고려</td>
-<td>분석 결과</td>
+<td>MLP projection</td>
+<td>token activation은 작고 1152x6912 weight tile이 큼</td>
+<td>multi-lane INT8 또는 low-bit MatVec datapath, weight tile memory, INT32 partial sum buffer</td>
+<td>ORT MatMul category, Y700 MLP micrograph, QNN HTP direct MLP 결과</td>
 </tr>
 <tr>
-<td>low-bit weight resident 경로</td>
-<td><code>lm_head</code>/MLP tile의 weight movement가 큼</td>
-<td>weight를 반복 전송하지 않는 memory-centric 배치 필요</td>
-<td>요구사항</td>
+<td><code>lm_head</code> tile</td>
+<td>output dimension이 크고 weight movement가 지배적</td>
+<td>weight-resident memory pool, output tile buffer, top-k 또는 host-side reduction boundary</td>
+<td>ORT <code>lm_head</code> share, Y700 1152x4096 tile, QNN HTP direct <code>lm_head</code> 결과</td>
 </tr>
 <tr>
-<td>activation/partial sum 재사용</td>
-<td>decode는 token 단위 반복 실행</td>
-<td>activation, partial sum, hot tile, output tile buffer 재사용 필요</td>
-<td>저자 후속 제안</td>
+<td>attention output projection</td>
+<td>attention 이후 dense projection 반복</td>
+<td>shared MatVec datapath, activation scratchpad, output tile writeback</td>
+<td>Y700 1024x1152 projection micrograph</td>
 </tr>
 <tr>
-<td>provider/runtime 호출 경계 축소</td>
-<td>16x4 micrograph는 dispatch overhead 영향이 큼</td>
-<td>작은 primitive 비교보다 projection-scale boundary 설계 필요</td>
-<td>분석 결과</td>
+<td>16x4 provider overhead probe</td>
+<td>작은 graph에서는 provider dispatch overhead가 상대적으로 큼</td>
+<td>projection-scale offload granularity, low-overhead invocation boundary</td>
+<td>Y700 16x4 CPU/NNAPI 비교</td>
 </tr>
 <tr>
-<td>graph/cache 처리와 분리된 claim</td>
-<td>long-decode에서 shape/cache op 비중 증가</td>
-<td>accelerator 단독 주장보다 graph/runtime specialization과 함께 검토</td>
-<td>후속 과제</td>
+<td>long-decode shape/cache ops</td>
+<td>context 증가 시 <code>Expand + Concat + Unsqueeze</code> 비중 증가</td>
+<td>accelerator와 별도로 graph/runtime specialization, cache metadata 처리 경계 필요</td>
+<td>long-decode exploratory trace</td>
 </tr>
 </tbody></table>
-<p>후속 산출물에서는 1.58bit 계열 모델 변환과 MatMul-free language modeling의 가능성을 참고하여, 곱셈기 중심 datapath를 줄이는 가산기 기반 accelerator 방향을 검토할 수 있다[1][2]. 이 방향은 본 논문의 INT8 MatVec PoC와 직접 연결된 구현 결과가 아니라, Y700 병목 분석에서 도출된 projection-heavy MatVec/MatMul 요구사항을 바탕으로 한 후속 연구 과제이다. 구체적 구현 후보는 projection 연산용 FPGA logic, activation과 partial sum 및 hot tile을 재사용하기 위한 SRAM-like scratchpad FPGA, DDR2 또는 LPDDR2 기반 low-power weight memory를 결합하는 custom board이며, 본 논문에서는 요구사항을 정리하는 범위에 둔다.</p>
-<p>DDR2/LPDDR2는 최신 HBM이나 LPDDR5보다 die당 용량과 단일 채널 대역폭은 작지만, controller 구조가 비교적 단순하고 독립 channel 또는 interleaved group을 늘려 aggregate bandwidth를 높일 수 있다는 장점이 있다. 예를 들어 4Gbit DRAM die 8개 또는 16개를 weight memory로 구성하면 이론 용량은 각각 4GB 또는 8GB가 된다. 본 논문에서는 이를 구현 결과가 아니라 이후 특기자 산출물에서 검토할 weight-resident memory pool 후보로만 둔다.</p>
+<p>후속 산출물에서는 이 요구사항을 바탕으로 더 낮은 bit-width와 weight-resident memory 구조를 검토할 수 있다. 1.58bit 계열 모델 변환과 MatMul-free language modeling은 곱셈기 중심 datapath를 줄이는 방향의 참고점이지만[1][2], 본 논문의 INT8 MatVec 검증이 해당 ternary/adder datapath를 직접 검증하는 것은 아니다. DDR2/LPDDR2 다채널 memory, SRAM-like scratchpad FPGA, compute FPGA 간 custom connector는 이후 특기자 산출물에서 별도 설계와 검증이 필요한 후보로 둔다.</p>
 <h2>6. DE10-Lite INT8 MatVec primitive 검증 결과</h2>
 <p>현재 board-measured 결과는 DE10-Lite의 fixed 16x4 INT8 MatVec primitive에 한정된다. 해당 core는 64 MAC PoC workload를 수행하며, 새 Verilog mirror를 Windows Pocket4의 Quartus 25.1std Lite에서 clean compile한 뒤 DE10-Lite에 programming하여 20회 JTAG-to-Avalon invocation을 수행했다. 결과는 <code>pass_count=20</code>, <code>fail_count=0</code>이며 CPU reference와 동일한 result vector를 기록했다. Internal cycle counter는 65 cycles, 50 MHz 기준 1.3 us를 보고했다.</p>
-<p>이 1.3 us 값은 64 MAC PoC core가 보드에서 올바르게 동작하고 내부 cycle counter가 예상 범위의 cycle을 보고했다는 기능 정합성 및 cycle-level validation 결과이다. 또한 JTAG total latency의 mean/p50/p95 7756.114875 / 7755.08985 / 7775.94519 ms는 System Console host-tool invocation overhead이며, 1.3 us internal compute time과 별개의 물리량이다. 따라서 두 값을 ONNX Runtime latency와 같은 축의 성능 비교로 배치하지 않는다.</p>
+<p>이 결과는 INT8 MatVec 연산 단위가 실제 보드에서 올바르게 동작하고 내부 cycle counter가 예상 범위의 cycle을 보고한다는 기능 정합성 및 cycle-level validation이다. JTAG-to-Avalon 경로는 기능 검증용 host-tool invocation이며, 성능 해석에는 RTL 내부 cycle counter 값을 사용한다.</p>
+<p>16x4 PoC는 <code>lm_head</code>나 MLP projection의 latency를 대표하지 않는다. 그러나 이 검증은 후속 구조 설계에 필요한 최소 하드웨어 경로를 확인한다는 점에서 의미가 있다. 첫째, host가 register interface를 통해 연산 단위를 설정하고 시작하며 결과를 읽는 control path를 구성했다. 둘째, INT8 input과 weight를 INT32 accumulation 결과로 변환하는 fixed-point MatVec datapath가 CPU reference와 bit-exact하게 일치함을 확인했다. 셋째, 외부 invocation overhead와 분리된 internal cycle counter를 통해 core 내부 연산 구간을 관측할 수 있음을 확인했다. 후속 projection-scale 구조는 이 PoC를 단순히 차원만 키우는 방식이 아니라, multi-lane datapath, weight-resident tile memory, activation scratchpad, output tile buffer, low-overhead streaming interface를 추가하는 방향으로 확장되어야 한다.</p>
 <p><strong>표 6. DE10-Lite board validation summary</strong></p>
 <table>
 <thead><tr>
@@ -316,14 +364,58 @@
 <td>56.670 MHz</td>
 </tr>
 </tbody></table>
+<p><strong>표 7. DE10-Lite PoC와 후속 projection-scale 구조의 차이</strong></p>
+<table>
+<thead><tr>
+<th>항목</th>
+<th>현재 DE10-Lite PoC</th>
+<th>후속 구조 요구</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>연산 크기</td>
+<td>16x4, 64 MAC</td>
+<td>MLP, attention output, <code>lm_head</code> projection tile</td>
+</tr>
+<tr>
+<td>datapath</td>
+<td>단일 INT8 MatVec core</td>
+<td>multi-lane INT8 또는 low-bit MatVec datapath</td>
+</tr>
+<tr>
+<td>weight</td>
+<td>register-level test vector</td>
+<td>weight tile memory 또는 weight-resident memory pool</td>
+</tr>
+<tr>
+<td>activation</td>
+<td>small fixed input vector</td>
+<td>activation scratchpad와 token-level reuse</td>
+</tr>
+<tr>
+<td>output</td>
+<td>4-element INT32 result</td>
+<td>INT32 partial sum buffer와 output tile buffer</td>
+</tr>
+<tr>
+<td>interface</td>
+<td>JTAG-to-Avalon register invocation</td>
+<td>DMA, streaming, shared-memory class interface</td>
+</tr>
+<tr>
+<td>검증 의미</td>
+<td>bit-exact reference comparison, internal cycle counter</td>
+<td>projection-scale throughput, bandwidth, offload granularity 검증</td>
+</tr>
+</tbody></table>
 <h2>7. Memory/Interface 요구사항과 후속 구조 방향</h2>
 <p>Projection-scale model은 weight movement와 interface bandwidth가 실제 offload 가능성을 지배할 수 있음을 보여준다. 본 논문에서는 다음 세 식으로 계산 범위를 제한한다.</p>
 <p><code>T_compute = MACs / (lanes x f_clk)</code></p>
 <p><code>T_stream = W_bytes / B_interface</code></p>
 <p><code>B_required = W_bytes / T_target</code></p>
-<p>여기서 <code>lanes</code>와 <code>f_clk</code>는 FPGA 연산 병렬도와 clock, <code>W_bytes</code>는 token당 weight movement, <code>B_interface</code>는 외부 interface bandwidth 가정이다. 예를 들어 full <code>lm_head</code> 1152-&gt;262144 projection은 token당 약 3.02억 MAC과 약 302 MB의 INT8 weight movement를 요구한다. 16 lanes, 50 MHz 가정에서 compute estimate는 약 377 ms이고, USB3 320 MB/s streaming estimate는 약 947 ms이다. 이 320 MB/s는 Y700-FPGA 실측값이 아니라 외부 streaming prototype을 상정한 보수적 model case이다. 이 model case가 Y700 <code>lm_head</code> tile NNAPI p50 2.989 ms와 같은 실측 경로를 대체하지도 않는다. <code>T_stream &gt; T_compute</code> 조건에서는 interface와 weight residency가 병목이므로, 단순히 FPGA core cycle만 줄인다고 실사용 latency 개선을 주장할 수 없다.</p>
+<p>여기서 <code>lanes</code>와 <code>f_clk</code>는 FPGA 연산 병렬도와 clock, <code>W_bytes</code>는 token당 weight movement, <code>B_interface</code>는 외부 interface bandwidth 가정이다. 예를 들어 full <code>lm_head</code> 1152-&gt;262144 projection은 token당 약 3.02억 MAC과 약 302 MB의 INT8 weight movement를 요구한다. 16 lanes, 50 MHz 가정에서 compute estimate는 약 377 ms이고, 외부 streaming prototype을 상정한 USB3 320 MB/s model case의 stream estimate는 약 947 ms이다. 이 값은 Y700 <code>lm_head</code> tile NNAPI p50 2.989 ms와 측정 조건이 다른 손익분기 분석용 model이다. <code>T_stream &gt; T_compute</code> 조건에서는 interface와 weight residency가 병목이므로, 실사용 offload는 weight-resident memory와 low-overhead invocation boundary를 함께 만족해야 한다.</p>
 <figure><img src="../../paper_assets/figures/fpga_roofline_or_latency_decomposition.png" alt="그림 3. Projection-scale roofline 해석"><figcaption>그림 3. Projection-scale roofline 해석</figcaption></figure>
-<p><strong>표 7. Projection tile roofline/interface model 요약</strong></p>
+<p><strong>표 8. Projection tile roofline/interface model 요약</strong></p>
 <table>
 <thead><tr>
 <th>component</th>
@@ -359,51 +451,12 @@
 <td>projection tile model</td>
 </tr>
 </tbody></table>
-<p>FPGA 간 연결은 본질적으로 불가능하거나 반드시 매우 느린 경로가 아니다. 다만 연산용 FPGA와 SRAM-like scratchpad용 FPGA를 custom connector로 연결하려면 pin count, signal integrity, clock-domain crossing, protocol, aggregate bandwidth, board design 난이도가 함께 증가한다. 따라서 본 논문에서는 해당 custom board를 구현 결과로 쓰지 않고, 병목 분석에서 도출된 후속 구조 요구사항으로만 정리한다.</p>
-<p><strong>표 8. 저자 후속 구조 제안과 해결하려는 병목</strong></p>
-<table>
-<thead><tr>
-<th>구조 후보</th>
-<th>해결하려는 병목</th>
-<th>논문 내 지위</th>
-<th>주의할 claim boundary</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>1.58bit 계열 변환 + 가산기 accelerator</td>
-<td>INT8/FP16 곱셈기 중심 MatVec의 area/energy 부담</td>
-<td>후속 특기자 산출물 후보</td>
-<td>변환기나 학습/양자화 flow를 제작한 결과가 아님</td>
-</tr>
-<tr>
-<td>projection 연산용 FPGA logic</td>
-<td>projection-heavy MatVec/MatMul 반복 비용</td>
-<td>후속 특기자 산출물 후보</td>
-<td>Android-FPGA 통합 실측 결과가 아님</td>
-</tr>
-<tr>
-<td>SRAM-like scratchpad FPGA</td>
-<td>activation, partial sum, hot tile, cache metadata, output tile buffer 재사용</td>
-<td>후속 특기자 산출물 후보</td>
-<td>scratchpad board 구현 결과가 아님</td>
-</tr>
-<tr>
-<td>DDR2/LPDDR2 다채널 weight memory</td>
-<td>large projection weight residency와 aggregate bandwidth</td>
-<td>custom board 후보</td>
-<td>4Gbit die 8~16개는 이론적 4GB~8GB 구성 예시</td>
-</tr>
-<tr>
-<td>compute FPGA와 scratchpad FPGA 간 custom connector</td>
-<td>memory와 compute 분리 시 bandwidth 제공</td>
-<td>후속 산출물/포트폴리오 방향</td>
-<td>pin 수, SI, CDC, protocol, board design 검증 필요</td>
-</tr>
-</tbody></table>
+<p>DDR2/LPDDR2 다채널 memory는 최신 모바일 LPDDR5보다 높은 단일 채널 성능을 제공한다는 의미가 아니다. 본 연구의 roofline 분석이 시사하는 핵심은 외부 FPGA accelerator가 host interface를 통해 매 token마다 weight를 전송하는 구조가 근본적으로 불리하다는 점이다. 따라서 후속 구조에서 DDR2/LPDDR2를 검토하는 이유는 DRAM 세대의 우열이 아니라, 저비용 custom board에서 weight-resident memory pool을 구성하고 여러 독립 channel 또는 interleaved group을 통해 aggregate bandwidth를 확보할 수 있기 때문이다. 즉, 목표는 Snapdragon 내부 memory hierarchy를 대체하는 것이 아니라, host-FPGA 전송을 반복하지 않는 accelerator-local weight memory를 구성하는 것이다.</p>
+<p>FPGA 간 연결은 본질적으로 불가능하거나 반드시 매우 느린 경로가 아니다. 다만 연산용 FPGA와 SRAM-like scratchpad용 FPGA를 custom connector로 연결하려면 pin count, signal integrity, clock-domain crossing, protocol, aggregate bandwidth, board design 난이도가 함께 증가한다. 후속 특기자 산출물에서는 표 5와 표 7의 요구사항을 바탕으로 memory-centric low-bit FPGA NPU를 설계하되, 1.58bit 변환기, SRAM-like scratchpad FPGA, DDR2/LPDDR2 custom board는 각각 별도 검증 대상이 된다.</p>
 <h2>8. 논의 및 결론</h2>
-<p>본 연구의 결론은 ONNX Runtime decode trace에서 projection-heavy workload가 뚜렷하게 나타나고, Y700 micrograph에서 해당 projection shape의 온디바이스 provider latency가 millisecond 단위로 관측된다는 것이다. 두 결과는 full decode share의 동일 측정이 아니라, 병목 후보와 Android 실행 비용을 분리해 보여주는 선행 분석 근거이다. KV-cache와 shape-related operator는 long-context decode에서 중요하지만, 현재 evidence에서는 dense projection을 배제한 QK-only 설계가 충분하지 않다.</p>
-<p>Y700 실험은 Gemma 전체 모델 실행이 아니라 representative ONNX micrograph benchmark이다. 그럼에도 CPU EP와 NNAPI EP에서 projection-scale MatMul/MatMulInteger latency를 확보했기 때문에, 기존 host-only profiling보다 온디바이스 근거가 강화되었다. 본 실험 환경에서는 QNN EP 실행 경로를 확보하지 못했으며, QNN SDK/Qualcomm AI Engine Direct 기반 build가 확보되면 Snapdragon NPU backend와 별도 비교가 필요하다.</p>
-<p>FPGA 측면에서는 DE10-Lite 16x4 INT8 MatVec 결과가 기능 정합성과 cycle-level validation으로는 의미가 있지만, projection-scale acceleration을 주장하기에는 interface와 bandwidth가 결정적이다. 후속 특기자 산출물은 1.58bit 계열 변환 기반 가산기 accelerator, projection 연산용 FPGA logic, SRAM-like scratchpad FPGA, DDR2/LPDDR2 다채널 weight memory를 결합하는 방향을 검토할 수 있다. 이번 논문은 그 구현 논문이 아니라, 이후 산출물 논문이 인용할 수 있는 온디바이스 ONNX Runtime 병목 분석 및 PoC 검증 근거로 둔다.</p>
+<p>본 연구의 결론은 ONNX Runtime decode trace에서 projection-heavy workload가 뚜렷하게 나타나고, Y700 micrograph에서 해당 projection shape의 온디바이스 provider latency가 millisecond 단위로 관측된다는 것이다. CPUExecutionProvider trace는 병목 후보의 operator share를 보여주고, Y700 micrograph는 그 후보 연산의 Android provider별 절대 실행 비용과 dispatch granularity를 보여준다. KV-cache와 shape-related operator는 long-context decode에서 함께 고려해야 하지만, dense projection을 배제한 QK-only 설계만으로는 본 연구의 관측 결과를 설명하기 어렵다.</p>
+<p>Y700 실험은 representative ONNX micrograph benchmark이므로 full decode share를 직접 측정한 결과는 아니다. 그러나 CPU EP와 NNAPI EP에서 projection-scale MatMul/MatMulInteger latency를 확보했고, QAIRT direct DLC 경로로 QNN HTP 실행 가능성과 shape별 차이를 추가로 확인했기 때문에, 기존 host-only profiling을 온디바이스 실행 비용과 연결하는 근거를 제공한다. 다만 QAIRT direct 결과는 ONNX Runtime QNN EP 결과가 아니며, dynamic weight input을 사용한 float MatMul DLC 결과이다. 따라서 이를 sLLM 전체 추론 가속이나 weight-resident deployment 성능으로 일반화하지 않는다.</p>
+<p>FPGA 측면에서는 DE10-Lite 16x4 INT8 MatVec 결과를 통해 최소 연산 단위의 기능 정합성과 cycle-level observability를 확인했다. Roofline/interface model은 projection-scale offload의 핵심 조건이 compute lane 수보다 weight residency, streaming bandwidth, invocation granularity에 있음을 보인다. 따라서 본 논문은 온디바이스 ONNX Runtime 병목 분석과 INT8 MatVec PoC 검증을 바탕으로, 이후 산출물 논문이 사용할 memory-centric low-bit MatVec 구조 요구사항을 정리한 선행 분석으로 둔다.</p>
 <h2>참고문헌</h2>
 <p>[1] Shuming Ma, Hongyu Wang, Lingxiao Ma, Lei Wang, Wenhui Wang, Shaohan Huang, Li Dong, Ruiping Wang, Jilong Xue, and Furu Wei. &quot;The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits.&quot; arXiv preprint arXiv:2402.17764, 2024.</p>
 <p>[2] Rui-Jie Zhu, Yu Zhang, Steven Abreu, Ethan Sifferman, Tyler Sheaves, Yiqiao Wang, Dustin Richmond, Sumit Bam Shrestha, Peng Zhou, and Jason K. Eshraghian. &quot;Scalable MatMul-free Language Modeling.&quot; arXiv preprint arXiv:2406.02528, 2024.</p>

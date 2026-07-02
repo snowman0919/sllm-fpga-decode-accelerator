@@ -1,0 +1,21 @@
+---
+timestamp: 133435653686
+command: ./qnn-net-run --dlc_path mlp_float.dlc --backend lib/libQnnHtp.so --input_list inputs/mlp_input_list_10.txt --output_dir out/mlp_htp_10 --profiling_level basic --log_level warn
+execution_mode: synchronous
+inferences_completed: 10
+graphs:
+  - graph_name: mlp_float
+    input_tensors:
+    - tensor_name: activation
+      id: 1
+      datatype: QNN_DATATYPE_FLOAT_32
+      dimensions: [1,1152]
+    - tensor_name: weight
+      id: 2
+      datatype: QNN_DATATYPE_FLOAT_32
+      dimensions: [1152,6912]
+    output_tensors:
+    - tensor_name: output
+      id: 3
+      datatype: QNN_DATATYPE_FLOAT_32
+      dimensions: [1,6912]

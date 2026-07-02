@@ -1,0 +1,2 @@
+activation:=/data/local/tmp/sllm_qnn/inputs/activation_1x1152_f32.raw weight:=/data/local/tmp/sllm_qnn/inputs/weight_1152x4096_f32.raw
+activation:=/data/local/tmp/sllm_qnn/inputs/activation_1x1152_f32.raw weight:=/data/local/tmp/sllm_qnn/inputs/weight_1152x6912_f32.raw

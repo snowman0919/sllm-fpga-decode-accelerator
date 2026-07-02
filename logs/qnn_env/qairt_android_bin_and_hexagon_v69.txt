@@ -1,0 +1,33 @@
+
+Name                             Length
+----                             ------
+genie-app                        995376
+genie-t2e-run                    487328
+genie-t2t-run                    564184
+qairt-dlc-prepare               5078240
+qairt-lora-adapter-bin-updater 10467024
+qairt-net-run                   5417560
+qnn-context-binary-generator    4628744
+qnn-context-binary-utility       850680
+qnn-gpu-target-server           1140096
+qnn-net-run                     5232760
+qnn-platform-validator           960000
+qnn-profile-viewer               687288
+qnn-throughput-net-run          4966864
+qtld-net-run                    3701024
+snpe-net-run                    1220200
+snpe-parallel-run                771824
+snpe-platform-validator        16529456
+snpe-throughput-net-run         1477832
+                                   5656
+                               11308052
+                                  30996
+                                 761940
+                               11686212
+                               11308048
+                                2515288
+                                 322544
+                                 212428
+                               11724560
+
+

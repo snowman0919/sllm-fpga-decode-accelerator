@@ -1,0 +1,60 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+Input Log File Location: C:\Users\dbsgu\Dev\sllm_qnn_exp\pulled_y700_qnn\mlp_cpu\qnn-profiling-data_0.log
+Log File Created: Thu Jul  2 08:59:09 2026
+Time Scale: 1e-06
+Epoch Timestamp: 1782950349462793 Steady Clock Timestamp: 133217575213
+Generated using: 
+qnn-profile-viewer: v2.47.0.260601114230
+qnn-net-run: v2.47.0.260601114230
+Backend: v2.47.0.260601114230
+
+Qnn Init/Prepare/Finalize/De-Init/Execute/Lib-Load Statistics:
+------------------------------------------------------------
+Init Stats:
+-----------
+    NetRun: 18072 us
+
+Compose Graphs Stats:
+--------------
+    NetRun: 0 us
+
+Finalize Stats:
+---------------
+Graph 0 (mlp_float):
+    NetRun: 18045 us
+    Backend (GRAPH_FINALIZE): 17974 us
+
+De-Init Stats:
+--------------
+    NetRun: 4596 us
+    Backend (null): 0 us
+
+Execute Stats (Overall):
+------------------------
+    NetRun IPS (includes IO and misc. time): 28.5829 inf/sec 
+
+Execute Stats (Average):
+------------------------
+Total Inference Time: 
+---------------------
+Graph 0 (mlp_float):
+    NetRun: 17114 us
+    Backend (GRAPH_EXECUTE): 8755 us
+
+Execute Stats (Min):
+------------------------
+Total Inference Time: 
+---------------------
+Graph 0 (mlp_float):
+    NetRun: 17114 us
+    Backend (GRAPH_EXECUTE): 8755 us
+
+Execute Stats (Max):
+------------------------
+Total Inference Time: 
+---------------------
+Graph 0 (mlp_float):
+    NetRun: 17114 us
+    Backend (GRAPH_EXECUTE): 8755 us
+

@@ -1,0 +1,22 @@
+/data/local/tmp/sllm_qnn:
+total 5144
+drwxrwxrwx 2 shell shell    3452 2026-07-02 08:58 dsp
+drwxrwxrwx 2 shell shell    3452 2026-07-02 08:58 inputs
+drwxrwxrwx 2 shell shell    3452 2026-07-02 08:58 lib
+-rw-rw-rw- 1 shell shell    5954 2026-07-02 08:56 lm_head_float.dlc
+-rw-rw-rw- 1 shell shell    5942 2026-07-02 08:56 mlp_float.dlc
+drwxrwxrwx 2 shell shell    3452 2026-07-02 08:58 out
+-rwxrwxrwx 1 shell shell 5232760 2026-06-01 23:21 qnn-net-run
+
+/data/local/tmp/sllm_qnn/inputs:
+total 49596
+-rw-rw-rw- 1 shell shell     4608 2026-07-02 08:56 activation_1x1152_f32.raw
+-rw-rw-rw- 1 shell shell 18874368 2026-07-02 08:56 weight_1152x4096_f32.raw
+-rw-rw-rw- 1 shell shell 31850496 2026-07-02 08:56 weight_1152x6912_f32.raw
+
+/data/local/tmp/sllm_qnn/lib:
+total 14236
+-rw-rw-rw- 1 shell shell 6915152 2026-06-01 23:21 libQnnCpu.so
+-rw-rw-rw- 1 shell shell  429768 2026-06-01 23:21 libQnnCpuNetRunExtensions.so
+-rw-rw-rw- 1 shell shell 3286888 2026-06-01 23:21 libQnnModelDlc.so
+-rw-rw-rw- 1 shell shell 3931536 2026-06-01 23:21 libQnnSystem.so

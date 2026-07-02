@@ -1,0 +1,11 @@
+
+Name                       Length
+----                       ------
+lm_head_float.dlc            5954
+lm_head_float_qnn.cpp       10752
+lm_head_float_qnn_net.json   5774
+mlp_float.dlc                5942
+mlp_float_qnn.cpp           10716
+mlp_float_qnn_net.json       5766
+
+

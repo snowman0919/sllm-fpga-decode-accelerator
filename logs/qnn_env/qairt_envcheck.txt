@@ -1,0 +1,16 @@
+[INFO] QAIRT_SDK_ROOT: C:\Users\dbsgu\Dev\qairt\2.47.0.260601
+[INFO] QAIRT SDK environment setup complete
+    Usage: envcheck.ps1 [-h] [-a] [-m] [-t] [-l] [-o] [-p]
+
+    Checks if the environment is properly setup for supported toolchains and ml-frameworks.
+
+    optional arguments:
+
+    -h Shows the help content.
+    -m Checks if environment is set for MSVC toolchain.
+    -t Checks if environment is set for using TensorFlow.
+    -l Checks if environment is set for using TFLite.
+    -o Checks if environment is set for using ONNX.
+    -p Checks if environment is set for using PyTorch.
+    -a Checks if environment is set for all supported toolchains and ml-frameworks.
+    -v Enable verbose logs to help get more logs.

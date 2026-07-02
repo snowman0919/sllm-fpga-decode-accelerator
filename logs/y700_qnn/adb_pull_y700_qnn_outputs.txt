@@ -1,0 +1,11 @@
+/data/local/tmp/sllm_qnn/out
+/data/local/tmp/sllm_qnn/out/lm_head_cpu
+/data/local/tmp/sllm_qnn/out/lm_head_cpu/Result_0
+/data/local/tmp/sllm_qnn/out/lm_head_cpu/Result_0/output.raw
+/data/local/tmp/sllm_qnn/out/lm_head_cpu/execution_metadata.yaml
+/data/local/tmp/sllm_qnn/out/lm_head_cpu/qnn-profiling-data_0.log
+/data/local/tmp/sllm_qnn/out/mlp_cpu
+/data/local/tmp/sllm_qnn/out/mlp_cpu/Result_0
+/data/local/tmp/sllm_qnn/out/mlp_cpu/Result_0/output.raw
+/data/local/tmp/sllm_qnn/out/mlp_cpu/execution_metadata.yaml
+/data/local/tmp/sllm_qnn/out/mlp_cpu/qnn-profiling-data_0.log
